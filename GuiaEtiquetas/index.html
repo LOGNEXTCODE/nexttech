@@ -1,0 +1,1405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía de Etiquetas de Confidencialidad — LOGNEXT</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ln-dark:    #000028;
+  --ln-red:     #FA3C0F;
+  --ln-yellow:  #FFF994;
+  --ln-lavender:#CE9EFF;
+  --ln-white:   #ffffff;
+  --ln-offwhite:#F7F7F9;
+  --ln-gray:    #EEEEF2;
+  --ln-midgray: #C8C8D4;
+  --ln-textgray:#6B6B80;
+  --ln-text:    #0a0a1a;
+
+  --pub-color:  #00C06B;
+  --int-color:  #0071e3;
+  --con-color:  #FA3C0F;
+  --muc-color:  #8B00FF;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--ln-white);
+  color: var(--ln-text);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--ln-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-svg {
+  height: 18px;
+  width: auto;
+  fill: white;
+}
+.logo-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.2);
+}
+.logo-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+nav { display: flex; }
+nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0 13px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  font-weight: 400;
+}
+nav a:hover { color: white; border-bottom-color: var(--ln-red); }
+.header-pill {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(250,60,15,0.15);
+  color: var(--ln-red);
+  border: 1px solid rgba(250,60,15,0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ln-dark);
+  color: white;
+  padding: 88px 2rem 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(250,60,15,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 22px;
+  display: block;
+}
+.hero h1 {
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+  color: white;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--ln-yellow);
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  max-width: 500px;
+  margin: 0 auto 44px;
+  font-weight: 300;
+  line-height: 1.75;
+}
+.hero-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hero-pill-item {
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid;
+  letter-spacing: 0.03em;
+}
+
+/* ── LAYOUT ── */
+.section-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 88px 2rem;
+}
+.section-wrap.tight { padding-top: 0; }
+
+.sec-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-tag::after {
+  content: '';
+  flex: 0 0 32px;
+  height: 1.5px;
+  background: var(--ln-red);
+  border-radius: 2px;
+}
+.sec-title {
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ln-text);
+  margin-bottom: 14px;
+}
+.sec-intro {
+  font-size: 17px;
+  color: var(--ln-textgray);
+  max-width: 580px;
+  margin-bottom: 52px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--ln-gray);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ── LABEL CARDS ── */
+.labels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+.label-card {
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1.5px solid;
+  transition: transform 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.label-card:hover { transform: translateY(-4px); }
+
+.label-card.pub { background: #f0fff8; border-color: #b3f0d0; }
+.label-card.int { background: #f0f5ff; border-color: #c0d4f8; }
+.label-card.con { background: #fff5f2; border-color: #ffd0c0; }
+.label-card.muc { background: #fdf4ff; border-color: #e0c0f8; }
+
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.label-badge.pub { background: #c8f7e0; color: #035f35; }
+.label-badge.int { background: #dbeafe; color: #1e40af; }
+.label-badge.con { background: #ffe4d8; color: #8b1a00; }
+.label-badge.muc { background: #ead5fc; color: #5b0080; }
+
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pub .badge-dot { background: var(--pub-color); }
+.int .badge-dot { background: var(--int-color); }
+.con .badge-dot { background: var(--con-color); }
+.muc .badge-dot { background: var(--muc-color); }
+
+.label-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.label-card .desc {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.examples { list-style: none; }
+.examples li {
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--ln-text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.examples li:last-child { border-bottom: none; }
+.examples li::before {
+  content: '›';
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 14px;
+  margin-top: 0px;
+}
+.pub .examples li::before { color: var(--pub-color); }
+.int .examples li::before { color: var(--int-color); }
+.con .examples li::before { color: var(--con-color); }
+.muc .examples li::before { color: var(--muc-color); }
+
+/* ── OUTLOOK MOCKUP ── */
+.mockup-shell {
+  background: var(--ln-offwhite);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 48px;
+  border: 1px solid var(--ln-gray);
+}
+.mockup-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-textgray);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mockup-label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ln-red);
+}
+.ol-window {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.ol-bar {
+  background: #2b579a;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wdot { width: 10px; height: 10px; border-radius: 50%; }
+.wr { background: #ff5f57; }
+.wy { background: #febc2e; }
+.wg { background: #28c840; }
+.ol-toolbar {
+  background: #f3f2f1;
+  padding: 5px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.tb-btn {
+  background: white;
+  border: 1px solid #c8c6c4;
+  border-radius: 3px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  color: #201f1e;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.tb-btn.active-label {
+  background: #fff5f2;
+  border-color: var(--ln-red);
+  color: var(--ln-red);
+  font-weight: 600;
+}
+.ol-body { padding: 14px 16px; }
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f2;
+  font-size: 12.5px;
+}
+.email-row-lbl {
+  color: #999;
+  width: 46px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.label-row {
+  margin-top: 10px;
+  background: #f9f9fb;
+  border-radius: 7px;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.label-row-lbl {
+  font-size: 10.5px;
+  color: #888;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.lopt {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+}
+.lopt.p { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+.lopt.i { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.lopt.c { background: #ffe4d8; color: #8b1a00; border-color: var(--ln-red); box-shadow: 0 0 0 2px rgba(250,60,15,0.2); }
+.lopt.m { background: #ead5fc; color: #5b0080; border-color: #a855f7; }
+.email-body {
+  padding: 14px 0;
+  font-size: 12.5px;
+  color: #444;
+  min-height: 72px;
+  border-bottom: 1px dashed #e8e8ee;
+  line-height: 1.75;
+}
+.dlp-banner {
+  margin-top: 10px;
+  background: #fff9f0;
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 7px 7px 0;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #78350f;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+
+/* ── STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.step-card {
+  background: var(--ln-offwhite);
+  border-radius: 14px;
+  padding: 26px 22px;
+  border: 1px solid var(--ln-gray);
+}
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ln-gray);
+}
+.step-app-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: var(--ln-dark);
+  color: white;
+  padding: 3px 9px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+.step-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.step-card p {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ── WORD MOCKUP ── */
+.word-win {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.word-bar { background: #2b5797; padding: 7px 14px; display: flex; align-items: center; gap: 8px; }
+.word-bar-title { font-size: 12px; color: rgba(255,255,255,0.65); margin-left: 8px; }
+.word-ribbon {
+  background: #f3f2f1;
+  padding: 4px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 4px;
+}
+.rib-btn { padding: 3px 8px; font-size: 11px; border: none; background: transparent; color: #444; border-radius: 3px; font-family: 'Space Grotesk', sans-serif; }
+.rib-btn.active { background: white; border: 1px solid #c8c6c4; color: #201f1e; }
+.word-sensitivity-bar {
+  background: #fdf0ee;
+  border-bottom: 2px solid var(--ln-red);
+  padding: 5px 14px;
+  font-size: 11.5px;
+  color: #8b1a00;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.word-doc {
+  padding: 22px 30px;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.word-doc p { font-size: 12.5px; color: #333; line-height: 1.8; margin-bottom: 6px; }
+.word-doc p strong { color: #111; }
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotate(-30deg);
+  font-size: 21px;
+  font-weight: 900;
+  color: rgba(139,0,255,0.09);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+.word-foot {
+  border-top: 1px solid #eee;
+  padding: 4px 14px;
+  font-size: 10px;
+  color: var(--muc-color);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ── ALERT MOCKUP ── */
+.alert-shell {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px 26px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.alert-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.alert-icon-box {
+  width: 38px; height: 38px;
+  background: #fff5f2;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(250,60,15,0.2);
+}
+.alert-card h4 { font-size: 15px; font-weight: 700; color: #0a0a1a; }
+.alert-card .source { font-size: 10.5px; color: #aaa; font-weight: 500; margin-top: 2px; }
+.alert-card .alert-body { font-size: 13px; color: #6b6b80; line-height: 1.65; margin-bottom: 14px; font-weight: 300; }
+.alert-card .alert-body strong { color: var(--ln-red); font-weight: 600; }
+.just-field {
+  width: 100%;
+  border: 1.5px solid #e0e0ea;
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  color: #aaa;
+  margin-bottom: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #fafafa;
+  resize: none;
+  height: 50px;
+  outline: none;
+}
+.alert-btns { display: flex; gap: 8px; }
+.btn-cancel {
+  flex: 1;
+  padding: 9px;
+  border: 1.5px solid #d8d8e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  background: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-send {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--ln-red);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 740px; }
+.faq-item {
+  background: var(--ln-offwhite);
+  border-radius: 12px;
+  border: 1px solid var(--ln-gray);
+  overflow: hidden;
+  cursor: pointer;
+}
+.faq-q {
+  padding: 17px 22px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ln-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-arr {
+  width: 22px; height: 22px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--ln-red);
+  flex-shrink: 0;
+  border: 1px solid var(--ln-gray);
+  transition: transform 0.2s;
+  font-weight: 700;
+}
+.faq-a {
+  padding: 0 22px 16px;
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.7;
+  font-weight: 300;
+  display: none;
+}
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-arr { transform: rotate(90deg); }
+
+/* ── CONTACT ── */
+.contact-block {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.contact-block::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(250,60,15,0.08);
+  pointer-events: none;
+}
+.contact-block h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: white; }
+.contact-block p { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 300; }
+.contact-cta {
+  background: var(--ln-red);
+  color: white;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ln-dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 2rem;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
+.footer-tag {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.footer-tag strong { color: rgba(255,255,255,0.5); font-weight: 500; }
+
+@media (max-width: 640px) {
+  nav { display: none; }
+  .hero h1 { font-size: 28px; }
+  .contact-block { padding: 32px 24px; }
+  .section-wrap { padding: 60px 1.25rem; }
+  .alert-shell { padding: 20px; }
+}
+
+/* ── LANG SELECTOR ── */
+.lang-selector-guia { display: flex; align-items: center; gap: 4px; margin-right: 12px; }
+.lbtn { background: none; border: none; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 6px; color: rgba(255,255,255,0.35); transition: color 0.2s ease; }
+.lbtn.active, .lbtn:hover { color: var(--ln-red); }
+.lsep { color: rgba(255,255,255,0.15); font-size: 10px; font-family: 'Space Mono', monospace; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+        <style>.s0{fill:#ffffff;}.s1{fill:#FA3C0F;}</style>
+        <polygon class="s0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+        <polygon class="s0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+        <polygon class="s1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+        <polygon class="s1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+        <path class="s0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+        <path class="s0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+        <path class="s0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+        <polygon class="s0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+        <path class="s0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+        <path class="s0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+      </svg>
+      <div class="logo-divider"></div>
+      <span class="logo-subtitle">Seguridad · IT</span>
+    </div>
+    <nav>
+      <a href="#etiquetas" data-i18n="nav-etiquetas">Etiquetas</a>
+      <a href="#outlook">Outlook</a>
+      <a href="#office" data-i18n="nav-docs">Documentos</a>
+      <a href="#avisos" data-i18n="nav-avisos">Avisos</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="lang-selector-guia">
+      <button class="lbtn" data-lang="es">ES</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="en">EN</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="fr">FR</button>
+    </div>
+    <span class="header-pill" data-i18n="header-pill">NextGuide · Guías prácticas</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-eyebrow" data-i18n="hero-eyebrow">Microsoft 365 · Purview · Mayo 2026</span>
+  <h1 data-i18n-html="hero-h1">Protege la información<br><em>que importa</em></h1>
+  <p class="hero-sub" data-i18n-html="hero-sub">Hemos activado un sistema de clasificación de la información en Outlook, Word, Excel y Teams. Esta guía te explica qué son las etiquetas, cuándo usarlas y qué hacer cuando el sistema te avisa.</p>
+  <div class="hero-pills">
+    <span class="hero-pill-item" style="background:rgba(0,192,107,0.1);color:#00C06B;border-color:rgba(0,192,107,0.3);">● Público</span>
+    <span class="hero-pill-item" style="background:rgba(0,113,227,0.1);color:#60a5fa;border-color:rgba(0,113,227,0.3);">● Interno</span>
+    <span class="hero-pill-item" style="background:rgba(250,60,15,0.12);color:#FA3C0F;border-color:rgba(250,60,15,0.35);">● Confidencial</span>
+    <span class="hero-pill-item" style="background:rgba(139,0,255,0.1);color:#b855f7;border-color:rgba(139,0,255,0.25);">● Muy Confidencial</span>
+  </div>
+</div>
+
+<!-- 01 ETIQUETAS -->
+<div class="section-wrap" id="etiquetas">
+  <span class="sec-tag" data-i18n="sec01-tag">01 · Las etiquetas</span>
+  <h2 class="sec-title" data-i18n-html="sec01-title">¿Qué etiqueta usar<br>en cada situación?</h2>
+  <p class="sec-intro" data-i18n="sec01-intro">Cada documento o correo tiene un nivel de sensibilidad. Las etiquetas lo hacen visible para todos y permiten al sistema proteger la información automáticamente.</p>
+
+  <div class="labels-grid">
+    <div class="label-card pub">
+      <div class="label-badge pub"><span class="badge-dot"></span>Público</div>
+      <h3 data-i18n="pub-name">Información abierta</h3>
+      <p class="desc" data-i18n="pub-desc">Contenido que puede compartirse y publicarse sin ninguna restricción.</p>
+      <ul class="examples">
+        <li data-i18n="pub-ex1">Presentaciones para clientes</li>
+        <li data-i18n="pub-ex2">Contenido de la web corporativa</li>
+        <li data-i18n="pub-ex3">Ofertas de empleo publicadas</li>
+        <li data-i18n="pub-ex4">Comunicados de prensa</li>
+      </ul>
+    </div>
+    <div class="label-card int">
+      <div class="label-badge int"><span class="badge-dot"></span>Interno</div>
+      <h3 data-i18n="int-name">Solo dentro de Lognext</h3>
+      <p class="desc" data-i18n="int-desc">Información del día a día que no debe salir de la organización pero sin datos críticos.</p>
+      <ul class="examples">
+        <li data-i18n="int-ex1">Correos internos de equipo</li>
+        <li data-i18n="int-ex2">Actas de reunión internas</li>
+        <li data-i18n="int-ex3">Procedimientos y procesos</li>
+        <li data-i18n="int-ex4">Comunicaciones generales de RRHH</li>
+      </ul>
+    </div>
+    <div class="label-card con">
+      <div class="label-badge con"><span class="badge-dot"></span>Confidencial</div>
+      <h3 data-i18n="con-name">Acceso restringido</h3>
+      <p class="desc" data-i18n="con-desc">Información sensible que solo debe compartirse con personas autorizadas.</p>
+      <ul class="examples">
+        <li data-i18n="con-ex1">Contratos con clientes o proveedores</li>
+        <li data-i18n="con-ex2">Datos personales (DNI, IBAN, NIE)</li>
+        <li data-i18n="con-ex3">Información económica interna</li>
+        <li data-i18n="con-ex4">Propuestas comerciales</li>
+      </ul>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc"><span class="badge-dot"></span>Muy Confidencial</div>
+      <h3 data-i18n="muc-name">Máxima protección</h3>
+      <p class="desc" data-i18n="muc-desc">Información crítica con cifrado. Solo accesible por personas expresamente autorizadas.</p>
+      <ul class="examples">
+        <li data-i18n="muc-ex1">Datos bancarios y tarjetas de crédito</li>
+        <li data-i18n="muc-ex2">Información estratégica de negocio</li>
+        <li data-i18n="muc-ex3">Expedientes legales sensibles</li>
+        <li data-i18n="muc-ex4">Credenciales y datos de acceso</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 02 OUTLOOK -->
+<div class="section-wrap" id="outlook">
+  <span class="sec-tag" data-i18n="sec02-tag">02 · Cómo etiquetar</span>
+  <h2 class="sec-title" data-i18n="sec02-title">Etiquetar en Outlook</h2>
+  <p class="sec-intro" data-i18n="sec02-intro">La barra de etiquetas aparece en cada correo nuevo. El sistema sugiere la etiqueta correcta si detecta datos sensibles — tú decides si aplicarla o no.</p>
+
+  <div class="mockup-shell">
+    <p class="mockup-label" data-i18n-html="mockup-label-02"><span class="mockup-label-dot"></span>Nuevo mensaje — Outlook Web</p>
+    <div class="ol-window">
+      <div class="ol-bar">
+        <span class="wdot wr"></span>
+        <span class="wdot wy"></span>
+        <span class="wdot wg"></span>
+      </div>
+      <div class="ol-toolbar">
+        <button class="tb-btn">Enviar</button>
+        <button class="tb-btn">Adjuntar</button>
+        <button class="tb-btn active-label">🏷 Confidencial ▾</button>
+        <button class="tb-btn">···</button>
+      </div>
+      <div class="ol-body">
+        <div class="email-row">
+          <span class="email-row-lbl" data-i18n="email-lbl-to">Para</span>
+          <span style="color:#0071e3; font-size:12.5px;">gestor@asesoria-externa.com</span>
+        </div>
+        <div class="email-row">
+          <span class="email-row-lbl">CC</span>
+          <span style="color:#aaa; font-size:12.5px;">administracion@lognext.com</span>
+        </div>
+        <div class="email-row" style="border:none;">
+          <span class="email-row-lbl" data-i18n="email-lbl-subject">Asunto</span>
+          <span style="font-size:12.5px;" data-i18n="email-subject">Datos empleado para tramitación con gestoría</span>
+        </div>
+        <div class="label-row">
+          <span class="label-row-lbl" data-i18n="label-row-lbl">Clasificación:</span>
+          <span class="lopt p">Público</span>
+          <span class="lopt i">Interno</span>
+          <span class="lopt c">Confidencial ✓</span>
+          <span class="lopt m">Muy Confidencial</span>
+        </div>
+        <div class="email-body" data-i18n-html="email-body-02">
+          Buenos días,<br><br>
+          Le adjunto la documentación necesaria para la tramitación:<br>
+          DNI: 12345678-Z &nbsp;·&nbsp; IBAN: ES91 2100 0418 4502 0005 1332
+        </div>
+        <div class="dlp-banner">
+          <span style="font-size:16px; flex-shrink:0;">⚠️</span>
+          <div data-i18n-html="dlp-banner-inner">
+            <strong style="display:block; margin-bottom:3px; color:#78350f;">Aviso de seguridad · Lognext</strong>
+            Este correo contiene información confidencial y va dirigido a un destinatario externo. Al enviar, esta acción quedará registrada. ¿Deseas continuar?
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <span class="step-app-tag">Outlook</span>
+      <h3 data-i18n="step02_1-title">La etiqueta se sugiere sola</h3>
+      <p data-i18n="step02_1-body">Si el sistema detecta un DNI, IBAN u otro dato sensible en el cuerpo del correo, aparece automáticamente una sugerencia. Tú decides si aceptarla o cambiarla.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <span class="step-app-tag">Outlook</span>
+      <h3 data-i18n="step02_2-title">Puedes cambiarla siempre</h3>
+      <p data-i18n="step02_2-body">La barra de etiquetas es visible en todo momento. Haz clic en cualquiera para cambiarla. Si bajas el nivel de clasificación, el sistema te pedirá una breve justificación.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <span class="step-app-tag">Outlook</span>
+      <h3 data-i18n="step02_3-title">Aviso al enviar fuera</h3>
+      <p data-i18n="step02_3-body">Si el correo lleva etiqueta Confidencial o superior y el destinatario es externo, recibirás un aviso. Puedes justificar el envío y continuar. No hay bloqueo.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 03 DOCUMENTOS -->
+<div class="section-wrap" id="office">
+  <span class="sec-tag" data-i18n="sec03-tag">03 · Documentos</span>
+  <h2 class="sec-title" data-i18n="sec03-title">Etiquetar en Word, Excel y PowerPoint</h2>
+  <p class="sec-intro" data-i18n="sec03-intro">Los documentos "Muy Confidencial" llevan automáticamente marca de agua y pie de página corporativo visible en todas las copias, incluidas las impresas.</p>
+
+  <div class="mockup-shell">
+    <p class="mockup-label" data-i18n-html="mockup-label-03"><span class="mockup-label-dot"></span>Documento Word — Muy Confidencial</p>
+    <div class="word-win">
+      <div class="word-bar">
+        <span class="wdot wr"></span>
+        <span class="wdot wy"></span>
+        <span class="wdot wg"></span>
+        <span class="word-bar-title">Informe_Estrategia_2026.docx</span>
+      </div>
+      <div class="word-ribbon">
+        <button class="rib-btn">Inicio</button>
+        <button class="rib-btn">Insertar</button>
+        <button class="rib-btn active">Confidencialidad ▾</button>
+        <button class="rib-btn">Vista</button>
+      </div>
+      <div class="word-sensitivity-bar" data-i18n-html="word-sensitivity">
+        🔴 <strong>Muy Confidencial</strong> &nbsp;·&nbsp; LOGNEXT — Solo usuarios expresamente autorizados pueden acceder a este documento
+      </div>
+      <div class="word-doc">
+        <p data-i18n-html="word-doc-title"><strong>Estrategia Comercial 2026 — Resumen ejecutivo</strong></p>
+        <p data-i18n="word-doc-body1">Este documento contiene información estratégica de LOGNEXT S.L. Su distribución está estrictamente restringida a los destinatarios autorizados indicados en portada.</p>
+        <p style="color:#aaa;" data-i18n="word-doc-body2">Los datos aquí incluidos no pueden reproducirse ni compartirse sin autorización expresa de Dirección...</p>
+        <div class="watermark">LOGNEXT — MUY CONFIDENCIAL</div>
+      </div>
+      <div class="word-foot" data-i18n="word-foot">LOGNEXT — Muy Confidencial. Acceso estrictamente restringido.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 AVISOS -->
+<div class="section-wrap" id="avisos">
+  <span class="sec-tag" data-i18n="sec04-tag">04 · Avisos del sistema</span>
+  <h2 class="sec-title" data-i18n="sec04-title">¿Qué hago si me sale un aviso?</h2>
+  <p class="sec-intro" data-i18n="sec04-intro">El sistema nunca te bloquea de forma definitiva. Los avisos son recordatorios para que confirmes que el envío es intencionado.</p>
+
+  <div class="alert-shell">
+    <div class="alert-card">
+      <div class="alert-head">
+        <div class="alert-icon-box">⚠️</div>
+        <div>
+          <h4 data-i18n="alert-title">Información confidencial detectada</h4>
+          <span class="source" data-i18n="alert-source">Lognext · Política de seguridad de la información</span>
+        </div>
+      </div>
+      <p class="alert-body" data-i18n-html="alert-body">Estás enviando contenido clasificado como <strong>Confidencial</strong> a un destinatario externo. Confirma que el destinatario está autorizado para recibir esta información.</p>
+      <textarea class="just-field" data-i18n-attr="placeholder:just-placeholder" placeholder="Motivo del envío externo (ej: contrato solicitado por el cliente)..."></textarea>
+      <div class="alert-btns">
+        <div class="btn-cancel" data-i18n="btn-cancel">Cancelar envío</div>
+        <div class="btn-send" data-i18n="btn-send">Confirmar y enviar →</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h3 data-i18n="step04_1-title">Lee el aviso</h3>
+      <p data-i18n="step04_1-body">El sistema te indica qué información ha detectado y a qué destinatario externo va. Revisa que es correcto antes de continuar.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h3 data-i18n="step04_2-title">Escribe una justificación</h3>
+      <p data-i18n="step04_2-body">Una frase corta es suficiente: "Contrato solicitado por el cliente", "Datos para tramitación con gestoría". Queda registrada en el sistema de auditoría.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h3 data-i18n="step04_3-title">Confirma o cancela</h3>
+      <p data-i18n="step04_3-body">Si el envío es correcto, confirma y el correo se envía con normalidad. Si no lo es, cancela sin consecuencias. El equipo de IT recibe una notificación en ambos casos.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<div class="section-wrap" id="faq">
+  <span class="sec-tag" data-i18n="sec05-tag">05 · Preguntas frecuentes</span>
+  <h2 class="sec-title" data-i18n="sec05-title">¿Tienes dudas?</h2>
+  <p class="sec-intro" data-i18n="sec05-intro">Las preguntas más habituales sobre el sistema de etiquetas de confidencialidad.</p>
+
+  <div class="faq-list">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq1-q">¿Es obligatorio etiquetar todos los correos y documentos?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq1-a">De momento no. El etiquetado es voluntario y guiado por sugerencias del sistema. En Outlook los correos nuevos ya parten sin etiqueta — el sistema te sugerirá una si detecta contenido sensible. La obligatoriedad se activará en fases posteriores.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq2-q">El sistema me sugirió "Confidencial" pero el contenido no es sensible. ¿Qué hago?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq2-a">Simplemente cámbiala a la etiqueta correcta o quítala. El sistema puede dar falsos positivos — por ejemplo, si un número en el texto coincide con el patrón de un DNI. Si la bajas a un nivel menor, solo te pedirá una justificación breve. Esto nos ayuda a mejorar el sistema.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq3-q">Envío habitualmente contratos con DNIs e IBANs a clientes. ¿Me van a bloquear?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq3-a">No. El sistema está configurado en modo aviso, no bloqueo. Cuando envíes información confidencial a externos recibirás un aviso, escribirás una justificación breve y podrás enviar con total normalidad. Tu flujo de trabajo no se interrumpe.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq4-q">¿Las justificaciones que escribo las lee alguien?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq4-a">Quedan registradas en el sistema de auditoría de Microsoft Purview, accesible solo para el equipo IT y Compliance. No se revisan una a una salvo que haya un incidente de seguridad. Son evidencia de cumplimiento normativo (ENS y RGPD), no un mecanismo de vigilancia.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq5-q">¿Funciona en el móvil?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq5-a">Las etiquetas son visibles en Outlook para iOS y Android, pero la sugerencia automática solo está disponible en Outlook Web y en el cliente de escritorio Windows. En Mac funciona, aunque el aviso puede mostrarse en inglés por limitación de Microsoft.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="faq6-q">Un proveedor me dice que no puede abrir un documento "Muy Confidencial". ¿Qué hago?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="faq6-a">Los documentos "Muy Confidencial" están cifrados y requieren que el destinatario se autentique con una cuenta Microsoft o con un código de verificación enviado a su correo. Si tiene problemas, contacta con IT para añadirle acceso explícito al documento.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<div class="section-wrap tight">
+  <div class="contact-block">
+    <div>
+      <h3 data-i18n="contact-h3">¿Necesitas ayuda?</h3>
+      <p data-i18n="contact-p">El equipo IT está disponible para cualquier duda sobre el sistema de etiquetas o los avisos que recibes.</p>
+    </div>
+    <a href="mailto:sistemas@lognext.com" class="contact-cta" data-i18n="contact-cta">Contactar con IT →</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <svg class="footer-logo" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+      <style>.f0{fill:#ffffff;}.f1{fill:#FA3C0F;}</style>
+      <polygon class="f0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+      <polygon class="f0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+      <polygon class="f1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+      <polygon class="f1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+      <path class="f0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+      <path class="f0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+      <path class="f0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+      <polygon class="f0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+      <path class="f0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+      <path class="f0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+    </svg>
+    <p class="footer-tag" data-i18n-html="footer-tag">
+      <strong>Departamento IT · LOGNEXT S.L.</strong><br>
+      Guía de Etiquetas de Confidencialidad · Microsoft Purview · Mayo 2026<br>
+      Documento interno · sistemas@lognext.com<br>
+      <span style="opacity:0.5;">Forma parte del ecosistema Next · LOGNEXT</span>
+    </p>
+  </div>
+</footer>
+
+
+<script>
+// ── I18N ─────────────────────────────────────────────────────────────────────
+const I18N = {
+  "es": {
+    "nav-etiquetas": "Etiquetas",
+    "nav-docs": "Documentos",
+    "nav-avisos": "Avisos",
+    "header-pill": "NextGuide · Guías prácticas",
+    "hero-eyebrow": "Microsoft 365 · Purview · Mayo 2026",
+    "sec01-tag": "01 · Las etiquetas",
+    "sec01-intro": "Cada documento o correo tiene un nivel de sensibilidad. Las etiquetas lo hacen visible para todos y permiten al sistema proteger la información automáticamente.",
+    "pub-name": "Información abierta",
+    "pub-desc": "Contenido que puede compartirse y publicarse sin ninguna restricción.",
+    "pub-ex1": "Presentaciones para clientes",
+    "pub-ex2": "Contenido de la web corporativa",
+    "pub-ex3": "Ofertas de empleo publicadas",
+    "pub-ex4": "Comunicados de prensa",
+    "int-name": "Solo dentro de Lognext",
+    "int-desc": "Información del día a día que no debe salir de la organización pero sin datos críticos.",
+    "int-ex1": "Correos internos de equipo",
+    "int-ex2": "Actas de reunión internas",
+    "int-ex3": "Procedimientos y procesos",
+    "int-ex4": "Comunicaciones generales de RRHH",
+    "con-name": "Acceso restringido",
+    "con-desc": "Información sensible que solo debe compartirse con personas autorizadas.",
+    "con-ex1": "Contratos con clientes o proveedores",
+    "con-ex2": "Datos personales (DNI, IBAN, NIE)",
+    "con-ex3": "Información económica interna",
+    "con-ex4": "Propuestas comerciales",
+    "muc-name": "Máxima protección",
+    "muc-desc": "Información crítica con cifrado. Solo accesible por personas expresamente autorizadas.",
+    "muc-ex1": "Datos bancarios y tarjetas de crédito",
+    "muc-ex2": "Información estratégica de negocio",
+    "muc-ex3": "Expedientes legales sensibles",
+    "muc-ex4": "Credenciales y datos de acceso",
+    "sec02-tag": "02 · Cómo etiquetar",
+    "sec02-title": "Etiquetar en Outlook",
+    "sec02-intro": "La barra de etiquetas aparece en cada correo nuevo. El sistema sugiere la etiqueta correcta si detecta datos sensibles — tú decides si aplicarla o no.",
+    "email-lbl-to": "Para",
+    "email-lbl-subject": "Asunto",
+    "email-subject": "Datos empleado para tramitación con gestoría",
+    "label-row-lbl": "Clasificación:",
+    "step02_1-title": "La etiqueta se sugiere sola",
+    "step02_1-body": "Si el sistema detecta un DNI, IBAN u otro dato sensible en el cuerpo del correo, aparece automáticamente una sugerencia. Tú decides si aceptarla o cambiarla.",
+    "step02_2-title": "Puedes cambiarla siempre",
+    "step02_2-body": "La barra de etiquetas es visible en todo momento. Haz clic en cualquiera para cambiarla. Si bajas el nivel de clasificación, el sistema te pedirá una breve justificación.",
+    "step02_3-title": "Aviso al enviar fuera",
+    "step02_3-body": "Si el correo lleva etiqueta Confidencial o superior y el destinatario es externo, recibirás un aviso. Puedes justificar el envío y continuar. No hay bloqueo.",
+    "sec03-tag": "03 · Documentos",
+    "sec03-title": "Etiquetar en Word, Excel y PowerPoint",
+    "sec03-intro": "Los documentos \"Muy Confidencial\" llevan automáticamente marca de agua y pie de página corporativo visible en todas las copias, incluidas las impresas.",
+    "word-doc-body1": "Este documento contiene información estratégica de LOGNEXT S.L. Su distribución está estrictamente restringida a los destinatarios autorizados indicados en portada.",
+    "word-doc-body2": "Los datos aquí incluidos no pueden reproducirse ni compartirse sin autorización expresa de Dirección...",
+    "word-foot": "LOGNEXT — Muy Confidencial. Acceso estrictamente restringido.",
+    "sec04-tag": "04 · Avisos del sistema",
+    "sec04-title": "¿Qué hago si me sale un aviso?",
+    "sec04-intro": "El sistema nunca te bloquea de forma definitiva. Los avisos son recordatorios para que confirmes que el envío es intencionado.",
+    "alert-title": "Información confidencial detectada",
+    "alert-source": "Lognext · Política de seguridad de la información",
+    "btn-cancel": "Cancelar envío",
+    "btn-send": "Confirmar y enviar →",
+    "step04_1-title": "Lee el aviso",
+    "step04_1-body": "El sistema te indica qué información ha detectado y a qué destinatario externo va. Revisa que es correcto antes de continuar.",
+    "step04_2-title": "Escribe una justificación",
+    "step04_2-body": "Una frase corta es suficiente: \"Contrato solicitado por el cliente\", \"Datos para tramitación con gestoría\". Queda registrada en el sistema de auditoría.",
+    "step04_3-title": "Confirma o cancela",
+    "step04_3-body": "Si el envío es correcto, confirma y el correo se envía con normalidad. Si no lo es, cancela sin consecuencias. El equipo de IT recibe una notificación en ambos casos.",
+    "sec05-tag": "05 · Preguntas frecuentes",
+    "sec05-title": "¿Tienes dudas?",
+    "sec05-intro": "Las preguntas más habituales sobre el sistema de etiquetas de confidencialidad.",
+    "faq1-q": "¿Es obligatorio etiquetar todos los correos y documentos?",
+    "faq1-a": "De momento no. El etiquetado es voluntario y guiado por sugerencias del sistema. En Outlook los correos nuevos ya parten sin etiqueta — el sistema te sugerirá una si detecta contenido sensible. La obligatoriedad se activará en fases posteriores.",
+    "faq2-q": "El sistema me sugirió \"Confidencial\" pero el contenido no es sensible. ¿Qué hago?",
+    "faq2-a": "Simplemente cámbiala a la etiqueta correcta o quítala. El sistema puede dar falsos positivos — por ejemplo, si un número en el texto coincide con el patrón de un DNI. Si la bajas a un nivel menor, solo te pedirá una justificación breve. Esto nos ayuda a mejorar el sistema.",
+    "faq3-q": "Envío habitualmente contratos con DNIs e IBANs a clientes. ¿Me van a bloquear?",
+    "faq3-a": "No. El sistema está configurado en modo aviso, no bloqueo. Cuando envíes información confidencial a externos recibirás un aviso, escribirás una justificación breve y podrás enviar con total normalidad. Tu flujo de trabajo no se interrumpe.",
+    "faq4-q": "¿Las justificaciones que escribo las lee alguien?",
+    "faq4-a": "Quedan registradas en el sistema de auditoría de Microsoft Purview, accesible solo para el equipo IT y Compliance. No se revisan una a una salvo que haya un incidente de seguridad. Son evidencia de cumplimiento normativo (ENS y RGPD), no un mecanismo de vigilancia.",
+    "faq5-q": "¿Funciona en el móvil?",
+    "faq5-a": "Las etiquetas son visibles en Outlook para iOS y Android, pero la sugerencia automática solo está disponible en Outlook Web y en el cliente de escritorio Windows. En Mac funciona, aunque el aviso puede mostrarse en inglés por limitación de Microsoft.",
+    "faq6-q": "Un proveedor me dice que no puede abrir un documento \"Muy Confidencial\". ¿Qué hago?",
+    "faq6-a": "Los documentos \"Muy Confidencial\" están cifrados y requieren que el destinatario se autentique con una cuenta Microsoft o con un código de verificación enviado a su correo. Si tiene problemas, contacta con IT para añadirle acceso explícito al documento.",
+    "contact-h3": "¿Necesitas ayuda?",
+    "contact-p": "El equipo IT está disponible para cualquier duda sobre el sistema de etiquetas o los avisos que recibes.",
+    "contact-cta": "Contactar con IT →",
+    "hero-h1": "Protege la información<br/><em>que importa</em>",
+    "hero-sub": "Hemos activado un sistema de clasificación de la información en Outlook, Word, Excel y Teams. Esta guía te explica qué son las etiquetas, cuándo usarlas y qué hacer cuando el sistema te avisa.",
+    "sec01-title": "¿Qué etiqueta usar<br/>en cada situación?",
+    "mockup-label-02": "<span class=\"mockup-label-dot\"></span>Nuevo mensaje — Outlook Web",
+    "email-body-02": "Buenos días,<br/><br/>\n          Le adjunto la documentación necesaria para la tramitación:<br/>\n          DNI: 12345678-Z  ·  IBAN: ES91 2100 0418 4502 0005 1332",
+    "dlp-banner-inner": "<strong style=\"display:block; margin-bottom:3px; color:#78350f;\">Aviso de seguridad · Lognext</strong>\n            Este correo contiene información confidencial y va dirigido a un destinatario externo. Al enviar, esta acción quedará registrada. ¿Deseas continuar?",
+    "mockup-label-03": "<span class=\"mockup-label-dot\"></span>Documento Word — Muy Confidencial",
+    "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Solo usuarios expresamente autorizados pueden acceder a este documento",
+    "word-doc-title": "<strong>Estrategia Comercial 2026 — Resumen ejecutivo</strong>",
+    "alert-body": "Estás enviando contenido clasificado como <strong>Confidencial</strong> a un destinatario externo. Confirma que el destinatario está autorizado para recibir esta información.",
+    "footer-tag": "<strong>Departamento IT · LOGNEXT S.L.</strong><br/>\n      Guía de Etiquetas de Confidencialidad · Microsoft Purview · Mayo 2026<br/>\n      Documento interno · sistemas@lognext.com<br/>\n      <span style=\"opacity:0.5;\">Forma parte del ecosistema Next · LOGNEXT</span>"
+  },
+  "en": {
+    "nav-etiquetas": "Labels",
+    "nav-docs": "Documents",
+    "nav-avisos": "Alerts",
+    "header-pill": "NextGuide · Practical Guides",
+    "hero-eyebrow": "Microsoft 365 · Purview · May 2026",
+    "sec01-tag": "01 · Labels",
+    "sec01-intro": "Every document or email has a sensitivity level. Labels make it visible to everyone and allow the system to protect information automatically.",
+    "pub-name": "Open information",
+    "pub-desc": "Content that can be shared and published without any restrictions.",
+    "pub-ex1": "Client presentations",
+    "pub-ex2": "Corporate website content",
+    "pub-ex3": "Published job listings",
+    "pub-ex4": "Press releases",
+    "int-name": "Internal use only",
+    "int-desc": "Day-to-day information that must not leave the organisation but contains no critical data.",
+    "int-ex1": "Internal team emails",
+    "int-ex2": "Internal meeting minutes",
+    "int-ex3": "Procedures and processes",
+    "int-ex4": "General HR communications",
+    "con-name": "Restricted access",
+    "con-desc": "Sensitive information that must only be shared with authorised individuals.",
+    "con-ex1": "Contracts with clients or suppliers",
+    "con-ex2": "Personal data (DNI, IBAN, NIE)",
+    "con-ex3": "Internal financial information",
+    "con-ex4": "Business proposals",
+    "muc-name": "Maximum protection",
+    "muc-desc": "Critical information with encryption. Accessible only by expressly authorised individuals.",
+    "muc-ex1": "Banking details and credit cards",
+    "muc-ex2": "Strategic business information",
+    "muc-ex3": "Sensitive legal files",
+    "muc-ex4": "Credentials and access data",
+    "sec02-tag": "02 · How to label",
+    "sec02-title": "Labelling in Outlook",
+    "sec02-intro": "The label bar appears in every new email. The system suggests the correct label if it detects sensitive data — you decide whether to apply it or not.",
+    "email-lbl-to": "To",
+    "email-lbl-subject": "Subject",
+    "email-subject": "Employee data for processing with accounting firm",
+    "label-row-lbl": "Classification:",
+    "step02_1-title": "The label is suggested automatically",
+    "step02_1-body": "If the system detects a DNI, IBAN, or other sensitive data in the body of the email, a suggestion appears automatically. You decide whether to accept it or change it.",
+    "step02_2-title": "You can always change it",
+    "step02_2-body": "The label bar is visible at all times. Click on any label to change it. If you lower the classification level, the system will ask you for a brief justification.",
+    "step02_3-title": "Alert when sending externally",
+    "step02_3-body": "If the email carries a Confidencial label or higher and the recipient is external, you will receive an alert. You can justify the send and continue. There is no block.",
+    "sec03-tag": "03 · Documents",
+    "sec03-title": "Labelling in Word, Excel and PowerPoint",
+    "sec03-intro": "\"Muy Confidencial\" documents automatically carry a watermark and a corporate footer visible on all copies, including printed ones.",
+    "word-doc-body1": "This document contains strategic information belonging to LOGNEXT S.L. Its distribution is strictly restricted to the authorised recipients indicated on the cover page.",
+    "word-doc-body2": "The data included herein may not be reproduced or shared without express authorisation from Management...",
+    "word-foot": "LOGNEXT — Muy Confidencial. Strictly restricted access.",
+    "sec04-tag": "04 · System alerts",
+    "sec04-title": "What should I do if I receive an alert?",
+    "sec04-intro": "The system never blocks you permanently. Alerts are reminders for you to confirm that the send is intentional.",
+    "alert-title": "Confidential information detected",
+    "alert-source": "Lognext · Information Security Policy",
+    "btn-cancel": "Cancel send",
+    "btn-send": "Confirm and send →",
+    "step04_1-title": "Read the alert",
+    "step04_1-body": "The system tells you what information it has detected and which external recipient it is addressed to. Check that it is correct before continuing.",
+    "step04_2-title": "Write a justification",
+    "step04_2-body": "A short sentence is enough: \"Contract requested by the client\", \"Data for processing with accounting firm\". It is recorded in the audit system.",
+    "step04_3-title": "Confirm or cancel",
+    "step04_3-body": "If the send is correct, confirm and the email is sent normally. If it is not, cancel without consequences. The IT team receives a notification in both cases.",
+    "sec05-tag": "05 · Frequently asked questions",
+    "sec05-title": "Have questions?",
+    "sec05-intro": "The most common questions about the sensitivity labelling system.",
+    "faq1-q": "Is it mandatory to label all emails and documents?",
+    "faq1-a": "Not yet. Labelling is voluntary and guided by system suggestions. In Outlook, new emails start without a label — the system will suggest one if it detects sensitive content. Mandatory labelling will be activated in later phases.",
+    "faq2-q": "The system suggested \"Confidencial\" but the content is not sensitive. What should I do?",
+    "faq2-a": "Simply change it to the correct label or remove it. The system can produce false positives — for example, if a number in the text matches the pattern of a DNI. If you lower it to a lower level, it will only ask you for a brief justification. This helps us improve the system.",
+    "faq3-q": "I regularly send contracts containing DNIs and IBANs to clients. Will I be blocked?",
+    "faq3-a": "No. The system is configured in alert mode, not blocking mode. When you send confidential information to external recipients you will receive an alert, write a brief justification, and be able to send normally. Your workflow is not interrupted.",
+    "faq4-q": "Does anyone read the justifications I write?",
+    "faq4-a": "They are recorded in the Microsoft Purview audit system, accessible only to the IT and Compliance team. They are not reviewed individually unless a security incident occurs. They serve as evidence of regulatory compliance (ENS and GDPR), not as a surveillance mechanism.",
+    "faq5-q": "Does it work on mobile?",
+    "faq5-a": "Labels are visible in Outlook for iOS and Android, but the automatic suggestion is only available in Outlook Web and the Windows desktop client. It works on Mac, although the alert may appear in English due to a Microsoft limitation.",
+    "faq6-q": "A supplier tells me they cannot open a \"Muy Confidencial\" document. What should I do?",
+    "faq6-a": "\"Muy Confidencial\" documents are encrypted and require the recipient to authenticate with a Microsoft account or with a verification code sent to their email. If they have trouble, contact IT to add explicit access to the document for them.",
+    "contact-h3": "Need help?",
+    "contact-p": "The IT team is available for any questions about the labelling system or the alerts you receive.",
+    "contact-cta": "Contact IT →",
+    "hero-h1": "Protect the information<br/><em>that matters</em>",
+    "hero-sub": "We have activated an information classification system in Outlook, Word, Excel and Teams. This guide explains what labels are, when to use them, and what to do when the system alerts you.",
+    "sec01-title": "Which label should I use<br/>in each situation?",
+    "mockup-label-02": "<span class=\"mockup-label-dot\"></span>New message — Outlook Web",
+    "email-body-02": "Good morning,<br/><br/>\n          Please find attached the documentation required for processing:<br/>\n          DNI: 12345678-Z  ·  IBAN: ES91 2100 0418 4502 0005 1332",
+    "dlp-banner-inner": "<strong style=\"display:block; margin-bottom:3px; color:#78350f;\">Security alert · Lognext</strong>\n            This email contains confidential information and is addressed to an external recipient. Upon sending, this action will be recorded. Do you wish to continue?",
+    "mockup-label-03": "<span class=\"mockup-label-dot\"></span>Word Document — Muy Confidencial",
+    "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Only expressly authorised users can access this document",
+    "word-doc-title": "<strong>Commercial Strategy 2026 — Executive Summary</strong>",
+    "alert-body": "You are sending content classified as <strong>Confidencial</strong> to an external recipient. Please confirm that the recipient is authorised to receive this information.",
+    "footer-tag": "<strong>IT Department · LOGNEXT S.L.</strong><br/>\n      Sensitivity Labels Guide · Microsoft Purview · May 2026<br/>\n      Internal document · sistemas@lognext.com<br/>\n      <span style=\"opacity:0.5;\">Part of the Next ecosystem · LOGNEXT</span>"
+  },
+  "fr": {
+    "nav-etiquetas": "Étiquettes",
+    "nav-docs": "Documents",
+    "nav-avisos": "Avertissements",
+    "header-pill": "NextGuide · Guides pratiques",
+    "hero-eyebrow": "Microsoft 365 · Purview · Mai 2026",
+    "sec01-tag": "01 · Les étiquettes",
+    "sec01-intro": "Chaque document ou e-mail possède un niveau de sensibilité. Les étiquettes le rendent visible pour tous et permettent au système de protéger l'information automatiquement.",
+    "pub-name": "Information ouverte",
+    "pub-desc": "Contenu pouvant être partagé et publié sans aucune restriction.",
+    "pub-ex1": "Présentations pour les clients",
+    "pub-ex2": "Contenu du site web corporate",
+    "pub-ex3": "Offres d'emploi publiées",
+    "pub-ex4": "Communiqués de presse",
+    "int-name": "Uniquement au sein de Lognext",
+    "int-desc": "Information du quotidien qui ne doit pas quitter l'organisation, mais sans données critiques.",
+    "int-ex1": "E-mails internes d'équipe",
+    "int-ex2": "Comptes rendus de réunions internes",
+    "int-ex3": "Procédures et processus",
+    "int-ex4": "Communications générales des RH",
+    "con-name": "Accès restreint",
+    "con-desc": "Information sensible ne devant être partagée qu'avec des personnes autorisées.",
+    "con-ex1": "Contrats avec des clients ou des fournisseurs",
+    "con-ex2": "Données personnelles (DNI, IBAN, NIE)",
+    "con-ex3": "Information économique interne",
+    "con-ex4": "Propositions commerciales",
+    "muc-name": "Protection maximale",
+    "muc-desc": "Information critique avec chiffrement. Accessible uniquement par des personnes expressément autorisées.",
+    "muc-ex1": "Données bancaires et cartes de crédit",
+    "muc-ex2": "Information stratégique de l'entreprise",
+    "muc-ex3": "Dossiers juridiques sensibles",
+    "muc-ex4": "Identifiants et données d'accès",
+    "sec02-tag": "02 · Comment étiqueter",
+    "sec02-title": "Étiqueter dans Outlook",
+    "sec02-intro": "La barre d'étiquettes apparaît dans chaque nouveau message. Le système suggère l'étiquette appropriée s'il détecte des données sensibles — c'est vous qui décidez de l'appliquer ou non.",
+    "email-lbl-to": "À",
+    "email-lbl-subject": "Objet",
+    "email-subject": "Données employé pour traitement avec le cabinet comptable",
+    "label-row-lbl": "Classification :",
+    "step02_1-title": "L'étiquette est suggérée automatiquement",
+    "step02_1-body": "Si le système détecte un DNI, un IBAN ou toute autre donnée sensible dans le corps du message, une suggestion apparaît automatiquement. Vous décidez de l'accepter ou de la modifier.",
+    "step02_2-title": "Vous pouvez la modifier à tout moment",
+    "step02_2-body": "La barre d'étiquettes est visible en permanence. Cliquez sur l'une d'elles pour la modifier. Si vous abaissez le niveau de classification, le système vous demandera une brève justification.",
+    "step02_3-title": "Avertissement lors d'un envoi externe",
+    "step02_3-body": "Si le message porte l'étiquette Confidencial ou supérieure et que le destinataire est externe, vous recevrez un avertissement. Vous pouvez justifier l'envoi et continuer. Il n'y a pas de blocage.",
+    "sec03-tag": "03 · Documents",
+    "sec03-title": "Étiqueter dans Word, Excel et PowerPoint",
+    "sec03-intro": "Les documents « Muy Confidencial » comportent automatiquement un filigrane et un pied de page corporate visible sur toutes les copies, y compris les versions imprimées.",
+    "word-doc-body1": "Ce document contient des informations stratégiques de LOGNEXT S.L. Sa diffusion est strictement limitée aux destinataires autorisés indiqués en page de couverture.",
+    "word-doc-body2": "Les données figurant dans ce document ne peuvent être reproduites ni partagées sans autorisation expresse de la Direction...",
+    "word-foot": "LOGNEXT — Muy Confidencial. Accès strictement restreint.",
+    "sec04-tag": "04 · Avertissements du système",
+    "sec04-title": "Que faire si je reçois un avertissement ?",
+    "sec04-intro": "Le système ne vous bloque jamais de façon définitive. Les avertissements sont des rappels vous invitant à confirmer que l'envoi est intentionnel.",
+    "alert-title": "Information confidentielle détectée",
+    "alert-source": "Lognext · Politique de sécurité de l'information",
+    "btn-cancel": "Annuler l'envoi",
+    "btn-send": "Confirmer et envoyer →",
+    "step04_1-title": "Lisez l'avertissement",
+    "step04_1-body": "Le système vous indique quelle information a été détectée et à quel destinataire externe elle est destinée. Vérifiez que tout est correct avant de continuer.",
+    "step04_2-title": "Rédigez une justification",
+    "step04_2-body": "Une courte phrase suffit : « Contrat demandé par le client », « Données pour traitement avec le cabinet comptable ». Elle est enregistrée dans le système d'audit.",
+    "step04_3-title": "Confirmez ou annulez",
+    "step04_3-body": "Si l'envoi est correct, confirmez et le message est envoyé normalement. Dans le cas contraire, annulez sans conséquences. L'équipe IT reçoit une notification dans les deux cas.",
+    "sec05-tag": "05 · Questions fréquentes",
+    "sec05-title": "Vous avez des questions ?",
+    "sec05-intro": "Les questions les plus courantes sur le système d'étiquettes de confidentialité.",
+    "faq1-q": "Est-il obligatoire d'étiqueter tous les e-mails et documents ?",
+    "faq1-a": "Pas pour le moment. L'étiquetage est volontaire et guidé par les suggestions du système. Dans Outlook, les nouveaux messages démarrent sans étiquette — le système vous en suggèrera une s'il détecte du contenu sensible. L'obligation sera activée lors de phases ultérieures.",
+    "faq2-q": "Le système m'a suggéré « Confidencial » mais le contenu n'est pas sensible. Que faire ?",
+    "faq2-a": "Changez-la simplement pour l'étiquette appropriée ou supprimez-la. Le système peut générer des faux positifs — par exemple si un nombre dans le texte correspond au format d'un DNI. Si vous abaissez le niveau, il vous demandera uniquement une brève justification. Cela nous aide à améliorer le système.",
+    "faq3-q": "J'envoie régulièrement des contrats avec des DNI et des IBAN à des clients. Vais-je être bloqué ?",
+    "faq3-a": "Non. Le système est configuré en mode avertissement, et non en mode blocage. Lorsque vous envoyez des informations confidentielles à des destinataires externes, vous recevrez un avertissement, vous rédigerez une brève justification et pourrez envoyer normalement. Votre flux de travail n'est pas interrompu.",
+    "faq4-q": "Les justifications que je rédige sont-elles lues par quelqu'un ?",
+    "faq4-a": "Elles sont enregistrées dans le système d'audit de Microsoft Purview, accessible uniquement à l'équipe IT et Compliance. Elles ne sont pas examinées individuellement sauf en cas d'incident de sécurité. Elles constituent une preuve de conformité réglementaire (ENS et RGPD), et non un mécanisme de surveillance.",
+    "faq5-q": "Cela fonctionne-t-il sur mobile ?",
+    "faq5-a": "Les étiquettes sont visibles dans Outlook pour iOS et Android, mais la suggestion automatique n'est disponible que dans Outlook Web et dans le client de bureau Windows. Sur Mac, cela fonctionne, bien que l'avertissement puisse s'afficher en anglais en raison d'une limitation de Microsoft.",
+    "faq6-q": "Un fournisseur me signale qu'il ne peut pas ouvrir un document « Muy Confidencial ». Que faire ?",
+    "faq6-a": "Les documents « Muy Confidencial » sont chiffrés et requièrent que le destinataire s'authentifie avec un compte Microsoft ou avec un code de vérification envoyé à son adresse e-mail. En cas de problème, contactez l'IT pour lui accorder un accès explicite au document.",
+    "contact-h3": "Besoin d'aide ?",
+    "contact-p": "L'équipe IT est disponible pour toute question concernant le système d'étiquettes ou les avertissements que vous recevez.",
+    "contact-cta": "Contacter l'IT →",
+    "hero-h1": "Protégez l'information<br/><em>qui compte</em>",
+    "hero-sub": "Nous avons activé un système de classification de l'information dans Outlook, Word, Excel et Teams. Ce guide vous explique ce que sont les étiquettes, quand les utiliser et que faire lorsque le système vous avertit.",
+    "sec01-title": "Quelle étiquette utiliser<br/>dans chaque situation ?",
+    "mockup-label-02": "<span class=\"mockup-label-dot\"></span>Nouveau message — Outlook Web",
+    "email-body-02": "Bonjour,<br/><br/>\n          Veuillez trouver ci-joint la documentation nécessaire au traitement :<br/>\n          DNI: 12345678-Z  ·  IBAN: ES91 2100 0418 4502 0005 1332",
+    "dlp-banner-inner": "<strong style=\"display:block; margin-bottom:3px; color:#78350f;\">Avertissement de sécurité · Lognext</strong>\n            Ce message contient des informations confidentielles et est destiné à un destinataire externe. Lors de l'envoi, cette action sera enregistrée. Souhaitez-vous continuer ?",
+    "mockup-label-03": "<span class=\"mockup-label-dot\"></span>Document Word — Muy Confidencial",
+    "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Seuls les utilisateurs expressément autorisés peuvent accéder à ce document",
+    "word-doc-title": "<strong>Stratégie Commerciale 2026 — Résumé exécutif</strong>",
+    "alert-body": "Vous êtes en train d'envoyer un contenu classifié comme <strong>Confidencial</strong> à un destinataire externe. Confirmez que le destinataire est autorisé à recevoir cette information.",
+    "footer-tag": "<strong>Département IT · LOGNEXT S.L.</strong><br/>\n      Guide des Étiquettes de Confidentialité · Microsoft Purview · Mai 2026<br/>\n      Document interne · sistemas@lognext.com<br/>\n      <span style=\"opacity:0.5;\">Fait partie de l'écosystème Next · LOGNEXT</span>"
+  }
+};
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('guia-lang', lang);
+  const url = new URL(window.location);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url);
+  const t = I18N[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n-html')];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.getAttribute('data-i18n-attr').split(' ').forEach(pair => {
+      const [attr, key] = pair.split(':');
+      const v = t[key];
+      if (v !== undefined) el.setAttribute(attr, v);
+    });
+  });
+  document.querySelectorAll('.lbtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+}
+
+const initLang = new URLSearchParams(window.location.search).get('lang')
+  || localStorage.getItem('guia-lang') || 'es';
+applyLang(initLang);
+document.querySelectorAll('.lbtn').forEach(b =>
+  b.addEventListener('click', () => applyLang(b.dataset.lang)));
+</script>
+
+</body>
+</html>

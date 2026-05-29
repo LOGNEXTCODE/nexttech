@@ -1,0 +1,9 @@
+__pycache__/
+*.pyc
+*.pyo
+index.html
+!/index.html
+!/GuiaEtiquetas/index.html
+!/[0-9]*/index.html
+preview.html
+.env

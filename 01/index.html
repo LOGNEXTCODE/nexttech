@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="edicion" content="01">
+<title>NextTech #01 — LOGNEXT</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 521 438'><polygon fill='%23000029' points='175,119 116,119 201,219 115,320 175,320 243,243 243,196'/><polygon fill='%23000029' points='344,119 403,119 318,219 404,320 344,320 276,243 276,196'/><polygon fill='%23FA3C0F' points='92,348 27,408 86,408 149,348'/><polygon fill='%23FA3C0F' points='425,90 489,30 430,30 369,90'/></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H3Y3WBWSLR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-H3Y3WBWSLR');
+  function trackSection(section) {
+    gtag('event', 'section_read', { section_name: section, edition: '01' });
+  }
+  function trackLink(label, url) {
+    gtag('event', 'outbound_click', { link_label: label, link_url: url, edition: '01' });
+    return true;
+  }
+  function trackPhishing(action) {
+    gtag('event', 'phishing_test', { action: action, edition: '01' });
+  }
+</script>
+<style>
+
+:root {
+  --navy:   #000029;
+  --red:    #FA3C0F;
+  --cyan:   #3CE6E6;
+  --yellow: #FFFA96;
+  --green:  #64F07D;
+  --violet: #C896FF;
+  --blue:   #3791F5;
+  --grey:   #E1E1E8;
+  --dark:   #080820;
+  --gap-xs: 4px;
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 32px;
+  --radius: 6px;
+  --radius-sm: 4px;
+}
+::selection { background: rgba(250,60,15,0.35); color: #fff; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: linear-gradient(160deg, #0e0e35 0%, #080820 60%, #0a0a2a 100%);
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--grey);
+  min-height: 100vh;
+  overflow-x: hidden;
+  cursor: none;
+}
+.cursor-logo, .cursor-ring { display: none; }
+@media (pointer: fine) {
+  .cursor-logo {
+    display: block; position: fixed;
+    width: 28px; height: 24px;
+    pointer-events: none; z-index: 999999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease;
+    filter: drop-shadow(0 0 5px rgba(250,60,15,0.7));
+  }
+  .cursor-logo.hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    filter: drop-shadow(0 0 10px rgba(250,60,15,1));
+  }
+  .cursor-ring {
+    display: block; position: fixed;
+    width: 44px; height: 44px;
+    border: 1px solid rgba(60,230,230,0.5);
+    border-radius: 50%; pointer-events: none; z-index: 999998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+  .cursor-ring.hover { width: 58px; height: 58px; border-color: rgba(250,60,15,0.5); }
+  body { cursor: none; }
+}
+#nebula-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; }
+.bg-grid {
+  position: fixed; inset: 0;
+  background-image: radial-gradient(circle, rgba(250,60,15,0.08) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none; z-index: 0;
+}
+.topbar {
+  background: rgba(0,0,20,0.95);
+  border-bottom: 1px solid rgba(250,60,15,0.15);
+  padding: 12px 24px;
+  position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(10px);
+}
+.topbar-inner { max-width: 1100px; margin: 0 auto; width: 100%; padding: 0 24px; display: flex; align-items: center; }
+.topbar-name { flex: 1; font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.5px; line-height: 1; }
+.topbar-name span { color: var(--red); font-weight: 300; }
+.topbar-center { flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.topbar-right { flex: 1; text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; }
+.topbar-edition-num { font-size: 12px; color: var(--red); font-family: 'JetBrains Mono', monospace; letter-spacing: 2px; font-weight: 700; }
+.topbar-edition-date { font-size: 11px; color: rgba(255,255,255,0.4); font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; font-weight: 400; }
+.wrapper { max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; position: relative; z-index: 1; }
+.header {
+  background: var(--navy); border-top: 5px solid var(--red);
+  padding: 56px 64px 40px; position: relative; overflow: hidden;
+  animation: fadeDown 0.6s ease both;
+}
+.header::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(255,255,255,0.01) 2px,rgba(255,255,255,0.01) 4px);
+  pointer-events: none;
+}
+.header-scan {
+  position: absolute; top: 0; left: 0; width: 100%; height: 3px;
+  background: linear-gradient(90deg, transparent, var(--red), transparent);
+  animation: scan 3s linear infinite; opacity: 0.5;
+}
+@keyframes scan { from{top:0} to{top:100%} }
+.header-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: end; }
+.logo-row { display: flex; align-items: baseline; gap: 0; margin-bottom: 8px; }
+.logo-next { font-size: 88px; font-weight: 700; color: #fff; letter-spacing: -4px; line-height: 1; }
+.logo-letter { font-size: 88px; font-weight: 300; color: var(--red); letter-spacing: -4px; line-height: 1; }
+.header-tagline-big {
+  font-size: 13px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4;
+  font-family: 'JetBrains Mono', monospace; margin-bottom: 20px;
+}
+.header-dots { display: flex; gap: 8px; }
+.hdot { width: 8px; height: 8px; border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.7)} }
+.header-stats { display: flex; flex-direction: row; gap: 32px; align-items: center; border-left: 1px solid rgba(255,255,255,0.08); padding-left: 40px; }
+.stat-item { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.stat-number { font-size: 32px; font-weight: 700; color: var(--red); line-height: 1; font-family: 'JetBrains Mono', monospace; }
+.stat-label { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; font-family: 'JetBrains Mono', monospace; }
+.header-meta { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; }
+.header-issue { font-size: 11px; color: var(--red); font-weight: 700; letter-spacing: 3px; font-family: 'JetBrains Mono', monospace; }
+.intro { background: rgba(250,60,15,0.06); border-left: 4px solid var(--red); padding: 24px 40px; margin-top: 4px; font-size: 15px; line-height: 1.9; color: var(--grey); animation: fadeDown 0.6s 0.1s ease both; }
+.sep { height: 4px; background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, var(--cyan) 33%, var(--cyan) 66%, var(--yellow) 66%); margin-top: 4px; }
+.main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+.full-width { grid-column: 1 / -1; }
+.card { background: var(--navy); padding: 36px 44px; border-radius: var(--radius); position: relative; overflow: hidden; transition: all 0.3s ease; cursor: pointer; animation: fadeUp 0.5s ease both; }
+.card::after { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s ease; pointer-events: none; }
+.card:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.card:hover::after { opacity: 1; }
+.card-esto::after  { background: radial-gradient(ellipse at 50% 0%, rgba(250,60,15,0.1), transparent 70%); }
+.card-caso::after  { background: radial-gradient(ellipse at 50% 0%, rgba(255,250,150,0.08), transparent 70%); }
+.card-consejo::after { background: radial-gradient(ellipse at 50% 0%, rgba(100,240,125,0.08), transparent 70%); }
+.card-reto::after  { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.08), transparent 70%); }
+.card-phishing::after { background: radial-gradient(ellipse at 50% 0%, rgba(200,150,255,0.1), transparent 70%); }
+.card-esto   { box-shadow: inset 0 1px 0 rgba(250,60,15,0.3); }
+.card-caso   { background: #05051f; border-left: 4px solid var(--yellow); }
+.card-consejo { box-shadow: inset 0 1px 0 rgba(100,240,125,0.2); }
+.card-reto   { background: #001a05; border: 1px solid rgba(100,240,125,0.2); }
+.card-phishing { background: #0a0020; border: 1px solid rgba(200,150,255,0.2); }
+.card-links  { background: #000029; box-shadow: inset 0 1px 0 rgba(200,150,255,0.2); }
+.card-ia     { background: #000e22; border-left: 4px solid var(--blue); box-shadow: inset 0 1px 0 rgba(55,145,245,0.25); }
+.card-ia::after { background: radial-gradient(ellipse at 50% 0%, rgba(55,145,245,0.1), transparent 70%); }
+.section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
+.section-tag::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.12; }
+.card-title { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
+.card-text  { font-size: 14px; line-height: 1.9; color: var(--grey); opacity: 0.85; margin-bottom: 20px; }
+.card-link { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 600; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; text-decoration: none; padding: 10px 20px; border: 1px solid currentColor; border-radius: var(--radius-sm); transition: all 0.25s ease; }
+.card-link:hover { opacity: 0.95; }
+.card-esto .card-link:hover    { background: var(--red);    color: #fff !important; }
+.card-esto .card-link:active   { background: #c82d00; transform: scale(0.98); }
+.card-caso .card-link:hover    { background: var(--yellow); color: var(--navy) !important; }
+.card-caso .card-link:active   { background: #d4cf6e; transform: scale(0.98); }
+.card-consejo .card-link:hover { background: var(--green);  color: var(--navy) !important; }
+.card-consejo .card-link:active { background: #4ab85d; transform: scale(0.98); }
+.card-reto .card-link:hover    { background: var(--cyan);   color: var(--navy) !important; }
+.card-reto .card-link:active   { background: #2ab8b8; transform: scale(0.98); }
+.card-ia .card-link { color: var(--red); border: 1.5px solid var(--red); border-radius: 8px; transition: all 0.2s ease; }
+.card-ia .card-link:hover { background: var(--red); color: #fff !important; }
+.card-ia .card-link:active { background: #c82d00; transform: scale(0.98); }
+.card-ia .card-link:hover .arrow { transform: none; }
+.card-link .arrow { transition: transform 0.2s ease; }
+.card-link:hover .arrow { transform: translateX(4px); }
+.reto-badge { display: inline-block; background: var(--green); color: var(--navy); font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; padding: 4px 14px; margin-bottom: 16px; }
+.reto-progress { margin-top: 24px; height: 3px; background: rgba(100,240,125,0.15); border-radius: 2px; overflow: hidden; }
+.reto-progress-bar { height: 100%; width: 0%; background: var(--green); border-radius: 2px; animation: progressFill 2s 1s ease forwards; }
+@keyframes progressFill { to { width: 65%; } }
+.reto-label { display: flex; justify-content: space-between; font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 8px; opacity: 0.5; }
+.phishing-inner { background: rgba(200,150,255,0.05); border: 1px solid rgba(200,150,255,0.1); border-radius: 4px; padding: 24px; margin-top: 16px; }
+.phishing-email-preview { background: #fff; border-radius: 4px; padding: 16px; margin-bottom: 16px; font-family: Arial, sans-serif; color: #333; }
+.phishing-email-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; font-size: 12px; color: #666; }
+.phishing-email-subject { font-weight: bold; font-size: 14px; color: #111; margin-bottom: 4px; }
+.phishing-email-body { font-size: 13px; line-height: 1.6; color: #444; }
+.phishing-email-body a { color: #1a73e8; text-decoration: underline; }
+.phishing-question { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; line-height: 1.5; }
+.phishing-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
+.phishing-btn { padding: 12px 24px; font-size: 13px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; border: none; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.5px; flex: 1; min-width: 120px; }
+.phishing-btn-yes { background: rgba(250,60,15,0.15); color: var(--red); border: 1px solid var(--red); }
+.phishing-btn-yes:hover { background: var(--red); color: #fff; }
+.phishing-btn-no  { background: rgba(100,240,125,0.1); color: var(--green); border: 1px solid var(--green); }
+.phishing-btn-no:hover  { background: var(--green); color: var(--navy); }
+.phishing-result { display: none; padding: 16px; border-radius: 4px; font-size: 14px; line-height: 1.7; margin-top: 12px; }
+.phishing-result.show { display: block; }
+.phishing-result.correct { background: rgba(100,240,125,0.1); border: 1px solid rgba(100,240,125,0.3); color: var(--green); }
+.phishing-result.wrong   { background: rgba(250,60,15,0.1);  border: 1px solid rgba(250,60,15,0.3);  color: var(--red); }
+.phishing-clues { margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 4px; }
+.phishing-clue { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--grey); opacity: 0.8; margin-bottom: 4px; display: flex; gap: 8px; align-items: flex-start; }
+.card-radar { box-shadow: inset 0 1px 0 rgba(60,230,230,0.2); }
+.card-radar::after { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.07), transparent 70%); }
+.radar-list { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
+.radar-item { display: block; text-decoration: none; color: var(--grey); padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); transition: all 0.2s ease; }
+.radar-item:last-child { border-bottom: none; padding-bottom: 0; }
+.radar-item:hover { padding-left: 8px; }
+.radar-source { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.radar-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; animation: pulse 2s ease-in-out infinite; }
+.radar-org { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; opacity: 0.6; }
+.radar-headline { font-size: 13px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 4px; }
+.radar-item:hover .radar-headline { color: var(--cyan); }
+.radar-meta { font-size: 10px; opacity: 0.35; font-family: 'JetBrains Mono', monospace; }
+.radar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
+.radar-grid-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: var(--radius-sm); padding: 16px 20px; text-decoration: none; color: var(--grey); transition: all 0.2s ease; display: block; backdrop-filter: blur(4px); }
+.radar-grid-item:hover { background: rgba(255,255,255,0.04); padding-left: 26px; border-color: rgba(60,230,230,0.2); }
+.radar-grid-item:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+.links-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 4px; }
+.link-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 24px; text-decoration: none; color: var(--grey); transition: all 0.25s ease; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; }
+.link-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
+.link-card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.05); }
+.link-card:hover::before { transform: scaleX(1); }
+.lc-news::before  { background: var(--red); }
+.lc-video::before { background: var(--cyan); }
+.lc-quiz::before  { background: var(--yellow); }
+.link-icon  { width: 28px; height: 28px; display: block; color: currentColor; }
+.link-label { font-size: 10px; font-family: 'JetBrains Mono', monospace; letter-spacing: 2px; text-transform: uppercase; opacity: 0.4; }
+.link-title { font-size: 14px; font-weight: 600; color: #fff; line-height: 1.4; }
+.link-desc  { font-size: 12px; opacity: 0.55; line-height: 1.6; }
+.link-source { font-size: 11px; opacity: 0.4; font-family: 'JetBrains Mono', monospace; margin-top: auto; }
+.footer { background: #000015; border-top: 1px solid rgba(250,60,15,0.15); padding: 56px 64px 40px; margin-top: 4px; animation: fadeUp 0.5s 0.6s ease both; }
+.footer-inner { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 48px; max-width: 1100px; margin: 0 auto 40px; }
+.footer-col-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; color: var(--red); margin-bottom: 6px; }
+.footer-col-rule { width: 32px; height: 2px; background: var(--red); margin-bottom: 20px; }
+.footer-brand-name { font-size: 28px; font-weight: 700; letter-spacing: -1px; color: #fff; margin-bottom: 12px; }
+.footer-brand-name span { color: var(--red); font-weight: 300; }
+.footer-brand-text { font-size: 13px; line-height: 1.8; opacity: 0.45; max-width: 260px; }
+.footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.footer-links-list li a { font-size: 13px; color: var(--grey); text-decoration: none; opacity: 0.55; transition: opacity 0.2s ease, padding-left 0.2s ease; display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; }
+.footer-links-list li a:hover { opacity: 1; padding-left: 6px; }
+.footer-links-list li a::before { content: '→'; color: var(--red); font-size: 10px; }
+.footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 13px; }
+.footer-contact-icon { color: var(--red); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 2px; opacity: 0.7; }
+.footer-contact-text { opacity: 0.55; line-height: 1.5; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.footer-contact-text a { color: var(--grey); text-decoration: none; transition: color 0.2s ease; }
+.footer-contact-text a:hover { color: var(--red); }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding-top: 24px; display: flex; justify-content: center; align-items: center; max-width: 1100px; margin: 0 auto; }
+.footer-copy { font-size: 11px; opacity: 0.3; font-family: 'JetBrains Mono', monospace; letter-spacing: 1px; }
+@keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)}  to{opacity:1;transform:translateY(0)} }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: linear-gradient(160deg, #0e0e35 0%, #080820 60%, #0a0a2a 100%); }
+::-webkit-scrollbar-thumb { background: var(--red); border-radius: 2px; }
+@media (max-width: 900px) {
+  .main-grid { grid-template-columns: 1fr; }
+  .header-inner { grid-template-columns: 1fr; }
+  .header-stats { flex-direction: row; gap: 20px; border-left: none; border-top: 1px solid rgba(255,255,255,0.08); padding-left: 0; padding-top: 20px; align-items: center; justify-content: space-around; }
+  .logo-next, .logo-letter { font-size: 64px; }
+  .links-grid { grid-template-columns: 1fr; }
+  .header { padding: 36px 28px 28px; }
+  .card { padding: 28px 28px; }
+  .topbar { padding: 12px 0; }
+  .wrapper { padding: 0 12px 60px; }
+  .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+  .footer { padding: 40px 28px 28px; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .radar-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .logo-next, .logo-letter { font-size: 48px; letter-spacing: -2px; }
+  .card-title { font-size: 18px; }
+  .header { padding: 28px 20px 24px; }
+  .card { padding: 24px 20px; }
+  .topbar { padding: 6px 0; }
+  .topbar-inner { display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center; padding: 0 8px; gap: 2px; }
+  .topbar-name { flex: 1; font-size: 14px; letter-spacing: -0.5px; min-width: 0; white-space: nowrap; line-height: 1; }
+  .topbar-center { flex-shrink: 0; }
+  .topbar-center svg { height: 21px !important; margin-right: 4px !important; }
+  .topbar-right { flex: 1; }
+  .topbar-edition-num { font-size: 9px; letter-spacing: 0.3px; }
+  .topbar-edition-date { font-size: 8px; letter-spacing: 0.3px; }
+  .phishing-buttons { flex-direction: column; }
+  .stat-number { font-size: 24px; }
+}
+
+/* ─── TOGGLE TEMA ───────────────────────────────────────────────────────── */
+#theme-toggle {
+  display: flex; align-items: center;
+  padding: 0; cursor: pointer;
+}
+.toggle-track {
+  width: 52px; height: 28px; border-radius: 14px;
+  background: rgba(255,255,255,0.1);
+  border: 1.5px solid rgba(250,60,15,0.5);
+  position: relative; display: flex; align-items: center;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.toggle-thumb {
+  position: absolute; left: 3px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--red);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+}
+.toggle-thumb svg {
+  width: 11px; height: 11px; stroke: #fff;
+  position: absolute; transition: opacity 0.2s;
+}
+.icon-sun  { opacity: 0; }
+.icon-moon { opacity: 1; }
+body.light .toggle-track { background: rgba(0,0,41,0.06); border-color: rgba(0,0,41,0.2); }
+body.light .toggle-thumb { transform: translateX(24px); }
+body.light .icon-sun  { opacity: 1; }
+body.light .icon-moon { opacity: 0; }
+#theme-toggle:hover .toggle-track { border-color: var(--red); }
+#theme-toggle:focus-visible .toggle-track { outline: 2px solid var(--red); outline-offset: 2px; }
+@media (max-width: 600px) {
+  .toggle-track { width: 44px; height: 24px; }
+  .toggle-thumb { width: 17px; height: 17px; }
+  body.light .toggle-thumb { transform: translateX(20px); }
+  #theme-toggle { margin: 0 6px; }
+}
+
+/* ─── LOGO TOPBAR CLARO/OSCURO ────────────────────────────────────────────── */
+.topbar-logo-svg   { height: 33px; }
+.topbar-logo-light { display: none; height: 33px; width: auto; }
+body.light .topbar-logo-light { display: block; }
+body.light .topbar-logo-svg   { display: none; }
+@media (max-width: 600px) {
+  .topbar-logo-svg   { height: 21px; }
+  .topbar-logo-light { height: 21px; }
+}
+
+/* ─── TOGGLE FLOTANTE ─────────────────────────────────────────────────────── */
+.theme-toggle-float {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.92);
+  border: 0.5px solid rgba(13,27,78,0.18);
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+.theme-toggle-float.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+.theme-toggle-float .toggle-track { display: contents; }
+.theme-toggle-float .toggle-thumb {
+  position: relative; left: auto;
+  width: 18px; height: 18px;
+  background: none; box-shadow: none;
+  transform: none !important;
+}
+.theme-toggle-float .toggle-thumb svg {
+  stroke: var(--navy);
+  width: 16px; height: 16px;
+  top: 50%; left: 50%;
+  transform: translate(-50%,-50%);
+}
+
+/* ─── SELECTOR DE IDIOMA ─────────────────────────────────────────────────── */
+.lang-selector { display: flex; align-items: center; gap: 2px; margin-top: 3px; }
+.lang-btn { background: none; border: none; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.35); padding: 3px 5px; transition: color 0.2s ease; }
+.lang-btn:hover { color: rgba(255,255,255,0.75); }
+.lang-btn.active { color: var(--red); }
+.lang-sep { color: rgba(255,255,255,0.15); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+body.light .lang-btn { color: rgba(0,0,41,0.35); }
+body.light .lang-btn:hover { color: rgba(0,0,41,0.75); }
+body.light .lang-btn.active { color: #C82D00; }
+body.light .lang-sep { color: rgba(0,0,41,0.2); }
+@media (max-width: 600px) { .lang-selector { margin-top: 2px; } .lang-btn { font-size: 10px; padding: 2px 3px; } }
+
+/* ═══════════════════════════════════════════════
+   NEXTTECH · MODO CLARO — Revisión tipográfica completa
+   Ratio mínimo de contraste: 4.5:1 en todo el texto
+   ═══════════════════════════════════════════════ */
+
+#particles-canvas {
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 0;
+  display: none;
+}
+body.light #nebula-canvas    { display: none; }
+body.light #particles-canvas { display: block; }
+body.light .bg-grid          { display: none; }
+
+body.light {
+  background: linear-gradient(145deg, #F4F5FF 0%, #FFF8F5 40%, #F5F4FF 100%);
+  color: #000029;
+}
+body.light .cursor-ring       { border-color: rgba(0,0,41,0.2); }
+body.light .cursor-ring.hover { border-color: rgba(200,45,0,0.5); }
+
+body.light .topbar {
+  background: rgba(255,255,255,0.96);
+  border-bottom: 1px solid rgba(0,0,41,0.1);
+}
+body.light .topbar-name         { color: #000029; }
+body.light .topbar-name span    { color: #C82D00; }
+body.light .topbar-edition-num  { color: #C82D00; }
+body.light .topbar-edition-date { color: #555570; }
+
+body.light .header {
+  background: #FFFFFF;
+  box-shadow: 0 4px 32px rgba(0,0,41,0.08);
+}
+body.light .header::before     { opacity: 0.2; }
+body.light .logo-next          { color: #000029; }
+body.light .logo-letter        { color: #C82D00; }
+body.light .header-tagline-big { color: #444460; opacity: 1; }
+body.light .header-stats       { border-left-color: rgba(0,0,41,0.12); }
+body.light .stat-number        { color: #C82D00; }
+body.light .stat-label         { color: #555570; opacity: 1; }
+body.light .header-meta        { border-top-color: rgba(0,0,41,0.08); }
+body.light .header-meta > span:first-child { color: #666680; opacity: 1; }
+body.light .header-issue       { color: #C82D00; }
+body.light .header-scan        { opacity: 0.15; }
+
+body.light .intro {
+  background: rgba(200,45,0,0.05);
+  color: #000029;
+  border-left-color: #C82D00;
+}
+
+body.light .card {
+  background: #FFFFFF;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07);
+}
+body.light .card:hover { box-shadow: 0 8px 40px rgba(0,0,41,0.12); }
+body.light .card-title { color: #000029; }
+body.light .card-text  { color: #2a2a4a; opacity: 1; }
+
+body.light .card-caso    .section-tag  { color: #8A7000 !important; }
+body.light .card-reto    .section-tag  { color: #1A7A38 !important; }
+body.light .card-consejo .section-tag  { color: #1A7A38 !important; }
+body.light .card-radar   .section-tag  { color: #007A8A !important; }
+body.light .card-phishing .section-tag { color: #6A28AA !important; }
+body.light .card-ia      .section-tag  { color: #1A5CB0 !important; }
+body.light .card-esto    .section-tag  { color: #C82D00 !important; }
+body.light .card-links   .section-tag  { color: #6A28AA !important; }
+
+body.light .card-esto {
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(200,45,0,0.2);
+}
+body.light .card-caso {
+  background: #FFFEF5;
+  border-left: 4px solid #C8A000;
+}
+body.light .card-consejo {
+  background: #F5FFF8;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,122,56,0.2);
+}
+body.light .card-reto {
+  background: #F5FFF9;
+  border: 1px solid rgba(26,122,56,0.25);
+}
+body.light .reto-badge    { background: #1A7A38; color: #fff; }
+body.light .reto-progress { background: rgba(26,122,56,0.15); }
+body.light .reto-label    { color: #555570; opacity: 1; }
+body.light .card-ia {
+  background: #F5F8FF;
+  border-left: 4px solid #1A5CB0;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,92,176,0.15);
+}
+
+body.light .card-radar { background: transparent; box-shadow: none; }
+body.light .radar-grid-item {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,41,0.09);
+  box-shadow: 0 1px 8px rgba(0,0,41,0.06);
+}
+body.light .radar-grid-item:hover {
+  background: #F0F4FF;
+  border-color: rgba(0,122,138,0.35);
+}
+body.light .radar-headline { color: #000029; }
+body.light .radar-org      { color: #555570; opacity: 1; }
+body.light .radar-meta     { color: #666680; opacity: 1; }
+body.light .radar-item:hover .radar-headline { color: #007A8A; }
+
+body.light .card-phishing {
+  background: #FDF8FF;
+  border: 1px solid rgba(106,40,170,0.2);
+}
+body.light .phishing-inner {
+  background: rgba(106,40,170,0.04);
+  border: 1px solid rgba(106,40,170,0.12);
+}
+body.light .phishing-question { color: #000029; }
+body.light .phishing-clue     { color: #2a2a4a; opacity: 1; }
+body.light .phishing-btn-yes {
+  background: rgba(200,45,0,0.08); color: #9B2200;
+  border: 1.5px solid #C82D00;
+}
+body.light .phishing-btn-yes:hover { background: #C82D00; color: #FFFFFF; }
+body.light .phishing-btn-no {
+  background: rgba(26,122,56,0.08); color: #145E2A;
+  border: 1.5px solid #1A7A38;
+}
+body.light .phishing-btn-no:hover { background: #1A7A38; color: #FFFFFF; }
+body.light .phishing-result.correct {
+  background: rgba(26,122,56,0.08);
+  border-color: rgba(26,122,56,0.3); color: #145E2A;
+}
+body.light .phishing-result.wrong {
+  background: rgba(200,45,0,0.08);
+  border-color: rgba(200,45,0,0.3); color: #9B2200;
+}
+
+body.light .card-link { background: transparent; }
+body.light .card-link:active { transform: scale(0.98); }
+
+body.light .card-esto    .card-link            { color: #C82D00 !important; border-color: #C82D00 !important; }
+body.light .card-esto    .card-link:hover      { background: #C82D00 !important; color: #FFFFFF !important; border-color: #C82D00 !important; }
+
+body.light .card-caso    .card-link            { color: #1A5CB0 !important; border-color: #1A5CB0 !important; }
+body.light .card-caso    .card-link:hover      { background: #1A5CB0 !important; color: #FFFFFF !important; border-color: #1A5CB0 !important; }
+
+body.light .card-consejo .card-link            { color: #1A7A38 !important; border-color: #1A7A38 !important; }
+body.light .card-consejo .card-link:hover      { background: #1A7A38 !important; color: #FFFFFF !important; border-color: #1A7A38 !important; }
+
+body.light .card-reto    .card-link            { color: #007A8A !important; border-color: #007A8A !important; }
+body.light .card-reto    .card-link:hover      { background: #007A8A !important; color: #FFFFFF !important; border-color: #007A8A !important; }
+
+body.light .card-ia      .card-link            { color: #1A5CB0 !important; border-color: #1A5CB0 !important; }
+body.light .card-ia      .card-link:hover      { background: #1A5CB0 !important; color: #FFFFFF !important; border-color: #1A5CB0 !important; }
+
+body.light .card-reto .card-text a             { color: #1A7A38 !important; }
+
+body.light .card-links { background: transparent; box-shadow: none; }
+body.light .link-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(0,0,41,0.09);
+  box-shadow: 0 1px 8px rgba(0,0,41,0.06);
+}
+body.light .link-card:hover {
+  background: #F4F5FF;
+  box-shadow: 0 4px 20px rgba(0,0,41,0.1);
+}
+body.light .link-title  { color: #000029; }
+body.light .link-label  { color: #555570; opacity: 1; }
+body.light .link-source { color: #555570; opacity: 1; }
+body.light .link-desc   { color: #2a2a4a; opacity: 1; }
+
+body.light .bloque-guia {
+  background: #EEF0FF !important;
+  border-left: 4px solid #C82D00 !important;
+}
+body.light .guia-tag    { color: #C82D00 !important; }
+body.light .guia-titulo { color: #000029 !important; }
+body.light .guia-meta   { color: #555570 !important; }
+
+body.light .footer {
+  background: #EEEDF8;
+  border-top: 1px solid rgba(0,0,41,0.1);
+}
+body.light .footer-brand-name       { color: #000029; }
+body.light .footer-brand-name span  { color: #C82D00; }
+body.light .footer-brand-text       { color: #2a2a4a; opacity: 1; }
+body.light .footer-col-title        { color: #C82D00; }
+body.light .footer-col-rule         { background: #C82D00; }
+body.light .footer-links-list li a  { color: #2a2a4a; opacity: 1; }
+body.light .footer-links-list li a:hover { color: #000029; opacity: 1; }
+body.light .footer-links-list li a::before { color: #C82D00; }
+body.light .footer-contact-icon     { color: #C82D00; }
+body.light .footer-contact-text     { color: #2a2a4a; opacity: 1; }
+body.light .footer-contact-text a   { color: #2a2a4a; }
+body.light .footer-contact-text a:hover { color: #C82D00; }
+body.light .footer-bottom           { border-top-color: rgba(0,0,41,0.08); }
+body.light .footer-copy             { color: #555570; opacity: 1; }
+
+body.light ::-webkit-scrollbar-track { background: #F0EFF8; }
+body.light ::-webkit-scrollbar-thumb { background: #C82D00; }
+body.light ::selection { background: rgba(200,45,0,0.18); color: #000029; }
+
+</style>
+</head>
+<body>
+
+<!-- EDICIÓN: 01 | Junio 2026 -->
+
+<svg class="cursor-logo" id="cursorLogo" viewBox="0 0 521 437.9" xmlns="http://www.w3.org/2000/svg"><polygon fill="#FFFFFF" points="175.2,118.7 115.8,118.7 200.5,219.4 115.4,320 175.2,320 243.1,243.1 243.1,195.6"/><polygon fill="#FFFFFF" points="343.4,118.7 402.8,118.7 318,219.4 403.2,320 343.4,320 275.5,243.1 275.5,195.6"/><polygon fill="#FA3C0F" points="92.2,348.1 27.2,407.7 86,407.7 148.5,348.1"/><polygon fill="#FA3C0F" points="425,89.9 488.1,30.3 429.3,30.3 368.7,89.9"/></svg>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<canvas id="nebula-canvas"></canvas>
+<canvas id="particles-canvas"></canvas>
+<div class="bg-grid"></div>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <span class="topbar-name">NEXT<span>TECH</span></span>
+    <div class="topbar-center">
+      <svg height="22" class="topbar-logo-svg" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;"><polygon fill="#FFFFFF" points="1417.7,117.4 1358.3,117.4 1443,218 1357.9,318.7 1417.7,318.7 1485.6,241.8 1485.6,194.3"/><polygon fill="#FFFFFF" points="1585.9,117.4 1645.3,117.4 1560.5,218 1645.7,318.7 1585.9,318.7 1518,241.8 1518,194.3"/><polygon fill="#FA3C0F" points="1334.7,346.7 1269.7,406.4 1328.5,406.4 1391,346.7"/><polygon fill="#FA3C0F" points="1667.5,88.6 1730.6,28.9 1671.8,28.9 1611.2,88.6"/><path fill="#FFFFFF" d="M230.7,271.4v47.4H43.3V117.4h52.3v154H230.7z"/><path fill="#FFFFFF" d="M1175.7,161.1v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V117.4h212.9v43.7H1175.7z"/><path fill="#FFFFFF" d="M1032.6,117.6v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V123h1.5l96.5,195.7h108.1V117.6H1032.6z"/><polygon fill="#FFFFFF" points="1685,117.3 1645.5,163.2 1733.8,163.2 1733.8,318.7 1786,318.7 1786,163.2 1876.7,163.2 1876.7,117.3"/><path fill="#FFFFFF" d="M245.6,217.8c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,324.8,245.6,286.8,245.6,217.8z M454,217.8c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,281.1,454,260.2,454,217.8z"/><path fill="#FFFFFF" d="M791.7,200.8H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,211.9,792.3,206.3,791.7,200.8z"/></svg>
+      <img src="images/LOGNEXT_logotipo_positivo%20copia.png"
+           alt="LOGNEXT"
+           class="topbar-logo-light"
+           width="1000" height="254">
+    </div>
+    <div class="topbar-right">
+      <span class="topbar-edition-num" data-i18n="topbar-edition-num">EDICIÓN #01</span>
+      <span class="topbar-edition-date" data-i18n="topbar-edition-date">JUN 2026</span>
+      <div class="lang-selector">
+        <button class="lang-btn" data-lang="es">ES</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrapper">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-scan"></div>
+    <div class="header-inner">
+      <div>
+        <div class="logo-row">
+          <span class="logo-next">NEXT</span><span class="logo-letter">LETTER</span>
+        </div>
+        <div class="header-tagline-big" data-i18n="header-tagline">Cinco minutos al mes para ir siempre un paso por delante.</div>
+        <div class="header-dots">
+          <div class="hdot" style="background:var(--red);animation-delay:0s"></div>
+          <div class="hdot" style="background:var(--cyan);animation-delay:0.3s"></div>
+          <div class="hdot" style="background:var(--yellow);animation-delay:0.6s"></div>
+          <div class="hdot" style="background:var(--green);animation-delay:0.9s"></div>
+          <div class="hdot" style="background:var(--violet);animation-delay:1.2s"></div>
+        </div>
+      </div>
+      <div class="header-stats">
+        <div class="stat-item">
+          <div class="stat-number">#01</div>
+          <div class="stat-label" data-i18n="stat-edition">Edición</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">6</div>
+          <div class="stat-label" data-i18n="stat-sections">Secciones</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number">~5'</div>
+          <div class="stat-label" data-i18n="stat-reading">Lectura</div>
+        </div>
+      </div>
+    </div>
+    <div class="header-meta">
+      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;">BY LOGNEXT · DEPARTAMENTO IT</span>
+      <span class="header-issue" data-i18n="header-issue">JUN 2026</span>
+    </div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
+    Bienvenidos a NextTech, la newsletter mensual de LOGNEXT. Cada primer martes de mes encontraréis información sobre actualidad en inteligencia artificial y ciberseguridad, junto con novedades internas, guías prácticas y recursos útiles para el día a día digital. Café en mano.
+  </div>
+
+  <!-- SEPARADOR -->
+  <div class="sep"></div>
+
+  <!-- GRID PRINCIPAL -->
+  <div class="main-grid">
+
+    <!-- 1. IA AL DÍA — primera sección, ancho completo -->
+    <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
+      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
+        <!-- EDICIÓN 01 — no reutilizar en ediciones futuras -->
+        <img src="https://images.unsplash.com/photo-1677442135136-760c813028c0?auto=format&fit=crop&w=1200&h=180&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,14,34,0) 30%,#000e22 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> <span data-i18n="tag-ia">IA al día</span></div>
+      <div class="card-title" data-i18n="ia-title">Google I/O 2026: Gemini llega a todo, Spark convierte el móvil en un agente</div>
+      <div class="card-text" data-i18n-html="ia-text">Google I/O 2026 fue la confirmación de lo que muchos sospechaban: la IA ya no es una función más, es el sistema operativo. Gemini 2.5 Ultra alcanza rendimiento humano en benchmarks de razonamiento. Gemini Spark, el nuevo modelo ultrapequño optimizado para móvil, corre directamente en el dispositivo sin nube — lo que cambia radicalmente el debate sobre privacidad en IA. Project Astra es ahora un agente real que puede gestionar tareas en tu teléfono: reservar citas, redactar respuestas, navegar apps en tu nombre. Para los equipos IT, la consecuencia es inmediata: los usuarios ya tienen agentes con acceso a datos corporativos en el bolsillo. La política de uso de IA en la empresa necesita revisión urgente.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="ia-source">ADSLZone · Mayo 2026</span></div>
+      <a href="https://www.adslzone.net/noticias/tecnologia/google-io-2026-novedades/" target="_blank" class="card-link" onclick="trackLink('ia_dia', this.href)"><span data-i18n="ia-link">Ver todas las novedades</span> <span class="arrow">→</span></a>
+    </div>
+
+    <!-- 2a. ESTO PASÓ — columna izquierda -->
+    <div class="card card-esto" onmouseenter="trackSection('esto_paso')">
+      <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
+        <!-- EDICIÓN 01 — no reutilizar en ediciones futuras -->
+        <img src="https://images.unsplash.com/photo-1548092372-0d1bd40894a3?auto=format&fit=crop&w=1200&h=220&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> <span data-i18n="tag-esto">Esto pasó</span></div>
+      <div class="card-title" data-i18n="esto-title">122.000 incidentes en España en 2025: el INCIBE publica su peor balance</div>
+      <div class="card-text" data-i18n-html="esto-text">El Instituto Nacional de Ciberseguridad cerró 2025 gestionando 122.223 incidentes, un 26% más que el año anterior. El dato más preocupante: 25.133 casos de phishing, que sigue siendo el vector de entrada preferido por los atacantes. La IA está acelerando el problema — los emails generados por inteligencia artificial tienen una tasa de clic 3 veces superior al phishing tradicional. Más cerca de casa, infraestructuras clave como Endesa y el Puerto de Vigo han aparecido en la lista de víctimas de ciberataques en lo que llevamos de 2026.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="esto-source">INCIBE · Enero 2026</span></div>
+      <a href="https://www.cosmikal.es/ciberseguridad-en-espana-q1-2026-amenazas-reales-marco-normativo-pendiente-y-un-sector-en-plena-ebullicion/" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)"><span data-i18n="esto-link">Leer el informe completo</span> <span class="arrow">→</span></a>
+    </div>
+
+    <!-- 2b. CASO DEL MES — columna derecha -->
+    <div class="card card-caso" onmouseenter="trackSection('caso_mes')">
+      <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
+        <!-- EDICIÓN 01 — no reutilizar en ediciones futuras -->
+        <img src="https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 30%,#05051f 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--yellow)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="tag-caso">Amenaza del mes</span></div>
+      <div class="card-title" data-i18n="caso-title">Endesa y el Puerto de Vigo: cuando el atacante ya está dentro antes de que suene la alarma</div>
+      <div class="card-text" data-i18n-html="caso-text">2026 empezó con dos brechas que pusieron en evidencia el mismo patrón: acceso a través de un proveedor externo, datos sin cifrar, y días —en algunos casos semanas— hasta detectar la intrusión. Endesa confirmó que información personal y bancaria de millones de clientes había sido publicada en la dark web. El Puerto de Vigo sufrió una interrupción operativa que afectó a la gestión logística del tráfico portuario. El denominador común en ambos casos: el atacante no entró por la puerta grande. Entró por un tercero con acceso legítimo. La pregunta no es si tu empresa puede ser objetivo. Es cuántos proveedores tienen acceso a tus sistemas sin que lo sepas.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="caso-source">Channel Partner · Enero 2026</span></div>
+      <a href="https://www.channelpartner.es/seguridad/principales-ciberataques-en-espana-en-2026/" target="_blank" class="card-link" style="color:var(--yellow)" onclick="trackLink('caso_mes', this.href)"><span data-i18n="caso-link">Leer el informe completo</span> <span class="arrow">→</span></a>
+    </div>
+
+    <!-- 3a. CONSEJO DEL MES — columna izquierda -->
+    <div class="card card-consejo" onmouseenter="trackSection('consejo')">
+      <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
+        <!-- EDICIÓN 01 — no reutilizar en ediciones futuras -->
+        <img src="https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
+      <div class="card-title" data-i18n="consejo-title">Instala un Authenticator y deja de depender solo de tu contraseña</div>
+      <div class="card-text" data-i18n-html="consejo-text">Una contraseña robada da acceso completo a tu cuenta — a menos que tengas un segundo factor. Instala Microsoft Authenticator o Google Authenticator, vincúlalo al correo corporativo y a cualquier herramienta con acceso a datos sensibles, y genera los códigos desde la app. Es más seguro que el SMS: no depende de tu operadora ni puede ser interceptado.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-top:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="consejo-source">Departamento IT LOGNEXT · Junio 2026</span></div>
+    </div>
+
+    <!-- 3b. EL RETO DEL MES — columna derecha -->
+    <div class="card card-reto" onmouseenter="trackSection('reto')">
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
+      <div class="reto-badge" data-i18n="reto-badge">RETO ACTIVO</div>
+      <div class="card-title" data-i18n="reto-title">Reto de junio: etiqueta tus próximos 5 correos</div>
+      <div class="card-text" data-i18n-html="reto-text">Esta semana, antes de enviar tus próximos 5 correos, para dos segundos y aplica la etiqueta correcta. Público, Interno, Confidencial o Muy Confidencial. ¿No sabes cuál corresponde? <a href="https://nexttech.lognext.com/GuiaEtiquetas" target="_blank" style="color:var(--green);text-decoration:underline;">Consulta la guía →</a> — está hecha para eso.<br><br>Cuando lo hayas hecho, escríbenos a <a href="mailto:sistemas@lognext.com?subject=Reto%20Etiquetado%20Junio%20%E2%9C%85&body=Mi%20resultado%3A%20" style="color:#ffffff;text-decoration:underline;">sistemas@lognext.com</a> con tu resultado:<br>✅ Fácil — sabía qué etiqueta usar siempre<br>🤔 Dudé en alguno — necesito repasar la guía<br>🚨 No sabía que existían las etiquetas</div>
+      <div class="reto-progress"><div class="reto-progress-bar"></div></div>
+      <div class="reto-label">
+        <span data-i18n="reto-date">JUN 2026</span>
+        <span data-i18n="reto-cta">¿Lo has hecho ya? ✓</span>
+      </div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-top:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="reto-source">Departamento IT LOGNEXT · Junio 2026</span></div>
+    </div>
+
+    <!-- 4. EN EL RADAR — ancho completo, grid 2×2 -->
+    <div class="card card-radar full-width" style="background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('radar')">
+      <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"/></svg> <span data-i18n="tag-radar">En el radar</span></div>
+      <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte este mes</div>
+      <div class="radar-grid">
+<a href="https://digitalestic.com/ransomware-en-las-pymes-pagar-rescate-2026/" target="_blank" class="radar-grid-item" onclick="trackLink('radar_0', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#FA3C0F"></span><span class="radar-org" data-i18n="radar-0-org">INCIBE 2026</span></div>
+  <div class="radar-headline" data-i18n="radar-0-headline">El ransomware cuesta entre 80.000€ y 150.000€ de media a una pyme española. El 46% debe reconstruir sus sistemas desde cero aunque pague el rescate.</div>
+  <div class="radar-meta" data-i18n="radar-0-meta">Informe INCIBE 2026</div>
+</a>
+<a href="https://www.computing.es/seguridad/tendencias-ciberseguridad-2026/" target="_blank" class="radar-grid-item" onclick="trackLink('radar_1', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#FFFA96"></span><span class="radar-org" data-i18n="radar-1-org">Unión Europea</span></div>
+  <div class="radar-headline" data-i18n="radar-1-headline">El EU AI Act entra en aplicación completa en agosto de 2026, con multas de hasta 35 millones de euros para empresas que incumplan la normativa sobre IA de alto riesgo.</div>
+  <div class="radar-meta" data-i18n="radar-1-meta">Aug 2026</div>
+</a>
+<a href="https://www.channelpartner.es/seguridad/principales-ciberataques-en-espana-en-2026/" target="_blank" class="radar-grid-item" onclick="trackLink('radar_2', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#3CE6E6"></span><span class="radar-org" data-i18n="radar-2-org">EscudoDigital 2026</span></div>
+  <div class="radar-headline" data-i18n="radar-2-headline">Un cibercriminal accedió a datos de contratos de Endesa, incluyendo DNIs e IBANs de clientes. Las brechas en empresas energéticas españolas se han triplicado en Q1 2026.</div>
+  <div class="radar-meta" data-i18n="radar-2-meta">Escudo Digital · Q1 2026</div>
+</a>
+<a href="https://alicanteplaza.es/alicanteplaza/opinionalicante/phishing-2026-la-amenaza-invisible-que-crece-al-ritmo-de-la-inteligencia-artificial" target="_blank" class="radar-grid-item" onclick="trackLink('radar_3', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#C896FF"></span><span class="radar-org" data-i18n="radar-3-org">Cofense 2026</span></div>
+  <div class="radar-headline" data-i18n="radar-3-headline">Los ataques de phishing generados con IA han subido un 204% en 12 meses. En 2026 se detiene un correo malicioso cada 19 segundos — el 82,6% ya contiene componentes de IA generativa.</div>
+  <div class="radar-meta" data-i18n="radar-3-meta">Cofense / The European · 2026</div>
+</a>
+
+      </div>
+    </div>
+
+    <!-- 5. PHISHING TEST — estático, ancho completo -->
+    
+    <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
+      <div class="section-tag" style="color:var(--violet)" data-i18n-html="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
+      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
+      <div class="card-text" data-i18n-html="phishing-text">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
+      <div class="phishing-inner">
+        <div class="phishing-email-preview">
+          <div class="phishing-email-header">
+            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
+            <div><strong>Para:</strong> tu@lognext.com</div>
+            <div class="phishing-email-subject" data-i18n-html="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
+          </div>
+          <div class="phishing-email-body" data-i18n-html="phishing-email-body">
+            Hola,<br><br>
+            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
+            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
+            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
+            Atentamente,<br>
+            Equipo de Seguridad de Microsoft
+          </div>
+        </div>
+        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
+        <div class="phishing-buttons">
+          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
+          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)"  data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
+        </div>
+        <div class="phishing-result" id="phishing-result"></div>
+      </div>
+    </div>
+
+    <!-- 6. ENLACES — ancho completo -->
+    <div class="card card-links full-width" style="padding-bottom:36px;background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('enlaces')">
+      <div class="section-tag" style="color:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> <span data-i18n="tag-enlaces">Por si quieres caer en el agujero</span></div>
+      <div class="links-grid">
+        <a href="https://unaaldia.hispasec.com/2026/04/cisco-publica-actualizaciones-criticas-para-corregir-varias-vulnerabilidades-en-identity-services-engine-ise.html" class="link-card lc-news" target="_blank" onclick="trackLink('articulo', this.href)">
+  <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span>
+  <span class="link-label" data-i18n="art-label">Artículo</span>
+  <span class="link-title" data-i18n="art-title">Cisco ISE: vulnerabilidades críticas CVSS 9.9 con ejecución remota de comandos como root</span>
+  <span class="link-desc" data-i18n="art-desc">Si tienes Cisco ISE en tu entorno —y en muchas organizaciones que aspiran al ENS lo tienen—, este artículo de Hispasec detalla exactamente qué parchear y por qué no puede esperar.</span>
+  <span class="link-source" data-i18n="art-source">Hispasec / Una al día</span>
+</a>
+<a href="https://www.youtube.com/watch?v=996OiexHze0" class="link-card lc-video" target="_blank" onclick="trackLink('video', this.href)">
+  <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
+  <span class="link-label" data-i18n="vid-label">Vídeo</span>
+  <span class="link-title" data-i18n="vid-title">¿Cómo funciona un ataque de OAuth abuse en la práctica? — Demostración técnica</span>
+  <span class="link-desc" data-i18n="vid-desc">Con ConsentFix v3 apuntando a Azure, entender el flujo de un ataque OAuth real desde cero es la mejor vacuna; este vídeo lo explica con entorno de laboratorio y sin teoría innecesaria.</span>
+  <span class="link-source" data-i18n="vid-source">YouTube / John Hammond</span>
+</a>
+<a href="https://phishingquiz.withgoogle.com/" class="link-card lc-quiz" target="_blank" onclick="trackLink('quiz', this.href)">
+  <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
+  <span class="link-label" data-i18n="quiz-label">Quiz interactivo</span>
+  <span class="link-title" data-i18n="quiz-title">Phishing Quiz de Google — ¿Sabrías detectar un correo malicioso?</span>
+  <span class="link-desc" data-i18n="quiz-desc">Ocho escenarios reales de phishing para que pongas a prueba tu ojo clínico; recomendable hacerlo con tu equipo y comparar puntuaciones, sobre todo después del caso UNC6692.</span>
+  <span class="link-source" data-i18n="quiz-source">Google / Jigsaw</span>
+</a>
+
+      </div>
+    </div>
+
+  </div><!-- /main-grid -->
+
+  <!-- BLOQUE PERMANENTE: GUIA ETIQUETAS -->
+  <div class="bloque-guia" style="background:#000028;border-left:4px solid #FA3C0F;padding:32px 44px;margin-top:4px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;">
+    <div>
+      <div class="guia-tag" style="font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#FA3C0F;font-family:'JetBrains Mono',monospace;margin-bottom:10px;" data-i18n="guia-tag">📋 Guía de etiquetas de confidencialidad</div>
+      <div class="guia-titulo" style="font-size:17px;font-weight:600;color:#ffffff;margin-bottom:8px;line-height:1.5;" data-i18n-html="guia-titulo">Consulta en cualquier momento cuándo y cómo<br>clasificar la información que manejas en Lognext.</div>
+      <div class="guia-meta" style="font-size:10px;color:rgba(225,225,232,0.3);font-family:'JetBrains Mono',monospace;margin-top:12px;letter-spacing:1.5px;text-transform:uppercase;" data-i18n="guia-meta">Departamento IT · Microsoft Purview · Lognext</div>
+    </div>
+    <a href="https://nexttech.lognext.com/GuiaEtiquetas" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#FA3C0F;color:#ffffff;font-size:14px;font-weight:700;padding:14px 28px;text-decoration:none;flex-shrink:0;letter-spacing:-0.2px;" onclick="trackLink('guia_etiquetas_banner', this.href)" data-i18n="guia-btn">Abrir guía →</a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-inner">
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer-col-nexters">Somos Nexters</div>
+        <div class="footer-col-rule"></div>
+        <div class="footer-brand-name">NEXT<span>TECH</span></div>
+        <div class="footer-brand-text" data-i18n="footer-brand-text">La newsletter de LOGNEXT para todos los Nexters. Sin tecnicismos aburridos, sin correos genéricos. Solo lo que importa, cada mes.</div>
+      </div>
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer-col-editions">Ediciones</div>
+        <div class="footer-col-rule"></div>
+        <ul class="footer-links-list">
+          <li><a href="/01/">#01 — <span data-i18n="footer-ed-01-date">Junio 2026</span> <span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span></a></li>
+<li><a href="#" style="opacity:0.25;pointer-events:none;">#02 — <span data-i18n="footer-ed-02-date">Julio 2026</span></a></li>
+<li><a href="#" style="opacity:0.25;pointer-events:none;">#03 — <span data-i18n="footer-ed-03-date">Agosto 2026</span></a></li>
+
+        </ul>
+      </div>
+
+      <div>
+        <div class="footer-col-title" data-i18n="footer-col-contact">Contacto IT</div>
+        <div class="footer-col-rule"></div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">✉</span>
+          <span class="footer-contact-text"><a href="mailto:sistemas@lognext.com">sistemas@lognext.com</a></span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">☎</span>
+          <span class="footer-contact-text"><a href="tel:+34636668059">+34 636 668 059</a></span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">◎</span>
+          <span class="footer-contact-text"><a href="https://lognext.com" target="_blank">lognext.com</a></span>
+        </div>
+      </div>
+
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy" data-i18n="footer-copy">© 2026 LOGNEXT · Todos los derechos reservados.</span>
+    </div>
+  </div>
+
+</div><!-- /wrapper -->
+
+<button id="theme-toggle"
+        class="theme-toggle-float"
+        role="switch"
+        aria-label="Cambiar a modo claro">
+  <span class="toggle-track">
+    <span class="toggle-thumb">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="4"  y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="5.64"  y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+        <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
+  </span>
+</button>
+
+<script>
+
+const cursorLogo = document.getElementById('cursorLogo');
+const ring = document.getElementById('cursorRing');
+if (cursorLogo && ring) {
+  let mx = -200, my = -200, rx = -200, ry = -200, hasMoved = false;
+  cursorLogo.style.opacity = '0';
+  ring.style.opacity = '0';
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursorLogo.style.left = mx + 'px';
+    cursorLogo.style.top  = my + 'px';
+    if (!hasMoved) {
+      hasMoved = true; rx = mx; ry = my;
+      cursorLogo.style.opacity = '1';
+      ring.style.opacity = '1';
+    }
+  });
+  function animateRing() {
+    rx += (mx - rx) * 0.1; ry += (my - ry) * 0.1;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+  document.querySelectorAll('.card, .link-card, .card-link, .phishing-btn, .topbar, .footer-links-list a, .footer-contact-text a').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursorLogo.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursorLogo.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+}
+const nc = document.getElementById('nebula-canvas');
+const nx = nc.getContext('2d');
+function resizeNebula() { nc.width = window.innerWidth; nc.height = window.innerHeight; }
+resizeNebula();
+window.addEventListener('resize', resizeNebula);
+const stars = Array.from({length: 150}, () => ({
+  x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight,
+  r: Math.random() * 1.2, a: Math.random() * 0.5 + 0.1, tw: Math.random() * Math.PI * 2,
+}));
+const shooters = Array.from({length: 3}, () => newShooter());
+function newShooter() {
+  return { x: Math.random() * window.innerWidth * 1.5, y: -10,
+    len: Math.random() * 90 + 50, speed: Math.random() * 6 + 3,
+    angle: Math.PI / 4 + (Math.random()-0.5)*0.2, alpha: 0, fading: true };
+}
+function drawNebula() {
+  nx.fillStyle = 'rgba(8,8,32,0.18)';
+  nx.fillRect(0, 0, nc.width, nc.height);
+  stars.forEach(s => {
+    s.tw += 0.018;
+    const a = s.a * (0.5 + Math.sin(s.tw) * 0.5);
+    nx.fillStyle = `rgba(255,255,255,${a})`; nx.beginPath(); nx.arc(s.x, s.y, s.r, 0, Math.PI*2); nx.fill();
+  });
+  shooters.forEach((s, i) => {
+    if (s.fading) { s.alpha += 0.04; if (s.alpha >= 1) s.fading = false; }
+    else { s.alpha -= 0.025; }
+    if (s.alpha <= 0) { shooters[i] = newShooter(); return; }
+    s.x += Math.cos(s.angle) * s.speed; s.y += Math.sin(s.angle) * s.speed;
+    const gr = nx.createLinearGradient(s.x, s.y, s.x - Math.cos(s.angle)*s.len, s.y - Math.sin(s.angle)*s.len);
+    gr.addColorStop(0, `rgba(255,255,255,${s.alpha})`);
+    gr.addColorStop(0.4, `rgba(250,60,15,${s.alpha*0.4})`);
+    gr.addColorStop(1, 'rgba(255,255,255,0)');
+    nx.strokeStyle = gr; nx.lineWidth = 1.2;
+    nx.beginPath(); nx.moveTo(s.x, s.y); nx.lineTo(s.x - Math.cos(s.angle)*s.len, s.y - Math.sin(s.angle)*s.len); nx.stroke();
+    if (s.x > nc.width + 100 || s.y > nc.height + 100) shooters[i] = newShooter();
+  });
+  requestAnimationFrame(drawNebula);
+}
+drawNebula();
+function answerPhishing(clickedYes) {
+  const result = document.getElementById('phishing-result');
+  if (!clickedYes) {
+    trackPhishing('correct');
+    result.className = 'phishing-result show correct';
+    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace "Verificar mi cuenta" lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
+  } else {
+    trackPhishing('incorrect');
+    result.className = 'phishing-result show wrong';
+    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial ("24h") es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
+  }
+  try {
+    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        fecha: new Date().toLocaleDateString('es-ES'),
+        hora: new Date().toLocaleTimeString('es-ES'),
+        edicion: '01',
+        respuesta: clickedYes ? 'incorrecto' : 'correcto',
+        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
+      })
+    });
+  } catch(e) {}
+  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+}
+
+document.addEventListener('click', function(e) {
+  const a = e.target.closest('a[href]');
+  if (!a) return;
+  const href = a.getAttribute('href');
+  if (!href || href.startsWith('#') || href.startsWith('javascript')) return;
+  try {
+    const url = new URL(href, location.href);
+    if (url.hostname !== location.hostname) {
+      gtag('event', 'click_externo', {
+        enlace_url: href,
+        enlace_texto: (a.textContent || '').trim().substring(0, 100),
+        edicion: '01'
+      });
+    }
+  } catch(e) {}
+});
+
+// ── PARTÍCULAS (modo claro) ───────────────────────────────────────────────────
+const pc = document.getElementById('particles-canvas');
+const px = pc.getContext('2d');
+let particlesActive = false;
+
+const PARTICLE_COUNT = 55;
+const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+  x: Math.random(), y: Math.random(),
+  vx: (Math.random() - 0.5) * 0.0004,
+  vy: (Math.random() - 0.5) * 0.0004,
+  r: Math.random() * 2.5 + 1
+}));
+
+function resizeParticles() {
+  pc.width  = window.innerWidth;
+  pc.height = window.innerHeight;
+}
+resizeParticles();
+window.addEventListener('resize', resizeParticles);
+
+function drawParticles() {
+  if (!particlesActive) return;
+  const W = pc.width, H = pc.height;
+  px.clearRect(0, 0, W, H);
+
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+    if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+  });
+
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = (particles[i].x - particles[j].x) * W;
+      const dy = (particles[i].y - particles[j].y) * H;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 120) {
+        px.beginPath();
+        px.moveTo(particles[i].x * W, particles[i].y * H);
+        px.lineTo(particles[j].x * W, particles[j].y * H);
+        px.strokeStyle = `rgba(0,0,41,${0.12 * (1 - dist / 120)})`;
+        px.lineWidth = 0.8;
+        px.stroke();
+      }
+    }
+  }
+
+  particles.forEach(p => {
+    px.beginPath();
+    px.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+    px.fillStyle = 'rgba(0,0,41,0.25)';
+    px.fill();
+  });
+
+  requestAnimationFrame(drawParticles);
+}
+
+// ── I18N ─────────────────────────────────────────────────────────────────────
+const I18N = {
+  "es": {
+    "topbar-edition-num": "EDICIÓN #01",
+    "topbar-edition-date": "JUN 2026",
+    "header-tagline": "Cinco minutos al mes para ir siempre un paso por delante.",
+    "stat-edition": "Edición",
+    "stat-sections": "Secciones",
+    "stat-reading": "Lectura",
+    "header-issue": "JUN 2026",
+    "tag-ia": "IA al día",
+    "ia-title": "Google I/O 2026: Gemini llega a todo, Spark convierte el móvil en un agente",
+    "ia-source": "ADSLZone · Mayo 2026",
+    "ia-link": "Ver todas las novedades",
+    "tag-esto": "Esto pasó",
+    "esto-title": "122.000 incidentes en España en 2025: el INCIBE publica su peor balance",
+    "esto-source": "INCIBE · Enero 2026",
+    "esto-link": "Leer el informe completo",
+    "tag-caso": "Amenaza del mes",
+    "caso-title": "Endesa y el Puerto de Vigo: cuando el atacante ya está dentro antes de que suene la alarma",
+    "caso-source": "Channel Partner · Enero 2026",
+    "caso-link": "Leer el informe completo",
+    "tag-consejo": "Consejo del mes",
+    "consejo-title": "Instala un Authenticator y deja de depender solo de tu contraseña",
+    "consejo-source": "Departamento IT LOGNEXT · Junio 2026",
+    "tag-reto": "El reto del mes",
+    "reto-badge": "RETO ACTIVO",
+    "reto-title": "Reto de junio: etiqueta tus próximos 5 correos",
+    "reto-date": "JUN 2026",
+    "reto-cta": "¿Lo has hecho ya? ✓",
+    "reto-source": "Departamento IT LOGNEXT · Junio 2026",
+    "tag-radar": "En el radar",
+    "radar-title": "Lo que no puedes perderte este mes",
+    "radar-0-org": "INCIBE 2026",
+    "radar-0-headline": "El ransomware cuesta entre 80.000€ y 150.000€ de media a una pyme española. El 46% debe reconstruir sus sistemas desde cero aunque pague el rescate.",
+    "radar-0-meta": "Informe INCIBE 2026",
+    "radar-1-org": "Unión Europea",
+    "radar-1-headline": "El EU AI Act entra en aplicación completa en agosto de 2026, con multas de hasta 35 millones de euros para empresas que incumplan la normativa sobre IA de alto riesgo.",
+    "radar-1-meta": "Aug 2026",
+    "radar-2-org": "EscudoDigital 2026",
+    "radar-2-headline": "Un cibercriminal accedió a datos de contratos de Endesa, incluyendo DNIs e IBANs de clientes. Las brechas en empresas energéticas españolas se han triplicado en Q1 2026.",
+    "radar-2-meta": "Escudo Digital · Q1 2026",
+    "radar-3-org": "Cofense 2026",
+    "radar-3-headline": "Los ataques de phishing generados con IA han subido un 204% en 12 meses. En 2026 se detiene un correo malicioso cada 19 segundos — el 82,6% ya contiene componentes de IA generativa.",
+    "radar-3-meta": "Cofense / The European · 2026",
+    "phishing-title": "¿Detectarías este email antes de hacer clic?",
+    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
+    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
+    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "tag-enlaces": "Por si quieres caer en el agujero",
+    "art-label": "Artículo",
+    "art-title": "Cisco ISE: vulnerabilidades críticas CVSS 9.9 con ejecución remota de comandos como root",
+    "art-desc": "Si tienes Cisco ISE en tu entorno —y en muchas organizaciones que aspiran al ENS lo tienen—, este artículo de Hispasec detalla exactamente qué parchear y por qué no puede esperar.",
+    "art-source": "Hispasec / Una al día",
+    "vid-label": "Vídeo",
+    "vid-title": "¿Cómo funciona un ataque de OAuth abuse en la práctica? — Demostración técnica",
+    "vid-desc": "Con ConsentFix v3 apuntando a Azure, entender el flujo de un ataque OAuth real desde cero es la mejor vacuna; este vídeo lo explica con entorno de laboratorio y sin teoría innecesaria.",
+    "vid-source": "YouTube / John Hammond",
+    "quiz-label": "Quiz interactivo",
+    "quiz-title": "Phishing Quiz de Google — ¿Sabrías detectar un correo malicioso?",
+    "quiz-desc": "Ocho escenarios reales de phishing para que pongas a prueba tu ojo clínico; recomendable hacerlo con tu equipo y comparar puntuaciones, sobre todo después del caso UNC6692.",
+    "quiz-source": "Google / Jigsaw",
+    "guia-tag": "📋 Guía de etiquetas de confidencialidad",
+    "guia-meta": "Departamento IT · Microsoft Purview · Lognext",
+    "guia-btn": "Abrir guía →",
+    "footer-col-nexters": "Somos Nexters",
+    "footer-brand-text": "La newsletter de LOGNEXT para todos los Nexters. Sin tecnicismos aburridos, sin correos genéricos. Solo lo que importa, cada mes.",
+    "footer-col-editions": "Ediciones",
+    "footer-ed-01-date": "Junio 2026",
+    "footer-ed-02-date": "Julio 2026",
+    "footer-ed-03-date": "Agosto 2026",
+    "footer-col-contact": "Contacto IT",
+    "footer-copy": "© 2026 LOGNEXT · Todos los derechos reservados.",
+    "intro": "Bienvenidos a NextTech, la newsletter mensual de LOGNEXT. Cada primer martes de mes encontraréis información sobre actualidad en inteligencia artificial y ciberseguridad, junto con novedades internas, guías prácticas y recursos útiles para el día a día digital. Café en mano.",
+    "ia-text": "Google I/O 2026 fue la confirmación de lo que muchos sospechaban: la IA ya no es una función más, es el sistema operativo. Gemini 2.5 Ultra alcanza rendimiento humano en benchmarks de razonamiento. Gemini Spark, el nuevo modelo ultrapequño optimizado para móvil, corre directamente en el dispositivo sin nube — lo que cambia radicalmente el debate sobre privacidad en IA. Project Astra es ahora un agente real que puede gestionar tareas en tu teléfono: reservar citas, redactar respuestas, navegar apps en tu nombre. Para los equipos IT, la consecuencia es inmediata: los usuarios ya tienen agentes con acceso a datos corporativos en el bolsillo. La política de uso de IA en la empresa necesita revisión urgente.",
+    "esto-text": "El Instituto Nacional de Ciberseguridad cerró 2025 gestionando 122.223 incidentes, un 26% más que el año anterior. El dato más preocupante: 25.133 casos de phishing, que sigue siendo el vector de entrada preferido por los atacantes. La IA está acelerando el problema — los emails generados por inteligencia artificial tienen una tasa de clic 3 veces superior al phishing tradicional. Más cerca de casa, infraestructuras clave como Endesa y el Puerto de Vigo han aparecido en la lista de víctimas de ciberataques en lo que llevamos de 2026.",
+    "caso-text": "2026 empezó con dos brechas que pusieron en evidencia el mismo patrón: acceso a través de un proveedor externo, datos sin cifrar, y días —en algunos casos semanas— hasta detectar la intrusión. Endesa confirmó que información personal y bancaria de millones de clientes había sido publicada en la dark web. El Puerto de Vigo sufrió una interrupción operativa que afectó a la gestión logística del tráfico portuario. El denominador común en ambos casos: el atacante no entró por la puerta grande. Entró por un tercero con acceso legítimo. La pregunta no es si tu empresa puede ser objetivo. Es cuántos proveedores tienen acceso a tus sistemas sin que lo sepas.",
+    "consejo-text": "Una contraseña robada da acceso completo a tu cuenta — a menos que tengas un segundo factor. Instala Microsoft Authenticator o Google Authenticator, vincúlalo al correo corporativo y a cualquier herramienta con acceso a datos sensibles, y genera los códigos desde la app. Es más seguro que el SMS: no depende de tu operadora ni puede ser interceptado.",
+    "reto-text": "Esta semana, antes de enviar tus próximos 5 correos, para dos segundos y aplica la etiqueta correcta. Público, Interno, Confidencial o Muy Confidencial. ¿No sabes cuál corresponde? <a href=\"https://nexttech.lognext.com/GuiaEtiquetas\" style=\"color:var(--green);text-decoration:underline;\" target=\"_blank\">Consulta la guía →</a> — está hecha para eso.<br/><br/>Cuando lo hayas hecho, escríbenos a <a href=\"mailto:sistemas@lognext.com?subject=Reto%20Etiquetado%20Junio%20%E2%9C%85&amp;body=Mi%20resultado%3A%20\" style=\"color:#ffffff;text-decoration:underline;\">sistemas@lognext.com</a> con tu resultado:<br/>✅ Fácil — sabía qué etiqueta usar siempre<br/>🤔 Dudé en alguno — necesito repasar la guía<br/>🚨 No sabía que existían las etiquetas",
+    "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
+    "phishing-text": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
+    "phishing-email-subject": "⚠️ URGENTE: Tu cuenta de Microsoft 365 será suspendida en 24h",
+    "phishing-email-body": "Hola,<br/><br/>\n            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensión inmediata de tu acceso, debes verificar tu identidad en las próximas <strong>24 horas</strong>.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Verificar mi cuenta ahora</a><br/><br/>\n            Si no realizas esta verificación, tu acceso quedará bloqueado y deberás contactar con el departamento de IT para restaurarlo.<br/><br/>\n            Atentamente,<br/>\n            Equipo de Seguridad de Microsoft",
+    "guia-titulo": "Consulta en cualquier momento cuándo y cómo<br/>clasificar la información que manejas en Lognext."
+  },
+  "en": {
+    "topbar-edition-num": "EDITION #01",
+    "topbar-edition-date": "JUN 2026",
+    "header-tagline": "Five minutes a month to always stay one step ahead.",
+    "stat-edition": "Edition",
+    "stat-sections": "Sections",
+    "stat-reading": "Reading",
+    "header-issue": "JUN 2026",
+    "tag-ia": "AI Update",
+    "ia-title": "Google I/O 2026: Gemini reaches everything, Spark turns your phone into an agent",
+    "ia-source": "ADSLZone · May 2026",
+    "ia-link": "View all updates",
+    "tag-esto": "What happened",
+    "esto-title": "122,000 incidents in Spain in 2025: INCIBE publishes its worst report on record",
+    "esto-source": "INCIBE · January 2026",
+    "esto-link": "Read the full report",
+    "tag-caso": "Threat of the month",
+    "caso-title": "Endesa and the Port of Vigo: when the attacker is already inside before the alarm goes off",
+    "caso-source": "Channel Partner · January 2026",
+    "caso-link": "Read the full report",
+    "tag-consejo": "Tip of the month",
+    "consejo-title": "Install an Authenticator and stop relying solely on your password",
+    "consejo-source": "LOGNEXT IT Department · June 2026",
+    "tag-reto": "Challenge of the month",
+    "reto-badge": "ACTIVE CHALLENGE",
+    "reto-title": "June challenge: label your next 5 emails",
+    "reto-date": "JUN 2026",
+    "reto-cta": "Have you done it already? ✓",
+    "reto-source": "LOGNEXT IT Department · June 2026",
+    "tag-radar": "On the radar",
+    "radar-title": "What you can't miss this month",
+    "radar-0-org": "INCIBE 2026",
+    "radar-0-headline": "Ransomware costs Spanish SMEs between €80,000 and €150,000 on average. 46% must rebuild their systems from scratch even after paying the ransom.",
+    "radar-0-meta": "INCIBE 2026 Report",
+    "radar-1-org": "European Union",
+    "radar-1-headline": "The EU AI Act enters full application in August 2026, with fines of up to €35 million for companies that fail to comply with high-risk AI regulations.",
+    "radar-1-meta": "Aug 2026",
+    "radar-2-org": "EscudoDigital 2026",
+    "radar-2-headline": "A cybercriminal gained access to Endesa contract data, including customer ID numbers and IBANs. Breaches at Spanish energy companies have tripled in Q1 2026.",
+    "radar-2-meta": "Escudo Digital · Q1 2026",
+    "radar-3-org": "Cofense 2026",
+    "radar-3-headline": "AI-generated phishing attacks have surged 204% in 12 months. In 2026, one malicious email is stopped every 19 seconds — 82.6% already contain generative AI components.",
+    "radar-3-meta": "Cofense / The European · 2026",
+    "phishing-title": "Would you spot this email before clicking?",
+    "phishing-question": "Is this email legitimate or a phishing attempt?",
+    "phishing-btn-yes": "⚠️ It's phishing — I would not click",
+    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "tag-enlaces": "In case you want to go down the rabbit hole",
+    "art-label": "Article",
+    "art-title": "Cisco ISE: critical CVSS 9.9 vulnerabilities with remote command execution as root",
+    "art-desc": "If you have Cisco ISE in your environment — and many organisations pursuing ENS compliance do — this Hispasec article details exactly what to patch and why it cannot wait.",
+    "art-source": "Hispasec / Una al día",
+    "vid-label": "Video",
+    "vid-title": "How does an OAuth abuse attack work in practice? — Technical demonstration",
+    "vid-desc": "With ConsentFix v3 targeting Azure, understanding the flow of a real OAuth attack from scratch is the best defence; this video explains it with a lab environment and no unnecessary theory.",
+    "vid-source": "YouTube / John Hammond",
+    "quiz-label": "Interactive quiz",
+    "quiz-title": "Google Phishing Quiz — Can you spot a malicious email?",
+    "quiz-desc": "Eight real phishing scenarios to put your eye to the test; recommended to complete with your team and compare scores, especially after the UNC6692 case.",
+    "quiz-source": "Google / Jigsaw",
+    "guia-tag": "📋 Sensitivity labels guide",
+    "guia-meta": "IT Department · Microsoft Purview · Lognext",
+    "guia-btn": "Open guide →",
+    "footer-col-nexters": "We are Nexters",
+    "footer-brand-text": "The LOGNEXT newsletter for all Nexters. No dry technical jargon, no generic emails. Just what matters, every month.",
+    "footer-col-editions": "Editions",
+    "footer-ed-01-date": "June 2026",
+    "footer-ed-02-date": "July 2026",
+    "footer-ed-03-date": "August 2026",
+    "footer-col-contact": "IT Contact",
+    "footer-copy": "© 2026 LOGNEXT · All rights reserved.",
+    "intro": "Welcome to NextTech, the LOGNEXT monthly newsletter. Every first Tuesday of the month you will find information on the latest in artificial intelligence and cybersecurity, along with internal news, practical guides and useful resources for your everyday digital life. Coffee in hand.",
+    "ia-text": "Google I/O 2026 was the confirmation of what many suspected: AI is no longer just another feature — it is the operating system. Gemini 2.5 Ultra reaches human-level performance on reasoning benchmarks. Gemini Spark, the new ultra-small model optimised for mobile, runs directly on the device without the cloud — which radically shifts the debate around AI privacy. Project Astra is now a real agent capable of managing tasks on your phone: booking appointments, drafting replies, navigating apps on your behalf. For IT teams, the implication is immediate: users already have agents with access to corporate data in their pockets. The company's AI usage policy needs urgent review.",
+    "esto-text": "The National Cybersecurity Institute closed 2025 having managed 122,223 incidents, a 26% increase on the previous year. The most concerning figure: 25,133 phishing cases, which remains the attackers' preferred entry vector. AI is accelerating the problem — emails generated by artificial intelligence have a click-through rate three times higher than traditional phishing. Closer to home, key infrastructure organisations such as Endesa and the Port of Vigo have appeared on the list of cyberattack victims so far in 2026.",
+    "caso-text": "2026 began with two breaches that exposed the same pattern: access through a third-party supplier, unencrypted data, and days — in some cases weeks — before the intrusion was detected. Endesa confirmed that personal and banking information belonging to millions of customers had been published on the dark web. The Port of Vigo suffered an operational disruption that affected the management of port traffic logistics. The common denominator in both cases: the attacker did not come through the front door. They came in through a third party with legitimate access. The question is not whether your company can be a target. It is how many suppliers have access to your systems without your knowledge.",
+    "consejo-text": "A stolen password grants full access to your account — unless you have a second factor. Install Microsoft Authenticator or Google Authenticator, link it to your corporate email and to any tool with access to sensitive data, and generate codes from the app. It is more secure than SMS: it does not depend on your mobile carrier and cannot be intercepted.",
+    "reto-text": "This week, before sending your next 5 emails, take two seconds and apply the correct label. Public, Internal, Confidential or Highly Confidential. Not sure which one applies? <a href=\"https://nexttech.lognext.com/GuiaEtiquetas\" style=\"color:var(--green);text-decoration:underline;\" target=\"_blank\">Check the guide →</a> — that's what it's there for.<br/><br/>Once you've done it, write to us at <a href=\"mailto:sistemas@lognext.com?subject=Reto%20Etiquetado%20Junio%20%E2%9C%85&amp;body=Mi%20resultado%3A%20\" style=\"color:#ffffff;text-decoration:underline;\">sistemas@lognext.com</a> with your result:<br/>✅ Easy — I always knew which label to use<br/>🤔 I hesitated on some — I need to review the guide<br/>🚨 I didn't know the labels existed",
+    "tag-phishing": "🎯 Put your eye to the test — Monthly test",
+    "phishing-text": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it was fake?",
+    "phishing-email-subject": "⚠️ URGENT: Your Microsoft 365 account will be suspended in 24h",
+    "phishing-email-body": "Hello,<br/><br/>\n            We have detected suspicious activity on your corporate account. To prevent the immediate suspension of your access, you must verify your identity within the next <strong>24 hours</strong>.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Verify my account now</a><br/><br/>\n            If you do not complete this verification, your access will be blocked and you will need to contact the IT department to restore it.<br/><br/>\n            Kind regards,<br/>\n            The Microsoft Security Team",
+    "guia-titulo": "Check at any time when and how to<br/>classify the information you handle at Lognext."
+  },
+  "fr": {
+    "topbar-edition-num": "ÉDITION #01",
+    "topbar-edition-date": "JUIN 2026",
+    "header-tagline": "Cinq minutes par mois pour toujours avoir une longueur d'avance.",
+    "stat-edition": "Édition",
+    "stat-sections": "Sections",
+    "stat-reading": "Lecture",
+    "header-issue": "JUIN 2026",
+    "tag-ia": "IA en direct",
+    "ia-title": "Google I/O 2026 : Gemini s'invite partout, Spark transforme le mobile en agent",
+    "ia-source": "ADSLZone · Mai 2026",
+    "ia-link": "Voir toutes les nouveautés",
+    "tag-esto": "Ce qui s'est passé",
+    "esto-title": "122 000 incidents en Espagne en 2025 : INCIBE publie son pire bilan",
+    "esto-source": "INCIBE · Janvier 2026",
+    "esto-link": "Lire le rapport complet",
+    "tag-caso": "Menace du mois",
+    "caso-title": "Endesa et le Port de Vigo : quand l'attaquant est déjà à l'intérieur avant que l'alarme ne retentisse",
+    "caso-source": "Channel Partner · Janvier 2026",
+    "caso-link": "Lire le rapport complet",
+    "tag-consejo": "Conseil du mois",
+    "consejo-title": "Installez un Authenticator et cessez de dépendre uniquement de votre mot de passe",
+    "consejo-source": "Département IT LOGNEXT · Juin 2026",
+    "tag-reto": "Le défi du mois",
+    "reto-badge": "DÉFI ACTIF",
+    "reto-title": "Défi de juin : étiquetez vos 5 prochains e-mails",
+    "reto-date": "JUIN 2026",
+    "reto-cta": "C'est déjà fait ? ✓",
+    "reto-source": "Département IT LOGNEXT · Juin 2026",
+    "tag-radar": "Sur le radar",
+    "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
+    "radar-0-org": "INCIBE 2026",
+    "radar-0-headline": "Le ransomware coûte en moyenne entre 80 000 € et 150 000 € à une PME espagnole. 46 % d'entre elles doivent reconstruire leurs systèmes depuis zéro même après avoir payé la rançon.",
+    "radar-0-meta": "Rapport INCIBE 2026",
+    "radar-1-org": "Union Européenne",
+    "radar-1-headline": "L'EU AI Act entre en application complète en août 2026, avec des amendes pouvant atteindre 35 millions d'euros pour les entreprises ne respectant pas la réglementation sur l'IA à haut risque.",
+    "radar-1-meta": "Août 2026",
+    "radar-2-org": "EscudoDigital 2026",
+    "radar-2-headline": "Un cybercriminel a accédé aux données de contrats d'Endesa, incluant des numéros d'identité nationaux et des IBAN de clients. Les violations dans les entreprises énergétiques espagnoles ont triplé au T1 2026.",
+    "radar-2-meta": "Escudo Digital · T1 2026",
+    "radar-3-org": "Cofense 2026",
+    "radar-3-headline": "Les attaques de phishing générées par IA ont augmenté de 204 % en 12 mois. En 2026, un e-mail malveillant est bloqué toutes les 19 secondes — 82,6 % contiennent déjà des composants d'IA générative.",
+    "radar-3-meta": "Cofense / The European · 2026",
+    "phishing-title": "Détecteriez-vous cet e-mail avant de cliquer ?",
+    "phishing-question": "Cet e-mail est-il légitime ou une tentative de phishing ?",
+    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
+    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "tag-enlaces": "Au cas où vous voudriez tomber dans le terrier",
+    "art-label": "Article",
+    "art-title": "Cisco ISE : vulnérabilités critiques CVSS 9.9 avec exécution de commandes à distance en tant que root",
+    "art-desc": "Si vous avez Cisco ISE dans votre environnement — et de nombreuses organisations visant l'ENS en disposent —, cet article d'Hispasec détaille exactement ce qu'il faut corriger et pourquoi cela ne peut pas attendre.",
+    "art-source": "Hispasec / Una al día",
+    "vid-label": "Vidéo",
+    "vid-title": "Comment fonctionne une attaque par abus OAuth en pratique ? — Démonstration technique",
+    "vid-desc": "Avec ConsentFix v3 ciblant Azure, comprendre le flux d'une attaque OAuth réelle depuis le début est le meilleur vaccin ; cette vidéo l'explique avec un environnement de laboratoire et sans théorie superflue.",
+    "vid-source": "YouTube / John Hammond",
+    "quiz-label": "Quiz interactif",
+    "quiz-title": "Phishing Quiz de Google — Sauriez-vous détecter un e-mail malveillant ?",
+    "quiz-desc": "Huit scénarios réels de phishing pour mettre à l'épreuve votre œil clinique ; il est recommandé de le faire avec votre équipe et de comparer les scores, surtout après le cas UNC6692.",
+    "quiz-source": "Google / Jigsaw",
+    "guia-tag": "📋 Guide des étiquettes de confidentialité",
+    "guia-meta": "Département IT · Microsoft Purview · Lognext",
+    "guia-btn": "Ouvrir le guide →",
+    "footer-col-nexters": "Nous sommes Nexters",
+    "footer-brand-text": "La newsletter de LOGNEXT pour tous les Nexters. Sans jargon ennuyeux, sans e-mails génériques. Uniquement ce qui compte, chaque mois.",
+    "footer-col-editions": "Éditions",
+    "footer-ed-01-date": "Juin 2026",
+    "footer-ed-02-date": "Juillet 2026",
+    "footer-ed-03-date": "Août 2026",
+    "footer-col-contact": "Contact IT",
+    "footer-copy": "© 2026 LOGNEXT · Tous droits réservés.",
+    "intro": "Bienvenue dans NextTech, la newsletter mensuelle de LOGNEXT. Chaque premier mardi du mois, vous y trouverez des informations sur l'actualité en intelligence artificielle et cybersécurité, ainsi que des actualités internes, des guides pratiques et des ressources utiles pour votre quotidien numérique. Café en main.",
+    "ia-text": "Google I/O 2026 a été la confirmation de ce que beaucoup soupçonnaient : l'IA n'est plus une simple fonctionnalité, c'est le système d'exploitation. Gemini 2.5 Ultra atteint des performances humaines sur les benchmarks de raisonnement. Gemini Spark, le nouveau modèle ultra-compact optimisé pour mobile, tourne directement sur l'appareil sans cloud — ce qui change radicalement le débat sur la confidentialité dans l'IA. Project Astra est désormais un agent réel capable de gérer des tâches sur votre téléphone : prendre des rendez-vous, rédiger des réponses, naviguer dans des applications en votre nom. Pour les équipes IT, la conséquence est immédiate : les utilisateurs disposent déjà d'agents ayant accès à des données d'entreprise dans leur poche. La politique d'utilisation de l'IA en entreprise nécessite une révision urgente.",
+    "esto-text": "L'Institut National de Cybersécurité a clôturé 2025 en gérant 122 223 incidents, soit 26 % de plus que l'année précédente. Le chiffre le plus préoccupant : 25 133 cas de phishing, qui reste le vecteur d'entrée privilégié des attaquants. L'IA accélère le problème — les e-mails générés par intelligence artificielle affichent un taux de clic 3 fois supérieur au phishing traditionnel. Plus près de chez nous, des infrastructures clés comme Endesa et le Port de Vigo ont figuré sur la liste des victimes de cyberattaques depuis le début de 2026.",
+    "caso-text": "2026 a débuté avec deux violations qui ont mis en évidence le même schéma : accès via un prestataire externe, données non chiffrées, et des jours — parfois des semaines — avant de détecter l'intrusion. Endesa a confirmé que les données personnelles et bancaires de millions de clients avaient été publiées sur le dark web. Le Port de Vigo a subi une interruption opérationnelle affectant la gestion logistique du trafic portuaire. Le dénominateur commun dans les deux cas : l'attaquant n'est pas entré par la grande porte. Il est entré par un tiers disposant d'un accès légitime. La question n'est pas de savoir si votre entreprise peut être une cible. C'est de savoir combien de prestataires ont accès à vos systèmes à votre insu.",
+    "consejo-text": "Un mot de passe volé donne un accès complet à votre compte — à moins que vous ne disposiez d'un second facteur. Installez Microsoft Authenticator ou Google Authenticator, associez-le à votre messagerie professionnelle et à tout outil ayant accès à des données sensibles, et générez les codes depuis l'application. C'est plus sécurisé que le SMS : cela ne dépend pas de votre opérateur et ne peut pas être intercepté.",
+    "reto-text": "Cette semaine, avant d'envoyer vos 5 prochains e-mails, prenez deux secondes et appliquez l'étiquette correcte. Public, Interne, Confidentiel ou Très Confidentiel. Vous ne savez pas laquelle choisir ? <a href=\"https://nexttech.lognext.com/GuiaEtiquetas\" style=\"color:var(--green);text-decoration:underline;\" target=\"_blank\">Consultez le guide →</a> — c'est fait pour ça.<br/><br/>Une fois que vous l'avez fait, écrivez-nous à <a href=\"mailto:sistemas@lognext.com?subject=Reto%20Etiquetado%20Junio%20%E2%9C%85&amp;body=Mi%20resultado%3A%20\" style=\"color:#ffffff;text-decoration:underline;\">sistemas@lognext.com</a> avec votre résultat :<br/>✅ Facile — je savais quelle étiquette utiliser à chaque fois<br/>🤔 J'ai hésité sur certains — je dois revoir le guide<br/>🚨 Je ne savais pas que les étiquettes existaient",
+    "tag-phishing": "🎯 Testez votre œil — Test du mois",
+    "phishing-text": "C'est le type d'e-mail qu'utilisent les attaquants. Il contient tous les ingrédients : urgence, expéditeur apparemment légitime et un lien tentant. Sauriez-vous qu'il est faux ?",
+    "phishing-email-subject": "⚠️ URGENT : Votre compte Microsoft 365 sera suspendu dans 24h",
+    "phishing-email-body": "Bonjour,<br/><br/>\n            Nous avons détecté une activité suspecte sur votre compte professionnel. Pour éviter la suspension immédiate de votre accès, vous devez vérifier votre identité dans les <strong>24 heures</strong> à venir.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Vérifier mon compte maintenant</a><br/><br/>\n            Si vous n'effectuez pas cette vérification, votre accès sera bloqué et vous devrez contacter le département IT pour le restaurer.<br/><br/>\n            Cordialement,<br/>\n            L'équipe de sécurité de Microsoft",
+    "guia-titulo": "Consultez à tout moment quand et comment<br/>classifier les informations que vous traitez chez Lognext."
+  }
+};
+
+function applyLang(lang) {
+  const t = I18N[lang] || {};
+  document.documentElement.lang = lang;
+  localStorage.setItem('nl-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.dataset.i18n];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.dataset.i18nHtml];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.dataset.i18nAttr.split(' ').forEach(pair => {
+      const [attr, key] = pair.split(':');
+      const v = t[key];
+      if (v !== undefined) el.setAttribute(attr, v);
+    });
+  });
+}
+
+(function() {
+  const params = new URLSearchParams(location.search);
+  const urlLang = params.get('lang');
+  const lang = (urlLang && ['es','en','fr'].includes(urlLang))
+    ? urlLang
+    : (localStorage.getItem('nl-lang') || 'es');
+  applyLang(lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+  });
+})();
+
+// ── MODO CLARO / OSCURO ──────────────────────────────────────────────────────
+(function() {
+  const btn  = document.getElementById('theme-toggle');
+  const KEY  = 'nl-theme';
+  const cursorPolygons = document.querySelectorAll('.cursor-logo polygon');
+
+  function setTheme(theme) {
+    const isLight = theme === 'light';
+    document.body.classList.toggle('light', isLight);
+    btn.setAttribute('aria-label', isLight ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+    btn.setAttribute('aria-checked', String(isLight));
+    localStorage.setItem(KEY, theme);
+
+    cursorPolygons.forEach(p => {
+      if (!p.getAttribute('data-orig')) p.setAttribute('data-orig', p.getAttribute('fill'));
+      p.setAttribute('fill', isLight && p.getAttribute('data-orig') === '#FFFFFF'
+        ? '#000029'
+        : p.getAttribute('data-orig'));
+    });
+
+    if (isLight && !particlesActive) {
+      particlesActive = true;
+      drawParticles();
+    } else if (!isLight) {
+      particlesActive = false;
+    }
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'theme_change', { theme, edition: '01' });
+    }
+  }
+
+  setTheme(localStorage.getItem(KEY) || 'dark');
+
+  btn.addEventListener('click', () => {
+    setTheme(document.body.classList.contains('light') ? 'dark' : 'light');
+  });
+
+  window.addEventListener('storage', e => {
+    if (e.key === KEY) setTheme(e.newValue || 'dark');
+  });
+})();
+
+// ── TOGGLE FLOTANTE — auto-ocultar ──────────────────────────────────────────
+(function() {
+  const fab = document.getElementById('theme-toggle');
+  let fabTimer;
+  function showFab() {
+    fab.classList.remove('hidden');
+    clearTimeout(fabTimer);
+    fabTimer = setTimeout(() => fab.classList.add('hidden'), 3000);
+  }
+  document.addEventListener('scroll',     showFab, { passive: true });
+  document.addEventListener('mousemove',  showFab, { passive: true });
+  document.addEventListener('touchstart', showFab, { passive: true });
+  document.addEventListener('keydown',    showFab);
+  fab.addEventListener('mouseenter', () => clearTimeout(fabTimer));
+  fab.addEventListener('mouseleave', showFab);
+  showFab();
+})();
+</script>
+</body>
+</html>
