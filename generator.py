@@ -90,7 +90,7 @@ Si la cobertura es insuficiente en alguna sección, indícalo con [COBERTURA LIM
 en el campo 'texto' correspondiente. NUNCA inventes noticias ni URLs.
 """
 
-    prompt = f"""Eres el editor jefe de NextTech, la newsletter mensual de LOGNEXT.
+    prompt = f"""Eres el editor jefe de NextTech, la publicación mensual de LOGNEXT sobre IA y ciberseguridad.
 
 AUDIENCIA: El equipo IT de LOGNEXT en España (los "Nexters"). Nivel técnico medio-alto.
 Contexto clave: LOGNEXT está en proceso de certificación ENS. Las noticias de ciberseguridad
@@ -111,7 +111,7 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
 • Palabras PROHIBIDAS (reescribe si aparecen): {', '.join(FORBIDDEN_WORDS)}
 • URLs: siempre de los artículos proporcionados. NUNCA inventadas.
 • ESTO_PASO, CASO_REAL y CONSEJO: campo "imagen" — elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
-• intro: 2-3 líneas. Cálida, directa. Mencionar edición #{EDITION_NUMBER}.
+• intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer martes, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
 • radar: EXACTAMENTE 4 ítems, de fuentes distintas.
 • enlaces: EXACTAMENTE 3 recursos (1 artículo, 1 vídeo, 1 quiz/herramienta).
 • Para cada sección incluye el campo 'fuente' con el nombre del medio original
@@ -166,7 +166,7 @@ SECCIONES A GENERAR
    - tipo "quiz": herramienta interactiva, test o quiz de seguridad
    Cada uno con descripcion (1 línea de por qué merece la pena) y fuente.
 
-8. INTRO: 2-3 líneas de apertura. Cálida, directa, que enganche.
+8. INTRO: 2-3 líneas de apertura. Cálida, directa, que enganche. Sin usar "newsletter".
 
 Responde ÚNICAMENTE con JSON válido con esta estructura exacta:
 {{

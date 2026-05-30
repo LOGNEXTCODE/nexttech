@@ -701,6 +701,21 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   white-space: nowrap;
   display: inline-block;
 }
+.contact-cta-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  padding: 11px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.contact-cta-ghost:hover { border-color: rgba(255,255,255,0.55); color: white; }
+.contact-cta-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
 
 /* ── FOOTER ── */
 footer {
@@ -1088,7 +1103,12 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
       <h3 data-i18n="contact-h3">¿Necesitas ayuda?</h3>
       <p data-i18n="contact-p">El equipo IT está disponible para cualquier duda sobre el sistema de etiquetas o los avisos que recibes.</p>
     </div>
-    <a href="mailto:sistemas@lognext.com" class="contact-cta" data-i18n="contact-cta">Contactar con IT →</a>
+    <div class="contact-cta-group">
+      <a href="mailto:sistemas@lognext.com" class="contact-cta" data-i18n="contact-cta">Contactar con IT →</a>
+      <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=3AbIs9jl0ES54q7dMWko6nfQRcd3sH1EtThXUFtnQORUM0E5QVMwT1NYNURVMTlGUlpTSDY0RENJNiQlQCN0PWcu"
+         class="contact-cta-ghost" target="_blank" rel="noopener"
+         data-i18n="contact-form">Incidencias y peticiones →</a>
+    </div>
   </div>
 </div>
 
@@ -1201,6 +1221,7 @@ const I18N = {
     "faq6-q": "Un proveedor me dice que no puede abrir un documento \"Muy Confidencial\". ¿Qué hago?",
     "faq6-a": "Los documentos \"Muy Confidencial\" están cifrados y requieren que el destinatario se autentique con una cuenta Microsoft o con un código de verificación enviado a su correo. Si tiene problemas, contacta con IT para añadirle acceso explícito al documento.",
     "contact-h3": "¿Necesitas ayuda?",
+    "contact-form": "Incidencias y peticiones →",
     "contact-p": "El equipo IT está disponible para cualquier duda sobre el sistema de etiquetas o los avisos que recibes.",
     "contact-cta": "Contactar con IT →",
     "hero-h1": "Protege la información<br/><em>que importa</em>",
@@ -1316,6 +1337,7 @@ const I18N = {
     "faq6-q": "A supplier tells me they cannot open a \"Muy Confidencial\" document. What should I do?",
     "faq6-a": "\"Muy Confidencial\" documents are encrypted and require the recipient to authenticate with a Microsoft account or with a verification code sent to their email. If they have trouble, contact IT to add explicit access to the document for them.",
     "contact-h3": "Need help?",
+    "contact-form": "Issues and requests →",
     "contact-p": "The IT team is available for any questions about the labelling system or the alerts you receive.",
     "contact-cta": "Contact IT →",
     "hero-h1": "Protect the information<br/><em>that matters</em>",
@@ -1431,6 +1453,7 @@ const I18N = {
     "faq6-q": "Un fournisseur me signale qu'il ne peut pas ouvrir un document « Muy Confidencial ». Que faire ?",
     "faq6-a": "Les documents « Muy Confidencial » sont chiffrés et requièrent que le destinataire s'authentifie avec un compte Microsoft ou avec un code de vérification envoyé à son adresse e-mail. En cas de problème, contactez l'IT pour lui accorder un accès explicite au document.",
     "contact-h3": "Besoin d'aide ?",
+    "contact-form": "Incidents et demandes →",
     "contact-p": "L'équipe IT est disponible pour toute question concernant le système d'étiquettes ou les avertissements que vous recevez.",
     "contact-cta": "Contacter l'IT →",
     "hero-h1": "Protégez l'information<br/><em>qui compte</em>",
