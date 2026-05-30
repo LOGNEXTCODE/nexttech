@@ -291,8 +291,9 @@ body {
 
 /* ── COOKIES ─────────────────────────────────────────────────────────────── */
 @keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
-.cookie-btn-fixed { position:fixed; bottom:20px; left:20px; background:linear-gradient(135deg,#1e2a3a,#0f1724); color:white; padding:12px 20px; border-radius:50px; cursor:pointer; display:flex; align-items:center; gap:10px; z-index:1000; font-family:'Space Grotesk',sans-serif; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:transform 0.3s ease,box-shadow 0.3s ease; border:1px solid rgba(255,255,255,0.2); }
+.cookie-btn-fixed { position:fixed; bottom:20px; left:20px; background:linear-gradient(135deg,#1e2a3a,#0f1724); color:white; padding:12px 20px; border-radius:50px; cursor:pointer; display:flex; align-items:center; gap:10px; z-index:1000; font-family:'Space Grotesk',sans-serif; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:transform 0.3s ease,box-shadow 0.3s ease,opacity 0.5s ease; border:1px solid rgba(255,255,255,0.2); }
 .cookie-btn-fixed:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,0.3); background:linear-gradient(135deg,#2a3a4a,#1a2535); }
+.cookie-btn-fixed.hidden { opacity:0; pointer-events:none; }
 .cookie-icon { font-size:20px; } .cookie-text { font-size:14px; font-weight:500; letter-spacing:0.5px; }
 .cookie-modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); backdrop-filter:blur(5px); justify-content:center; align-items:center; }
 .cookie-modal-content { background-color:#ffffff; margin:20px; width:90%; max-width:700px; max-height:90vh; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); display:flex; flex-direction:column; overflow:hidden; animation:fadeInUp 0.4s ease; }
@@ -711,46 +712,46 @@ document.addEventListener('click', function(e) {
 <!-- ── COOKIES ── -->
 <div class="cookie-btn-fixed" id="cookieBtn">
   <span class="cookie-icon">🍪</span>
-  <span class="cookie-text">Cookies</span>
+  <span class="cookie-text" data-i18n="ck-btn">Cookies</span>
 </div>
 <div id="cookieModal" class="cookie-modal">
   <div class="cookie-modal-content">
     <div class="cookie-modal-header">
-      <h2>Valoramos tu privacidad</h2>
+      <h2 data-i18n="ck-title">Valoramos tu privacidad</h2>
       <button class="cookie-modal-close" id="closeCookieModal">&times;</button>
     </div>
     <div class="cookie-modal-body">
-      <p>Usamos cookies para mejorar su experiencia de navegación, mostrarle anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en "Aceptar todo" usted da su consentimiento a nuestro uso de las cookies.</p>
-      <h3>Personalizar las preferencias de consentimiento</h3>
-      <p>Usamos cookies para ayudarle a navegar de manera eficiente y realizar ciertas funciones. Encontrará información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
-      <p>Las cookies categorizadas como "Necesarias" se guardan en su navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
-      <p>También utilizamos cookies de terceros que nos ayudan a analizar cómo usted utiliza este sitio web, guardar sus preferencias y aportar el contenido y la publicidad que le sean relevantes. Estas cookies solo se guardan en su navegador previo consentimiento por su parte.</p>
-      <p>Puede optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a su experiencia de navegación.</p>
+      <p data-i18n="ck-p1">Usamos cookies para mejorar tu experiencia de navegación, mostrarte anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en «Aceptar todas» das tu consentimiento a nuestro uso de las cookies.</p>
+      <h3 data-i18n="ck-customize">Personalizar las preferencias de consentimiento</h3>
+      <p data-i18n="ck-p2">Usamos cookies para ayudarte a navegar de manera eficiente y realizar ciertas funciones. Encontrarás información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
+      <p data-i18n="ck-p3">Las cookies categorizadas como «Necesarias» se guardan en tu navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
+      <p data-i18n="ck-p4">También utilizamos cookies de terceros que nos ayudan a analizar cómo utilizas este sitio, guardar tus preferencias y ofrecerte el contenido que te sea relevante. Estas cookies solo se guardan en tu navegador previo consentimiento por tu parte.</p>
+      <p data-i18n="ck-p5">Puedes optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a tu experiencia de navegación.</p>
       <div class="cookie-category">
-        <div class="cookie-category-header"><span class="cookie-category-name">Necesaria</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieNecessary" checked disabled><span class="cookie-slider"></span></label></div>
-        <p class="cookie-category-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y el sitio web no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-necessary">Necesaria</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieNecessary" checked disabled><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-necessary-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y este no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
       </div>
       <div class="cookie-category">
-        <div class="cookie-category-header"><span class="cookie-category-name">Funcional</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieFunctional"><span class="cookie-slider"></span></label></div>
-        <p class="cookie-category-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-functional">Funcional</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieFunctional"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-functional-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
       </div>
       <div class="cookie-category">
-        <div class="cookie-category-header"><span class="cookie-category-name">Analítica</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAnalytics"><span class="cookie-slider"></span></label></div>
-        <p class="cookie-category-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas el número de visitantes, el porcentaje de rebote, la fuente de tráfico, etc.</p>
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-analytics">Analítica</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAnalytics"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-analytics-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como número de visitantes, tasa de rebote, fuente de tráfico, etc.</p>
       </div>
       <div class="cookie-category">
-        <div class="cookie-category-header"><span class="cookie-category-name">Rendimiento</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookiePerformance"><span class="cookie-slider"></span></label></div>
-        <p class="cookie-category-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-performance">Rendimiento</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookiePerformance"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-performance-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
       </div>
       <div class="cookie-category">
-        <div class="cookie-category-header"><span class="cookie-category-name">Anuncio</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAdvertising"><span class="cookie-slider"></span></label></div>
-        <p class="cookie-category-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-advertising">Anuncio</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAdvertising"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-advertising-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
       </div>
     </div>
     <div class="cookie-modal-footer">
-      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies">Rechazar todas</button>
-      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies">Aceptar todas</button>
-      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies">Aceptar solo necesarias</button>
+      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies" data-i18n="ck-reject">Rechazar todas</button>
+      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies" data-i18n="ck-accept">Aceptar todas</button>
+      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies" data-i18n="ck-only-necessary">Aceptar solo necesarias</button>
     </div>
   </div>
 </div>
@@ -775,6 +776,19 @@ document.addEventListener('click', function(e) {
   if(necessaryBtn) necessaryBtn.addEventListener('click',rejectAll);
   if(modal) modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
   [chkF,chkA,chkP,chkAd].forEach(c=>{if(c)c.addEventListener('change',savePrefs);});
+})();
+(function() {
+  const ckb = document.getElementById('cookieBtn');
+  if (!ckb) return;
+  let t;
+  function show() { ckb.classList.remove('hidden'); clearTimeout(t); t = setTimeout(() => ckb.classList.add('hidden'), 3000); }
+  document.addEventListener('scroll',     show, { passive: true });
+  document.addEventListener('mousemove',  show, { passive: true });
+  document.addEventListener('touchstart', show, { passive: true });
+  document.addEventListener('keydown',    show);
+  ckb.addEventListener('mouseenter', () => clearTimeout(t));
+  ckb.addEventListener('mouseleave', show);
+  show();
 })();
 </script>
 </body>

@@ -612,10 +612,11 @@ body.light ::selection { background: rgba(200,45,0,0.18); color: #000029; }
   cursor: pointer; display: flex; align-items: center; gap: 10px;
   z-index: 1000; font-family: 'Space Grotesk', sans-serif;
   box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.5s ease;
   border: 1px solid rgba(255,255,255,0.2);
 }
 .cookie-btn-fixed:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,0,0,0.3); background: linear-gradient(135deg, #2a3a4a, #1a2535); }
+.cookie-btn-fixed.hidden { opacity: 0; pointer-events: none; }
 .cookie-icon { font-size: 20px; }
 .cookie-text { font-size: 14px; font-weight: 500; letter-spacing: 0.5px; }
 .cookie-modal {
@@ -1024,61 +1025,61 @@ input:disabled + .cookie-slider { opacity: 0.6; cursor: not-allowed; }
 <!-- ── COOKIES ── -->
 <div class="cookie-btn-fixed" id="cookieBtn">
   <span class="cookie-icon">🍪</span>
-  <span class="cookie-text">Cookies</span>
+  <span class="cookie-text" data-i18n="ck-btn">Cookies</span>
 </div>
 <div id="cookieModal" class="cookie-modal">
   <div class="cookie-modal-content">
     <div class="cookie-modal-header">
-      <h2>Valoramos tu privacidad</h2>
+      <h2 data-i18n="ck-title">Valoramos tu privacidad</h2>
       <button class="cookie-modal-close" id="closeCookieModal">&times;</button>
     </div>
     <div class="cookie-modal-body">
-      <p>Usamos cookies para mejorar su experiencia de navegación, mostrarle anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en "Aceptar todo" usted da su consentimiento a nuestro uso de las cookies.</p>
-      <h3>Personalizar las preferencias de consentimiento</h3>
-      <p>Usamos cookies para ayudarle a navegar de manera eficiente y realizar ciertas funciones. Encontrará información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
-      <p>Las cookies categorizadas como "Necesarias" se guardan en su navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
-      <p>También utilizamos cookies de terceros que nos ayudan a analizar cómo usted utiliza este sitio web, guardar sus preferencias y aportar el contenido y la publicidad que le sean relevantes. Estas cookies solo se guardan en su navegador previo consentimiento por su parte.</p>
-      <p>Puede optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a su experiencia de navegación.</p>
+      <p data-i18n="ck-p1">Usamos cookies para mejorar su experiencia de navegación, mostrarle anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en "Aceptar todo" usted da su consentimiento a nuestro uso de las cookies.</p>
+      <h3 data-i18n="ck-customize">Personalizar las preferencias de consentimiento</h3>
+      <p data-i18n="ck-p2">Usamos cookies para ayudarle a navegar de manera eficiente y realizar ciertas funciones. Encontrará información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
+      <p data-i18n="ck-p3">Las cookies categorizadas como «Necesarias» se guardan en su navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
+      <p data-i18n="ck-p4">También utilizamos cookies de terceros que nos ayudan a analizar cómo usted utiliza este sitio web, guardar sus preferencias y aportar el contenido y la publicidad que le sean relevantes. Estas cookies solo se guardan en su navegador previo consentimiento por su parte.</p>
+      <p data-i18n="ck-p5">Puede optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a su experiencia de navegación.</p>
       <div class="cookie-category">
         <div class="cookie-category-header">
-          <span class="cookie-category-name">Necesaria</span>
+          <span class="cookie-category-name" data-i18n="ck-necessary">Necesaria</span>
           <label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieNecessary" checked disabled><span class="cookie-slider"></span></label>
         </div>
-        <p class="cookie-category-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y el sitio web no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
+        <p class="cookie-category-desc" data-i18n="ck-necessary-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y el sitio web no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
       </div>
       <div class="cookie-category">
         <div class="cookie-category-header">
-          <span class="cookie-category-name">Funcional</span>
+          <span class="cookie-category-name" data-i18n="ck-functional">Funcional</span>
           <label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieFunctional"><span class="cookie-slider"></span></label>
         </div>
-        <p class="cookie-category-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
+        <p class="cookie-category-desc" data-i18n="ck-functional-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
       </div>
       <div class="cookie-category">
         <div class="cookie-category-header">
-          <span class="cookie-category-name">Analítica</span>
+          <span class="cookie-category-name" data-i18n="ck-analytics">Analítica</span>
           <label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAnalytics"><span class="cookie-slider"></span></label>
         </div>
-        <p class="cookie-category-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas el número de visitantes, el porcentaje de rebote, la fuente de tráfico, etc.</p>
+        <p class="cookie-category-desc" data-i18n="ck-analytics-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas el número de visitantes, el porcentaje de rebote, la fuente de tráfico, etc.</p>
       </div>
       <div class="cookie-category">
         <div class="cookie-category-header">
-          <span class="cookie-category-name">Rendimiento</span>
+          <span class="cookie-category-name" data-i18n="ck-performance">Rendimiento</span>
           <label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookiePerformance"><span class="cookie-slider"></span></label>
         </div>
-        <p class="cookie-category-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
+        <p class="cookie-category-desc" data-i18n="ck-performance-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
       </div>
       <div class="cookie-category">
         <div class="cookie-category-header">
-          <span class="cookie-category-name">Anuncio</span>
+          <span class="cookie-category-name" data-i18n="ck-advertising">Anuncio</span>
           <label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAdvertising"><span class="cookie-slider"></span></label>
         </div>
-        <p class="cookie-category-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
+        <p class="cookie-category-desc" data-i18n="ck-advertising-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
       </div>
     </div>
     <div class="cookie-modal-footer">
-      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies">Rechazar todas</button>
-      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies">Aceptar todas</button>
-      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies">Aceptar solo necesarias</button>
+      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies" data-i18n="ck-reject">Rechazar todas</button>
+      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies" data-i18n="ck-accept">Aceptar todas</button>
+      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies" data-i18n="ck-only-necessary">Aceptar solo necesarias</button>
     </div>
   </div>
 </div>
@@ -1336,7 +1337,28 @@ const I18N = {
     "phishing-text": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
     "phishing-email-subject": "⚠️ URGENTE: Tu cuenta de Microsoft 365 será suspendida en 24h",
     "phishing-email-body": "Hola,<br/><br/>\n            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensión inmediata de tu acceso, debes verificar tu identidad en las próximas <strong>24 horas</strong>.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Verificar mi cuenta ahora</a><br/><br/>\n            Si no realizas esta verificación, tu acceso quedará bloqueado y deberás contactar con el departamento de IT para restaurarlo.<br/><br/>\n            Atentamente,<br/>\n            Equipo de Seguridad de Microsoft",
-    "guia-titulo": "Consulta en cualquier momento cuándo y cómo<br/>clasificar la información que manejas en Lognext."
+    "guia-titulo": "Consulta en cualquier momento cuándo y cómo<br/>clasificar la información que manejas en Lognext.",
+    "ck-btn": "Cookies",
+    "ck-title": "Valoramos tu privacidad",
+    "ck-customize": "Personalizar las preferencias de consentimiento",
+    "ck-p1": "Usamos cookies para mejorar tu experiencia de navegación, mostrarte anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en «Aceptar todas» das tu consentimiento a nuestro uso de las cookies.",
+    "ck-p2": "Usamos cookies para ayudarte a navegar de manera eficiente y realizar ciertas funciones. Encontrarás información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.",
+    "ck-p3": "Las cookies categorizadas como «Necesarias» se guardan en tu navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.",
+    "ck-p4": "También utilizamos cookies de terceros que nos ayudan a analizar cómo utilizas este sitio, guardar tus preferencias y ofrecerte el contenido que te sea relevante. Estas cookies solo se guardan en tu navegador previo consentimiento por tu parte.",
+    "ck-p5": "Puedes optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a tu experiencia de navegación.",
+    "ck-necessary": "Necesaria",
+    "ck-necessary-desc": "Las cookies necesarias son cruciales para las funciones básicas del sitio web y este no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.",
+    "ck-functional": "Funcional",
+    "ck-functional-desc": "Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.",
+    "ck-analytics": "Analítica",
+    "ck-analytics-desc": "Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como número de visitantes, tasa de rebote, fuente de tráfico, etc.",
+    "ck-performance": "Rendimiento",
+    "ck-performance-desc": "Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.",
+    "ck-advertising": "Anuncio",
+    "ck-advertising-desc": "Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.",
+    "ck-reject": "Rechazar todas",
+    "ck-accept": "Aceptar todas",
+    "ck-only-necessary": "Aceptar solo necesarias"
   },
   "en": {
     "topbar-edition-num": "EDITION #01",
@@ -1419,7 +1441,28 @@ const I18N = {
     "phishing-text": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it was fake?",
     "phishing-email-subject": "⚠️ URGENT: Your Microsoft 365 account will be suspended in 24h",
     "phishing-email-body": "Hello,<br/><br/>\n            We have detected suspicious activity on your corporate account. To prevent the immediate suspension of your access, you must verify your identity within the next <strong>24 hours</strong>.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Verify my account now</a><br/><br/>\n            If you do not complete this verification, your access will be blocked and you will need to contact the IT department to restore it.<br/><br/>\n            Kind regards,<br/>\n            The Microsoft Security Team",
-    "guia-titulo": "Check at any time when and how to<br/>classify the information you handle at Lognext."
+    "guia-titulo": "Check at any time when and how to<br/>classify the information you handle at Lognext.",
+    "ck-btn": "Cookies",
+    "ck-title": "We value your privacy",
+    "ck-customize": "Customize consent preferences",
+    "ck-p1": "We use cookies to enhance your browsing experience, display personalised ads or content, and analyse our traffic. By clicking 'Accept all' you consent to our use of cookies.",
+    "ck-p2": "We use cookies to help you navigate efficiently and to perform certain functions. You will find detailed information about each cookie under each consent category below.",
+    "ck-p3": "Cookies categorised as 'Necessary' are stored in your browser as they are essential for enabling the basic functionality of the website.",
+    "ck-p4": "We also use third-party cookies that help us analyse how you use this website, store your preferences, and provide the content that is relevant to you. These cookies will only be stored in your browser with your prior consent.",
+    "ck-p5": "You can choose to enable or disable some or all of these cookies, but disabling some of them may affect your browsing experience.",
+    "ck-necessary": "Necessary",
+    "ck-necessary-desc": "Necessary cookies are essential for the basic functionality of the website and will not work as intended without them. These cookies do not store any personally identifiable data.",
+    "ck-functional": "Functional",
+    "ck-functional-desc": "Functional cookies help perform certain functionalities such as sharing website content on social media platforms, collecting feedback, and other third-party features.",
+    "ck-analytics": "Analytics",
+    "ck-analytics-desc": "Analytical cookies are used to understand how visitors interact with the website. These cookies help provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
+    "ck-performance": "Performance",
+    "ck-performance-desc": "Performance cookies are used to understand and analyse the key performance indexes of the website, helping to provide a better user experience for visitors.",
+    "ck-advertising": "Advertisement",
+    "ck-advertising-desc": "Advertisement cookies are used to deliver customised advertisements to visitors based on the pages they visited before and to analyse the effectiveness of advertising campaigns.",
+    "ck-reject": "Reject all",
+    "ck-accept": "Accept all",
+    "ck-only-necessary": "Accept necessary only"
   },
   "fr": {
     "topbar-edition-num": "ÉDITION #01",
@@ -1502,7 +1545,28 @@ const I18N = {
     "phishing-text": "C'est le type d'e-mail qu'utilisent les attaquants. Il contient tous les ingrédients : urgence, expéditeur apparemment légitime et un lien tentant. Sauriez-vous qu'il est faux ?",
     "phishing-email-subject": "⚠️ URGENT : Votre compte Microsoft 365 sera suspendu dans 24h",
     "phishing-email-body": "Bonjour,<br/><br/>\n            Nous avons détecté une activité suspecte sur votre compte professionnel. Pour éviter la suspension immédiate de votre accès, vous devez vérifier votre identité dans les <strong>24 heures</strong> à venir.<br/><br/>\n<a href=\"javascript:void(0)\" onclick=\"return false;\" style=\"color:#1a73e8;text-decoration:underline;cursor:not-allowed;\">→ Vérifier mon compte maintenant</a><br/><br/>\n            Si vous n'effectuez pas cette vérification, votre accès sera bloqué et vous devrez contacter le département IT pour le restaurer.<br/><br/>\n            Cordialement,<br/>\n            L'équipe de sécurité de Microsoft",
-    "guia-titulo": "Consultez à tout moment quand et comment<br/>classifier les informations que vous traitez chez Lognext."
+    "guia-titulo": "Consultez à tout moment quand et comment<br/>classifier les informations que vous traitez chez Lognext.",
+    "ck-btn": "Cookies",
+    "ck-title": "Nous valorisons votre vie privée",
+    "ck-customize": "Personnaliser les préférences de consentement",
+    "ck-p1": "Nous utilisons des cookies pour améliorer votre expérience de navigation, vous présenter des publicités ou des contenus personnalisés et analyser notre trafic. En cliquant sur « Tout accepter », vous nous donnez votre consentement pour l'utilisation des cookies.",
+    "ck-p2": "Nous utilisons des cookies pour vous aider à naviguer efficacement et à réaliser certaines fonctions. Vous trouverez des informations détaillées sur chacun des cookies sous chaque catégorie de consentement ci-dessous.",
+    "ck-p3": "Les cookies classés comme « Nécessaires » sont enregistrés dans votre navigateur car ils sont essentiels pour permettre les fonctionnalités de base du site web.",
+    "ck-p4": "Nous utilisons également des cookies tiers qui nous aident à analyser comment vous utilisez ce site, à enregistrer vos préférences et à vous fournir le contenu qui vous est pertinent. Ces cookies ne seront enregistrés dans votre navigateur qu'avec votre consentement préalable.",
+    "ck-p5": "Vous pouvez choisir d'activer ou de désactiver certains ou tous ces cookies, mais la désactivation de certains d'entre eux pourrait affecter votre expérience de navigation.",
+    "ck-necessary": "Nécessaire",
+    "ck-necessary-desc": "Les cookies nécessaires sont essentiels aux fonctions de base du site web et celui-ci ne fonctionnera pas comme prévu sans eux. Ces cookies ne stockent aucune donnée personnellement identifiable.",
+    "ck-functional": "Fonctionnel",
+    "ck-functional-desc": "Les cookies fonctionnels permettent de réaliser certaines fonctionnalités telles que le partage du contenu sur les réseaux sociaux, la collecte de commentaires et d'autres fonctionnalités tierces.",
+    "ck-analytics": "Analytique",
+    "ck-analytics-desc": "Les cookies analytiques sont utilisés pour comprendre comment les visiteurs interagissent avec le site. Ces cookies aident à fournir des informations sur des métriques telles que le nombre de visiteurs, le taux de rebond, la source de trafic, etc.",
+    "ck-performance": "Performance",
+    "ck-performance-desc": "Les cookies de performance sont utilisés pour comprendre et analyser les indices de performance clés du site, ce qui contribue à offrir une meilleure expérience utilisateur aux visiteurs.",
+    "ck-advertising": "Publicité",
+    "ck-advertising-desc": "Les cookies publicitaires sont utilisés pour fournir aux visiteurs des publicités personnalisées basées sur les pages qu'ils ont visitées auparavant et pour analyser l'efficacité des campagnes publicitaires.",
+    "ck-reject": "Tout refuser",
+    "ck-accept": "Tout accepter",
+    "ck-only-necessary": "Accepter seulement les nécessaires"
   }
 };
 
@@ -1585,14 +1649,19 @@ function applyLang(lang) {
   });
 })();
 
-// ── TOGGLE FLOTANTE — auto-ocultar ──────────────────────────────────────────
+// ── BOTONES FLOTANTES — auto-ocultar ─────────────────────────────────────────
 (function() {
   const fab = document.getElementById('theme-toggle');
+  const ckb = document.getElementById('cookieBtn');
   let fabTimer;
   function showFab() {
     fab.classList.remove('hidden');
+    if (ckb) ckb.classList.remove('hidden');
     clearTimeout(fabTimer);
-    fabTimer = setTimeout(() => fab.classList.add('hidden'), 3000);
+    fabTimer = setTimeout(() => {
+      fab.classList.add('hidden');
+      if (ckb) ckb.classList.add('hidden');
+    }, 3000);
   }
   document.addEventListener('scroll',     showFab, { passive: true });
   document.addEventListener('mousemove',  showFab, { passive: true });
@@ -1600,6 +1669,10 @@ function applyLang(lang) {
   document.addEventListener('keydown',    showFab);
   fab.addEventListener('mouseenter', () => clearTimeout(fabTimer));
   fab.addEventListener('mouseleave', showFab);
+  if (ckb) {
+    ckb.addEventListener('mouseenter', () => clearTimeout(fabTimer));
+    ckb.addEventListener('mouseleave', showFab);
+  }
   showFab();
 })();
 
