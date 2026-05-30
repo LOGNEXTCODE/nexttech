@@ -256,6 +256,37 @@ NextTech genera automáticamente evidencias ENS:
 
 -----
 
+## Cookies y GA4 — Estado actual y próximos pasos
+
+### Estado implementado
+
+- Banner de cookies RGPD replicado de la web corporativa LOGNEXT
+- GA4 con carga condicional: **no se carga hasta que el usuario acepta "Analítica"**
+- 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
+- Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
+- Aplicado a todas las ediciones (`web_template.html`) y a `GuiaEtiquetas`
+
+### Próximo paso — Configurar GA4 para Consent Mode v2 (pendiente)
+
+Para una integración completa con Google Consent Mode v2:
+
+1. **En Google Analytics 4** (analytics.google.com):
+   - Propiedad NextTech → Admin → Configuración de datos → Consentimiento
+   - Activar "Modelado de comportamiento para el consentimiento de anuncios"
+   - Verificar que la propiedad `G-H3Y3WBWSLR` recibe hits solo cuando `analytics=true`
+
+2. **Dar al usuario control granular** (opcional, mejora RGPD):
+   - Mapear categoría "Analítica" → `analytics_storage: 'granted/denied'`
+   - Mapear categoría "Anuncio" → `ad_storage: 'granted/denied'`
+   - Implementar `gtag('consent', 'update', {...})` al cambiar preferencias
+
+3. **Verificar el flujo completo**:
+   - Abrir DevTools → Network → filtrar por `google-analytics`
+   - Con cookies rechazadas: ninguna petición a GA4
+   - Con cookies aceptadas: peticiones normales de GA4
+
+-----
+
 ## Principios de generación de contenido (Karpathy)
 
 Estas reglas gobiernan cómo Claude debe comportarse al generar cada edición.
