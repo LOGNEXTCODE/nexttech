@@ -350,11 +350,11 @@ def render_template(content: Dict, edition: str) -> str:
         ed_str = f"{ed_num:02d}"
         ed_mes = _next_month_label(year, month, delta)
         if delta == 0:
-            footer_editions += f'<li><a href="/{ed_str}/">#{ed_str} — {ed_mes} {now_badge}</a></li>\n'
+            footer_editions += f'<li><a href="/{ed_str}/">#{ed_str} — {ed_mes}{now_badge}</a></li>\n'
         else:
             footer_editions += (
-                f'<li><a href="#" style="opacity:0.25;pointer-events:none;">'
-                f'#{ed_str} — {ed_mes}</a></li>\n'
+                f'<li><span style="opacity:0.28;font-size:13px;font-family:\'JetBrains Mono\',monospace;'
+                f'letter-spacing:0.5px;color:var(--grey);">→ #{ed_str} — próximamente</span></li>\n'
             )
 
     # Fuente blocks — se inyectan ANTES de que los placeholders de URL sean sustituidos,
