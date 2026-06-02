@@ -134,8 +134,9 @@ def build_email_html(content: dict, edition: str, web_url: str, timestamp: str) 
 
 def send_draft(content: dict) -> bool:
     """
-    Construye el email con email_template.html y lo envía al revisor.
-    Workflow: Miguel revisa → edita si necesario → reenvía a los Nexters.
+    Construye el email con email_template.html y lo envía a los revisores.
+    REVIEWER_EMAIL puede contener múltiples direcciones separadas por comas.
+    Workflow: revisores aprueban → envío manual a los Nexters el primer miércoles.
     """
     token = get_access_token()
     now   = datetime.now()
@@ -143,7 +144,11 @@ def send_draft(content: dict) -> bool:
     ts    = now.strftime("%d/%m/%Y a las %H:%M")
 
     email_html = build_email_html(content, EDITION_NUMBER, WEB_URL, ts)
-    subject    = f"[REVISAR] NextTech #{EDITION_NUMBER} — {mes} | Lista para envío a las 10:00h"
+    subject    = f"[REVISIÓN · NextTech #{EDITION_NUMBER}] Borrador generado — revisar antes de publicar"
+
+    # Soporte para múltiples destinatarios de revisión separados por coma
+    reviewer_list = [addr.strip() for addr in REVIEWER_EMAIL.split(",") if addr.strip()]
+    to_recipients = [{"emailAddress": {"address": addr}} for addr in reviewer_list]
 
     payload = {
         "message": {
@@ -152,9 +157,7 @@ def send_draft(content: dict) -> bool:
                 "contentType": "HTML",
                 "content": email_html,
             },
-            "toRecipients": [
-                {"emailAddress": {"address": REVIEWER_EMAIL}}
-            ],
+            "toRecipients": to_recipients,
             "importance": "high",
         },
         "saveToSentItems": "false",
@@ -170,8 +173,9 @@ def send_draft(content: dict) -> bool:
     response.raise_for_status()
 
     if response.status_code == 202:
-        print(f"  ✅ Borrador enviado a {REVIEWER_EMAIL}")
+        print(f"  ✅ Borrador enviado a: {', '.join(reviewer_list)}")
         print(f"  🌐 Versión web: {WEB_URL}")
+        print(f"  📅 Publicación: primer miércoles del mes — envío final es MANUAL")
         return True
     else:
         print(f"  ❌ Error al enviar: {response.status_code} — {response.text}")

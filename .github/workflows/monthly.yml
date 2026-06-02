@@ -4,10 +4,18 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  # Primer martes de cada mes a las 07:00 UTC = 09:00 CEST (hora Madrid en verano)
-  # días 1-7 + martes = siempre el primer martes del mes
+  # Generación automática con 7 días de antelación a la publicación.
+  # ─────────────────────────────────────────────────────────────────
+  # FLUJO:
+  #   · Publicación (envío a todos) → primer MIÉRCOLES del mes (acción manual de Miguel)
+  #   · Generación automática       → el MIÉRCOLES ANTERIOR, 7 días antes
+  #
+  # El primer miércoles del mes cae siempre entre los días 1-7.
+  # El miércoles previo cae entre los días 25-31 del mes anterior.
+  # Por tanto este cron se dispara los MIÉRCOLES (dow=3) de los días 25-31.
+  # ─────────────────────────────────────────────────────────────────
   schedule:
-    - cron: "0 7 1-7 * 2"
+    - cron: "0 7 25-31 * 3"
 
   # Lanzamiento manual desde GitHub Actions (para tests y ediciones urgentes)
   workflow_dispatch:
@@ -28,7 +36,7 @@ jobs:
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: 📅 Verificar que es el primer martes del mes
+      - name: 📅 Verificar ventana de generación (miércoles previo al primer miércoles)
         id: check_date
         run: |
           DAY=$(date +%-d)
@@ -36,11 +44,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Lanzamiento manual — ignorando restricción de fecha."
             echo "skip=false" >> $GITHUB_OUTPUT
-          elif [ "$DAY" -gt 7 ]; then
-            echo "Hoy es día $DAY — no es el primer martes del mes. Cancelando."
+          elif [ "$DAY" -lt 25 ]; then
+            echo "Hoy es día $DAY — fuera de la ventana 25-31. Cancelando."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Hoy es día $DAY — primer martes del mes. Continuando."
+            echo "Hoy es día $DAY — miércoles previo al primer miércoles del mes. Generando con 7 días de antelación."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 

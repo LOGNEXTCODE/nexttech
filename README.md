@@ -1,13 +1,13 @@
 # NextTech 🔐
 **La carta de los que van un paso por delante**
 
-Newsletter mensual automatizada de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el primer martes de cada mes.
+Publicación mensual de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el **primer miércoles de cada mes**. La edición se genera automáticamente 7 días antes (el miércoles previo) para dejar una ventana de revisión.
 
 ---
 
 ## ¿Cómo funciona?
 
-El primer martes de cada mes, GitHub Actions ejecuta automáticamente el pipeline:
+El **miércoles previo al primer miércoles** de cada mes, GitHub Actions ejecuta automáticamente el pipeline de generación (7 días de antelación). El envío a toda la organización es **manual el primer miércoles**:
 
 1. **Scraper** — Lee RSS de INCIBE, CCN-CERT, El País Tech, Xataka, El Mundo, The Hacker News, Hispasec, Bleeping Computer
 2. **Claude API** — Selecciona noticias, redacta el contenido con tono cercano y humor

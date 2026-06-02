@@ -45,7 +45,7 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml  # Cron: primer martes del mes 09:00h
+├── .github/workflows/monthly.yml  # Cron: miércoles previo al primer miércoles del mes (07:00 UTC, 7 días de antelación)
 ├── main.py                         # Orquestador principal
 ├── scraper.py                      # RSS feeds de fuentes oficiales
 ├── generator.py                    # Claude API + diseño HTML oficial
@@ -59,8 +59,8 @@ nexttech/
 1. GitHub Actions → scraper.py (RSS INCIBE, CCN-CERT, El País, Xataka, etc.)
 1. Claude API → genera contenido con tono cercano
 1. GitHub Pages → publica en nexttech.lognext.com/XX
-1. Microsoft Graph API → borrador a sistemas@lognext.com a las 09:00h
-1. Revisión humana a las 09:00h → envío manual desde Outlook a las 10:00h
+1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
+1. Ventana de 7 días de revisión → envío manual desde Outlook el primer miércoles
 
 **Secrets de GitHub configurados:**
 
