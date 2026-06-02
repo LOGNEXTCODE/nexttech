@@ -131,6 +131,23 @@ El HTML generado debe replicar EXACTAMENTE el diseño oficial:
 > NextGuide y NextLearn NO deben mezclarse: NextGuide es consulta rápida,
 > NextLearn es formación estructurada con itinerario.
 
+### Footer NextGuide — política de actualización
+
+El footer de NextTech incluye una columna **NextGuide** con enlaces a todas las
+guías publicadas. El contenido es **estático** (no usa `{{PLACEHOLDER}}`).
+
+**Cuando se publique una nueva guía:**
+
+1. Añadir un `<li>` en la columna NextGuide de `web_template.html`
+2. Añadir el mismo `<li>` en **todas** las ediciones publicadas (`XX/index.html`)
+3. Añadir la traducción de la clave i18n en I18N.es/en/fr de cada edición
+
+Guías publicadas actualmente:
+
+| Ruta | Descripción |
+|------|-------------|
+| `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
+
 -----
 
 ## Objetivo de la newsletter

@@ -341,6 +341,9 @@ def render_template(content: Dict, edition: str) -> str:
         '<span style="width:5px;height:5px;border-radius:50%;background:var(--red);'
         'display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span>'
     )
+    # La columna NextGuide del footer es estática en web_template.html.
+    # Cuando se publique una nueva guía, añadir el <li> correspondiente
+    # directamente en web_template.html (y en todas las ediciones publicadas).
     footer_editions = ""
     for delta in range(3):
         ed_num = edition_int + delta
