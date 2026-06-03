@@ -914,12 +914,12 @@ input:disabled + .cookie-slider { opacity: 0.6; cursor: not-allowed; }
     <div class="card card-links full-width" style="padding-bottom:36px;background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('enlaces')">
       <div class="section-tag" style="color:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> <span data-i18n="tag-enlaces">Por si quieres caer en el agujero</span></div>
       <div class="links-grid">
-        <a href="https://unaaldia.hispasec.com/2026/04/cisco-publica-actualizaciones-criticas-para-corregir-varias-vulnerabilidades-en-identity-services-engine-ise.html" class="link-card lc-news" target="_blank" onclick="trackLink('articulo', this.href)">
+        <a href="https://csirt.telconet.net/comunicacion/boletines-servicios/vulnerabilidad-critica-en-cisco-ise-permite-acceso-no-autorizado-a-archivos-sensibles/" class="link-card lc-news" target="_blank" rel="noopener" onclick="trackLink('articulo', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span>
   <span class="link-label" data-i18n="art-label">Artículo</span>
-  <span class="link-title" data-i18n="art-title">Cisco ISE: vulnerabilidades críticas CVSS 9.9 con ejecución remota de comandos como root</span>
-  <span class="link-desc" data-i18n="art-desc">Si tienes Cisco ISE en tu entorno —y en muchas organizaciones que aspiran al ENS lo tienen—, este artículo de Hispasec detalla exactamente qué parchear y por qué no puede esperar.</span>
-  <span class="link-source" data-i18n="art-source">Hispasec / Una al día</span>
+  <span class="link-title" data-i18n="art-title">Vulnerabilidad crítica en Cisco ISE permite acceso no autorizado a archivos sensibles</span>
+  <span class="link-desc" data-i18n="art-desc">Cisco corrige una vulnerabilidad crítica en Identity Services Engine (CVE-2026-20029): un fallo en el análisis XML permite a un atacante autenticado leer archivos sensibles del servidor, incluidas credenciales. Parche disponible — actualizar cuanto antes.</span>
+  <span class="link-source" data-i18n="art-source">Telconet CSIRT · Enero 2026</span>
 </a>
 <a href="https://www.youtube.com/watch?v=996OiexHze0" class="link-card lc-video" target="_blank" onclick="trackLink('video', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
@@ -1324,9 +1324,9 @@ const I18N = {
     "phishing-btn-no": "✅ Parece legítimo — Haría clic",
     "tag-enlaces": "Por si quieres caer en el agujero",
     "art-label": "Artículo",
-    "art-title": "Cisco ISE: vulnerabilidades críticas CVSS 9.9 con ejecución remota de comandos como root",
-    "art-desc": "Si tienes Cisco ISE en tu entorno —y en muchas organizaciones que aspiran al ENS lo tienen—, este artículo de Hispasec detalla exactamente qué parchear y por qué no puede esperar.",
-    "art-source": "Hispasec / Una al día",
+    "art-title": "Vulnerabilidad crítica en Cisco ISE permite acceso no autorizado a archivos sensibles",
+    "art-desc": "Cisco corrige una vulnerabilidad crítica en Identity Services Engine (CVE-2026-20029): un fallo en el análisis XML permite a un atacante autenticado leer archivos sensibles del servidor, incluidas credenciales. Parche disponible — actualizar cuanto antes.",
+    "art-source": "Telconet CSIRT · Enero 2026",
     "vid-label": "Vídeo",
     "vid-title": "¿Cómo funciona un ataque de OAuth abuse en la práctica? — Demostración técnica",
     "vid-desc": "Con ConsentFix v3 apuntando a Azure, entender el flujo de un ataque OAuth real desde cero es la mejor vacuna; este vídeo lo explica con entorno de laboratorio y sin teoría innecesaria.",
@@ -1430,9 +1430,9 @@ const I18N = {
     "phishing-btn-no": "✅ Looks legitimate — I would click",
     "tag-enlaces": "In case you want to go down the rabbit hole",
     "art-label": "Article",
-    "art-title": "Cisco ISE: critical CVSS 9.9 vulnerabilities with remote command execution as root",
-    "art-desc": "If you have Cisco ISE in your environment — and many organisations pursuing ENS compliance do — this Hispasec article details exactly what to patch and why it cannot wait.",
-    "art-source": "Hispasec / Una al día",
+    "art-title": "Critical vulnerability in Cisco ISE allows unauthorised access to sensitive files",
+    "art-desc": "Cisco fixes a critical vulnerability in Identity Services Engine (CVE-2026-20029): an XML parsing flaw allows an authenticated attacker to read sensitive server files, including credentials. Patch available — update as soon as possible.",
+    "art-source": "Telconet CSIRT · January 2026",
     "vid-label": "Video",
     "vid-title": "How does an OAuth abuse attack work in practice? — Technical demonstration",
     "vid-desc": "With ConsentFix v3 targeting Azure, understanding the flow of a real OAuth attack from scratch is the best defence; this video explains it with a lab environment and no unnecessary theory.",
@@ -1536,9 +1536,9 @@ const I18N = {
     "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
     "tag-enlaces": "Au cas où vous voudriez tomber dans le terrier",
     "art-label": "Article",
-    "art-title": "Cisco ISE : vulnérabilités critiques CVSS 9.9 avec exécution de commandes à distance en tant que root",
-    "art-desc": "Si vous avez Cisco ISE dans votre environnement — et de nombreuses organisations visant l'ENS en disposent —, cet article d'Hispasec détaille exactement ce qu'il faut corriger et pourquoi cela ne peut pas attendre.",
-    "art-source": "Hispasec / Una al día",
+    "art-title": "Vulnérabilité critique dans Cisco ISE permettant un accès non autorisé à des fichiers sensibles",
+    "art-desc": "Cisco corrige une vulnérabilité critique dans Identity Services Engine (CVE-2026-20029) : une faille dans l'analyse XML permet à un attaquant authentifié de lire des fichiers sensibles sur le serveur, dont des identifiants. Correctif disponible — mettre à jour dès que possible.",
+    "art-source": "Telconet CSIRT · Janvier 2026",
     "vid-label": "Vidéo",
     "vid-title": "Comment fonctionne une attaque par abus OAuth en pratique ? — Démonstration technique",
     "vid-desc": "Avec ConsentFix v3 ciblant Azure, comprendre le flux d'une attaque OAuth réelle depuis le début est le meilleur vaccin ; cette vidéo l'explique avec un environnement de laboratoire et sans théorie superflue.",
