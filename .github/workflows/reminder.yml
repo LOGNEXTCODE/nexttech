@@ -26,6 +26,8 @@ jobs:
   send-reminder:
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: write   # Necesario para hacer push del intro actualizado
 
     steps:
       - name: 📥 Checkout del repositorio
@@ -47,6 +49,19 @@ jobs:
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
+      - name: 🔢 Calcular edición vigente
+        if: steps.check_date.outputs.skip == 'false'
+        id: edition
+        run: |
+          MONTH=$(date +%-m)
+          YEAR=$(date +%Y)
+          START_MONTH=5
+          START_YEAR=2026
+          EDITION=$(( (YEAR - START_YEAR) * 12 + MONTH - START_MONTH + 1 ))
+          printf -v EDITION_STR "%02d" $EDITION
+          echo "number=$EDITION_STR" >> $GITHUB_OUTPUT
+          echo "  📌 Edición vigente: #$EDITION_STR"
+
       - name: 🐍 Configurar Python
         if: steps.check_date.outputs.skip == 'false'
         uses: actions/setup-python@v5
@@ -57,7 +72,7 @@ jobs:
         if: steps.check_date.outputs.skip == 'false'
         run: pip install -r requirements.txt
 
-      - name: 📩 Enviar recordatorio
+      - name: 📩 Enviar recordatorio y actualizar intro web
         if: steps.check_date.outputs.skip == 'false'
         env:
           MS_TENANT_ID:     ${{ secrets.MS_TENANT_ID }}
@@ -68,4 +83,15 @@ jobs:
           # que lo reenvía manualmente a la organización).
           # Para envío directo a todos, sustituir por el grupo de distribución.
           REMINDER_EMAIL:   sistemas@lognext.com
+          EDITION_NUMBER:   ${{ steps.edition.outputs.number }}
         run: python reminder.py
+
+      - name: 🌐 Publicar intro actualizado (GitHub Pages)
+        if: steps.check_date.outputs.skip == 'false'
+        run: |
+          EDITION="${{ steps.edition.outputs.number }}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add "${EDITION}/index.html"
+          git diff --staged --quiet || git commit -m "NextTech #${EDITION} — intro actualizado (recordatorio de mitad de mes)"
+          git push origin main
