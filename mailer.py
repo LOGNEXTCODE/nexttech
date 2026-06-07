@@ -15,7 +15,7 @@ TENANT_ID      = os.environ["MS_TENANT_ID"]
 CLIENT_ID      = os.environ["MS_CLIENT_ID"]
 CLIENT_SECRET  = os.environ["MS_CLIENT_SECRET"]
 SENDER_EMAIL   = os.environ["MS_SENDER_EMAIL"]     # sistemas@lognext.com
-REVIEWER_EMAIL = os.environ["REVIEWER_EMAIL"]       # miguel.aparicio@lognext.com
+REVIEWER_EMAIL = os.environ.get("REVIEWER_EMAIL", "")  # solo necesario en send_draft()
 EDITION_NUMBER = os.environ.get("EDITION_NUMBER", "01")
 
 WEB_URL = f"https://nexttech.lognext.com/{EDITION_NUMBER}/"
