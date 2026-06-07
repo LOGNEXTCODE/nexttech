@@ -1,0 +1,71 @@
+name: NextTech — Recordatorio mensual
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+on:
+  # Recordatorio automático: el miércoles de la semana central del mes.
+  # ─────────────────────────────────────────────────────────────────
+  # El miércoles que cae entre los días 12 y 18 es siempre único (uno por mes).
+  # Cron: 07:00 UTC (~09:00 España), miércoles de los días 12-18.
+  #
+  # AVISO sobre lógica cron en GitHub Actions:
+  #   Cuando día-de-mes Y día-de-semana están restringidos, GitHub los evalúa
+  #   con OR (no AND). Por tanto "12-18 * 3" dispara los días 12-18 de cualquier
+  #   día de la semana, Y todos los miércoles del mes. Para corregirlo, el
+  #   primer paso del job verifica explícitamente DOW=3 y DAY entre 12 y 18;
+  #   si no se cumple, el job sale sin enviar (mismo patrón que monthly.yml).
+  # ─────────────────────────────────────────────────────────────────
+  schedule:
+    - cron: "0 7 12-18 * 3"
+
+  # Lanzamiento manual desde GitHub Actions (para pruebas — omite restricción de fecha)
+  workflow_dispatch:
+
+jobs:
+  send-reminder:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 📅 Verificar ventana de recordatorio (miércoles de los días 12-18)
+        id: check_date
+        run: |
+          DOW=$(date +%u)    # 1=lunes … 3=miércoles … 7=domingo
+          DAY=$(date +%-d)   # Día del mes sin cero inicial
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Lanzamiento manual — ignorando restricción de fecha."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          elif [ "$DOW" != "3" ] || [ "$DAY" -lt 12 ] || [ "$DAY" -gt 18 ]; then
+            echo "Hoy es día $DAY (DOW=$DOW) — no es el miércoles de mitad de mes. Cancelando."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Hoy es día $DAY — miércoles de mitad de mes. Enviando recordatorio."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🐍 Configurar Python
+        if: steps.check_date.outputs.skip == 'false'
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 📦 Instalar dependencias
+        if: steps.check_date.outputs.skip == 'false'
+        run: pip install -r requirements.txt
+
+      - name: 📩 Enviar recordatorio
+        if: steps.check_date.outputs.skip == 'false'
+        env:
+          MS_TENANT_ID:     ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID:     ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+          MS_SENDER_EMAIL:  ${{ secrets.MS_SENDER_EMAIL }}
+          # Destinatario del recordatorio: sistemas@lognext.com (equipo IT,
+          # que lo reenvía manualmente a la organización).
+          # Para envío directo a todos, sustituir por el grupo de distribución.
+          REMINDER_EMAIL:   sistemas@lognext.com
+        run: python reminder.py

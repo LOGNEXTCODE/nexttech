@@ -45,11 +45,13 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml  # Cron: miércoles previo al primer miércoles del mes (07:00 UTC, 7 días de antelación)
-├── main.py                         # Orquestador principal
-├── scraper.py                      # RSS feeds de fuentes oficiales
-├── generator.py                    # Claude API + diseño HTML oficial
-├── mailer.py                       # Microsoft Graph API (M365)
+├── .github/workflows/monthly.yml   # Cron: miércoles previo al primer miércoles del mes (07:00 UTC, 7 días de antelación)
+├── .github/workflows/reminder.yml  # Cron: miércoles de los días 12-18 (recordatorio de mitad de mes)
+├── main.py                          # Orquestador principal
+├── scraper.py                       # RSS feeds de fuentes oficiales
+├── generator.py                     # Claude API + diseño HTML oficial
+├── mailer.py                        # Microsoft Graph API (M365) — envío de borrador de edición
+├── reminder.py                      # Microsoft Graph API (M365) — envío del recordatorio mensual
 ├── requirements.txt
 └── README.md
 ```
@@ -61,6 +63,17 @@ nexttech/
 1. GitHub Pages → publica en nexttech.lognext.com/XX
 1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
 1. Ventana de 7 días de revisión → envío manual desde Outlook el primer miércoles
+1. **Recordatorio automático** → el miércoles de mitad de mes (días 12-18), reminder.py envía un correo de recordatorio a sistemas@lognext.com para que el equipo IT lo reenvíe a la organización
+
+**Recordatorio mensual (reminder.yml + reminder.py):**
+
+- Cron: `0 7 12-18 * 3` — el miércoles único que cae entre los días 12 y 18
+- Verificación explícita en el job: `DOW=3` Y `DAY entre 12 y 18` (GitHub evalúa cron con OR, el bash lo corrige a AND)
+- En `workflow_dispatch` manual, la restricción de fecha se omite
+- Destinatario: `sistemas@lognext.com` (hardcodeado en `reminder.yml` como `REMINDER_EMAIL`)
+- Para envío directo a toda la organización: cambiar `REMINDER_EMAIL` en `reminder.yml` al grupo de distribución
+- Frase de apertura: rota entre 3 variantes según el mes (índice `(mes-1) % 3` en `reminder.py`)
+- No requiere secrets nuevos — reutiliza `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET`, `MS_SENDER_EMAIL`
 
 **Secrets de GitHub configurados:**
 
