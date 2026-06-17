@@ -53,14 +53,10 @@ jobs:
         if: steps.check_date.outputs.skip == 'false'
         id: edition
         run: |
-          MONTH=$(date +%-m)
-          YEAR=$(date +%Y)
-          START_MONTH=5
-          START_YEAR=2026
-          EDITION=$(( (YEAR - START_YEAR) * 12 + MONTH - START_MONTH + 1 ))
-          printf -v EDITION_STR "%02d" $EDITION
-          echo "number=$EDITION_STR" >> $GITHUB_OUTPUT
-          echo "  📌 Edición vigente: #$EDITION_STR"
+          EDITION=$(ls -d [0-9][0-9]/ 2>/dev/null | sort | tail -1 | tr -d '/')
+          [ -z "$EDITION" ] && EDITION="01"
+          echo "number=$EDITION" >> $GITHUB_OUTPUT
+          echo "  📌 Edición vigente: #$EDITION"
 
       - name: 🐍 Configurar Python
         if: steps.check_date.outputs.skip == 'false'
@@ -92,6 +88,10 @@ jobs:
           EDITION="${{ steps.edition.outputs.number }}"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${EDITION}/index.html"
-          git diff --staged --quiet || git commit -m "NextTech #${EDITION} — intro actualizado (recordatorio de mitad de mes)"
-          git push origin main
+          if [ -f "${EDITION}/index.html" ]; then
+            git add "${EDITION}/index.html"
+            git diff --staged --quiet || git commit -m "NextTech #${EDITION} — intro actualizado (recordatorio de mitad de mes)"
+            git push origin main
+          else
+            echo "No existe ${EDITION}/index.html — se omite commit (no es error)."
+          fi
