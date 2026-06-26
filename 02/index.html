@@ -738,6 +738,7 @@ body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-
         <div class="footer-col-title">Ediciones</div>
         <div class="footer-col-rule"></div>
         <ul class="footer-links-list">
+          <li><a href="/01/">#01 — Mayo 2026</a></li>
           <li><a href="/02/">#02 — Junio 2026<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span></a></li>
 <li><span style="opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);">→ #03 — próximamente</span></li>
 <li><span style="opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);">→ #04 — próximamente</span></li>
@@ -1090,6 +1091,18 @@ function toggleDlp(btn) {
   setTheme(localStorage.getItem(KEY) || 'dark');
   btn.addEventListener('click', () => { setTheme(document.body.classList.contains('light') ? 'dark' : 'light'); });
   window.addEventListener('storage', e => { if (e.key === KEY) setTheme(e.newValue || 'dark'); });
+
+  // Auto-ocultar el botón tras 3s de inactividad (como en la edición 01)
+  let hideTimer;
+  function showFab() {
+    btn.classList.remove('hidden');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => btn.classList.add('hidden'), 3000);
+  }
+  ['scroll', 'mousemove', 'touchstart', 'keydown'].forEach(ev => document.addEventListener(ev, showFab, { passive: true }));
+  btn.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+  btn.addEventListener('mouseleave', showFab);
+  showFab();
 })();
 </script>
 </body>
