@@ -468,6 +468,18 @@ body.light ::selection { background: rgba(200,45,0,0.18); color: #000029; }
 .dlp-more[hidden] { display: none; }
 body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-color:rgba(26,122,56,0.3); }
 
+/* ─── SELECTOR DE IDIOMA (portado de la 01) ───────────────────────────────── */
+.lang-selector { display: flex; align-items: center; gap: 2px; margin-top: 3px; }
+.lang-btn { background: none; border: none; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1px; color: rgba(255,255,255,0.35); padding: 3px 5px; transition: color 0.2s ease; }
+.lang-btn:hover { color: rgba(255,255,255,0.75); }
+.lang-btn.active { color: var(--red); }
+.lang-sep { color: rgba(255,255,255,0.15); font-size: 11px; font-family: 'JetBrains Mono', monospace; }
+body.light .lang-btn { color: rgba(0,0,41,0.35); }
+body.light .lang-btn:hover { color: rgba(0,0,41,0.75); }
+body.light .lang-btn.active { color: #C82D00; }
+body.light .lang-sep { color: rgba(0,0,41,0.2); }
+@media (max-width: 600px) { .lang-selector { margin-top: 2px; } .lang-btn { font-size: 10px; padding: 2px 3px; } }
+
 </style>
 </head>
 <body>
@@ -487,8 +499,15 @@ body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-
       <svg height="22" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg" style="margin-right:20px;flex-shrink:0;"><polygon fill="#FFFFFF" points="1417.7,117.4 1358.3,117.4 1443,218 1357.9,318.7 1417.7,318.7 1485.6,241.8 1485.6,194.3"/><polygon fill="#FFFFFF" points="1585.9,117.4 1645.3,117.4 1560.5,218 1645.7,318.7 1585.9,318.7 1518,241.8 1518,194.3"/><polygon fill="#FA3C0F" points="1334.7,346.7 1269.7,406.4 1328.5,406.4 1391,346.7"/><polygon fill="#FA3C0F" points="1667.5,88.6 1730.6,28.9 1671.8,28.9 1611.2,88.6"/><path fill="#FFFFFF" d="M230.7,271.4v47.4H43.3V117.4h52.3v154H230.7z"/><path fill="#FFFFFF" d="M1175.7,161.1v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V117.4h212.9v43.7H1175.7z"/><path fill="#FFFFFF" d="M1032.6,117.6v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V123h1.5l96.5,195.7h108.1V117.6H1032.6z"/><polygon fill="#FFFFFF" points="1685,117.3 1645.5,163.2 1733.8,163.2 1733.8,318.7 1786,318.7 1786,163.2 1876.7,163.2 1876.7,117.3"/><path fill="#FFFFFF" d="M245.6,217.8c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,324.8,245.6,286.8,245.6,217.8z M454,217.8c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,281.1,454,260.2,454,217.8z"/><path fill="#FFFFFF" d="M791.7,200.8H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,211.9,792.3,206.3,791.7,200.8z"/></svg>
     </div>
     <div class="topbar-right">
-      <span class="topbar-edition-num">EDICIÓN #02</span>
-      <span class="topbar-edition-date">JULY 2026</span>
+      <span class="topbar-edition-num" data-i18n="topbar-edition-num">EDICIÓN #02</span>
+      <span class="topbar-edition-date" data-i18n="topbar-edition-date">JULY 2026</span>
+      <div class="lang-selector">
+        <button class="lang-btn" data-lang="es">ES</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="en">EN</button>
+        <span class="lang-sep">|</span>
+        <button class="lang-btn" data-lang="fr">FR</button>
+      </div>
     </div>
   </div>
 </div>
@@ -612,24 +631,23 @@ body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> Consejo del mes</div>
-      <div class="card-title">Auditad las extensiones de navegador de vuestros equipos, ya</div>
-      <div class="card-text">Las extensiones de navegador son el punto ciego favorito de los atacantes: piden permisos amplios, se actualizan silenciosamente y pocos las revisan. Haced un inventario de qué extensiones tienen instaladas los equipos corporativos y eliminad todo lo que no sea estrictamente necesario o no venga de un proveedor verificado. Una extensión con acceso a 'todos los sitios web' en el navegador del CEO es una puerta trasera con corbata.</div>
-      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Bleeping Computer · Junio 2026</div>
-      <a href="https://www.bleepingcomputer.com/news/security/malicious-edge-extension-abuses-native-messaging-as-bridge-to-malware/" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)">Leer cómo Edgecution abusó de Native Messaging <span class="arrow">→</span></a>
+      <div class="card-title">Revisa qué apps tienen las llaves de tu cuenta M365</div>
+      <div class="card-text">¿Sabes qué aplicaciones tienen acceso a tu cuenta corporativa? Muchas apps de terceros piden permiso "para siempre" cuando las conectas, y luego nadie vuelve a mirarlas. Entra en myaccount.microsoft.com → Aplicaciones, revisa la lista y revoca el acceso de todo lo que ya no uses.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Julio 2026</div>
+      <a href="https://myaccount.microsoft.com/" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)">Revisar mis apps conectadas <span class="arrow">→</span></a>
     </div>
 
     <!-- 3b. EL RETO DEL MES — columna derecha -->
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> El reto del mes</div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title">Reto del mes: etiqueta todo lo que envíes esta semana</div>
-      <div class="card-text">Etiqueta todo lo que envíes esta semana. Treinta segundos al día y, sin darte cuenta, te saldrá solo. Si dudas con algún caso, lo tienes todo en la guía de etiquetas.</div>
+      <div class="card-title">Reto del mes: caza reglas de reenvío que no pusiste tú</div>
+      <div class="card-text">Entra en Outlook → Configuración → Reglas y revisa si hay alguna regla de reenvío automático que no hayas creado tú: es el truco clásico tras un robo de cuenta. Si encuentras una sospechosa, elimínala y avisa a IT.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>JULY 2026</span>
         <span>¿Lo has hecho ya? ✓</span>
       </div>
-      <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('reto', this.href)">Abrir la guía de etiquetas <span class="arrow">→</span></a>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Julio 2026</div>
     </div>
 
@@ -666,21 +684,20 @@ body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
       <div class="section-tag" style="color:var(--violet)">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
       <div class="card-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
+      <div class="card-text">Los ataques que m&#225;s cuelan no meten miedo: imitan algo rutinario, como un documento compartido por un compa&#241;ero. &#191;Sabr&#237;as ver que este es falso?</div>
       <div class="phishing-inner">
         <div class="phishing-email-preview">
           <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
+            <div><strong>De:</strong> no-reply@sharepoint-lognext-online.com</div>
             <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
+            <div class="phishing-email-subject">Luc&#237;a Fern&#225;ndez ha compartido &laquo;N&#243;minas_Junio_2026.xlsx&raquo; contigo</div>
           </div>
           <div class="phishing-email-body">
             Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
+            <strong>Luc&#237;a Fern&#225;ndez</strong> (RRHH) ha compartido un documento contigo a trav&#233;s de SharePoint.<br><br>
+            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#128462; Abrir &laquo;N&#243;minas_Junio_2026.xlsx&raquo;</a><br><br>
+            Este enlace caducar&#225; en <strong>48 horas</strong>. Si no reconoces esta actividad, puedes ignorar este mensaje.<br><br>
+            Microsoft SharePoint
           </div>
         </div>
         <div class="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
@@ -863,11 +880,11 @@ function answerPhishing(clickedYes) {
   if (!clickedYes) {
     trackPhishing('correct');
     result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace "Verificar mi cuenta" lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
+    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Estas son las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>sharepoint-lognext-online.com</strong> — SharePoint real usa <strong>*.sharepoint.com</strong></span></div><div class="phishing-clue">⚠️ <span>El cebo (nóminas + alguien de RRHH) juega con tu <strong>curiosidad y confianza</strong>, no con el miedo</span></div><div class="phishing-clue">⚠️ <span>Al pasar el ratón, el botón "Abrir" apunta a un <strong>dominio externo</strong>, no a sharepoint.com</span></div><div class="phishing-clue">✅ <span>Si no esperabas el documento, <strong>verifícalo con la persona</strong> por otro canal antes de abrir</span></div></div>';
   } else {
     trackPhishing('incorrect');
     result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial ("24h") es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
+    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio <strong>sharepoint-lognext-online.com</strong> NO es de Microsoft (SharePoint real: <strong>*.sharepoint.com</strong>)</span></div><div class="phishing-clue">🚨 <span>El señuelo perfecto: un documento de <strong>nóminas</strong> compartido por RRHH activa la curiosidad</span></div><div class="phishing-clue">🚨 <span>El enlace "Abrir" lleva a un <strong>dominio externo</strong>, no a sharepoint.com</span></div><div class="phishing-clue">✅ <span>Regla de oro: ante un documento inesperado, <strong>verifica con la persona</strong> antes de abrir</span></div></div>';
   }
   try {
     fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
@@ -1011,6 +1028,27 @@ document.addEventListener('click', function(e) {
     </span>
   </span>
 </button>
+
+<script>
+// ── i18n: selector ES/EN/FR (EN/FR los rellena translator.py via workflow) ──
+const I18N = { "es": {}, "en": {}, "fr": {} };
+function applyLang(lang) {
+  const t = I18N[lang] || {};
+  document.documentElement.lang = lang;
+  localStorage.setItem('nl-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(b => { b.classList.toggle('active', b.dataset.lang === lang); });
+  document.querySelectorAll('[data-i18n]').forEach(el => { const v = t[el.dataset.i18n]; if (v !== undefined) el.textContent = v; });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => { const v = t[el.dataset.i18nHtml]; if (v !== undefined) el.innerHTML = v; });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => { el.dataset.i18nAttr.split(' ').forEach(pair => { const [attr, key] = pair.split(':'); const v = t[key]; if (v !== undefined) el.setAttribute(attr, v); }); });
+}
+(function() {
+  const params = new URLSearchParams(location.search);
+  const urlLang = params.get('lang');
+  const lang = (urlLang && ['es','en','fr'].includes(urlLang)) ? urlLang : (localStorage.getItem('nl-lang') || 'es');
+  applyLang(lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => { btn.addEventListener('click', () => applyLang(btn.dataset.lang)); });
+})();
+</script>
 
 <script>
 // ── DLP — desplegar/contraer sección ──────────────────────────────────────
