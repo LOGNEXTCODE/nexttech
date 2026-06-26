@@ -401,6 +401,25 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
   <!-- GRID PRINCIPAL -->
   <div class="main-grid">
 
+    <!-- 0. NOVEDADES DEL DPTO IT — etiquetado/DLP, ancho completo -->
+    <div class="card full-width" style="border-left:4px solid var(--green);" onmouseenter="trackSection('novedades_it')">
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Novedades del Departamento IT</div>
+      <div class="card-title">Este mes, tus correos viajan más seguros</div>
+      <div class="card-text">Buenos días, Nexters. Desde hace unas semanas todos podéis poner etiquetas a vuestros documentos y correos. Este mes damos el siguiente paso: el sistema empieza a echaros un cable cuando enviáis información sensible fuera de LOGNEXT.</div>
+      <div class="card-text">¿Qué es etiquetar? Poner un sello que dice cómo de sensible es lo que tienes entre manos. A partir de ese sello, el sistema sabe cómo cuidarlo. Cuatro niveles, en cristiano:</div>
+      <ul style="margin:0 0 18px;padding-left:0;list-style:none;">
+        <li style="margin-bottom:8px;font-size:14px;line-height:1.6;"><strong style="color:var(--green)">Público</strong> — puede verlo cualquiera, dentro o fuera. Una nota de prensa, un folleto.</li>
+        <li style="margin-bottom:8px;font-size:14px;line-height:1.6;"><strong style="color:var(--green)">Uso Interno</strong> — el día a día de casa. Un acta, una circular, el orden del día de una reunión.</li>
+        <li style="margin-bottom:8px;font-size:14px;line-height:1.6;"><strong style="color:var(--green)">Confidencial</strong> — cosas de cliente o de negocio que no deben salir sin control. Una propuesta, un informe de proyecto.</li>
+        <li style="margin-bottom:8px;font-size:14px;line-height:1.6;"><strong style="color:var(--green)">Muy Confidencial</strong> — lo más sensible. Contratos, datos personales delicados, credenciales.</li>
+      </ul>
+      <div class="card-text">¿Qué cambia este mes? Si envías algo etiquetado como Confidencial o Muy Confidencial a alguien de fuera, el sistema te avisará y te pedirá que confirmes el envío. Tranquilo: tu correo sale igualmente. No es un muro, es un cinturón de seguridad — un segundo para pensar "¿de verdad esto va fuera?".</div>
+      <div style="border-left:3px solid #FFB020;background:rgba(255,176,32,0.08);padding:14px 16px;margin:4px 0 18px;border-radius:6px;font-size:13px;line-height:1.6;">⚠ Estás enviando información Confidencial a un destinatario externo. Revisa que sea correcto. Si necesitas continuar, indica el motivo. <span style="opacity:0.6;">— Seguridad · LOGNEXT IT</span></div>
+      <div class="card-text">¿Te ha llegado un aviso y no sabes si pasó algo? Si recibes un mensaje de Seguridad · LOGNEXT IT avisándote de una regla al enviar, que no cunda el pánico: tu correo sí se envió. Es un aviso informativo del sistema de etiquetado, no significa que el envío fallara ni que se rechazara.</div>
+      <div class="card-text">Una de futuro: de momento la etiqueta la eliges tú, y el sistema solo te la sugiere — como un corrector, pero para la confidencialidad. Tú confirmas. Con el tiempo será un paso fijo de tu trabajo, pero para entonces ya lo harás sin pensar.</div>
+      <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('novedades_it', this.href)">Abrir la guía de etiquetas <span class="arrow">→</span></a>
+    </div>
+
     <!-- 1. IA AL DÍA — primera sección, ancho completo -->
     <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
@@ -457,13 +476,14 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> El reto del mes</div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title">Reto del mes: activa MFA en todos los accesos críticos que aún no lo tengan</div>
-      <div class="card-text">Esta semana, identificad al menos 3 servicios corporativos o cuentas de administración que todavía no tengan autenticación multifactor activa y activadla antes del viernes. Anotad cuáles eran y compartidlo en el canal IT: el que más brechas tape se lleva el reconocimiento del equipo.</div>
+      <div class="card-title">Reto del mes: etiqueta todo lo que envíes esta semana</div>
+      <div class="card-text">Etiqueta todo lo que envíes esta semana. Treinta segundos al día y, sin darte cuenta, te saldrá solo. Si dudas con algún caso, lo tienes todo en la guía de etiquetas.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>JUNE 2026</span>
         <span>¿Lo has hecho ya? ✓</span>
       </div>
+      <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('reto', this.href)">Abrir la guía de etiquetas <span class="arrow">→</span></a>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Junio 2026</div>
     </div>
 
