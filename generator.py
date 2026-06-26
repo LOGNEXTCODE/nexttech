@@ -332,7 +332,7 @@ def render_template(content: Dict, edition: str) -> str:
         html = html.replace(f"{{{{RECURSOS_{i}_DESC}}}}", e.get("descripcion", ""))
         html = html.replace(f"{{{{RECURSOS_{i}_FUENTE}}}}", e.get("fuente", ""))
 
-    # Footer: lista de ediciones (actual + 2 próximas)
+    # Footer: lista de ediciones (pasadas publicadas + actual + 2 próximas)
     edition_int = int(edition)
     now_badge = (
         '<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;'
@@ -345,6 +345,19 @@ def render_template(content: Dict, edition: str) -> str:
     # Cuando se publique una nueva guía, añadir el <li> correspondiente
     # directamente en web_template.html (y en todas las ediciones publicadas).
     footer_editions = ""
+    # Ediciones pasadas ya publicadas (carpetas XX/ existentes) → enlaces reales
+    base_dir = os.path.dirname(os.path.abspath(__file__))
+    published_past = sorted(
+        int(d) for d in os.listdir(base_dir)
+        if re.fullmatch(r"\d{2}", d)
+        and os.path.isdir(os.path.join(base_dir, d))
+        and int(d) < edition_int
+    )
+    for ed_num in published_past:
+        ed_str = f"{ed_num:02d}"
+        ed_mes = _next_month_label(year, month, ed_num - edition_int)
+        footer_editions += f'<li><a href="/{ed_str}/">#{ed_str} — {ed_mes}</a></li>\n'
+    # Edición actual (NOW) + 2 próximas
     for delta in range(3):
         ed_num = edition_int + delta
         ed_str = f"{ed_num:02d}"
