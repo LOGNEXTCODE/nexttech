@@ -161,6 +161,21 @@ Guías publicadas actualmente:
 |------|-------------|
 | `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
 
+### i18n — toda edición es trilingüe (ES · EN · FR)
+
+Cada edición publicada (`XX/index.html`) **debe** incluir el bloque `const I18N`
+con las tres claves `es` / `en` / `fr` pobladas y el selector de idioma operativo.
+La traducción la genera `translator.py` (Claude API) y `monthly.yml` la ejecuta
+automáticamente tras `main.py`.
+
+Verificar antes de dar una edición por publicada:
+
+- `data-i18n` / `data-i18n-html` en todos los textos visibles
+- `const I18N` con `es`, `en` y `fr` (no solo ES)
+- selector de idioma funcional (`applyLang`)
+
+Una edición solo en español está incompleta.
+
 -----
 
 ## Objetivo de la newsletter
@@ -295,6 +310,14 @@ NextTech genera automáticamente evidencias ENS:
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
 - Aplicado a todas las ediciones (`web_template.html`) y a `GuiaEtiquetas`
+- **Igual prominencia (AEPD mayo 2024 / CEPD 03/2022):** "Aceptar todas" y
+  "Rechazar todas" son botones **idénticos** (mismo relleno sólido naranja
+  `#FA3C0F`, texto blanco, tamaño, padding y radio). "Aceptar solo necesarias"
+  queda como **secundario discreto** (transparente con borde). Nunca destacar
+  Aceptar por color/contraste frente a Rechazar (patrón engañoso prohibido).
+- **Texto del banner — tono y continuidad:** el copy del banner usa tono
+  **cercano ("tú")**, sin ego, y es **idéntico en todas las ediciones**.
+  No mezclar "tú"/"usted" ni "Aceptar todo"/"Aceptar todas".
 
 ### Próximo paso — Configurar GA4 para Consent Mode v2 (pendiente)
 
@@ -303,7 +326,7 @@ Para una integración completa con Google Consent Mode v2:
 1. **En Google Analytics 4** (analytics.google.com):
    - Propiedad NextTech → Admin → Configuración de datos → Consentimiento
    - Activar "Modelado de comportamiento para el consentimiento de anuncios"
-   - Verificar que la propiedad `G-H3Y3WBWSLR` recibe hits solo cuando `analytics=true`
+   - Verificar que la propiedad `G-116HSWHBE9` recibe hits solo cuando `analytics=true`
 
 2. **Dar al usuario control granular** (opcional, mejora RGPD):
    - Mapear categoría "Analítica" → `analytics_storage: 'granted/denied'`
