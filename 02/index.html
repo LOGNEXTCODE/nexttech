@@ -326,6 +326,148 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
 .cookie-btn-necessary:hover { background:#e2e8f0; transform:translateY(-2px); }
 @media (max-width:600px) { .cookie-modal-footer{flex-direction:column;} .cookie-btn{width:100%;text-align:center;} .cookie-modal-header h2{font-size:20px;} .cookie-modal-body{padding:20px;} .cookie-category-name{font-size:14px;} }
 
+/* ─── TOGGLE TEMA (portado de la edición 01) ─────────────────────────────── */
+#theme-toggle { display: flex; align-items: center; padding: 0; cursor: pointer; }
+.toggle-track { width: 52px; height: 28px; border-radius: 14px; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(250,60,15,0.5); position: relative; display: flex; align-items: center; transition: background 0.3s ease, border-color 0.3s ease; }
+.toggle-thumb { position: absolute; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: var(--red); display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s; box-shadow: 0 1px 4px rgba(0,0,0,0.25); }
+.toggle-thumb svg { width: 11px; height: 11px; stroke: #fff; position: absolute; transition: opacity 0.2s; }
+.icon-sun  { opacity: 0; }
+.icon-moon { opacity: 1; }
+body.light .toggle-track { background: rgba(0,0,41,0.06); border-color: rgba(0,0,41,0.2); }
+body.light .toggle-thumb { transform: translateX(24px); }
+body.light .icon-sun  { opacity: 1; }
+body.light .icon-moon { opacity: 0; }
+#theme-toggle:hover .toggle-track { border-color: var(--red); }
+#theme-toggle:focus-visible .toggle-track { outline: 2px solid var(--red); outline-offset: 2px; }
+@media (max-width: 600px) { .toggle-track { width: 44px; height: 24px; } .toggle-thumb { width: 17px; height: 17px; } body.light .toggle-thumb { transform: translateX(20px); } #theme-toggle { margin: 0 6px; } }
+
+.theme-toggle-float { position: fixed; bottom: 24px; right: 24px; width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.92); border: 0.5px solid rgba(13,27,78,0.18); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 1000; box-shadow: 0 2px 8px rgba(0,0,0,0.12); opacity: 1; transition: opacity 0.5s ease; }
+.theme-toggle-float.hidden { opacity: 0; pointer-events: none; }
+.theme-toggle-float .toggle-track { display: contents; }
+.theme-toggle-float .toggle-thumb { position: relative; left: auto; width: 18px; height: 18px; background: none; box-shadow: none; transform: none !important; }
+.theme-toggle-float .toggle-thumb svg { stroke: var(--navy); width: 16px; height: 16px; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+
+/* ─── MODO CLARO ─────────────────────────────────────────────────────────── */
+#particles-canvas { position: fixed; inset: 0; pointer-events: none; z-index: 0; display: none; }
+body.light #nebula-canvas    { display: none; }
+body.light #particles-canvas { display: block; }
+body.light .bg-grid          { display: none; }
+
+body.light { --green: #1A7A38; background: linear-gradient(145deg, #F4F5FF 0%, #FFF8F5 40%, #F5F4FF 100%); color: #000029; }
+body.light .cursor-ring       { border-color: rgba(0,0,41,0.2); }
+body.light .cursor-ring.hover { border-color: rgba(200,45,0,0.5); }
+
+body.light .topbar { background: rgba(255,255,255,0.96); border-bottom: 1px solid rgba(0,0,41,0.1); }
+body.light .topbar-name         { color: #000029; }
+body.light .topbar-name span    { color: #C82D00; }
+body.light .topbar-edition-num  { color: #C82D00; }
+body.light .topbar-edition-date { color: #555570; }
+
+body.light .header { background: #FFFFFF; box-shadow: 0 4px 32px rgba(0,0,41,0.08); }
+body.light .header::before     { opacity: 0.2; }
+body.light .logo-next          { color: #000029; }
+body.light .logo-letter        { color: #C82D00; }
+body.light .header-tagline-big { color: #444460; opacity: 1; }
+body.light .header-stats       { border-left-color: rgba(0,0,41,0.12); }
+body.light .stat-number        { color: #C82D00; }
+body.light .stat-label         { color: #555570; opacity: 1; }
+body.light .header-meta        { border-top-color: rgba(0,0,41,0.08); }
+body.light .header-meta > span:first-child { color: #666680; opacity: 1; }
+body.light .header-issue       { color: #C82D00; }
+body.light .header-scan        { opacity: 0.15; }
+
+body.light .intro { background: rgba(200,45,0,0.05); color: #000029; border-left-color: #C82D00; }
+
+body.light .card { background: #FFFFFF; box-shadow: 0 2px 20px rgba(0,0,41,0.07); }
+body.light .card:hover { box-shadow: 0 8px 40px rgba(0,0,41,0.12); }
+body.light .card-title { color: #000029; }
+body.light .card-text  { color: #2a2a4a; opacity: 1; }
+
+body.light .card-caso    .section-tag  { color: #8A7000 !important; }
+body.light .card-reto    .section-tag  { color: #1A7A38 !important; }
+body.light .card-consejo .section-tag  { color: #1A7A38 !important; }
+body.light .card-radar   .section-tag  { color: #007A8A !important; }
+body.light .card-phishing .section-tag { color: #6A28AA !important; }
+body.light .card-ia      .section-tag  { color: #1A5CB0 !important; }
+body.light .card-esto    .section-tag  { color: #C82D00 !important; }
+body.light .card-links   .section-tag  { color: #6A28AA !important; }
+
+body.light .card-esto { box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(200,45,0,0.2); }
+body.light .card-caso { background: #FFFEF5; border-left: 4px solid #C8A000; }
+body.light .card-consejo { background: #F5FFF8; box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,122,56,0.2); }
+body.light .card-reto { background: #F5FFF9; border: 1px solid rgba(26,122,56,0.25); }
+body.light .reto-badge    { background: #1A7A38; color: #fff; }
+body.light .reto-progress { background: rgba(26,122,56,0.15); }
+body.light .reto-label    { color: #555570; opacity: 1; }
+body.light .card-ia { background: #F5F8FF; border-left: 4px solid #1A5CB0; box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,92,176,0.15); }
+
+body.light .card-radar { background: transparent; box-shadow: none; }
+body.light .radar-grid-item { background: #FFFFFF; border: 1px solid rgba(0,0,41,0.09); box-shadow: 0 1px 8px rgba(0,0,41,0.06); }
+body.light .radar-grid-item:hover { background: #F0F4FF; border-color: rgba(0,122,138,0.35); }
+body.light .radar-headline { color: #000029; }
+body.light .radar-org      { color: #555570; opacity: 1; }
+body.light .radar-meta     { color: #666680; opacity: 1; }
+body.light .radar-item:hover .radar-headline { color: #007A8A; }
+
+body.light .card-phishing { background: #FDF8FF; border: 1px solid rgba(106,40,170,0.2); }
+body.light .phishing-inner { background: rgba(106,40,170,0.04); border: 1px solid rgba(106,40,170,0.12); }
+body.light .phishing-question { color: #000029; }
+body.light .phishing-clue     { color: #2a2a4a; opacity: 1; }
+body.light .phishing-btn-yes { background: rgba(200,45,0,0.08); color: #9B2200; border: 1.5px solid #C82D00; }
+body.light .phishing-btn-yes:hover { background: #C82D00; color: #FFFFFF; }
+body.light .phishing-btn-no { background: rgba(26,122,56,0.08); color: #145E2A; border: 1.5px solid #1A7A38; }
+body.light .phishing-btn-no:hover { background: #1A7A38; color: #FFFFFF; }
+body.light .phishing-result.correct { background: rgba(26,122,56,0.08); border-color: rgba(26,122,56,0.3); color: #145E2A; }
+body.light .phishing-result.wrong { background: rgba(200,45,0,0.08); border-color: rgba(200,45,0,0.3); color: #9B2200; }
+
+body.light .card-link { background: transparent; }
+body.light .card-link:active { transform: scale(0.98); }
+body.light .card-esto    .card-link       { color: #C82D00 !important; border-color: #C82D00 !important; }
+body.light .card-esto    .card-link:hover { background: #C82D00 !important; color: #FFFFFF !important; border-color: #C82D00 !important; }
+body.light .card-caso    .card-link       { color: #1A5CB0 !important; border-color: #1A5CB0 !important; }
+body.light .card-caso    .card-link:hover { background: #1A5CB0 !important; color: #FFFFFF !important; border-color: #1A5CB0 !important; }
+body.light .card-consejo .card-link       { color: #1A7A38 !important; border-color: #1A7A38 !important; }
+body.light .card-consejo .card-link:hover { background: #1A7A38 !important; color: #FFFFFF !important; border-color: #1A7A38 !important; }
+body.light .card-reto    .card-link       { color: #007A8A !important; border-color: #007A8A !important; }
+body.light .card-reto    .card-link:hover { background: #007A8A !important; color: #FFFFFF !important; border-color: #007A8A !important; }
+body.light .card-ia      .card-link       { color: #1A5CB0 !important; border-color: #1A5CB0 !important; }
+body.light .card-ia      .card-link:hover { background: #1A5CB0 !important; color: #FFFFFF !important; border-color: #1A5CB0 !important; }
+
+body.light .card-links { background: transparent; box-shadow: none; }
+body.light .link-card { background: #FFFFFF; border: 1px solid rgba(0,0,41,0.09); box-shadow: 0 1px 8px rgba(0,0,41,0.06); }
+body.light .link-card:hover { background: #F4F5FF; box-shadow: 0 4px 20px rgba(0,0,41,0.1); }
+body.light .link-title  { color: #000029; }
+body.light .link-label  { color: #555570; opacity: 1; }
+body.light .link-source { color: #555570; opacity: 1; }
+body.light .link-desc   { color: #2a2a4a; opacity: 1; }
+
+body.light .footer { background: #EEEDF8; border-top: 1px solid rgba(0,0,41,0.1); }
+body.light .footer-brand-name       { color: #000029; }
+body.light .footer-brand-name span  { color: #C82D00; }
+body.light .footer-brand-text       { color: #2a2a4a; opacity: 1; }
+body.light .footer-col-title        { color: #C82D00; }
+body.light .footer-col-rule         { background: #C82D00; }
+body.light .footer-links-list li a  { color: #2a2a4a; opacity: 1; }
+body.light .footer-links-list li a:hover { color: #000029; opacity: 1; }
+body.light .footer-links-list li a::before { color: #C82D00; }
+body.light .footer-contact-icon     { color: #C82D00; }
+body.light .footer-contact-text     { color: #2a2a4a; opacity: 1; }
+body.light .footer-contact-text a   { color: #2a2a4a; }
+body.light .footer-contact-text a:hover { color: #C82D00; }
+body.light .footer-bottom           { border-top-color: rgba(0,0,41,0.08); }
+body.light .footer-copy             { color: #555570; opacity: 1; }
+
+body.light ::-webkit-scrollbar-track { background: #F0EFF8; }
+body.light ::-webkit-scrollbar-thumb { background: #C82D00; }
+body.light ::selection { background: rgba(200,45,0,0.18); color: #000029; }
+
+/* ─── DLP — sección colapsable ─────────────────────────────────────────────── */
+.dlp-toggle { display:inline-flex; align-items:center; gap:6px; background: rgba(100,240,125,0.1); border: 1px solid rgba(100,240,125,0.3); color: var(--green); font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; letter-spacing: 1px; padding: 8px 16px; border-radius: 6px; cursor: pointer; margin: 4px 0 10px; transition: background 0.2s; }
+.dlp-toggle:hover { background: rgba(100,240,125,0.18); }
+.dlp-toggle:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.dlp-more[hidden] { display: none; }
+body.light .dlp-toggle { color:#1A7A38; background:rgba(26,122,56,0.08); border-color:rgba(26,122,56,0.3); }
+
 </style>
 </head>
 <body>
@@ -334,6 +476,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
 <div class="cursor-ring" id="cursorRing"></div>
 
 <canvas id="nebula-canvas"></canvas>
+<canvas id="particles-canvas"></canvas>
 <div class="bg-grid"></div>
 
 <!-- TOPBAR -->
@@ -392,7 +535,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día. Café en mano.
+    Este mes tus correos viajan más seguros: el etiquetado echa a andar de verdad. Dentro tienes qué cambia, cómo te avisa el sistema y un reto para cogerle el truco en una semana. Café en mano, cinco minutos.
   </div>
 
   <!-- SEPARADOR -->
@@ -406,6 +549,8 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> Novedades del Departamento IT</div>
       <div class="card-title">Este mes, tus correos viajan más seguros</div>
       <div class="card-text">Buenos días, Nexters. Desde hace unas semanas todos podéis poner etiquetas a vuestros documentos y correos. Este mes damos el siguiente paso: el sistema empieza a echaros un cable cuando enviáis información sensible fuera de LOGNEXT.</div>
+      <button type="button" class="dlp-toggle" aria-expanded="false" aria-controls="dlp-more" onclick="toggleDlp(this)"><span class="dlp-toggle-label">Seguir leyendo</span> <span class="dlp-toggle-arrow" aria-hidden="true">↓</span></button>
+      <div id="dlp-more" class="dlp-more" hidden>
       <div class="card-text">¿Qué es etiquetar? Poner un sello que dice cómo de sensible es lo que tienes entre manos. A partir de ese sello, el sistema sabe cómo cuidarlo. Cuatro niveles, en cristiano:</div>
       <ul style="margin:0 0 18px;padding-left:0;list-style:none;">
         <li style="margin-bottom:8px;font-size:14px;line-height:1.6;"><strong style="color:var(--green)">Público</strong> — puede verlo cualquiera, dentro o fuera. Una nota de prensa, un folleto.</li>
@@ -417,6 +562,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
       <div style="border-left:3px solid #FFB020;background:rgba(255,176,32,0.08);padding:14px 16px;margin:4px 0 18px;border-radius:6px;font-size:13px;line-height:1.6;">⚠ Estás enviando información Confidencial a un destinatario externo. Revisa que sea correcto. Si necesitas continuar, indica el motivo. <span style="opacity:0.6;">— Seguridad · LOGNEXT IT</span></div>
       <div class="card-text">¿Te ha llegado un aviso y no sabes si pasó algo? Si recibes un mensaje de Seguridad · LOGNEXT IT avisándote de una regla al enviar, que no cunda el pánico: tu correo sí se envió. Es un aviso informativo del sistema de etiquetado, no significa que el envío fallara ni que se rechazara.</div>
       <div class="card-text">Una de futuro: de momento la etiqueta la eliges tú, y el sistema solo te la sugiere — como un corrector, pero para la confidencialidad. Tú confirmas. Con el tiempo será un paso fijo de tu trabajo, pero para entonces ya lo harás sin pensar.</div>
+      </div>
       <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('novedades_it', this.href)">Abrir la guía de etiquetas <span class="arrow">→</span></a>
     </div>
 
@@ -837,6 +983,113 @@ document.addEventListener('click', function(e) {
   ckb.addEventListener('mouseenter', () => clearTimeout(t));
   ckb.addEventListener('mouseleave', show);
   show();
+})();
+</script>
+
+<!-- TOGGLE TEMA CLARO/OSCURO (portado de la edición 01) -->
+<button id="theme-toggle"
+        class="theme-toggle-float"
+        role="switch"
+        aria-label="Cambiar a modo claro">
+  <span class="toggle-track">
+    <span class="toggle-thumb">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="4"/>
+        <line x1="12" y1="2"  x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="22"/>
+        <line x1="2"  y1="12" x2="4"  y2="12"/>
+        <line x1="20" y1="12" x2="22" y2="12"/>
+        <line x1="4.22"  y1="4.22"  x2="5.64"  y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="4.22"  y1="19.78" x2="5.64"  y2="18.36"/>
+        <line x1="18.36" y1="5.64"  x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </span>
+  </span>
+</button>
+
+<script>
+// ── DLP — desplegar/contraer sección ──────────────────────────────────────
+function toggleDlp(btn) {
+  const r = document.getElementById('dlp-more');
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!open));
+  r.hidden = open;
+  btn.querySelector('.dlp-toggle-label').textContent = open ? 'Seguir leyendo' : 'Mostrar menos';
+  btn.querySelector('.dlp-toggle-arrow').textContent = open ? '↓' : '↑';
+}
+
+// ── TEMA CLARO/OSCURO + PARTÍCULAS (portado de la edición 01) ──────────────
+(function() {
+  const pc = document.getElementById('particles-canvas');
+  const px = pc.getContext('2d');
+  let particlesActive = false;
+  const PARTICLE_COUNT = 55;
+  const particles = Array.from({ length: PARTICLE_COUNT }, () => ({
+    x: Math.random(), y: Math.random(),
+    vx: (Math.random() - 0.5) * 0.0004,
+    vy: (Math.random() - 0.5) * 0.0004,
+    r: Math.random() * 2.5 + 1
+  }));
+  function resizeParticles() { pc.width = window.innerWidth; pc.height = window.innerHeight; }
+  resizeParticles();
+  window.addEventListener('resize', resizeParticles);
+  function drawParticles() {
+    if (!particlesActive) return;
+    const W = pc.width, H = pc.height;
+    px.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = 1; if (p.x > 1) p.x = 0;
+      if (p.y < 0) p.y = 1; if (p.y > 1) p.y = 0;
+    });
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = (particles[i].x - particles[j].x) * W;
+        const dy = (particles[i].y - particles[j].y) * H;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < 120) {
+          px.beginPath();
+          px.moveTo(particles[i].x * W, particles[i].y * H);
+          px.lineTo(particles[j].x * W, particles[j].y * H);
+          px.strokeStyle = `rgba(0,0,41,${0.12 * (1 - dist / 120)})`;
+          px.lineWidth = 0.8;
+          px.stroke();
+        }
+      }
+    }
+    particles.forEach(p => {
+      px.beginPath();
+      px.arc(p.x * W, p.y * H, p.r, 0, Math.PI * 2);
+      px.fillStyle = 'rgba(0,0,41,0.25)';
+      px.fill();
+    });
+    requestAnimationFrame(drawParticles);
+  }
+
+  const btn = document.getElementById('theme-toggle');
+  const KEY = 'nl-theme';
+  const cursorPolygons = document.querySelectorAll('.cursor-logo polygon');
+  function setTheme(theme) {
+    const isLight = theme === 'light';
+    document.body.classList.toggle('light', isLight);
+    btn.setAttribute('aria-label', isLight ? 'Cambiar a modo oscuro' : 'Cambiar a modo claro');
+    btn.setAttribute('aria-checked', String(isLight));
+    localStorage.setItem(KEY, theme);
+    cursorPolygons.forEach(p => {
+      if (!p.getAttribute('data-orig')) p.setAttribute('data-orig', p.getAttribute('fill'));
+      p.setAttribute('fill', isLight && p.getAttribute('data-orig') === '#FFFFFF' ? '#000029' : p.getAttribute('data-orig'));
+    });
+    if (isLight && !particlesActive) { particlesActive = true; drawParticles(); }
+    else if (!isLight) { particlesActive = false; }
+    if (typeof gtag !== 'undefined') { gtag('event', 'theme_change', { theme, edition: '02' }); }
+  }
+  setTheme(localStorage.getItem(KEY) || 'dark');
+  btn.addEventListener('click', () => { setTheme(document.body.classList.contains('light') ? 'dark' : 'light'); });
+  window.addEventListener('storage', e => { if (e.key === KEY) setTheme(e.newValue || 'dark'); });
 })();
 </script>
 </body>

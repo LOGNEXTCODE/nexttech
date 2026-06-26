@@ -273,6 +273,38 @@ Cuando se pida generar o revisar una edición:
 
 -----
 
+## Checklist obligatoria — antes de publicar una edición
+
+Verificar TODO antes de dar una edición (`XX/index.html`) por publicada. Si algo
+falla, la edición no sale:
+
+- [ ] **Banner/intro propio de la edición** — texto específico del tema del mes,
+      nunca el genérico de plantilla ni el heredado de otra edición.
+- [ ] **Toggle de tema oscuro/claro** presente y funcional (botón `#theme-toggle`,
+      `localStorage 'nl-theme'`, canvas de partículas en claro). Probar que conmuta.
+- [ ] **i18n ES/EN/FR completo** — `const I18N` con los 3 idiomas + selector de
+      idioma operativo (ver «i18n — toda edición es trilingüe»).
+- [ ] **Cookies con igual prominencia (AEPD)** — Aceptar = Rechazar (ver «Cookies y GA4»).
+- [ ] **GA4 con carga condicional** — `G-116HSWHBE9`, solo tras consentimiento «Analítica».
+- [ ] **Fuente + mes/año** en cada ítem (esto_paso, caso_real, ia_dia, radar, enlaces).
+- [ ] **Secciones largas colapsadas** — los bloques de texto extenso van tras un
+      botón «Seguir leyendo» (ver patrón abajo), no como muro de texto.
+- [ ] **Responsive** verificado (ver «Compatibilidad móvil»).
+
+### Patrón reutilizable — sección colapsable
+
+Para bloques largos (anuncios del Dpto IT, explicaciones técnicas), mostrar solo
+el párrafo inicial y ocultar el resto tras un disclosure accesible:
+
+- Botón `<button class="dlp-toggle" aria-expanded="false" aria-controls="ID">` con
+  etiqueta «Seguir leyendo» ↔ «Mostrar menos».
+- Contenido en `<div id="ID" hidden>`; el JS conmuta `aria-expanded` y el atributo
+  `hidden` (no solo CSS hover — accesible por teclado y lector de pantalla).
+- Texto del botón traducible (ES/EN/FR) cuando la edición tenga i18n.
+- Implementado por primera vez en `02/index.html` (sección «Novedades del Dpto IT»).
+
+-----
+
 ## Contacto del proyecto
 
 - **Responsable:** Miguel Aparicio — miguel.aparicio@lognext.com · +34 636 668 059

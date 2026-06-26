@@ -15,6 +15,8 @@ El **miércoles previo al primer miércoles** de cada mes, GitHub Actions ejecut
 4. **Mailer** — Envía el borrador a revisión vía Microsoft Graph API
 5. **Revisión humana** — Se revisa, edita si procede, y se envía desde Outlook
 
+A **mitad de mes**, un segundo workflow (`reminder.yml` → `reminder.py`) envía un recordatorio para que quien no la haya leído se ponga al día, y refresca el texto de bienvenida de la edición vigente.
+
 ---
 
 ## El NextTech incluye cada mes
@@ -41,6 +43,7 @@ El **miércoles previo al primer miércoles** de cada mes, GitHub Actions ejecut
 - **Logo LOGNEXT** en la topbar fija — logotipo negativo completo en SVG
 - **Cursor personalizado** — símbolo LOGNEXT animado con glow rojo (solo desktop)
 - **Fondo nebulosa** — nubes de color animadas con estrellas parpadeantes y fugaces
+- **Modo claro/oscuro** — toggle con persistencia (`localStorage 'nl-theme'`); nebulosa en oscuro, partículas en claro
 - **Efecto hover** en cards y botones con colores explícitos por sección
 - **Google Analytics GA4** integrado — tracking por sección, clics y test phishing
 - **Test phishing interactivo** con feedback educativo
@@ -126,11 +129,17 @@ Puedes especificar el número de edición manualmente si es necesario.
 nexttech/
 ├── .github/
 │   └── workflows/
-│       └── monthly.yml      # Cron job mensual + publicación Pages
+│       ├── monthly.yml         # Cron: genera y publica la edición (miércoles previo)
+│       ├── reminder.yml        # Cron: recordatorio de mitad de mes (miércoles 12-18)
+│       └── translate-pages.yml # Traducción manual EN/FR de páginas estáticas
 ├── main.py                  # Orquestador principal
 ├── scraper.py               # Lee RSS de fuentes de noticias
-├── generator.py             # Genera el contenido con Claude API
-├── mailer.py                # Envía borrador vía Microsoft Graph API
+├── generator.py             # Genera el contenido con Claude API (rellena web_template.html)
+├── mailer.py                # Envía borrador a revisión vía Microsoft Graph API
+├── reminder.py              # Recordatorio mensual + actualiza intro web (Graph API)
+├── translator.py            # Traduce la edición a EN/FR (Claude API)
+├── web_template.html        # Plantilla de la edición web
+├── email_template.html      # Plantilla del email de revisión
 ├── requirements.txt
 └── README.md
 ```
