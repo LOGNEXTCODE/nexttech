@@ -375,7 +375,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
         <div class="logo-row">
           <span class="logo-next">NEXT</span><span class="logo-letter">TECH</span>
         </div>
-        <div class="header-tagline-big">Cinco minutos al mes para ir siempre un paso por delante.</div>
+        <div class="header-tagline-big" data-i18n="header-tagline">Cinco minutos al mes para ir siempre un paso por delante.</div>
         <div class="header-dots">
           <div class="hdot" style="background:var(--red);animation-delay:0s"></div>
           <div class="hdot" style="background:var(--cyan);animation-delay:0.3s"></div>
@@ -387,21 +387,21 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
       <div class="header-stats">
         <div class="stat-item">
           <div class="stat-number">#{{EDICION_NUM}}</div>
-          <div class="stat-label">Edición</div>
+          <div class="stat-label" data-i18n="stat-edition">Edición</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">6</div>
-          <div class="stat-label">Secciones</div>
+          <div class="stat-label" data-i18n="stat-sections">Secciones</div>
         </div>
         <div class="stat-item">
           <div class="stat-number">~5'</div>
-          <div class="stat-label">Lectura</div>
+          <div class="stat-label" data-i18n="stat-reading">Lectura</div>
         </div>
       </div>
     </div>
     <div class="header-meta">
-      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;">BY LOGNEXT · DEPARTAMENTO IT</span>
-      <span class="header-issue">{{EDICION_MES}}</span>
+      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;" data-i18n="header-by">BY LOGNEXT · DEPARTAMENTO IT</span>
+      <span class="header-issue" data-i18n="header-issue">{{EDICION_MES}}</span>
     </div>
   </div>
 
@@ -422,10 +422,10 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
         <img src="{{IA_IMG_URL}}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,14,34,0) 30%,#000e22 100%);"></div>
       </div>
-      <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> IA al día</div>
-      <div class="card-title">{{IA_TITULO}}</div>
-      <div class="card-text">{{IA_TEXTO}}</div>
-      <a href="{{IA_URL}}" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)">Leer el análisis completo <span class="arrow">→</span></a>
+      <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> <span data-i18n="tag-ia">IA al día</span></div>
+      <div class="card-title" data-i18n="ia-title">{{IA_TITULO}}</div>
+      <div class="card-text" data-i18n="ia-text">{{IA_TEXTO}}</div>
+      <a href="{{IA_URL}}" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el análisis completo <span class="arrow">→</span></a>
     </div>
 
     <!-- 2a. ESTO PASÓ — columna izquierda -->
@@ -434,10 +434,10 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
         <img src="{{NOTICIA_IMG_URL}}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
       </div>
-      <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> Esto pasó</div>
-      <div class="card-title">{{NOTICIA_TITULO}}</div>
-      <div class="card-text">{{NOTICIA_TEXTO}}</div>
-      <a href="{{NOTICIA_URL}}" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)">Leer la historia completa <span class="arrow">→</span></a>
+      <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> <span data-i18n="tag-esto">Esto pasó</span></div>
+      <div class="card-title" data-i18n="esto-title">{{NOTICIA_TITULO}}</div>
+      <div class="card-text" data-i18n="esto-text">{{NOTICIA_TEXTO}}</div>
+      <a href="{{NOTICIA_URL}}" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)" data-i18n-html="esto-link">Leer la historia completa <span class="arrow">→</span></a>
     </div>
 
     <!-- 2b. AMENAZA DEL MES — columna derecha -->
@@ -446,10 +446,10 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
         <img src="{{AMENAZA_IMG_URL}}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 30%,#05051f 100%);"></div>
       </div>
-      <div class="section-tag" style="color:var(--yellow)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Amenaza del mes</div>
-      <div class="card-title">{{AMENAZA_TITULO}}</div>
-      <div class="card-text">{{AMENAZA_TEXTO}}</div>
-      <a href="{{AMENAZA_URL}}" target="_blank" class="card-link" style="color:var(--yellow)" onclick="trackLink('caso_mes', this.href)">Ver el caso completo <span class="arrow">→</span></a>
+      <div class="section-tag" style="color:var(--yellow)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="tag-caso">Amenaza del mes</span></div>
+      <div class="card-title" data-i18n="caso-title">{{AMENAZA_TITULO}}</div>
+      <div class="card-text" data-i18n="caso-text">{{AMENAZA_TEXTO}}</div>
+      <a href="{{AMENAZA_URL}}" target="_blank" class="card-link" style="color:var(--yellow)" onclick="trackLink('caso_mes', this.href)" data-i18n-html="caso-link">Ver el caso completo <span class="arrow">→</span></a>
     </div>
 
     <!-- 3a. CONSEJO DEL MES — columna izquierda -->
@@ -458,17 +458,17 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
         <img src="{{CONSEJO_IMG_URL}}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
       </div>
-      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> Consejo del mes</div>
-      <div class="card-title">{{CONSEJO_TITULO}}</div>
-      <div class="card-text">{{CONSEJO_TEXTO}}</div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
+      <div class="card-title" data-i18n="consejo-title">{{CONSEJO_TITULO}}</div>
+      <div class="card-text" data-i18n="consejo-text">{{CONSEJO_TEXTO}}</div>
     </div>
 
     <!-- 3b. EL RETO DEL MES — columna derecha -->
     <div class="card card-reto" onmouseenter="trackSection('reto')">
-      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> El reto del mes</div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title">{{RETO_TITULO}}</div>
-      <div class="card-text">{{RETO_TEXTO}}</div>
+      <div class="card-title" data-i18n="reto-title">{{RETO_TITULO}}</div>
+      <div class="card-text" data-i18n="reto-text">{{RETO_TEXTO}}</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>{{EDICION_MES}}</span>
