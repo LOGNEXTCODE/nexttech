@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Phishing: que no te lo cuenten, léelo — LOGNEXT</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ln-dark:    #000028;
+  --ln-red:     #FA3C0F;
+  --ln-yellow:  #FFF994;
+  --ln-lavender:#CE9EFF;
+  --ln-white:   #ffffff;
+  --ln-offwhite:#F7F7F9;
+  --ln-gray:    #EEEEF2;
+  --ln-midgray: #C8C8D4;
+  --ln-textgray:#6B6B80;
+  --ln-text:    #0a0a1a;
+
+  --pub-color:  #00C06B;
+  --int-color:  #0071e3;
+  --con-color:  #FA3C0F;
+  --muc-color:  #8B00FF;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--ln-white);
+  color: var(--ln-text);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--ln-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-svg {
+  height: 18px;
+  width: auto;
+  fill: white;
+}
+.logo-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.2);
+}
+.logo-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+nav { display: flex; }
+nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0 13px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  font-weight: 400;
+}
+nav a:hover { color: white; border-bottom-color: var(--ln-red); }
+.header-pill {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(250,60,15,0.15);
+  color: var(--ln-red);
+  border: 1px solid rgba(250,60,15,0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ln-dark);
+  color: white;
+  padding: 88px 2rem 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(250,60,15,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 22px;
+  display: block;
+}
+.hero h1 {
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+  color: white;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--ln-yellow);
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  max-width: 500px;
+  margin: 0 auto 44px;
+  font-weight: 300;
+  line-height: 1.75;
+}
+.hero-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hero-pill-item {
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid;
+  letter-spacing: 0.03em;
+}
+
+/* ── LAYOUT ── */
+.section-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 88px 2rem;
+}
+.section-wrap.tight { padding-top: 0; }
+
+.sec-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-tag::after {
+  content: '';
+  flex: 0 0 32px;
+  height: 1.5px;
+  background: var(--ln-red);
+  border-radius: 2px;
+}
+.sec-title {
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ln-text);
+  margin-bottom: 14px;
+}
+.sec-intro {
+  font-size: 17px;
+  color: var(--ln-textgray);
+  max-width: 580px;
+  margin-bottom: 52px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--ln-gray);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ── LABEL CARDS ── */
+.labels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+.label-card {
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1.5px solid;
+  transition: transform 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.label-card:hover { transform: translateY(-4px); }
+
+.label-card.pub { background: #f0fff8; border-color: #b3f0d0; }
+.label-card.int { background: #f0f5ff; border-color: #c0d4f8; }
+.label-card.con { background: #fff5f2; border-color: #ffd0c0; }
+.label-card.muc { background: #fdf4ff; border-color: #e0c0f8; }
+
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.label-badge.pub { background: #c8f7e0; color: #035f35; }
+.label-badge.int { background: #dbeafe; color: #1e40af; }
+.label-badge.con { background: #ffe4d8; color: #8b1a00; }
+.label-badge.muc { background: #ead5fc; color: #5b0080; }
+
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pub .badge-dot { background: var(--pub-color); }
+.int .badge-dot { background: var(--int-color); }
+.con .badge-dot { background: var(--con-color); }
+.muc .badge-dot { background: var(--muc-color); }
+
+.label-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.label-card .desc {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.examples { list-style: none; }
+.examples li {
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--ln-text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.examples li:last-child { border-bottom: none; }
+.examples li::before {
+  content: '›';
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 14px;
+  margin-top: 0px;
+}
+.pub .examples li::before { color: var(--pub-color); }
+.int .examples li::before { color: var(--int-color); }
+.con .examples li::before { color: var(--con-color); }
+.muc .examples li::before { color: var(--muc-color); }
+
+/* ── OUTLOOK MOCKUP ── */
+.mockup-shell {
+  background: var(--ln-offwhite);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 48px;
+  border: 1px solid var(--ln-gray);
+}
+.mockup-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-textgray);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mockup-label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ln-red);
+}
+.ol-window {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.ol-bar {
+  background: #2b579a;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wdot { width: 10px; height: 10px; border-radius: 50%; }
+.wr { background: #ff5f57; }
+.wy { background: #febc2e; }
+.wg { background: #28c840; }
+.ol-toolbar {
+  background: #f3f2f1;
+  padding: 5px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.tb-btn {
+  background: white;
+  border: 1px solid #c8c6c4;
+  border-radius: 3px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  color: #201f1e;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.tb-btn.active-label {
+  background: #fff5f2;
+  border-color: var(--ln-red);
+  color: var(--ln-red);
+  font-weight: 600;
+}
+.ol-body { padding: 14px 16px; }
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f2;
+  font-size: 12.5px;
+}
+.email-row-lbl {
+  color: #999;
+  width: 46px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.label-row {
+  margin-top: 10px;
+  background: #f9f9fb;
+  border-radius: 7px;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.label-row-lbl {
+  font-size: 10.5px;
+  color: #888;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.lopt {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+}
+.lopt.p { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+.lopt.i { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.lopt.c { background: #ffe4d8; color: #8b1a00; border-color: var(--ln-red); box-shadow: 0 0 0 2px rgba(250,60,15,0.2); }
+.lopt.m { background: #ead5fc; color: #5b0080; border-color: #a855f7; }
+.email-body {
+  padding: 14px 0;
+  font-size: 12.5px;
+  color: #444;
+  min-height: 72px;
+  border-bottom: 1px dashed #e8e8ee;
+  line-height: 1.75;
+}
+.dlp-banner {
+  margin-top: 10px;
+  background: #fff9f0;
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 7px 7px 0;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #78350f;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+
+/* ── STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.step-card {
+  background: var(--ln-offwhite);
+  border-radius: 14px;
+  padding: 26px 22px;
+  border: 1px solid var(--ln-gray);
+}
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ln-gray);
+}
+.step-app-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: var(--ln-dark);
+  color: white;
+  padding: 3px 9px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+.step-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.step-card p {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ── WORD MOCKUP ── */
+.word-win {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.word-bar { background: #2b5797; padding: 7px 14px; display: flex; align-items: center; gap: 8px; }
+.word-bar-title { font-size: 12px; color: rgba(255,255,255,0.65); margin-left: 8px; }
+.word-ribbon {
+  background: #f3f2f1;
+  padding: 4px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 4px;
+}
+.rib-btn { padding: 3px 8px; font-size: 11px; border: none; background: transparent; color: #444; border-radius: 3px; font-family: 'Space Grotesk', sans-serif; }
+.rib-btn.active { background: white; border: 1px solid #c8c6c4; color: #201f1e; }
+.word-sensitivity-bar {
+  background: #fdf0ee;
+  border-bottom: 2px solid var(--ln-red);
+  padding: 5px 14px;
+  font-size: 11.5px;
+  color: #8b1a00;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.word-doc {
+  padding: 22px 30px;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.word-doc p { font-size: 12.5px; color: #333; line-height: 1.8; margin-bottom: 6px; }
+.word-doc p strong { color: #111; }
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotate(-30deg);
+  font-size: 21px;
+  font-weight: 900;
+  color: rgba(139,0,255,0.09);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+.word-foot {
+  border-top: 1px solid #eee;
+  padding: 4px 14px;
+  font-size: 10px;
+  color: var(--muc-color);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ── ALERT MOCKUP ── */
+.alert-shell {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px 26px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.alert-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.alert-icon-box {
+  width: 38px; height: 38px;
+  background: #fff5f2;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(250,60,15,0.2);
+}
+.alert-card h4 { font-size: 15px; font-weight: 700; color: #0a0a1a; }
+.alert-card .source { font-size: 10.5px; color: #aaa; font-weight: 500; margin-top: 2px; }
+.alert-card .alert-body { font-size: 13px; color: #6b6b80; line-height: 1.65; margin-bottom: 14px; font-weight: 300; }
+.alert-card .alert-body strong { color: var(--ln-red); font-weight: 600; }
+.just-field {
+  width: 100%;
+  border: 1.5px solid #e0e0ea;
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  color: #aaa;
+  margin-bottom: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #fafafa;
+  resize: none;
+  height: 50px;
+  outline: none;
+}
+.alert-btns { display: flex; gap: 8px; }
+.btn-cancel {
+  flex: 1;
+  padding: 9px;
+  border: 1.5px solid #d8d8e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  background: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-send {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--ln-red);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 740px; }
+.faq-item {
+  background: var(--ln-offwhite);
+  border-radius: 12px;
+  border: 1px solid var(--ln-gray);
+  overflow: hidden;
+  cursor: pointer;
+}
+.faq-q {
+  padding: 17px 22px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ln-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-arr {
+  width: 22px; height: 22px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--ln-red);
+  flex-shrink: 0;
+  border: 1px solid var(--ln-gray);
+  transition: transform 0.2s;
+  font-weight: 700;
+}
+.faq-a {
+  padding: 0 22px 16px;
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.7;
+  font-weight: 300;
+  display: none;
+}
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-arr { transform: rotate(90deg); }
+
+/* ── CONTACT ── */
+.contact-block {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.contact-block::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(250,60,15,0.08);
+  pointer-events: none;
+}
+.contact-block h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: white; }
+.contact-block p { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 300; }
+.contact-cta {
+  background: var(--ln-red);
+  color: white;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+.contact-cta-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  padding: 11px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.contact-cta-ghost:hover { border-color: rgba(255,255,255,0.55); color: white; }
+.contact-cta-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ln-dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 2rem;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
+.footer-tag {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.footer-tag strong { color: rgba(255,255,255,0.5); font-weight: 500; }
+
+@media (max-width: 640px) {
+  nav { display: none; }
+  .hero h1 { font-size: 28px; }
+  .contact-block { padding: 32px 24px; }
+  .section-wrap { padding: 60px 1.25rem; }
+  .alert-shell { padding: 20px; }
+}
+
+/* ── LANG SELECTOR ── */
+.lang-selector-guia { display: flex; align-items: center; gap: 4px; margin-right: 12px; }
+.lbtn { background: none; border: none; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 6px; color: rgba(255,255,255,0.35); transition: color 0.2s ease; }
+.lbtn.active, .lbtn:hover { color: var(--ln-red); }
+.lsep { color: rgba(255,255,255,0.15); font-size: 10px; font-family: 'Space Mono', monospace; }
+
+/* ── COOKIES ─────────────────────────────────────────────────────────────── */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.cookie-btn-fixed { position:fixed; bottom:20px; left:20px; background:linear-gradient(135deg,#1e2a3a,#0f1724); color:white; padding:12px 20px; border-radius:50px; cursor:pointer; display:flex; align-items:center; gap:10px; z-index:1000; font-family:'Space Grotesk',sans-serif; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:transform 0.3s ease,box-shadow 0.3s ease,opacity 0.5s ease; border:1px solid rgba(255,255,255,0.2); }
+.cookie-btn-fixed:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,0.3); background:linear-gradient(135deg,#2a3a4a,#1a2535); }
+.cookie-btn-fixed.hidden { opacity:0; pointer-events:none; }
+.cookie-icon { font-size:20px; } .cookie-text { font-size:14px; font-weight:500; letter-spacing:0.5px; }
+.cookie-modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); backdrop-filter:blur(5px); justify-content:center; align-items:center; }
+.cookie-modal-content { background-color:#ffffff; margin:20px; width:90%; max-width:700px; max-height:90vh; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); display:flex; flex-direction:column; overflow:hidden; animation:fadeInUp 0.4s ease; }
+.cookie-modal-header { background:linear-gradient(135deg,#000029,#0a0a3a); color:white; padding:20px 25px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(250,60,15,0.3); }
+.cookie-modal-header h2 { margin:0; font-size:24px; font-weight:700; background:linear-gradient(135deg,#ffffff 0%,#FA3C0F 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.cookie-modal-close { background:none; border:none; color:white; font-size:32px; cursor:pointer; transition:transform 0.3s ease; line-height:1; }
+.cookie-modal-close:hover { transform:scale(1.1); color:#FA3C0F; }
+.cookie-modal-body { padding:25px; overflow-y:auto; max-height:60vh; }
+.cookie-modal-body p { font-size:14px; line-height:1.6; color:#4a5568; margin-bottom:15px; }
+.cookie-modal-body h3 { font-size:20px; font-weight:700; color:#000029; margin-top:20px; margin-bottom:10px; }
+.cookie-category { background:#f8f9fa; border-radius:12px; padding:15px; margin-bottom:15px; border-left:3px solid #FA3C0F; transition:all 0.3s ease; }
+.cookie-category:hover { background:#ffffff; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.cookie-category-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.cookie-category-name { font-weight:700; font-size:16px; color:#000029; }
+.cookie-category-desc { font-size:13px; color:#6c757d; margin:0; }
+.cookie-switch { position:relative; display:inline-block; width:52px; height:26px; }
+.cookie-switch input { opacity:0; width:0; height:0; }
+.cookie-slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:0.3s; border-radius:34px; }
+.cookie-slider:before { position:absolute; content:""; height:20px; width:20px; left:3px; bottom:3px; background-color:white; transition:0.3s; border-radius:50%; }
+input:checked + .cookie-slider { background-color:#FA3C0F; }
+input:checked + .cookie-slider:before { transform:translateX(26px); }
+input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
+.cookie-modal-footer { padding:20px 25px; background:#f8f9fa; display:flex; gap:15px; justify-content:flex-end; border-top:1px solid rgba(0,0,41,0.1); }
+.cookie-btn { padding:10px 24px; border:none; border-radius:40px; font-weight:600; cursor:pointer; transition:all 0.3s ease; font-size:14px; }
+.cookie-btn-accept { background:linear-gradient(135deg,#FA3C0F,#e6350a); color:white; }
+.cookie-btn-accept:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(250,60,15,0.4); }
+.cookie-btn-reject { background:transparent; color:#4a5568; border:1px solid #cbd5e0; }
+.cookie-btn-reject:hover { background:#e2e8f0; transform:translateY(-2px); }
+.cookie-btn-necessary { background:#000029; color:white; }
+.cookie-btn-necessary:hover { background:#1e2a3a; transform:translateY(-2px); }
+@media (max-width:600px) { .cookie-modal-footer{flex-direction:column;} .cookie-btn{width:100%;text-align:center;} .cookie-modal-header h2{font-size:20px;} .cookie-modal-body{padding:20px;} .cookie-category-name{font-size:14px;} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+        <style>.s0{fill:#ffffff;}.s1{fill:#FA3C0F;}</style>
+        <polygon class="s0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+        <polygon class="s0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+        <polygon class="s1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+        <polygon class="s1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+        <path class="s0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+        <path class="s0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+        <path class="s0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+        <polygon class="s0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+        <path class="s0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+        <path class="s0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+      </svg>
+      <div class="logo-divider"></div>
+      <span class="logo-subtitle">Seguridad · IT</span>
+    </div>
+    <nav>
+      <a href="#que-es" data-i18n="nav-que-es">Qué es</a>
+      <a href="#senales" data-i18n="nav-senales">Señales</a>
+      <a href="#canales" data-i18n="nav-canales">Por dónde llega</a>
+      <a href="#que-hago" data-i18n="nav-que-hago">Qué hago</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="lang-selector-guia">
+      <button class="lbtn" data-lang="es">ES</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="en">EN</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="fr">FR</button>
+    </div>
+    <span class="header-pill" data-i18n="header-pill">NextGuide · Guías prácticas</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-eyebrow" data-i18n="hero-eyebrow">LOGNEXT IT · Concienciación · Junio 2026</span>
+  <h1 data-i18n-html="hero-h1">Phishing: que no te lo cuenten,<br><em>léelo</em></h1>
+  <p class="hero-sub" data-i18n-html="hero-sub">Guía rápida de LOGNEXT IT para reconocer correos, mensajes y llamadas que intentan engañarte.</p>
+  <div class="hero-pills">
+    <span class="hero-pill-item" style="background:rgba(250,60,15,0.12);color:#FA3C0F;border-color:rgba(250,60,15,0.35);">● Correo</span>
+    <span class="hero-pill-item" style="background:rgba(0,113,227,0.1);color:#60a5fa;border-color:rgba(0,113,227,0.3);">● SMS</span>
+    <span class="hero-pill-item" style="background:rgba(0,192,107,0.1);color:#00C06B;border-color:rgba(0,192,107,0.3);">● Llamada</span>
+    <span class="hero-pill-item" style="background:rgba(139,0,255,0.1);color:#b855f7;border-color:rgba(139,0,255,0.25);">● QR</span>
+    <span class="hero-pill-item" style="background:rgba(245,180,0,0.12);color:#f5b400;border-color:rgba(245,180,0,0.35);">● Suplantación</span>
+  </div>
+</div>
+
+<!-- 01 QUÉ ES -->
+<div class="section-wrap" id="que-es">
+  <span class="sec-tag" data-i18n="sec01-tag">01 · Qué es</span>
+  <h2 class="sec-title" data-i18n="sec01-title">¿Qué es el phishing y por qué nos importa?</h2>
+  <p class="sec-intro" data-i18n="sec01-intro">El phishing es un correo (o SMS, o mensaje) que se hace pasar por alguien de confianza —tu banco, Microsoft, un compañero, RRHH— para que hagas algo que no deberías: pinchar un enlace, meter tu contraseña o pagar una factura falsa. No va de "los demás": casi 9 de cada 10 incidentes de seguridad empiezan por un correo. Basta uno.</p>
+</div>
+
+<hr class="divider">
+
+<!-- 02 SEÑALES -->
+<div class="section-wrap" id="senales">
+  <span class="sec-tag" data-i18n="sec02-tag">02 · Las señales</span>
+  <h2 class="sec-title" data-i18n="sec02-title">Las 6 señales que lo delatan</h2>
+
+  <div class="labels-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div class="label-card con">
+      <div class="label-badge con"><span class="badge-dot"></span>Urgencia y miedo</div>
+      <p class="desc" data-i18n="senal1">"Tu cuenta se bloqueará en 24h". Te meten prisa para que no pienses.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc"><span class="badge-dot"></span>Remitente que no cuadra</div>
+      <p class="desc" data-i18n="senal2">El nombre dice "Microsoft" pero el correo es security@micr0soft-alerts.com. Mira la dirección real, no el nombre mostrado.</p>
+    </div>
+    <div class="label-card int">
+      <div class="label-badge int"><span class="badge-dot"></span>Enlaces tramposos</div>
+      <p class="desc" data-i18n="senal3">El texto dice portal.office.com pero al pasar el ratón apunta a otro sitio. Pasa el cursor y lee el destino antes de pinchar.</p>
+    </div>
+    <div class="label-card pub">
+      <div class="label-badge pub"><span class="badge-dot"></span>Saludo genérico y errores</div>
+      <p class="desc" data-i18n="senal4">"Estimado usuario", fallos de tildes o frases raras de traductor.</p>
+    </div>
+    <div class="label-card con">
+      <div class="label-badge con"><span class="badge-dot"></span>Te piden credenciales o datos</div>
+      <p class="desc" data-i18n="senal5">Ninguna empresa seria te pide la contraseña por correo. Microsoft, nunca.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc"><span class="badge-dot"></span>Adjuntos o botones inesperados</div>
+      <p class="desc" data-i18n="senal6">Facturas, "documento compartido", un botón grande de "Verificar ahora". Si no lo esperabas, sospecha.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 03 POR DÓNDE LLEGA -->
+<div class="section-wrap" id="canales">
+  <span class="sec-tag" data-i18n="sec03-tag">03 · Por dónde llega</span>
+  <h2 class="sec-title" data-i18n="sec03-title">Por dónde te puede llegar</h2>
+  <p class="sec-intro" data-i18n="sec03-intro">No solo por correo. El mismo engaño cambia de canal: SMS, llamadas, códigos QR o mensajes que parecen de un compañero. Todos los ejemplos son ficticios.</p>
+
+  <div class="mockup-shell">
+    <p class="mockup-label"><span class="mockup-label-dot"></span>Correo trampa — ejemplo ficticio</p>
+    <div class="ol-window">
+      <div class="ol-bar">
+        <span class="wdot wr"></span>
+        <span class="wdot wy"></span>
+        <span class="wdot wg"></span>
+      </div>
+      <div class="ol-body">
+        <div class="email-row">
+          <span class="email-row-lbl" data-i18n="ph-mail-from-lbl">De</span>
+          <span style="font-size:12.5px;" data-i18n="ph-mail-from">Soporte Microsoft 365 &lt;no-reply@m365-account-security.com&gt;</span>
+        </div>
+        <div class="email-row" style="border:none;">
+          <span class="email-row-lbl" data-i18n="email-lbl-subject">Asunto</span>
+          <span style="font-size:12.5px;" data-i18n="ph-mail-subject">⚠ Tu contraseña caduca hoy — acción requerida</span>
+        </div>
+        <div class="email-body" data-i18n-html="ph-mail-body">
+          Estimado usuario, hemos detectado que tu contraseña expira en las próximas 2 horas. Para evitar la pérdida de acceso a tu correo, verifica tu cuenta ahora.<br><br>
+          <span style="display:inline-block;background:#0071e3;color:#fff;padding:8px 18px;border-radius:6px;font-weight:600;font-size:12.5px;">Verificar mi contraseña</span><br><br>
+          Equipo de Seguridad de Microsoft
+        </div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;">
+      <span style="font-size:12px;background:rgba(250,60,15,0.1);color:#FA3C0F;border:1px solid rgba(250,60,15,0.3);padding:4px 11px;border-radius:20px;" data-i18n="ph-flag1">🚩 Dominio que no es microsoft.com</span>
+      <span style="font-size:12px;background:rgba(250,60,15,0.1);color:#FA3C0F;border:1px solid rgba(250,60,15,0.3);padding:4px 11px;border-radius:20px;" data-i18n="ph-flag2">🚩 Urgencia extrema (2 horas)</span>
+      <span style="font-size:12px;background:rgba(250,60,15,0.1);color:#FA3C0F;border:1px solid rgba(250,60,15,0.3);padding:4px 11px;border-radius:20px;" data-i18n="ph-flag3">🚩 Saludo genérico</span>
+      <span style="font-size:12px;background:rgba(250,60,15,0.1);color:#FA3C0F;border:1px solid rgba(250,60,15,0.3);padding:4px 11px;border-radius:20px;" data-i18n="ph-flag4">🚩 Botón que pide credenciales</span>
+    </div>
+    <div class="dlp-banner">
+      <span style="font-size:16px; flex-shrink:0;">🎯</span>
+      <div data-i18n-html="ph-mock-note"><strong style="display:block; margin-bottom:3px; color:#78350f;">Entrenamiento, no casualidad</strong>Este pretexto es justamente el de la campaña de concienciación — verlo aquí es entrenamiento, no casualidad.</div>
+    </div>
+  </div>
+
+  <div class="labels-grid">
+    <div class="label-card int">
+      <div class="label-badge int"><span class="badge-dot"></span>SMS · Smishing</div>
+      <p class="desc" data-i18n="ch-sms">"ENVIOS-24: Tu paquete no se ha podido entregar por una tasa pendiente de 2,99 €. Reprograma: hxxp://envios24-rastreo·info/es". Señales: tasa inesperada · enlace y dominio raro · urgencia.</p>
+    </div>
+    <div class="label-card con">
+      <div class="label-badge con"><span class="badge-dot"></span>Llamada · Vishing</div>
+      <p class="desc" data-i18n="ch-call">"Le llamamos del Soporte de Microsoft, hemos detectado un virus en su equipo. Instale esta app de acceso remoto y léame el código que verá en pantalla." Señales: nadie de Microsoft o IT te llama sin avisar · te piden instalar algo o dar códigos · presión.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc"><span class="badge-dot"></span>Código QR · Quishing</div>
+      <p class="desc" data-i18n="ch-qr">Un cartel o correo con un QR: "Escanea para validar tu acceso al nuevo portal de nóminas" → te lleva a una web falsa que pide usuario y contraseña. Señales: QR de origen desconocido · pide credenciales · urgencia.</p>
+    </div>
+    <div class="label-card pub">
+      <div class="label-badge pub"><span class="badge-dot"></span>Suplantación · Fraude del CEO</div>
+      <p class="desc" data-i18n="ch-ceo">Por Teams o WhatsApp: "¿Estás disponible? Necesito que compres unas tarjetas regalo para un cliente, es urgente. Luego te lo reembolso." Señales: canal inusual · urgencia · petición de dinero o tarjetas · usa la jerarquía para presionar.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 QUÉ HAGO -->
+<div class="section-wrap" id="que-hago">
+  <span class="sec-tag" data-i18n="sec04-tag">04 · Qué hago</span>
+  <h2 class="sec-title" data-i18n="sec04-title">¿Qué hago si sospecho?</h2>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <h3 data-i18n="qh1-title">No piques</h3>
+      <p data-i18n="qh1-body">No pinches nada ni abras adjuntos.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <h3 data-i18n="qh2-title">No lo reenvíes</h3>
+      <p data-i18n="qh2-body">No respondas ni reenvíes a compañeros.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <h3 data-i18n="qh3-title">Avísanos</h3>
+      <p data-i18n="qh3-body">Reenvíalo a sistemas@lognext.com.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <h3 data-i18n="qh4-title">Si ya picaste</h3>
+      <p data-i18n="qh4-body">No te escondas, cuéntanoslo cuanto antes. Cuanto antes lo sepamos, menos daño. No hay regañina.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 05 SIMULACROS -->
+<div class="section-wrap" id="simulacros">
+  <span class="sec-tag" data-i18n="sec05-tag">05 · Transparencia</span>
+  <h2 class="sec-title" data-i18n="sec05-title">En septiembre, simulacros de phishing</h2>
+  <p class="sec-intro" data-i18n="sec05-intro">Te lo contamos antes de hacerlo, con todas las cartas sobre la mesa.</p>
+
+  <div class="labels-grid">
+    <div class="label-card int">
+      <div class="label-badge int"><span class="badge-dot"></span>Qué vamos a hacer</div>
+      <p class="desc" data-i18n="sim1">Durante septiembre, IT enviará correos de phishing simulados a toda la organización. Son inofensivos y sirven para entrenar.</p>
+    </div>
+    <div class="label-card pub">
+      <div class="label-badge pub"><span class="badge-dot"></span>Por qué</div>
+      <p class="desc" data-i18n="sim2">Para medir, de forma agregada, cómo de preparados estamos y reforzar la formación donde haga falta. Mejora la seguridad de todos.</p>
+    </div>
+    <div class="label-card con">
+      <div class="label-badge con"><span class="badge-dot"></span>Qué NO es</div>
+      <p class="desc" data-i18n="sim3">No es un examen, no se evalúa a nadie individualmente, y no tiene consecuencias disciplinarias ni de desempeño. Si alguien pica, recibe formación, no una sanción.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc"><span class="badge-dot"></span>Qué se registra</div>
+      <p class="desc" data-i18n="sim4">Si se interactuó con el correo simulado, con fines formativos y estadísticos. Tratamos los datos según el deber de seguridad (art. 32 RGPD) y nuestro interés legítimo (art. 6.1.f), conforme al ENS.</p>
+    </div>
+  </div>
+  <p class="sec-intro" data-i18n="sim5" style="margin-top:24px;">¿Dudas? Escríbenos a sistemas@lognext.com.</p>
+</div>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<div class="section-wrap" id="faq">
+  <span class="sec-tag" data-i18n="sec06-tag">06 · Preguntas frecuentes</span>
+  <h2 class="sec-title" data-i18n="sec06-title">¿Tienes dudas?</h2>
+
+  <div class="faq-list">
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="phfaq1-q">¿Microsoft me va a pedir la contraseña por correo?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="phfaq1-a">Nunca.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="phfaq2-q">Pasé el ratón y el enlace era raro, ¿pico?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="phfaq2-a">No. Esa es la señal: bórralo y avísanos.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="phfaq3-q">Reenvié sin querer un phishing a un compañero, ¿qué hago?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="phfaq3-a">Avísanos y avísale a él. Sin drama.</div>
+    </div>
+    <div class="faq-item" onclick="this.classList.toggle('open')">
+      <div class="faq-q"><span data-i18n="phfaq4-q">¿El simulacro de septiembre cuenta para mi evaluación?</span> <span class="faq-arr">›</span></div>
+      <div class="faq-a" data-i18n="phfaq4-a">No, en absoluto.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<div class="section-wrap tight">
+  <div class="contact-block">
+    <div>
+      <h3 data-i18n="contact-h3">¿Necesitas ayuda?</h3>
+      <p data-i18n="contact-p">El equipo IT está disponible para cualquier duda sobre phishing, o si has recibido un correo, SMS o llamada sospechosa.</p>
+    </div>
+    <div class="contact-cta-group">
+      <a href="mailto:sistemas@lognext.com" class="contact-cta" data-i18n="contact-cta">Contactar con IT →</a>
+      <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=3AbIs9jl0ES54q7dMWko6nfQRcd3sH1EtThXUFtnQORUM0E5QVMwT1NYNURVMTlGUlpTSDY0RENJNiQlQCN0PWcu"
+         class="contact-cta-ghost" target="_blank" rel="noopener"
+         data-i18n="contact-form">Incidencias y peticiones →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <svg class="footer-logo" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+      <style>.f0{fill:#ffffff;}.f1{fill:#FA3C0F;}</style>
+      <polygon class="f0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+      <polygon class="f0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+      <polygon class="f1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+      <polygon class="f1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+      <path class="f0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+      <path class="f0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+      <path class="f0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+      <polygon class="f0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+      <path class="f0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+      <path class="f0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+    </svg>
+    <p class="footer-tag" data-i18n-html="footer-tag">
+      <strong>Departamento IT · LOGNEXT S.L.</strong><br>
+      Guía de Phishing · Concienciación · Junio 2026<br>
+      Documento interno · sistemas@lognext.com<br>
+      <a href="https://nexttech.lognext.com" style="color:#FA3C0F;text-decoration:none;font-weight:600;">← Volver a NextTech</a> &nbsp;·&nbsp; <span style="opacity:0.5;">Ecosistema Next · LOGNEXT</span>
+    </p>
+  </div>
+</footer>
+
+
+<script>
+// ── I18N ─────────────────────────────────────────────────────────────────────
+const I18N = { "es": {}, "en": {}, "fr": {} };
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('guia-lang', lang);
+  const url = new URL(window.location);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url);
+  const t = I18N[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n-html')];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.getAttribute('data-i18n-attr').split(' ').forEach(pair => {
+      const [attr, key] = pair.split(':');
+      const v = t[key];
+      if (v !== undefined) el.setAttribute(attr, v);
+    });
+  });
+  document.querySelectorAll('.lbtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+}
+
+const initLang = new URLSearchParams(window.location.search).get('lang')
+  || localStorage.getItem('guia-lang') || 'es';
+applyLang(initLang);
+document.querySelectorAll('.lbtn').forEach(b =>
+  b.addEventListener('click', () => applyLang(b.dataset.lang)));
+</script>
+
+<!-- ── COOKIES ── -->
+<div class="cookie-btn-fixed" id="cookieBtn">
+  <span class="cookie-icon">🍪</span>
+  <span class="cookie-text" data-i18n="ck-btn">Cookies</span>
+</div>
+<div id="cookieModal" class="cookie-modal">
+  <div class="cookie-modal-content">
+    <div class="cookie-modal-header">
+      <h2 data-i18n="ck-title">Valoramos tu privacidad</h2>
+      <button class="cookie-modal-close" id="closeCookieModal">&times;</button>
+    </div>
+    <div class="cookie-modal-body">
+      <p data-i18n="ck-p1">Usamos cookies para mejorar tu experiencia de navegación, mostrarte anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en «Aceptar todas» das tu consentimiento a nuestro uso de las cookies.</p>
+      <h3 data-i18n="ck-customize">Personalizar las preferencias de consentimiento</h3>
+      <p data-i18n="ck-p2">Usamos cookies para ayudarte a navegar de manera eficiente y realizar ciertas funciones. Encontrarás información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
+      <p data-i18n="ck-p3">Las cookies categorizadas como «Necesarias» se guardan en tu navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
+      <p data-i18n="ck-p4">También utilizamos cookies de terceros que nos ayudan a analizar cómo utilizas este sitio, guardar tus preferencias y ofrecerte el contenido que te sea relevante. Estas cookies solo se guardan en tu navegador previo consentimiento por tu parte.</p>
+      <p data-i18n="ck-p5">Puedes optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a tu experiencia de navegación.</p>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-necessary">Necesaria</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieNecessary" checked disabled><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-necessary-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y este no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-functional">Funcional</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieFunctional"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-functional-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-analytics">Analítica</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAnalytics"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-analytics-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como número de visitantes, tasa de rebote, fuente de tráfico, etc.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-performance">Rendimiento</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookiePerformance"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-performance-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-advertising">Anuncio</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAdvertising"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-advertising-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
+      </div>
+    </div>
+    <div class="cookie-modal-footer">
+      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies" data-i18n="ck-reject">Rechazar todas</button>
+      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies" data-i18n="ck-accept">Aceptar todas</button>
+      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies" data-i18n="ck-only-necessary">Aceptar solo necesarias</button>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  const STORAGE_KEY = 'lognext_cookie_preferences';
+  const modal=document.getElementById('cookieModal'), btn=document.getElementById('cookieBtn'), closeBtn=document.getElementById('closeCookieModal');
+  const acceptBtn=document.getElementById('acceptAllCookies'), rejectBtn=document.getElementById('rejectAllCookies'), necessaryBtn=document.getElementById('acceptNecessaryCookies');
+  const chkF=document.getElementById('cookieFunctional'), chkA=document.getElementById('cookieAnalytics'), chkP=document.getElementById('cookiePerformance'), chkAd=document.getElementById('cookieAdvertising');
+  function loadPrefs() { const p=localStorage.getItem(STORAGE_KEY)?JSON.parse(localStorage.getItem(STORAGE_KEY)):{necessary:true,functional:false,analytics:false,performance:false,advertising:false}; if(chkF)chkF.checked=!!p.functional; if(chkA)chkA.checked=!!p.analytics; if(chkP)chkP.checked=!!p.performance; if(chkAd)chkAd.checked=!!p.advertising; }
+  function savePrefs() { const p={necessary:true,functional:chkF?chkF.checked:false,analytics:chkA?chkA.checked:false,performance:chkP?chkP.checked:false,advertising:chkAd?chkAd.checked:false}; localStorage.setItem(STORAGE_KEY,JSON.stringify(p)); window.dispatchEvent(new CustomEvent('cookiePreferencesChanged',{detail:p})); }
+  function openModal() { if(modal){modal.style.display='flex';document.body.style.overflow='hidden';} }
+  function closeModal() { if(modal){modal.style.display='none';document.body.style.overflow='';} }
+  function acceptAll() { if(chkF)chkF.checked=true; if(chkA)chkA.checked=true; if(chkP)chkP.checked=true; if(chkAd)chkAd.checked=true; savePrefs(); closeModal(); }
+  function rejectAll() { if(chkF)chkF.checked=false; if(chkA)chkA.checked=false; if(chkP)chkP.checked=false; if(chkAd)chkAd.checked=false; savePrefs(); closeModal(); }
+  loadPrefs();
+  if(!localStorage.getItem(STORAGE_KEY)) setTimeout(openModal, 500);
+  if(btn) btn.addEventListener('click',openModal);
+  if(closeBtn) closeBtn.addEventListener('click',closeModal);
+  if(acceptBtn) acceptBtn.addEventListener('click',acceptAll);
+  if(rejectBtn) rejectBtn.addEventListener('click',rejectAll);
+  if(necessaryBtn) necessaryBtn.addEventListener('click',rejectAll);
+  if(modal) modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  [chkF,chkA,chkP,chkAd].forEach(c=>{if(c)c.addEventListener('change',savePrefs);});
+})();
+(function() {
+  const ckb = document.getElementById('cookieBtn');
+  if (!ckb) return;
+  let t;
+  function show() { ckb.classList.remove('hidden'); clearTimeout(t); t = setTimeout(() => ckb.classList.add('hidden'), 3000); }
+  document.addEventListener('scroll',     show, { passive: true });
+  document.addEventListener('mousemove',  show, { passive: true });
+  document.addEventListener('touchstart', show, { passive: true });
+  document.addEventListener('keydown',    show);
+  ckb.addEventListener('mouseenter', () => clearTimeout(t));
+  ckb.addEventListener('mouseleave', show);
+  show();
+})();
+</script>
+
+</body>
+</html>

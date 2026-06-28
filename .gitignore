@@ -4,6 +4,7 @@ __pycache__/
 index.html
 !/index.html
 !/GuiaEtiquetas/index.html
+!/GuiaPhishing/index.html
 !/[0-9]*/index.html
 preview.html
 .env
