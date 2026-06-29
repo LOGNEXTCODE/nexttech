@@ -609,7 +609,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     </div>
 
     <!-- 2b. CASO DEL MES — ancho completo -->
-    <div class="card card-caso full-width" onmouseenter="trackSection('caso_mes')">
+    <div class="card card-caso" onmouseenter="trackSection('caso_mes')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
         <img src="https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 30%,#05051f 100%);"></div>
@@ -622,7 +622,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     </div>
 
     <!-- 3. EL RETO DEL MES — ancho completo -->
-    <div class="card card-reto full-width" onmouseenter="trackSection('reto')">
+    <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="reto_tag">El reto del mes</span></div>
       <div class="reto-badge" data-i18n="reto_badge">RETO ACTIVO</div>
       <div class="card-title" data-i18n="reto_title">Reto del mes: caza reglas de reenvío que no pusiste tú</div>
@@ -641,7 +641,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     </div>
 
     <!-- 4a. ESTO PASÓ — ancho completo -->
-    <div class="card card-esto full-width" onmouseenter="trackSection('esto_paso')">
+    <div class="card card-esto" onmouseenter="trackSection('esto_paso')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
         <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&h=220&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
@@ -651,6 +651,19 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="card-text" data-i18n="esto_text">Europol, Microsoft, ESET, Bitdefender y Bitsight han desmantelado la infraestructura detrás de Amadey y StealC, dos de los malware más usados para distribuir ransomware y cometer fraude financiero. El resultado: 27 millones de credenciales robadas recuperadas y las 'líneas de montaje' del crimen organizado digital temporalmente fuera de servicio. Es una victoria real, pero no el final de la guerra: las credenciales ya extraídas siguen circulando. Si vuestros usuarios reciclan contraseñas, ahora es el momento de actuar.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="esto_source">WeLiveSecurity (ESET) · Junio 2026</span></div>
       <a href="https://www.welivesecurity.com/es/investigaciones/eset-operacion-endgame-disrupcion-amadey-stealc/" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)"><span data-i18n="esto_cta">Leer la historia completa</span> <span class="arrow">→</span></a>
+    </div>
+
+    <!-- 4c. CONSEJO DEL MES — ancho completo -->
+    <div class="card card-consejo" onmouseenter="trackSection('consejo')">
+      <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
+        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="consejo_tag">Consejo del mes</span></div>
+      <div class="card-title" data-i18n="consejo_title">Revisa qué apps tienen las llaves de tu cuenta M365</div>
+      <div class="card-text" data-i18n="consejo_text">¿Sabes qué aplicaciones tienen acceso a tu cuenta corporativa? Muchas apps de terceros piden permiso "para siempre" cuando las conectas, y luego nadie vuelve a mirarlas. Entra en myaccount.microsoft.com → Aplicaciones, revisa la lista y revoca el acceso de todo lo que ya no uses.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="consejo_source">Departamento IT LOGNEXT · Julio 2026</span></div>
+      <a href="https://myaccount.microsoft.com/" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)"><span data-i18n="consejo_cta">Revisar mis apps conectadas</span> <span class="arrow">→</span></a>
     </div>
 
     <!-- 4b. EN EL RADAR — ancho completo, grid 2×2 -->
@@ -680,19 +693,6 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 </a>
 
       </div>
-    </div>
-
-    <!-- 4c. CONSEJO DEL MES — ancho completo -->
-    <div class="card card-consejo full-width" onmouseenter="trackSection('consejo')">
-      <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
-      </div>
-      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="consejo_tag">Consejo del mes</span></div>
-      <div class="card-title" data-i18n="consejo_title">Revisa qué apps tienen las llaves de tu cuenta M365</div>
-      <div class="card-text" data-i18n="consejo_text">¿Sabes qué aplicaciones tienen acceso a tu cuenta corporativa? Muchas apps de terceros piden permiso "para siempre" cuando las conectas, y luego nadie vuelve a mirarlas. Entra en myaccount.microsoft.com → Aplicaciones, revisa la lista y revoca el acceso de todo lo que ya no uses.</div>
-      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span><span data-i18n="consejo_source">Departamento IT LOGNEXT · Julio 2026</span></div>
-      <a href="https://myaccount.microsoft.com/" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)"><span data-i18n="consejo_cta">Revisar mis apps conectadas</span> <span class="arrow">→</span></a>
     </div>
 
     <!-- 4d. PHISHING TEST — estático, ancho completo -->
