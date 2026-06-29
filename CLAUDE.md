@@ -410,3 +410,44 @@ Claude rellena secciones, nunca modifica estructura.
 a la API. Si hay < 5 artículos frescos (7 días) o < 3 de seguridad,
 Claude recibe el aviso y marca las secciones afectadas con
 `[COBERTURA LIMITADA ESTE MES]` en lugar de inventar contenido.
+
+-----
+
+## Reglas de edición y checklist (incorporado en el saneamiento de la #02)
+
+### Regla — Bienvenida
+- Varía de forma cada edición; prohibido repetir estructura dos ediciones seguidas.
+- "Somos Nexters" es el LEMA/sello: presente siempre, NO en la primera línea.
+- Tono "para ellos", sin ego ("ahora puedes", no "hemos implementado").
+- Prohibido reutilizar coletillas (p. ej. "café en mano").
+- Cada edición se proponen 2-3 aperturas nuevas para elegir.
+
+### Regla — Anti-duplicación
+- El preheader NO repite el titular de ninguna sección.
+- Antes de publicar: verificar que intro y titulares no digan lo mismo.
+
+### Regla — Sección fija "Novedades del Departamento IT"
+- Recurrente, cabecera e icono constantes (🛠️), lenguaje claro, ubicada tras "IA al día".
+- Es el lugar donde IT comunica sus cambios (DLP, GoPhish, VLAN, etc.).
+
+### Patrón — Sección colapsable
+- Secciones largas: párrafo visible + botón "Seguir leyendo" accesible
+  (`aria-expanded`), en los 3 idiomas (ES «Seguir leyendo» / EN «Read more» /
+  FR «Lire la suite»). Los CTA y los retos NUNCA se ocultan.
+
+### Checklist — Antes de publicar una edición
+- [ ] Bienvenida con estructura distinta a la previa, lema presente (no en 1ª línea), sin ego, sin coletillas
+- [ ] Preheader no repite titulares
+- [ ] Sin noticias/titulares duplicados (intro vs secciones)
+- [ ] Toggle modo oscuro/claro presente y funcional
+- [ ] i18n ES/EN/FR completo en TODAS las secciones
+- [ ] Botones de cookies con igual prominencia (AEPD); «Personalizar» secundario
+- [ ] GA4 con carga condicional al consentimiento
+- [ ] Cada noticia con fuente + mes/año
+- [ ] Enlaces: todos resuelven (HTTP 200); noticias preferentemente a fuente en español
+- [ ] Imágenes: tecnológicas, acordes a la noticia, resuelven
+- [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
+- [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
+
+### Orden canónico de la edición (desde la #02)
+`Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`

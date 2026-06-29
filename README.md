@@ -23,6 +23,8 @@ A **mitad de mes**, un segundo workflow (`reminder.yml` → `reminder.py`) enví
 
 | Sección | Descripción |
 |---------|-------------|
+| 👋 **Bienvenida** | Apertura propia de cada edición; cierra con el lema «Somos Nexters» |
+| 🛠️ **Novedades del Departamento IT** | Cambios que aplica IT (DLP, GoPhish…) en lenguaje claro, con bloques colapsables «Seguir leyendo» — va tras «IA al Día» |
 | 🗞️ **Esto Pasó** | La noticia más impactante del mes — ancho completo |
 | 😱 **El Caso del Mes** | Un incidente real contado como serie |
 | 💡 **El Consejo** | Un consejo práctico aplicable hoy |
@@ -31,6 +33,8 @@ A **mitad de mes**, un segundo workflow (`reminder.yml` → `reminder.py`) enví
 | 🤖 **IA al Día** | Tendencias de IA del mes — ancho completo |
 | 🎯 **Test de Phishing** | Prueba interactiva mensual con feedback |
 | 🔗 **Agujero** | Artículo, vídeo y quiz de interés |
+
+**Orden en la página (desde la #02):** Bienvenida → IA al Día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del Mes → Reto del Mes → Noticias (Esto Pasó, En el Radar, Consejo, Test Phishing, Agujero) → Footer.
 
 ---
 
@@ -44,6 +48,8 @@ A **mitad de mes**, un segundo workflow (`reminder.yml` → `reminder.py`) enví
 - **Cursor personalizado** — símbolo LOGNEXT animado con glow rojo (solo desktop)
 - **Fondo nebulosa** — nubes de color animadas con estrellas parpadeantes y fugaces
 - **Modo claro/oscuro** — toggle con persistencia (`localStorage 'nl-theme'`); nebulosa en oscuro, partículas en claro
+- **Trilingüe ES/EN/FR** — selector de idioma con `data-i18n` y diccionario `I18N`; todas las secciones (incluidos cookies, DLP y banner GoPhish) traducidas
+- **Secciones colapsables** — bloques largos con botón accesible «Seguir leyendo» (`aria-expanded`), traducible
 - **Efecto hover** en cards y botones con colores explícitos por sección
 - **Google Analytics GA4** integrado — tracking por sección, clics y test phishing
 - **Test phishing interactivo** con feedback educativo
@@ -170,7 +176,7 @@ NextTech forma parte de la familia de comunicaciones Next de LOGNEXT:
 | ✅ 3b | GitHub Pages + DNS personalizado | Completado |
 | ✅ 4 | Diseño final — logo, favicon, nebulosa, cursor | Completado |
 | ✅ 5 | Lanzamiento NextTech #01 — Mayo 2026 | Completado |
-| ⏳ 6 | Campaña phishing simulado (GoPhish) | Planificado |
+| ⏳ 6 | Campaña phishing simulado (GoPhish) — primer simulacro anunciado para **septiembre 2026** en la #02 | Planificado |
 
 ---
 
