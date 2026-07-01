@@ -17,6 +17,7 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - name: 📥 Checkout del repositorio
@@ -35,11 +36,28 @@ jobs:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: python translator.py "${{ github.event.inputs.html_file }}"
 
-      - name: 💾 Commit y push si hay cambios
+      - name: 🔀 Abrir PR de revisión con las traducciones (NO publica en main)
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
+          FILE="${{ github.event.inputs.html_file }}"
+          # Si translator.py no produjo cambios, no hay nada que revisar.
+          if git diff --quiet -- "$FILE"; then
+            echo "Sin cambios — nada que traducir/commitear. No se abre PR."
+            exit 0
+          fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add "${{ github.event.inputs.html_file }}"
-          git diff --staged --quiet && echo "Sin cambios — nada que commitear." || \
-            git commit -m "i18n: traducciones EN/FR — ${{ github.event.inputs.html_file }}" && \
-            git push origin main
+          # Rama de revisión única por ejecución (nombre seguro derivado del fichero).
+          SLUG="$(echo "$FILE" | tr '/.' '--')"
+          BRANCH="i18n/${SLUG}-${{ github.run_id }}"
+          git checkout -b "$BRANCH"
+          git add "$FILE"
+          git commit -m "i18n: traducciones EN/FR — $FILE"
+          git push origin "$BRANCH"
+          # Abre la PR contra main; la revisión y el merge son manuales.
+          gh pr create \
+            --base main \
+            --head "$BRANCH" \
+            --title "i18n: traducciones EN/FR — $FILE" \
+            --body "Traducciones automáticas EN/FR generadas por \`translator.py\` para \`$FILE\`. Revisar antes de fusionar. No se ha tocado el contenido en español."
