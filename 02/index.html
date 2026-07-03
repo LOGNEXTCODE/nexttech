@@ -443,6 +443,8 @@ body.light .card-reto    .card-link       { color: #007A8A !important; border-co
 body.light .card-reto    .card-link:hover { background: #007A8A !important; color: #FFFFFF !important; border-color: #007A8A !important; }
 body.light .card-ia      .card-link       { color: #1A5CB0 !important; border-color: #1A5CB0 !important; }
 body.light .card-ia      .card-link:hover { background: #1A5CB0 !important; color: #FFFFFF !important; border-color: #1A5CB0 !important; }
+body.light .gophish-banner .card-link       { color: #6A28AA !important; border-color: #6A28AA !important; }
+body.light .gophish-banner .card-link:hover { background: #6A28AA !important; color: #FFFFFF !important; border-color: #6A28AA !important; }
 
 body.light .card-links { background: transparent; box-shadow: none; }
 body.light .link-card { background: #FFFFFF; border: 1px solid rgba(0,0,41,0.09); box-shadow: 0 1px 8px rgba(0,0,41,0.06); }
@@ -762,8 +764,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('novedades_it', this.href)"><span data-i18n="nov_cta">Abrir la guía de etiquetas</span> <span class="arrow">→</span></a>
 
       <!-- Banner GoPhish — simulacro de phishing de septiembre -->
-      <div style="margin-top:26px;border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
-        <div class="card-text" style="margin-bottom:16px;font-size:15px;color:#fff;opacity:1;" data-i18n="gophish_text">🎣 En septiembre llega el primer simulacro de phishing. Pondremos a prueba, de forma amistosa, nuestro olfato ante correos sospechosos. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Te contamos cómo funciona y qué se mide.</div>
+      <div class="gophish-banner" style="margin-top:26px;border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
+        <div class="card-text" style="margin-bottom:16px;font-size:15px;opacity:1;" data-i18n="gophish_text">🎣 En septiembre llega el primer simulacro de phishing. Pondremos a prueba, de forma amistosa, nuestro olfato ante correos sospechosos. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Te contamos cómo funciona y qué se mide.</div>
         <a href="/GuiaPhishing/" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish_btn">Saber más</span> <span class="arrow">→</span></a>
       </div>
     </div>
