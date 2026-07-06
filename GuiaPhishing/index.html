@@ -1501,5 +1501,27 @@ document.querySelectorAll('.lbtn').forEach(b =>
 })();
 </script>
 
+<script>
+/* Volver a NextTech: vuelve a la edición de origen (?from=NN); respaldo: última edición publicada. */
+(function () {
+  var from = new URLSearchParams(location.search).get('from');
+  function repoint(url) {
+    document.querySelectorAll('a[href="https://nexttech.lognext.com"], a[href="https://nexttech.lognext.com/"]').forEach(function (a) { a.setAttribute('href', url); });
+  }
+  fetch('/editions.json', { cache: 'no-cache' })
+    .then(function (r) { return r.json(); })
+    .then(function (eds) {
+      if (!Array.isArray(eds) || !eds.length) return;
+      var url;
+      if (from && /^\d{2}$/.test(from) && eds.some(function (e) { return String(e.n) === from; })) url = '/' + from + '/';
+      else { eds.sort(function (a, b) { return String(a.n).localeCompare(String(b.n)); }); url = eds[eds.length - 1].url; }
+      repoint(url);
+      var foot = document.querySelector('[data-i18n-html="footer-tag"]');
+      if (foot && window.MutationObserver) new MutationObserver(function () { repoint(url); }).observe(foot, { childList: true, subtree: true });
+    })
+    .catch(function () { if (from && /^\d{2}$/.test(from)) repoint('/' + from + '/'); });
+})();
+</script>
+
 </body>
 </html>

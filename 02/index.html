@@ -709,7 +709,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
           <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="ph_btn_no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
         </div>
         <div class="phishing-result" id="phishing-result"></div>
-        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(200,150,255,0.15);"><a href="/GuiaPhishing/" class="card-link" style="color:var(--violet)" onclick="trackLink('phishing_guia', this.href)"><span data-i18n="ph_tip">Aprende a detectarlos: abre la guía de phishing</span> <span class="arrow">→</span></a></div>
+        <div style="margin-top:14px;padding-top:14px;border-top:1px solid rgba(200,150,255,0.15);"><a href="/GuiaPhishing/?from=02" class="card-link" style="color:var(--violet)" onclick="trackLink('phishing_guia', this.href)"><span data-i18n="ph_tip">Aprende a detectarlos: abre la guía de phishing</span> <span class="arrow">→</span></a></div>
       </div>
     </div>
 
@@ -761,12 +761,12 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="card-text" data-i18n="dlp_correo">¿Te ha llegado un aviso y no sabes si pasó algo? Si recibes un mensaje de Seguridad · LOGNEXT IT avisándote de una regla al enviar, que no cunda el pánico: tu correo sí se envió. Es un aviso informativo del sistema de etiquetado, no significa que el envío fallara ni que se rechazara.</div>
       <div class="card-text" data-i18n="dlp_future">Una de futuro: de momento la etiqueta la eliges tú, y el sistema solo te la sugiere — como un corrector, pero para la confidencialidad. Tú confirmas. Con el tiempo será un paso fijo de tu trabajo, pero para entonces ya lo harás sin pensar.</div>
       </div>
-      <a href="/GuiaEtiquetas/" class="card-link" style="color:var(--green)" onclick="trackLink('novedades_it', this.href)"><span data-i18n="nov_cta">Abrir la guía de etiquetas</span> <span class="arrow">→</span></a>
+      <a href="/GuiaEtiquetas/?from=02" class="card-link" style="color:var(--green)" onclick="trackLink('novedades_it', this.href)"><span data-i18n="nov_cta">Abrir la guía de etiquetas</span> <span class="arrow">→</span></a>
 
       <!-- Banner GoPhish — simulacro de phishing de septiembre -->
       <div class="gophish-banner" style="margin-top:26px;border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
         <div class="card-text" style="margin-bottom:16px;font-size:15px;opacity:1;" data-i18n="gophish_text">🎣 En septiembre llega el primer simulacro de phishing. Pondremos a prueba, de forma amistosa, nuestro olfato ante correos sospechosos. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Te contamos cómo funciona y qué se mide.</div>
-        <a href="/GuiaPhishing/" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish_btn">Saber más</span> <span class="arrow">→</span></a>
+        <a href="/GuiaPhishing/?from=02" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish_btn">Saber más</span> <span class="arrow">→</span></a>
       </div>
     </div>
 
@@ -799,8 +799,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div class="footer-col-title" data-i18n="footer_col_nextguide">NextGuide</div>
         <div class="footer-col-rule"></div>
         <ul class="footer-links-list">
-          <li><a href="/GuiaEtiquetas/" target="_blank" data-i18n="footer_guide_etiquetas" onclick="trackLink('footer_guide_etiquetas', this.href)">Etiquetas de confidencialidad</a></li>
-          <li><a href="/GuiaPhishing/" target="_blank" data-i18n="footer_guide_phishing" onclick="trackLink('footer_guide_phishing', this.href)">Guía de phishing</a></li>
+          <li><a href="/GuiaEtiquetas/?from=02" target="_blank" data-i18n="footer_guide_etiquetas" onclick="trackLink('footer_guide_etiquetas', this.href)">Etiquetas de confidencialidad</a></li>
+          <li><a href="/GuiaPhishing/?from=02" target="_blank" data-i18n="footer_guide_phishing" onclick="trackLink('footer_guide_phishing', this.href)">Guía de phishing</a></li>
         </ul>
       </div>
 

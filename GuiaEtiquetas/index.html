@@ -1158,6 +1158,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
       Documento interno · sistemas@lognext.com<br>
       <span style="opacity:0.5;">Forma parte del ecosistema Next · LOGNEXT</span>
     </p>
+    <p style="text-align:center;margin-top:14px;font-size:13px;"><a href="https://nexttech.lognext.com" data-i18n="ntx-back" style="color:#FA3C0F;text-decoration:none;font-weight:600;">← Volver a NextTech</a></p>
   </div>
 </footer>
 
@@ -1279,7 +1280,8 @@ const I18N = {
     "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Solo usuarios expresamente autorizados pueden acceder a este documento",
     "word-doc-title": "<strong>Estrategia Comercial 2026 — Resumen ejecutivo</strong>",
     "alert-body": "Estás enviando contenido clasificado como <strong>Confidencial</strong> a un destinatario externo. Confirma que el destinatario está autorizado para recibir esta información.",
-    "footer-tag": "<strong>Departamento IT · LOGNEXT S.L.</strong><br/>\n      Guía de Etiquetas de Confidencialidad · Microsoft Purview · Mayo 2026<br/>\n      Documento interno · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Forma parte del ecosistema Next · LOGNEXT</span>"
+    "footer-tag": "<strong>Departamento IT · LOGNEXT S.L.</strong><br/>\n      Guía de Etiquetas de Confidencialidad · Microsoft Purview · Mayo 2026<br/>\n      Documento interno · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Forma parte del ecosistema Next · LOGNEXT</span>",
+    "ntx-back": "← Volver a NextTech"
   },
   "en": {
     "nav-etiquetas": "Labels",
@@ -1395,7 +1397,8 @@ const I18N = {
     "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Only expressly authorised users can access this document",
     "word-doc-title": "<strong>Commercial Strategy 2026 — Executive Summary</strong>",
     "alert-body": "You are sending content classified as <strong>Confidencial</strong> to an external recipient. Please confirm that the recipient is authorised to receive this information.",
-    "footer-tag": "<strong>IT Department · LOGNEXT S.L.</strong><br/>\n      Sensitivity Labels Guide · Microsoft Purview · May 2026<br/>\n      Internal document · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Part of the Next ecosystem · LOGNEXT</span>"
+    "footer-tag": "<strong>IT Department · LOGNEXT S.L.</strong><br/>\n      Sensitivity Labels Guide · Microsoft Purview · May 2026<br/>\n      Internal document · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Part of the Next ecosystem · LOGNEXT</span>",
+    "ntx-back": "← Back to NextTech"
   },
   "fr": {
     "nav-etiquetas": "Étiquettes",
@@ -1511,7 +1514,8 @@ const I18N = {
     "word-sensitivity": "🔴 <strong>Muy Confidencial</strong>  ·  LOGNEXT — Seuls les utilisateurs expressément autorisés peuvent accéder à ce document",
     "word-doc-title": "<strong>Stratégie commerciale 2026 — Résumé exécutif</strong>",
     "alert-body": "Vous envoyez du contenu classifié comme <strong>Confidencial</strong> à un destinataire externe. Confirmez que le destinataire est autorisé à recevoir cette information.",
-    "footer-tag": "<strong>Département IT · LOGNEXT S.L.</strong><br/>\n      Guide des étiquettes de confidentialité · Microsoft Purview · Mai 2026<br/>\n      Document interne · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Fait partie de l'écosystème Next · LOGNEXT</span>"
+    "footer-tag": "<strong>Département IT · LOGNEXT S.L.</strong><br/>\n      Guide des étiquettes de confidentialité · Microsoft Purview · Mai 2026<br/>\n      Document interne · sistemas@lognext.com<br/>\n<span style=\"opacity:0.5;\">Fait partie de l'écosystème Next · LOGNEXT</span>",
+    "ntx-back": "← Retour à NextTech"
   }
 };
 
@@ -1628,6 +1632,28 @@ document.querySelectorAll('.lbtn').forEach(b =>
   ckb.addEventListener('mouseenter', () => clearTimeout(t));
   ckb.addEventListener('mouseleave', show);
   show();
+})();
+</script>
+
+<script>
+/* Volver a NextTech: vuelve a la edición de origen (?from=NN); respaldo: última edición publicada. */
+(function () {
+  var from = new URLSearchParams(location.search).get('from');
+  function repoint(url) {
+    document.querySelectorAll('a[href="https://nexttech.lognext.com"], a[href="https://nexttech.lognext.com/"]').forEach(function (a) { a.setAttribute('href', url); });
+  }
+  fetch('/editions.json', { cache: 'no-cache' })
+    .then(function (r) { return r.json(); })
+    .then(function (eds) {
+      if (!Array.isArray(eds) || !eds.length) return;
+      var url;
+      if (from && /^\d{2}$/.test(from) && eds.some(function (e) { return String(e.n) === from; })) url = '/' + from + '/';
+      else { eds.sort(function (a, b) { return String(a.n).localeCompare(String(b.n)); }); url = eds[eds.length - 1].url; }
+      repoint(url);
+      var foot = document.querySelector('[data-i18n-html="footer-tag"]');
+      if (foot && window.MutationObserver) new MutationObserver(function () { repoint(url); }).observe(foot, { childList: true, subtree: true });
+    })
+    .catch(function () { if (from && /^\d{2}$/.test(from)) repoint('/' + from + '/'); });
 })();
 </script>
 

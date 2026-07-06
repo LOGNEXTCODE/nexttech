@@ -161,6 +161,18 @@ Guías publicadas actualmente:
 |------|-------------|
 | `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
 
+### Navegación entre ediciones y guías (reglas fijas)
+
+- **Navegación entre ediciones (footer):** la columna «Ediciones» del footer se rellena
+  dinámicamente con `editions-nav.js` leyendo `/editions.json` (manifiesto de ediciones
+  publicadas). El workflow regenera `editions.json` en cada build con `gen_editions.py`.
+  Ninguna edición ya publicada reescribe su HTML: enlazan solas a las nuevas.
+- **Guías «volver al origen»:** los enlaces HACIA una guía llevan `?from={{EDICION_NUM}}`.
+  El botón «Volver a NextTech» de cada guía lee `?from=NN` y vuelve a esa edición;
+  si no hay parámetro válido, vuelve a la última edición publicada (`editions.json`).
+- **Toda edición debe enlazar a TODAS las NextGuides publicadas** (columna NextGuide del
+  footer), con su `?from`.
+
 ### i18n — toda edición es trilingüe (ES · EN · FR)
 
 Cada edición publicada (`XX/index.html`) **debe** incluir el bloque `const I18N`
@@ -451,6 +463,8 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Imágenes: tecnológicas, acordes a la noticia, resuelven
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
+- [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
+- [ ] Enlaces a TODAS las NextGuides (Etiquetas y Phishing) con `?from={{EDICION_NUM}}`
 
 ### Orden canónico de la edición (desde la #02)
 `Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
