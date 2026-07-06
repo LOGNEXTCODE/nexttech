@@ -28,12 +28,14 @@
       eds.sort(function (a, b) { return String(a.n).localeCompare(String(b.n)); });
       injectStyle();
 
+      var NOW_BADGE = '<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span>';
+      var latest = String(eds[eds.length - 1].n); // edición del mes en curso (la más alta)
       var html = '';
       eds.forEach(function (e) {
-        var isCur = String(e.n) === current;
+        var isCur = String(e.n) === current;      // la edición que estás viendo → resaltada
+        var isLatest = String(e.n) === latest;    // la edición del mes → badge NOW
         var label = e.label ? ' — ' + e.label : '';
-        html += '<li><a href="' + e.url + '"' + (isCur ? ' class="ed-foot-cur" aria-current="page"' : '') + '>#' + e.n + label + '</a>'
-              + (isCur ? '<span class="ed-foot-here">estás aquí</span>' : '') + '</li>';
+        html += '<li><a href="' + e.url + '"' + (isCur ? ' class="ed-foot-cur" aria-current="page"' : '') + '>#' + e.n + label + (isLatest ? NOW_BADGE : '') + '</a></li>';
       });
       // Teaser de las 2 próximas ediciones aún no publicadas.
       var maxN = parseInt(eds[eds.length - 1].n, 10);
@@ -49,8 +51,7 @@
     var st = document.createElement('style');
     st.id = 'ed-foot-style';
     st.textContent =
-      ".ed-foot-cur{color:var(--red)!important;font-weight:700;}" +
-      ".ed-foot-here{margin-left:8px;font-size:9px;letter-spacing:1px;font-family:'JetBrains Mono',monospace;opacity:0.5;text-transform:uppercase;}" +
+      ".ed-foot-cur{font-weight:700;opacity:1;}" +
       ".ed-foot-soon{opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);}";
     document.head.appendChild(st);
   }
