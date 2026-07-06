@@ -5,6 +5,30 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title data-i18n="doc-title">Guía de Etiquetas de Confidencialidad — LOGNEXT</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<!-- Google Analytics 4 — carga condicional: solo tras aceptar «Analítica» en el banner de cookies (RGPD) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  function initGA4() {
+    if (window._ga4Loaded) return;
+    window._ga4Loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-116HSWHBE9';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-116HSWHBE9');
+  }
+  (function() {
+    try {
+      var prefs = JSON.parse(localStorage.getItem('lognext_cookie_preferences') || '{}');
+      if (prefs.analytics) initGA4();
+    } catch(e) {}
+  })();
+  window.addEventListener('cookiePreferencesChanged', function(e) {
+    if (e.detail && e.detail.analytics) initGA4();
+  });
+</script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

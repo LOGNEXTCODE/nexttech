@@ -338,10 +338,13 @@ NextTech genera automáticamente evidencias ENS:
 ### Estado implementado
 
 - Banner de cookies RGPD replicado de la web corporativa LOGNEXT
-- GA4 con carga condicional: **no se carga hasta que el usuario acepta "Analítica"**
+- GA4 (`G-116HSWHBE9`) con carga condicional: **no se carga hasta que el usuario acepta "Analítica"**.
+  El loader (`initGA4`) inyecta `gtag/js` solo cuando `lognext_cookie_preferences.analytics` es
+  `true` (al cargar) o al recibir el evento `cookiePreferencesChanged` con `analytics:true`.
+- Etiqueta gtag presente en **ediciones y en ambas guías** (`GuiaEtiquetas`, `GuiaPhishing`).
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
-- Aplicado a todas las ediciones (`web_template.html`) y a `GuiaEtiquetas`
+- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas` y `GuiaPhishing`
 - **Igual prominencia (AEPD mayo 2024 / CEPD 03/2022):** "Aceptar todas" y
   "Rechazar todas" son botones **idénticos** (mismo relleno sólido naranja
   `#FA3C0F`, texto blanco, tamaño, padding y radio). "Aceptar solo necesarias"
