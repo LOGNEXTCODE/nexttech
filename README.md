@@ -86,7 +86,7 @@ El sistema trackea automáticamente:
 - `outbound_click` — qué enlaces externos generan más interés
 - `phishing_test` — resultados del test mensual (correct / incorrect)
 
-El ID de medición ya está configurado (`G-116HSWHBE9`) en ediciones y guías. GA4 carga
+El ID de medición ya está configurado (`G-H3Y3WBWSLR`) en ediciones y guías. GA4 carga
 **solo tras aceptar «Analítica»** en el banner de cookies (RGPD); sin consentimiento no se envía nada.
 
 ---

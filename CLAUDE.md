@@ -297,7 +297,7 @@ falla, la edición no sale:
 - [ ] **i18n ES/EN/FR completo** — `const I18N` con los 3 idiomas + selector de
       idioma operativo (ver «i18n — toda edición es trilingüe»).
 - [ ] **Cookies con igual prominencia (AEPD)** — Aceptar = Rechazar (ver «Cookies y GA4»).
-- [ ] **GA4 con carga condicional** — `G-116HSWHBE9`, solo tras consentimiento «Analítica».
+- [ ] **GA4 con carga condicional** — `G-H3Y3WBWSLR`, solo tras consentimiento «Analítica».
 - [ ] **Fuente + mes/año** en cada ítem (esto_paso, caso_real, ia_dia, radar, enlaces).
 - [ ] **Secciones largas colapsadas** — los bloques de texto extenso van tras un
       botón «Seguir leyendo» (ver patrón abajo), no como muro de texto.
@@ -350,9 +350,12 @@ NextTech genera automáticamente evidencias ENS:
 ### Estado implementado
 
 - Banner de cookies RGPD replicado de la web corporativa LOGNEXT
-- GA4 (`G-116HSWHBE9`) con carga condicional: **no se carga hasta que el usuario acepta "Analítica"**.
+- GA4 (`G-H3Y3WBWSLR`) con carga condicional: **no se carga hasta que el usuario acepta "Analítica"**.
   El loader (`initGA4`) inyecta `gtag/js` solo cuando `lognext_cookie_preferences.analytics` es
   `true` (al cargar) o al recibir el evento `cookiePreferencesChanged` con `analytics:true`.
+- ⚠️ **ID de medición correcto: `G-H3Y3WBWSLR`** (verificado en navegador: sirve `gtag.js`).
+  El ID `G-116HSWHBE9` usado anteriormente era **erróneo**: Google devolvía **404** al pedir su
+  `gtag.js`, por lo que GA4 no cargaba y no llegaban datos. **No volver a usar `G-116HSWHBE9`.**
 - Etiqueta gtag presente en **ediciones y en ambas guías** (`GuiaEtiquetas`, `GuiaPhishing`).
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
@@ -373,7 +376,7 @@ Para una integración completa con Google Consent Mode v2:
 1. **En Google Analytics 4** (analytics.google.com):
    - Propiedad NextTech → Admin → Configuración de datos → Consentimiento
    - Activar "Modelado de comportamiento para el consentimiento de anuncios"
-   - Verificar que la propiedad `G-116HSWHBE9` recibe hits solo cuando `analytics=true`
+   - Verificar que la propiedad `G-H3Y3WBWSLR` recibe hits solo cuando `analytics=true`
 
 2. **Dar al usuario control granular** (opcional, mejora RGPD):
    - Mapear categoría "Analítica" → `analytics_storage: 'granted/denied'`
