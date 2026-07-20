@@ -4,24 +4,35 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  # Generación automática con 7 días de antelación a la publicación.
+  # Generación automática con 10 días de antelación a la publicación.
   # ─────────────────────────────────────────────────────────────────
   # FLUJO:
   #   · Publicación (envío a todos) → primer MIÉRCOLES del mes (acción manual de Miguel)
-  #   · Generación automática       → el MIÉRCOLES ANTERIOR, 7 días antes
+  #   · Generación automática       → el DOMINGO exactamente 10 días antes
+  #     (cae siempre entre los días 19 y 28 del mes anterior)
   #
-  # El primer miércoles del mes cae siempre entre los días 1-7.
-  # El miércoles previo cae entre los días 25-31 del mes anterior.
-  # Por tanto este cron se dispara los MIÉRCOLES (dow=3) de los días 25-31.
+  # El cron corre TODOS los domingos a las 07:00 UTC (09:00 Madrid en verano,
+  # 08:00 en invierno) SIN restricción de día de mes. Así no existe el OR
+  # día-de-mes/día-de-semana de GitHub Actions que provocó generaciones en
+  # días no deseados (la #02 se generó el jueves 25-jun en vez del miércoles 24).
+  #
+  # El primer paso del job decide si hoy es EL domingo: si hoy es domingo,
+  # hoy+10 días es siempre un miércoles; si además cae en día 1-7 del mes,
+  # es el PRIMER miércoles → se genera. Los demás domingos el job sale sin
+  # hacer nada.
   # ─────────────────────────────────────────────────────────────────
   schedule:
-    - cron: "0 7 25-31 * 3"
+    - cron: "0 7 * * 0"
 
   # Lanzamiento manual desde GitHub Actions (para tests y ediciones urgentes)
   workflow_dispatch:
     inputs:
       edition_number:
         description: "Número de edición (ej: 01). Déjalo vacío para calcular automáticamente."
+        required: false
+        default: "auto"
+      publication_date:
+        description: "Fecha de publicación YYYY-MM-DD (fija mes/año de cabecera y etiquetas). 'auto' = hoy + 10 días."
         required: false
         default: "auto"
 
@@ -36,19 +47,35 @@ jobs:
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: 📅 Verificar ventana de generación (miércoles previo al primer miércoles)
+      - name: 📅 Verificar ventana de generación (domingo 10 días antes del primer miércoles)
         id: check_date
         run: |
-          DAY=$(date +%-d)
-          # En workflow_dispatch siempre se ejecuta (test manual)
+          DOW=$(date -u +%u)                        # 1=lunes … 7=domingo
+          TARGET_DAY=$(date -u -d '+10 days' +%-d)  # día del mes de hoy+10
+          # PUBLICATION_DATE: ÚNICA fuente de la fecha de publicación para todo
+          # el pipeline. El cálculo "+10 días" solo vive aquí; los scripts Python
+          # la leen vía pubdate.py.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] \
+             && [ -n "${{ github.event.inputs.publication_date }}" ] \
+             && [ "${{ github.event.inputs.publication_date }}" != "auto" ]; then
+            PUB_DATE="${{ github.event.inputs.publication_date }}"
+          else
+            PUB_DATE=$(date -u -d '+10 days' +%Y-%m-%d)
+          fi
+          MESES=(- Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre)
+          PUB_LABEL="${MESES[$(date -u -d "$PUB_DATE" +%-m)]} $(date -u -d "$PUB_DATE" +%Y)"
+          echo "publication_date=$PUB_DATE"   >> $GITHUB_OUTPUT
+          echo "publication_label=$PUB_LABEL" >> $GITHUB_OUTPUT
+          # Guard con comprobación AND explícita (mismo patrón que reminder.yml):
+          # GitHub evalúa los crons con OR, así que el bash impone las condiciones.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            echo "Lanzamiento manual — ignorando restricción de fecha."
+            echo "Lanzamiento manual — ignorando restricción de fecha. Publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
-          elif [ "$DAY" -lt 25 ]; then
-            echo "Hoy es día $DAY — fuera de la ventana 25-31. Cancelando."
+          elif [ "$DOW" != "7" ] || [ "$TARGET_DAY" -gt 7 ]; then
+            echo "Hoy es DOW=$DOW y hoy+10 días cae en día $TARGET_DAY — no es el domingo 10 días antes del primer miércoles. Cancelando."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Hoy es día $DAY — miércoles previo al primer miércoles del mes. Generando con 7 días de antelación."
+            echo "Domingo 10 días antes del primer miércoles. Generando — publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
@@ -67,10 +94,13 @@ jobs:
         id: edition
         run: |
           if [ "${{ github.event.inputs.edition_number }}" = "auto" ] || [ -z "${{ github.event.inputs.edition_number }}" ]; then
-            MONTH=$(date +%-m)
-            START_MONTH=5
+            # Numeración por MES DE PUBLICACIÓN (no de generación): #01 = Junio 2026.
+            # Ej.: generado el 25-dic-2026 → publicación 6-ene-2027 → #08.
+            PUB_DATE="${{ steps.check_date.outputs.publication_date }}"
+            MONTH=$(date -u -d "$PUB_DATE" +%-m)
+            YEAR=$(date -u -d "$PUB_DATE" +%Y)
+            START_MONTH=6
             START_YEAR=2026
-            YEAR=$(date +%Y)
             EDITION=$(( (YEAR - START_YEAR) * 12 + MONTH - START_MONTH + 1 ))
             printf -v EDITION_STR "%02d" $EDITION
           else
@@ -89,6 +119,7 @@ jobs:
           MS_SENDER_EMAIL:    ${{ secrets.MS_SENDER_EMAIL }}
           REVIEWER_EMAIL:     ${{ secrets.REVIEWER_EMAIL }}
           EDITION_NUMBER:     ${{ steps.edition.outputs.number }}
+          PUBLICATION_DATE:   ${{ steps.check_date.outputs.publication_date }}
         run: python main.py
 
       - name: 🌍 Traducir a EN/FR (i18n)
@@ -102,6 +133,8 @@ jobs:
 
       - name: 🌐 Publicar en carpeta de edición (GitHub Pages)
         if: steps.check_date.outputs.skip == 'false'
+        env:
+          PUBLICATION_DATE: ${{ steps.check_date.outputs.publication_date }}
         run: |
           EDITION="${{ steps.edition.outputs.number }}"
           EDITION_FILE="${EDITION}/index.html"
@@ -126,7 +159,7 @@ jobs:
           # Manifiesto de ediciones publicadas para el navegador del footer (editions-nav.js)
           python gen_editions.py
           git add index.html editions.json "${EDITION}/"
-          git diff --staged --quiet || git commit -m "NextTech #${EDITION} publicado — $(date +'%B %Y')"
+          git diff --staged --quiet || git commit -m "NextTech #${EDITION} publicado — ${{ steps.check_date.outputs.publication_label }}"
           git push origin main
 
       - name: 🏷️ Nombre de artefacto seguro

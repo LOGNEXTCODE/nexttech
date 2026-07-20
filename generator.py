@@ -8,8 +8,9 @@ import os
 import json
 import re
 import anthropic
-from datetime import datetime
 from typing import List, Dict
+
+from pubdate import publication_date, mes_label
 
 # ─── CONFIGURACIÓN ─────────────────────────────────────────────────────────────
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
@@ -79,7 +80,9 @@ def select_and_draft(articles: List[Dict], warnings: List[str] = None) -> Dict:
         for i, a in enumerate(articles[:40])
     ])
 
-    mes_actual = datetime.now().strftime("%B %Y").capitalize()
+    # Mes de la edición = mes de PUBLICACIÓN (no de generación): la edición se
+    # genera 10 días antes, en el mes anterior.
+    mes_actual = mes_label(publication_date())
 
     aviso_scraping = ""
     if warnings:
@@ -231,7 +234,7 @@ def verify_content(content: Dict, edition: str) -> List[str]:
     Devuelve lista de issues; lista vacía = todo OK.
     """
     issues = []
-    mes = datetime.now().strftime("%B %Y").capitalize()
+    mes = mes_label(publication_date())
 
     subject = f"NextTech #{edition} — {mes}"
     if len(subject) > 45:
@@ -299,10 +302,10 @@ def _consejo_link_block(url: str, url_label: str) -> str:
 
 def render_template(content: Dict, edition: str) -> str:
     """Lee web_template.html y sustituye todos los {{PLACEHOLDERS}} con el contenido generado."""
-    now       = datetime.now()
-    mes_upper = now.strftime("%B %Y").upper()
-    year      = now.year
-    month     = now.month
+    pub       = publication_date()
+    mes_upper = mes_label(pub).upper()
+    year      = pub.year
+    month     = pub.month
 
     template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web_template.html")
     with open(template_path, "r", encoding="utf-8") as f:

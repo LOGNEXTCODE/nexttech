@@ -9,6 +9,8 @@ import os
 import requests
 from datetime import datetime
 
+from pubdate import publication_date, mes_label
+
 
 # ─── CONFIGURACIÓN (via GitHub Secrets) ────────────────────────────────────────
 TENANT_ID      = os.environ["MS_TENANT_ID"]
@@ -96,15 +98,16 @@ def build_email_html(content: dict, edition: str, web_url: str, timestamp: str) 
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    now = datetime.now()
-    mes       = now.strftime("%B %Y").capitalize()
-    mes_upper = now.strftime("%B %Y").upper()
+    # Mes/año de PUBLICACIÓN (la edición se genera 10 días antes, en el mes anterior)
+    pub       = publication_date()
+    mes       = mes_label(pub)
+    mes_upper = mes.upper()
 
     replacements = {
         "[[EDITION]]":        edition,
         "[[MES]]":            mes,
         "[[MES_UPPER]]":      mes_upper,
-        "[[YEAR]]":           str(now.year),
+        "[[YEAR]]":           str(pub.year),
         "[[TIMESTAMP]]":      timestamp,
         "[[WEB_URL]]":        web_url,
         "[[PREHEADER]]":      "IA, ciberseguridad y el reto del mes — todo lo que necesitas saber",
@@ -139,9 +142,7 @@ def send_draft(content: dict) -> bool:
     Workflow: revisores aprueban → envío manual a los Nexters el primer miércoles.
     """
     token = get_access_token()
-    now   = datetime.now()
-    mes   = now.strftime("%B %Y").capitalize()
-    ts    = now.strftime("%d/%m/%Y a las %H:%M")
+    ts    = datetime.now().strftime("%d/%m/%Y a las %H:%M")
 
     email_html = build_email_html(content, EDITION_NUMBER, WEB_URL, ts)
     subject    = f"[REVISIÓN · NextTech #{EDITION_NUMBER}] Borrador generado — revisar antes de publicar"
