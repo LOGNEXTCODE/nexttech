@@ -1,13 +1,13 @@
 # NextTech 🔐
 **La carta de los que van un paso por delante**
 
-Publicación mensual de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el **primer miércoles de cada mes**. La edición se genera automáticamente 7 días antes (el miércoles previo) para dejar una ventana de revisión.
+Publicación mensual de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el **primer lunes de cada mes**. La edición se genera automáticamente 8 días antes (el domingo de la semana anterior) para dejar una ventana de revisión.
 
 ---
 
 ## ¿Cómo funciona?
 
-El **miércoles previo al primer miércoles** de cada mes, GitHub Actions ejecuta automáticamente el pipeline de generación (7 días de antelación). El envío a toda la organización es **manual el primer miércoles**:
+El **domingo exactamente 8 días antes del primer lunes** de cada mes, GitHub Actions ejecuta automáticamente el pipeline de generación (ventana de revisión de 8 días). El envío a toda la organización es **manual el primer lunes**:
 
 1. **Scraper** — Lee RSS de INCIBE, CCN-CERT, El País Tech, Xataka, El Mundo, The Hacker News, Hispasec, Bleeping Computer
 2. **Claude API** — Selecciona noticias, redacta el contenido con tono cercano y humor
@@ -136,8 +136,8 @@ Puedes especificar el número de edición manualmente si es necesario.
 nexttech/
 ├── .github/
 │   └── workflows/
-│       ├── monthly.yml         # Cron: genera y publica la edición (miércoles previo)
-│       ├── reminder.yml        # Cron: recordatorio de mitad de mes (miércoles 12-18)
+│       ├── monthly.yml         # Cron: genera y publica la edición (domingo 8 días antes del primer lunes)
+│       ├── reminder.yml        # Cron: recordatorio de mitad de mes (lunes 12-18)
 │       └── translate-pages.yml # Traducción manual EN/FR de páginas estáticas
 ├── main.py                  # Orquestador principal
 ├── scraper.py               # Lee RSS de fuentes de noticias

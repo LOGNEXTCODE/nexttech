@@ -81,7 +81,7 @@ def select_and_draft(articles: List[Dict], warnings: List[str] = None) -> Dict:
     ])
 
     # Mes de la edición = mes de PUBLICACIÓN (no de generación): la edición se
-    # genera 10 días antes, en el mes anterior.
+    # genera 8 días antes, en el mes anterior.
     mes_actual = mes_label(publication_date())
 
     aviso_scraping = ""
@@ -114,7 +114,7 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
 • Palabras PROHIBIDAS (reescribe si aparecen): {', '.join(FORBIDDEN_WORDS)}
 • URLs: siempre de los artículos proporcionados. NUNCA inventadas.
 • ESTO_PASO, CASO_REAL y CONSEJO: campo "imagen" — elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
-• intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer miércoles, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
+• intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer lunes, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
 • radar: EXACTAMENTE 4 ítems, de fuentes distintas.
 • enlaces: EXACTAMENTE 3 recursos (1 artículo, 1 vídeo, 1 quiz/herramienta).
 • Para cada sección incluye el campo 'fuente' con el nombre del medio original

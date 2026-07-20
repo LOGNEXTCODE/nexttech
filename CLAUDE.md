@@ -45,8 +45,8 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml   # Cron: todos los domingos 07:00 UTC — genera solo el domingo exactamente 10 días antes del primer miércoles
-├── .github/workflows/reminder.yml  # Cron: miércoles de los días 12-18 (recordatorio de mitad de mes)
+├── .github/workflows/monthly.yml   # Cron: todos los domingos 07:00 UTC — genera solo el domingo exactamente 8 días antes del primer lunes
+├── .github/workflows/reminder.yml  # Cron: lunes de los días 12-18 (recordatorio de mitad de mes)
 ├── main.py                          # Orquestador principal
 ├── pubdate.py                       # Lee PUBLICATION_DATE (fecha de publicación, la fija monthly.yml) + meses en español
 ├── scraper.py                       # RSS feeds de fuentes oficiales
@@ -63,27 +63,31 @@ nexttech/
 1. Claude API → genera contenido con tono cercano
 1. GitHub Pages → publica en nexttech.lognext.com/XX
 1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
-1. Ventana de 10 días de revisión → envío manual desde Outlook el primer miércoles
-1. **Recordatorio automático** → el miércoles de mitad de mes (días 12-18), reminder.py envía un correo de recordatorio a sistemas@lognext.com para que el equipo IT lo reenvíe a la organización
+1. Ventana de 8 días de revisión → envío manual desde Outlook el primer lunes
+1. **Recordatorio automático** → el lunes de mitad de mes (días 12-18), reminder.py envía un correo de recordatorio a sistemas@lognext.com para que el equipo IT lo reenvíe a la organización
 
 **Calendario editorial:**
 
 | Hito | Cuándo | Cómo |
 |------|--------|------|
-| Generación | Domingo exactamente 10 días antes del primer miércoles del mes (cae los días 19-28 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
-| Revisión | Ventana de 10 días (domingo de generación → primer miércoles) | Borrador por email + preview web en `/XX/` |
-| Publicación (envío a todos) | Primer miércoles del mes | Manual desde Outlook (Miguel) |
-| Recordatorio | Miércoles de los días 12-18 | `reminder.yml` automático |
+| Generación | Domingo exactamente 8 días antes del primer lunes del mes (cae los días 21-30 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
+| Revisión | Ventana de 8 días (domingo de generación → primer lunes) | Borrador por email + preview web en `/XX/` |
+| Publicación (envío a todos) | Primer lunes del mes | Manual desde Outlook (Miguel) |
+| Recordatorio | Lunes de los días 12-18 | `reminder.yml` automático |
+
+Histórico: 2026-07-20 — la publicación pasa del primer miércoles al primer
+lunes (decisión editorial).
 
 Reglas del calendario (CRÍTICO — historial de fallos de cron):
 
 - El cron de `monthly.yml` es `0 7 * * 0` (**todos los domingos**), SIN rango de
   día de mes. GitHub evalúa día-de-mes y día-de-semana con **OR**, no AND — un
   cron combinado dispara días no deseados (así se generó la #02 el jueves 25-jun
-  en vez del miércoles 24). El guard bash del primer paso impone el AND: genera
-  solo si hoy es domingo Y hoy+10 días cae en día 1-7 (= primer miércoles).
+  en vez del miércoles 24, con el calendario antiguo). El guard bash del primer
+  paso impone el AND: genera solo si hoy es domingo Y hoy+8 días cae en día 1-7
+  (= primer lunes).
 - **Fechas**: el workflow calcula UNA variable `PUBLICATION_DATE`
-  (= generación + 10 días) y todos los scripts la leen vía `pubdate.py`
+  (= generación + 8 días) y todos los scripts la leen vía `pubdate.py`
   (`generator.py`, `mailer.py`, `gen_editions.py`). Nunca usar `datetime.now()`
   para etiquetar mes/año de la edición (la generación ocurre en el mes anterior)
   ni `strftime("%B")` (locale C del runner → meses en inglés): meses siempre
@@ -97,8 +101,8 @@ Reglas del calendario (CRÍTICO — historial de fallos de cron):
 
 **Recordatorio mensual (reminder.yml + reminder.py):**
 
-- Cron: `0 7 12-18 * 3` — el miércoles único que cae entre los días 12 y 18
-- Verificación explícita en el job: `DOW=3` Y `DAY entre 12 y 18` (GitHub evalúa cron con OR, el bash lo corrige a AND)
+- Cron: `0 7 12-18 * 1` — el lunes único que cae entre los días 12 y 18
+- Verificación explícita en el job: `DOW=1` Y `DAY entre 12 y 18` (GitHub evalúa cron con OR, el bash lo corrige a AND)
 - En `workflow_dispatch` manual, la restricción de fecha se omite
 - Destinatario: `sistemas@lognext.com` (hardcodeado en `reminder.yml` como `REMINDER_EMAIL`)
 - Para envío directo a toda la organización: cambiar `REMINDER_EMAIL` en `reminder.yml` al grupo de distribución

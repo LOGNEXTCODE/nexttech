@@ -4,20 +4,21 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  # Recordatorio automático: el miércoles de la semana central del mes.
+  # Recordatorio automático: el lunes de la semana central del mes
+  # (alineado con el nuevo día editorial — publicación el primer lunes).
   # ─────────────────────────────────────────────────────────────────
-  # El miércoles que cae entre los días 12 y 18 es siempre único (uno por mes).
-  # Cron: 07:00 UTC (~09:00 España), miércoles de los días 12-18.
+  # El lunes que cae entre los días 12 y 18 es siempre único (uno por mes).
+  # Cron: 07:00 UTC (~09:00 España), lunes de los días 12-18.
   #
   # AVISO sobre lógica cron en GitHub Actions:
   #   Cuando día-de-mes Y día-de-semana están restringidos, GitHub los evalúa
-  #   con OR (no AND). Por tanto "12-18 * 3" dispara los días 12-18 de cualquier
-  #   día de la semana, Y todos los miércoles del mes. Para corregirlo, el
-  #   primer paso del job verifica explícitamente DOW=3 y DAY entre 12 y 18;
+  #   con OR (no AND). Por tanto "12-18 * 1" dispara los días 12-18 de cualquier
+  #   día de la semana, Y todos los lunes del mes. Para corregirlo, el
+  #   primer paso del job verifica explícitamente DOW=1 y DAY entre 12 y 18;
   #   si no se cumple, el job sale sin enviar (mismo patrón que monthly.yml).
   # ─────────────────────────────────────────────────────────────────
   schedule:
-    - cron: "0 7 12-18 * 3"
+    - cron: "0 7 12-18 * 1"
 
   # Lanzamiento manual desde GitHub Actions (para pruebas — omite restricción de fecha)
   workflow_dispatch:
@@ -33,19 +34,19 @@ jobs:
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: 📅 Verificar ventana de recordatorio (miércoles de los días 12-18)
+      - name: 📅 Verificar ventana de recordatorio (lunes de los días 12-18)
         id: check_date
         run: |
-          DOW=$(date +%u)    # 1=lunes … 3=miércoles … 7=domingo
+          DOW=$(date +%u)    # 1=lunes … 7=domingo
           DAY=$(date +%-d)   # Día del mes sin cero inicial
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Lanzamiento manual — ignorando restricción de fecha."
             echo "skip=false" >> $GITHUB_OUTPUT
-          elif [ "$DOW" != "3" ] || [ "$DAY" -lt 12 ] || [ "$DAY" -gt 18 ]; then
-            echo "Hoy es día $DAY (DOW=$DOW) — no es el miércoles de mitad de mes. Cancelando."
+          elif [ "$DOW" != "1" ] || [ "$DAY" -lt 12 ] || [ "$DAY" -gt 18 ]; then
+            echo "Hoy es día $DAY (DOW=$DOW) — no es el lunes de mitad de mes. Cancelando."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Hoy es día $DAY — miércoles de mitad de mes. Enviando recordatorio."
+            echo "Hoy es día $DAY — lunes de mitad de mes. Enviando recordatorio."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 
