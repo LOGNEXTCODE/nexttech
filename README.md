@@ -1,13 +1,13 @@
 # NextTech 🔐
 **La carta de los que van un paso por delante**
 
-Publicación mensual de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el **primer lunes de cada mes**. La edición se genera automáticamente 14 días naturales antes (el lunes de dos semanas antes) para dejar una ventana de revisión de 10 días laborables.
+Publicación mensual de ciberseguridad y tecnología para LOGNEXT. Publicada en [nexttech.lognext.com](https://nexttech.lognext.com) y distribuida por correo corporativo el **primer miércoles de cada mes**. La edición se genera automáticamente 14 días naturales antes (el miércoles de dos semanas antes) para dejar una ventana de revisión de 10 días laborables.
 
 ---
 
 ## ¿Cómo funciona?
 
-El **lunes exactamente 14 días antes del primer lunes** de cada mes, GitHub Actions ejecuta automáticamente el pipeline de generación (ventana de revisión de 14 días naturales = 10 laborables). El envío a toda la organización es **manual el primer lunes**:
+El **miércoles exactamente 14 días antes del primer miércoles** de cada mes, GitHub Actions ejecuta automáticamente el pipeline de generación (ventana de revisión de 14 días naturales = 10 laborables). El envío a toda la organización es **manual el primer miércoles**:
 
 1. **Scraper** — Lee RSS de INCIBE, CCN-CERT, El País Tech, Xataka, El Mundo, The Hacker News, Hispasec, Bleeping Computer
 2. **Claude API** — Selecciona noticias, redacta el contenido con tono cercano y humor
@@ -134,7 +134,7 @@ Puedes especificar el número de edición manualmente si es necesario.
 nexttech/
 ├── .github/
 │   └── workflows/
-│       ├── monthly.yml         # Cron: genera y publica la edición (lunes 14 días antes del primer lunes)
+│       ├── monthly.yml         # Cron: genera y publica la edición (miércoles 14 días antes del primer miércoles)
 │       └── translate-pages.yml # Traducción manual EN/FR de páginas estáticas
 ├── main.py                  # Orquestador principal
 ├── scraper.py               # Lee RSS de fuentes de noticias

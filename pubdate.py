@@ -3,7 +3,7 @@ pubdate.py — NextTech
 Única fuente de la fecha de publicación para todos los scripts.
 
 El workflow (monthly.yml) calcula PUBLICATION_DATE = fecha de generación + 14 días
-(el primer lunes del mes siguiente) y la exporta como variable de entorno.
+(el primer miércoles del mes siguiente) y la exporta como variable de entorno.
 Aquí solo se lee — el cálculo "+14 días" vive únicamente en monthly.yml.
 Sin la variable (ejecución local), se usa la fecha de hoy.
 

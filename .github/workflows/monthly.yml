@@ -6,26 +6,26 @@ env:
 on:
   # Generación automática con 14 días naturales (10 laborables) de antelación.
   # ─────────────────────────────────────────────────────────────────
-  # FLUJO (desde 2026-07-21, decisión editorial de Miguel):
-  #   · Publicación (envío a todos) → primer LUNES del mes (acción manual de Miguel)
-  #   · Generación automática       → el LUNES exactamente 14 días antes
+  # FLUJO (corregido 2026-07-27: la publicación real es el primer MIÉRCOLES):
+  #   · Publicación (envío a todos) → primer MIÉRCOLES del mes (acción manual de Miguel)
+  #   · Generación automática       → el MIÉRCOLES exactamente 14 días antes
   #     (cae siempre entre los días 15 y 24 del mes anterior)
   #
   # 14 días naturales = 10 días laborables cuando no hay festivos, y el
-  # borrador llega en LUNES: nada de generar ni revisar en fin de semana.
+  # borrador llega en MIÉRCOLES: nada de generar ni revisar en fin de semana.
   #
-  # El cron corre TODOS los lunes a las 07:00 UTC (09:00 Madrid en verano,
+  # El cron corre TODOS los miércoles a las 07:00 UTC (09:00 Madrid en verano,
   # 08:00 en invierno) SIN restricción de día de mes. Así no existe el OR
   # día-de-mes/día-de-semana de GitHub Actions que provocó generaciones en
   # días no deseados (la #02 se generó el jueves 25-jun en vez del miércoles 24).
   #
-  # El primer paso del job decide si hoy es EL lunes: si hoy es lunes,
-  # hoy+14 días es siempre un lunes; si además cae en día 1-7 del mes,
-  # es el PRIMER lunes → se genera. Los demás lunes el job sale sin
+  # El primer paso del job decide si hoy es EL miércoles: si hoy es miércoles,
+  # hoy+14 días es siempre un miércoles; si además cae en día 1-7 del mes,
+  # es el PRIMER miércoles → se genera. Los demás miércoles el job sale sin
   # hacer nada.
   # ─────────────────────────────────────────────────────────────────
   schedule:
-    - cron: "0 7 * * 1"
+    - cron: "0 7 * * 3"
 
   # Lanzamiento manual desde GitHub Actions (para tests y ediciones urgentes)
   workflow_dispatch:
@@ -50,7 +50,7 @@ jobs:
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: 📅 Verificar ventana de generación (lunes 14 días antes del primer lunes)
+      - name: 📅 Verificar ventana de generación (miércoles 14 días antes del primer miércoles)
         id: check_date
         run: |
           DOW=$(date -u +%u)                        # 1=lunes … 7=domingo
@@ -74,11 +74,11 @@ jobs:
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Lanzamiento manual — ignorando restricción de fecha. Publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
-          elif [ "$DOW" != "1" ] || [ "$TARGET_DAY" -gt 7 ]; then
-            echo "Hoy es DOW=$DOW y hoy+14 días cae en día $TARGET_DAY — no es el lunes 14 días antes del primer lunes. Cancelando."
+          elif [ "$DOW" != "3" ] || [ "$TARGET_DAY" -gt 7 ]; then
+            echo "Hoy es DOW=$DOW y hoy+14 días cae en día $TARGET_DAY — no es el miércoles 14 días antes del primer miércoles. Cancelando."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Lunes 14 días antes del primer lunes. Generando — publicación: $PUB_DATE ($PUB_LABEL)."
+            echo "Miércoles 14 días antes del primer miércoles. Generando — publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 

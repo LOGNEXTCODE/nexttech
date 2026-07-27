@@ -139,7 +139,7 @@ def send_draft(content: dict) -> bool:
     """
     Construye el email con email_template.html y lo envía a los revisores.
     REVIEWER_EMAIL puede contener múltiples direcciones separadas por comas.
-    Workflow: revisores aprueban → envío manual a los Nexters el primer lunes.
+    Workflow: revisores aprueban → envío manual a los Nexters el primer miércoles.
     """
     token = get_access_token()
     ts    = datetime.now().strftime("%d/%m/%Y a las %H:%M")
@@ -176,7 +176,7 @@ def send_draft(content: dict) -> bool:
     if response.status_code == 202:
         print(f"  ✅ Borrador enviado a: {', '.join(reviewer_list)}")
         print(f"  🌐 Versión web: {WEB_URL}")
-        print(f"  📅 Publicación: primer lunes del mes — envío final es MANUAL")
+        print(f"  📅 Publicación: primer miércoles del mes — envío final es MANUAL")
         return True
     else:
         print(f"  ❌ Error al enviar: {response.status_code} — {response.text}")

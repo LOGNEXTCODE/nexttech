@@ -45,7 +45,7 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml   # Cron: todos los lunes 07:00 UTC — genera solo el lunes exactamente 14 días antes del primer lunes
+├── .github/workflows/monthly.yml   # Cron: todos los miércoles 07:00 UTC — genera solo el miércoles exactamente 14 días antes del primer miércoles
 ├── main.py                          # Orquestador principal
 ├── pubdate.py                       # Lee PUBLICATION_DATE (fecha de publicación, la fija monthly.yml) + meses en español
 ├── scraper.py                       # RSS feeds de fuentes oficiales
@@ -61,15 +61,15 @@ nexttech/
 1. Claude API → genera contenido con tono cercano
 1. GitHub Pages → publica en nexttech.lognext.com/XX
 1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
-1. Ventana de 14 días naturales (10 laborables) de revisión → envío manual desde Outlook el primer lunes
+1. Ventana de 14 días naturales (10 laborables) de revisión → envío manual desde Outlook el primer miércoles
 
 **Calendario editorial:**
 
 | Hito | Cuándo | Cómo |
 |------|--------|------|
-| Generación | Lunes exactamente 14 días naturales antes del primer lunes del mes (cae los días 15-24 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
-| Revisión | Ventana de 14 días naturales = 10 laborables sin festivos (lunes de generación → primer lunes) | Borrador por email + preview web en `/XX/` |
-| Publicación (envío a todos) | Primer lunes del mes | Manual desde Outlook (Miguel) |
+| Generación | Miércoles exactamente 14 días naturales antes del primer miércoles del mes (cae los días 15-24 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
+| Revisión | Ventana de 14 días naturales = 10 laborables sin festivos (miércoles de generación → primer miércoles) | Borrador por email + preview web en `/XX/` |
+| Publicación (envío a todos) | Primer miércoles del mes | Manual desde Outlook (Miguel) |
 
 Histórico:
 
@@ -80,15 +80,18 @@ Histórico:
   ventana de 8 naturales solo daba ~6 laborables; no se revisa en fin de
   semana. En el mismo cambio se ELIMINA el recordatorio de mitad de mes
   (ver nota histórica más abajo).
+- 2026-07-27 — corrección: la publicación/envío siempre fue el primer
+  MIÉRCOLES; se realinea generación a miércoles −14 y se corrigen textos,
+  cron y docs.
 
 Reglas del calendario (CRÍTICO — historial de fallos de cron):
 
-- El cron de `monthly.yml` es `0 7 * * 1` (**todos los lunes**), SIN rango de
+- El cron de `monthly.yml` es `0 7 * * 3` (**todos los miércoles**), SIN rango de
   día de mes. GitHub evalúa día-de-mes y día-de-semana con **OR**, no AND — un
   cron combinado dispara días no deseados (así se generó la #02 el jueves 25-jun
   en vez del miércoles 24, con el calendario antiguo). El guard bash del primer
-  paso impone el AND: genera solo si hoy es lunes Y hoy+14 días cae en día 1-7
-  (= primer lunes).
+  paso impone el AND: genera solo si hoy es miércoles Y hoy+14 días cae en día 1-7
+  (= primer miércoles).
 - **Fechas**: el workflow calcula UNA variable `PUBLICATION_DATE`
   (= generación + 14 días) y todos los scripts la leen vía `pubdate.py`
   (`generator.py`, `mailer.py`, `gen_editions.py`). Nunca usar `datetime.now()`
@@ -97,7 +100,7 @@ Reglas del calendario (CRÍTICO — historial de fallos de cron):
   desde las listas en español.
 - **Numeración**: por mes de publicación — #01 = Junio 2026;
   `EDITION = (AÑO_PUB − 2026) × 12 + MES_PUB − 6 + 1`
-  (ej.: generación 25-dic-2026 → publicación 6-ene-2027 → #08).
+  (ej.: generación 23-dic-2026 → publicación 6-ene-2027 → #08).
 - En `workflow_dispatch` manual el guard se omite; los inputs `edition_number` y
   `publication_date` permiten fijar número y mes/año si se regenera fuera del
   calendario.
@@ -117,7 +120,7 @@ carrera de git push entre ambos workflows) y se decidió centrar el proyecto
 exclusivamente en la generación mensual. Usaba los mismos secrets MS_* que
 `mailer.py`, así que NO hay que borrar ningún secret de GitHub; su variable
 `REMINDER_EMAIL` era un env hardcodeado en el propio workflow y desapareció
-con él. Si algún día vuelve, evitar el lunes como día de envío.
+con él. Si algún día vuelve, evitar el miércoles como día de envío.
 
 **Secrets de GitHub configurados:**
 
