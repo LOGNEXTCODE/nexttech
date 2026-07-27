@@ -4,25 +4,28 @@ env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 on:
-  # Generación automática con 8 días de antelación a la publicación.
+  # Generación automática con 14 días naturales (10 laborables) de antelación.
   # ─────────────────────────────────────────────────────────────────
-  # FLUJO (desde 2026-07-20, decisión editorial de Miguel):
+  # FLUJO (desde 2026-07-21, decisión editorial de Miguel):
   #   · Publicación (envío a todos) → primer LUNES del mes (acción manual de Miguel)
-  #   · Generación automática       → el DOMINGO exactamente 8 días antes
-  #     (cae siempre entre los días 21 y 30 del mes anterior)
+  #   · Generación automática       → el LUNES exactamente 14 días antes
+  #     (cae siempre entre los días 15 y 24 del mes anterior)
   #
-  # El cron corre TODOS los domingos a las 07:00 UTC (09:00 Madrid en verano,
+  # 14 días naturales = 10 días laborables cuando no hay festivos, y el
+  # borrador llega en LUNES: nada de generar ni revisar en fin de semana.
+  #
+  # El cron corre TODOS los lunes a las 07:00 UTC (09:00 Madrid en verano,
   # 08:00 en invierno) SIN restricción de día de mes. Así no existe el OR
   # día-de-mes/día-de-semana de GitHub Actions que provocó generaciones en
   # días no deseados (la #02 se generó el jueves 25-jun en vez del miércoles 24).
   #
-  # El primer paso del job decide si hoy es EL domingo: si hoy es domingo,
-  # hoy+8 días es siempre un lunes; si además cae en día 1-7 del mes,
-  # es el PRIMER lunes → se genera. Los demás domingos el job sale sin
+  # El primer paso del job decide si hoy es EL lunes: si hoy es lunes,
+  # hoy+14 días es siempre un lunes; si además cae en día 1-7 del mes,
+  # es el PRIMER lunes → se genera. Los demás lunes el job sale sin
   # hacer nada.
   # ─────────────────────────────────────────────────────────────────
   schedule:
-    - cron: "0 7 * * 0"
+    - cron: "0 7 * * 1"
 
   # Lanzamiento manual desde GitHub Actions (para tests y ediciones urgentes)
   workflow_dispatch:
@@ -32,7 +35,7 @@ on:
         required: false
         default: "auto"
       publication_date:
-        description: "Fecha de publicación YYYY-MM-DD (fija mes/año de cabecera y etiquetas). 'auto' = hoy + 8 días."
+        description: "Fecha de publicación YYYY-MM-DD (fija mes/año de cabecera y etiquetas). 'auto' = hoy + 14 días."
         required: false
         default: "auto"
 
@@ -47,35 +50,35 @@ jobs:
       - name: 📥 Checkout del repositorio
         uses: actions/checkout@v4
 
-      - name: 📅 Verificar ventana de generación (domingo 8 días antes del primer lunes)
+      - name: 📅 Verificar ventana de generación (lunes 14 días antes del primer lunes)
         id: check_date
         run: |
-          DOW=$(date -u +%u)                       # 1=lunes … 7=domingo
-          TARGET_DAY=$(date -u -d '+8 days' +%-d)  # día del mes de hoy+8
+          DOW=$(date -u +%u)                        # 1=lunes … 7=domingo
+          TARGET_DAY=$(date -u -d '+14 days' +%-d)  # día del mes de hoy+14
           # PUBLICATION_DATE: ÚNICA fuente de la fecha de publicación para todo
-          # el pipeline. El cálculo "+8 días" solo vive aquí; los scripts Python
+          # el pipeline. El cálculo "+14 días" solo vive aquí; los scripts Python
           # la leen vía pubdate.py.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ] \
              && [ -n "${{ github.event.inputs.publication_date }}" ] \
              && [ "${{ github.event.inputs.publication_date }}" != "auto" ]; then
             PUB_DATE="${{ github.event.inputs.publication_date }}"
           else
-            PUB_DATE=$(date -u -d '+8 days' +%Y-%m-%d)
+            PUB_DATE=$(date -u -d '+14 days' +%Y-%m-%d)
           fi
           MESES=(- Enero Febrero Marzo Abril Mayo Junio Julio Agosto Septiembre Octubre Noviembre Diciembre)
           PUB_LABEL="${MESES[$(date -u -d "$PUB_DATE" +%-m)]} $(date -u -d "$PUB_DATE" +%Y)"
           echo "publication_date=$PUB_DATE"   >> $GITHUB_OUTPUT
           echo "publication_label=$PUB_LABEL" >> $GITHUB_OUTPUT
-          # Guard con comprobación AND explícita (mismo patrón que reminder.yml):
-          # GitHub evalúa los crons con OR, así que el bash impone las condiciones.
+          # Guard con comprobación AND explícita: GitHub evalúa los crons con
+          # OR, así que las condiciones las impone el bash.
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
             echo "Lanzamiento manual — ignorando restricción de fecha. Publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
-          elif [ "$DOW" != "7" ] || [ "$TARGET_DAY" -gt 7 ]; then
-            echo "Hoy es DOW=$DOW y hoy+8 días cae en día $TARGET_DAY — no es el domingo 8 días antes del primer lunes. Cancelando."
+          elif [ "$DOW" != "1" ] || [ "$TARGET_DAY" -gt 7 ]; then
+            echo "Hoy es DOW=$DOW y hoy+14 días cae en día $TARGET_DAY — no es el lunes 14 días antes del primer lunes. Cancelando."
             echo "skip=true" >> $GITHUB_OUTPUT
           else
-            echo "Domingo 8 días antes del primer lunes. Generando — publicación: $PUB_DATE ($PUB_LABEL)."
+            echo "Lunes 14 días antes del primer lunes. Generando — publicación: $PUB_DATE ($PUB_LABEL)."
             echo "skip=false" >> $GITHUB_OUTPUT
           fi
 

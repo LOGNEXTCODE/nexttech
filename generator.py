@@ -81,7 +81,7 @@ def select_and_draft(articles: List[Dict], warnings: List[str] = None) -> Dict:
     ])
 
     # Mes de la edición = mes de PUBLICACIÓN (no de generación): la edición se
-    # genera 8 días antes, en el mes anterior.
+    # genera 14 días antes, en el mes anterior.
     mes_actual = mes_label(publication_date())
 
     aviso_scraping = ""

@@ -45,14 +45,12 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml   # Cron: todos los domingos 07:00 UTC — genera solo el domingo exactamente 8 días antes del primer lunes
-├── .github/workflows/reminder.yml  # Cron: lunes de los días 12-18 (recordatorio de mitad de mes)
+├── .github/workflows/monthly.yml   # Cron: todos los lunes 07:00 UTC — genera solo el lunes exactamente 14 días antes del primer lunes
 ├── main.py                          # Orquestador principal
 ├── pubdate.py                       # Lee PUBLICATION_DATE (fecha de publicación, la fija monthly.yml) + meses en español
 ├── scraper.py                       # RSS feeds de fuentes oficiales
 ├── generator.py                     # Claude API + diseño HTML oficial
 ├── mailer.py                        # Microsoft Graph API (M365) — envío de borrador de edición
-├── reminder.py                      # Microsoft Graph API (M365) — envío del recordatorio mensual
 ├── requirements.txt
 └── README.md
 ```
@@ -63,31 +61,36 @@ nexttech/
 1. Claude API → genera contenido con tono cercano
 1. GitHub Pages → publica en nexttech.lognext.com/XX
 1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
-1. Ventana de 8 días de revisión → envío manual desde Outlook el primer lunes
-1. **Recordatorio automático** → el lunes de mitad de mes (días 12-18), reminder.py envía un correo de recordatorio a sistemas@lognext.com para que el equipo IT lo reenvíe a la organización
+1. Ventana de 14 días naturales (10 laborables) de revisión → envío manual desde Outlook el primer lunes
 
 **Calendario editorial:**
 
 | Hito | Cuándo | Cómo |
 |------|--------|------|
-| Generación | Domingo exactamente 8 días antes del primer lunes del mes (cae los días 21-30 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
-| Revisión | Ventana de 8 días (domingo de generación → primer lunes) | Borrador por email + preview web en `/XX/` |
+| Generación | Lunes exactamente 14 días naturales antes del primer lunes del mes (cae los días 15-24 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
+| Revisión | Ventana de 14 días naturales = 10 laborables sin festivos (lunes de generación → primer lunes) | Borrador por email + preview web en `/XX/` |
 | Publicación (envío a todos) | Primer lunes del mes | Manual desde Outlook (Miguel) |
-| Recordatorio | Lunes de los días 12-18 | `reminder.yml` automático |
 
-Histórico: 2026-07-20 — la publicación pasa del primer miércoles al primer
-lunes (decisión editorial).
+Histórico:
+
+- 2026-07-20 — la publicación pasa del primer miércoles al primer lunes
+  (decisión editorial).
+- 2026-07-21 — la generación pasa del domingo −8 días naturales al lunes −14
+  días naturales (10 laborables). Motivo: el borrador llegaba en domingo y la
+  ventana de 8 naturales solo daba ~6 laborables; no se revisa en fin de
+  semana. En el mismo cambio se ELIMINA el recordatorio de mitad de mes
+  (ver nota histórica más abajo).
 
 Reglas del calendario (CRÍTICO — historial de fallos de cron):
 
-- El cron de `monthly.yml` es `0 7 * * 0` (**todos los domingos**), SIN rango de
+- El cron de `monthly.yml` es `0 7 * * 1` (**todos los lunes**), SIN rango de
   día de mes. GitHub evalúa día-de-mes y día-de-semana con **OR**, no AND — un
   cron combinado dispara días no deseados (así se generó la #02 el jueves 25-jun
   en vez del miércoles 24, con el calendario antiguo). El guard bash del primer
-  paso impone el AND: genera solo si hoy es domingo Y hoy+8 días cae en día 1-7
+  paso impone el AND: genera solo si hoy es lunes Y hoy+14 días cae en día 1-7
   (= primer lunes).
 - **Fechas**: el workflow calcula UNA variable `PUBLICATION_DATE`
-  (= generación + 8 días) y todos los scripts la leen vía `pubdate.py`
+  (= generación + 14 días) y todos los scripts la leen vía `pubdate.py`
   (`generator.py`, `mailer.py`, `gen_editions.py`). Nunca usar `datetime.now()`
   para etiquetar mes/año de la edición (la generación ocurre en el mes anterior)
   ni `strftime("%B")` (locale C del runner → meses en inglés): meses siempre
@@ -99,15 +102,22 @@ Reglas del calendario (CRÍTICO — historial de fallos de cron):
   `publication_date` permiten fijar número y mes/año si se regenera fuera del
   calendario.
 
-**Recordatorio mensual (reminder.yml + reminder.py):**
+**Recordatorio de mitad de mes — ELIMINADO 2026-07-21 (nota histórica):**
 
-- Cron: `0 7 12-18 * 1` — el lunes único que cae entre los días 12 y 18
-- Verificación explícita en el job: `DOW=1` Y `DAY entre 12 y 18` (GitHub evalúa cron con OR, el bash lo corrige a AND)
-- En `workflow_dispatch` manual, la restricción de fecha se omite
-- Destinatario: `sistemas@lognext.com` (hardcodeado en `reminder.yml` como `REMINDER_EMAIL`)
-- Para envío directo a toda la organización: cambiar `REMINDER_EMAIL` en `reminder.yml` al grupo de distribución
-- Frase de apertura: rota entre 3 variantes según el mes (índice `(mes-1) % 3` en `reminder.py`)
-- No requiere secrets nuevos — reutiliza `MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET`, `MS_SENDER_EMAIL`
+Entre junio y julio de 2026 existió un workflow de recordatorio
+(`reminder.yml` + `reminder.py`): a mitad de mes (miércoles de los días
+12-18; brevemente lunes 12-18) enviaba un correo a sistemas@lognext.com
+("¿Aún no has leído NextTech?") y reescribía el texto de bienvenida de la
+edición vigente en ES/EN/FR con commit automático del bot — el intro
+"Mitad de mes…" que conserva `02/index.html` es huella suya y se queda tal
+cual (las ediciones publicadas no se tocan). Se eliminó al pasar la
+generación al lunes −14: su ventana (lunes 12-18) colisionaba con la nueva
+ventana de generación (lunes 15-24; p. ej. 18-ene-2027 y 15-feb-2027, con
+carrera de git push entre ambos workflows) y se decidió centrar el proyecto
+exclusivamente en la generación mensual. Usaba los mismos secrets MS_* que
+`mailer.py`, así que NO hay que borrar ningún secret de GitHub; su variable
+`REMINDER_EMAIL` era un env hardcodeado en el propio workflow y desapareció
+con él. Si algún día vuelve, evitar el lunes como día de envío.
 
 **Secrets de GitHub configurados:**
 

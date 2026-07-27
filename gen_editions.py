@@ -4,7 +4,7 @@ para el navegador de ediciones del footer (editions-nav.js).
 
 Lista las carpetas NN/ existentes, PRESERVA las etiquetas (mes/año) ya presentes
 en un editions.json anterior y, para una edición nueva sin etiqueta, usa el mes
-de PUBLICACIÓN (PUBLICATION_DATE vía pubdate.py — la edición se genera 8 días
+de PUBLICACIÓN (PUBLICATION_DATE vía pubdate.py — la edición se genera 14 días
 antes, en el mes anterior). Idempotente: mismo repo → misma salida.
 """
 import os

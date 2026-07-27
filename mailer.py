@@ -98,7 +98,7 @@ def build_email_html(content: dict, edition: str, web_url: str, timestamp: str) 
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Mes/año de PUBLICACIÓN (la edición se genera 8 días antes, en el mes anterior)
+    # Mes/año de PUBLICACIÓN (la edición se genera 14 días antes, en el mes anterior)
     pub       = publication_date()
     mes       = mes_label(pub)
     mes_upper = mes.upper()
