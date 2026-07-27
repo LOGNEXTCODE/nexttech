@@ -204,6 +204,31 @@ body {
 .phishing-result.show { display: block; }
 .phishing-result.correct { background: rgba(100,240,125,0.1); border: 1px solid rgba(100,240,125,0.3); color: var(--green); }
 .phishing-result.wrong   { background: rgba(250,60,15,0.1);  border: 1px solid rgba(250,60,15,0.3);  color: var(--red); }
+
+/* ── TEST DEL MES: chat estilo Teams ── */
+.teams-chat { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 18px; margin-bottom: 18px; }
+.teams-msg { display: flex; gap: 10px; align-items: flex-start; }
+.teams-msg-chained { margin-top: 6px; }
+.teams-avatar { width: 34px; height: 34px; border-radius: 50%; background: #6264A7; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; flex-shrink: 0; font-family: 'Space Grotesk', sans-serif; }
+.teams-avatar-spacer { width: 34px; flex-shrink: 0; }
+.teams-msg-main { flex: 1; min-width: 0; }
+.teams-msg-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 4px; flex-wrap: wrap; }
+.teams-sender { font-size: 13px; font-weight: 600; color: #fff; }
+.teams-ext-badge { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--yellow); border: 1px solid rgba(255,250,150,0.45); background: rgba(255,250,150,0.08); padding: 1px 7px; border-radius: 3px; font-family: 'JetBrains Mono', monospace; }
+.teams-time { font-size: 11px; color: var(--grey); opacity: 0.5; font-family: 'JetBrains Mono', monospace; flex-shrink: 0; }
+.teams-bubble { display: inline-block; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px 12px 12px 12px; padding: 10px 14px; font-size: 14px; line-height: 1.6; color: var(--grey); max-width: 560px; }
+.teams-msg-chained .teams-bubble { border-radius: 12px; }
+.teams-bubble-row { display: flex; align-items: flex-end; gap: 8px; }
+body.light .teams-chat { background: #FFFFFF; border-color: rgba(0,0,41,0.1); }
+body.light .teams-sender { color: #000029; }
+body.light .teams-bubble { background: #F0F0F5; border-color: rgba(0,0,41,0.06); color: #1F1F33; }
+body.light .teams-ext-badge { color: #8A7000; border-color: rgba(138,112,0,0.4); background: rgba(255,250,150,0.25); }
+body.light .teams-time { color: #555570; opacity: 0.8; }
+@media (max-width: 600px) {
+  .teams-chat { padding: 12px; }
+  .teams-bubble { max-width: 100%; font-size: 13px; }
+  .teams-bubble-row { flex-wrap: wrap; }
+}
 .phishing-clues { margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 4px; }
 .phishing-clue { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--grey); opacity: 0.8; margin-bottom: 4px; display: flex; gap: 8px; align-items: flex-start; }
 .card-radar { box-shadow: inset 0 1px 0 rgba(60,230,230,0.2); }
@@ -810,38 +835,46 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 5. PHISHING TEST — estático, ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
       <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">🎯 Pon a prueba tu ojo — El test del mes</div>
-      <div class="card-text" data-i18n="sit-intro">Estás en Teams. Mira estas tres situaciones y decide en cada una si confiar o sospechar.</div>
-      <div class="phishing-inner" id="sit1-block" style="margin-bottom:14px;">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-body" data-i18n="sit1-msg">Un usuario de fuera de tu organización quiere chatear contigo. [Aceptar] [Rechazar]</div>
+      <div class="card-text" data-i18n="chat-intro">Te llega esta conversación por Teams. Léela entera y decide.</div>
+      <div class="phishing-inner" id="test-block">
+        <div class="teams-chat">
+          <div class="teams-msg">
+            <div class="teams-avatar" aria-hidden="true" data-i18n="chat-avatar">D</div>
+            <div class="teams-msg-main">
+              <div class="teams-msg-meta">
+                <span class="teams-sender" data-i18n="chat-sender">«Dirección»</span>
+                <span class="teams-ext-badge" data-i18n="chat-ext">Externo</span>
+                <span class="teams-time">10:42</span>
+              </div>
+              <div class="teams-bubble" data-i18n="chat-msg1">Hola, soy de Dirección. Estoy en una reunión y no puedo hablar por teléfono ahora mismo.</div>
+            </div>
+          </div>
+          <div class="teams-msg teams-msg-chained">
+            <div class="teams-avatar-spacer"></div>
+            <div class="teams-msg-main">
+              <div class="teams-bubble-row">
+                <div class="teams-bubble" data-i18n="chat-msg2">Necesito que gestiones una transferencia urgente para cerrar un acuerdo hoy. Es confidencial, no lo comentes con nadie de momento.</div>
+                <span class="teams-time">10:42</span>
+              </div>
+            </div>
+          </div>
+          <div class="teams-msg teams-msg-chained">
+            <div class="teams-avatar-spacer"></div>
+            <div class="teams-msg-main">
+              <div class="teams-bubble-row">
+                <div class="teams-bubble" data-i18n="chat-msg3">Pásame también el IBAN de la empresa por aquí y te digo el importe. ¿Puedes ocuparte ya?</div>
+                <span class="teams-time">10:43</span>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="phishing-question" data-i18n="chat-question">¿Confías o sospechas?</div>
         <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(1, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
-          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(1, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
+          <button class="phishing-btn phishing-btn-no" onclick="answerTest(true)" data-i18n="chat-btn-confio">Confío</button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerTest(false)" data-i18n="chat-btn-sospecho">Sospecho</button>
         </div>
-        <div class="phishing-result" id="sit1-result"><span data-i18n="sit1-fb">Teams avisa cuando quien te escribe es externo. No es malo por sí solo, pero es la puerta de entrada de muchos engaños: acepta solo si sabes quién es y esperabas el contacto.</span></div>
+        <div class="phishing-result" id="test-result"><span data-i18n="chat-fb">Bien visto. Aquí se juntan todas las señales de una suplantación: el remitente es externo (Teams te lo avisa), dice ser de Dirección pero no puedes verificarlo, mete urgencia, pide secretismo y reclama dinero y datos sensibles por chat. Da igual lo convincente que parezca: ante una petición así, para y verifícalo por otro canal —una llamada, en persona—. Los atacantes cuentan con que la prisa te haga saltártelo.</span></div>
       </div>
-      <div class="phishing-inner" id="sit2-block" style="margin-bottom:14px;">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-body" data-i18n="sit2-msg">Soy el CEO. Estoy en una reunión y no puedo hablar por teléfono. Necesito que gestiones una transferencia urgente, pero no comentes esto con nadie todavía. ¿Puedes ocuparte ahora?</div>
-        </div>
-        <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(2, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
-          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(2, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
-        </div>
-        <div class="phishing-result" id="sit2-result"><span data-i18n="sit2-fb">Tres señales juntas: urgencia, secretismo y una petición inusual de dinero. La dirección real no gestiona así estas cosas. Aunque parezca el CEO, verifícalo por otro canal antes de mover un dedo.</span></div>
-      </div>
-      <div class="phishing-inner" id="sit3-block" style="margin-bottom:14px;">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-body" data-i18n="sit3-msg">Necesito que me confirmes por aquí el IBAN de la empresa y los datos del empleado que lleva el proyecto. Es para cerrar algo hoy mismo.</div>
-        </div>
-        <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(3, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
-          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(3, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
-        </div>
-        <div class="phishing-result" id="sit3-result"><span data-i18n="sit3-fb">Nadie de fiar te pide datos bancarios o de personas por chat y con prisa. Si dudas, no los envíes: confirma quién lo pide y por qué, por una vía distinta.</span></div>
-      </div>
-      <div class="card-text" style="margin-top:4px;" data-i18n="sit-cierre">La regla de oro: ante cualquier petición urgente de dinero, datos o accesos, para y verifícalo por otro canal —una llamada, en persona— aunque parezca venir de dirección. Los atacantes cuentan con que la prisa te haga saltarte ese paso.</div>
     </div>
 
     <!-- 6. RECURSOS — ancho completo -->
@@ -1036,12 +1069,12 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerSituation(n, trusted) {
-  const box = document.getElementById('sit' + n + '-result');
+function answerTest(trusted) {
+  const box = document.getElementById('test-result');
   if (!box) return;
   box.className = 'phishing-result show ' + (trusted ? 'wrong' : 'correct');
-  trackPhishing('sit' + n + '_' + (trusted ? 'incorrecto' : 'correcto'));
-  document.querySelectorAll('#sit' + n + '-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+  trackPhishing(trusted ? 'test_incorrecto' : 'test_correcto');
+  document.querySelectorAll('#test-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
 }
 
 document.addEventListener('click', function(e) {
@@ -1178,16 +1211,17 @@ const I18N = {
     "radar-3-headline": "PoC pública para RCE en GitLab: cualquier usuario autenticado puede ejecutar comandos como git en servidores self-managed sin actualizar",
     "radar-4-headline": "Afiliados de Cl0p encadenan dos vulnerabilidades en PTC Windchill y FlexPLM para RCE sin autenticación en entornos industriales",
     "tag-phishing": "🎯 Pon a prueba tu ojo — El test del mes",
-    "sit-intro": "Estás en Teams. Mira estas tres situaciones y decide en cada una si confiar o sospechar.",
-    "sit1-msg": "Un usuario de fuera de tu organización quiere chatear contigo. [Aceptar] [Rechazar]",
-    "sit1-fb": "Teams avisa cuando quien te escribe es externo. No es malo por sí solo, pero es la puerta de entrada de muchos engaños: acepta solo si sabes quién es y esperabas el contacto.",
-    "sit2-msg": "Soy el CEO. Estoy en una reunión y no puedo hablar por teléfono. Necesito que gestiones una transferencia urgente, pero no comentes esto con nadie todavía. ¿Puedes ocuparte ahora?",
-    "sit2-fb": "Tres señales juntas: urgencia, secretismo y una petición inusual de dinero. La dirección real no gestiona así estas cosas. Aunque parezca el CEO, verifícalo por otro canal antes de mover un dedo.",
-    "sit3-msg": "Necesito que me confirmes por aquí el IBAN de la empresa y los datos del empleado que lleva el proyecto. Es para cerrar algo hoy mismo.",
-    "sit3-fb": "Nadie de fiar te pide datos bancarios o de personas por chat y con prisa. Si dudas, no los envíes: confirma quién lo pide y por qué, por una vía distinta.",
-    "sit-btn-confio": "🤝 Confío",
-    "sit-btn-sospecho": "⚠️ Sospecho",
-    "sit-cierre": "La regla de oro: ante cualquier petición urgente de dinero, datos o accesos, para y verifícalo por otro canal —una llamada, en persona— aunque parezca venir de dirección. Los atacantes cuentan con que la prisa te haga saltarte ese paso.",
+    "chat-intro": "Te llega esta conversación por Teams. Léela entera y decide.",
+    "chat-avatar": "D",
+    "chat-sender": "«Dirección»",
+    "chat-ext": "Externo",
+    "chat-msg1": "Hola, soy de Dirección. Estoy en una reunión y no puedo hablar por teléfono ahora mismo.",
+    "chat-msg2": "Necesito que gestiones una transferencia urgente para cerrar un acuerdo hoy. Es confidencial, no lo comentes con nadie de momento.",
+    "chat-msg3": "Pásame también el IBAN de la empresa por aquí y te digo el importe. ¿Puedes ocuparte ya?",
+    "chat-question": "¿Confías o sospechas?",
+    "chat-btn-confio": "Confío",
+    "chat-btn-sospecho": "Sospecho",
+    "chat-fb": "Bien visto. Aquí se juntan todas las señales de una suplantación: el remitente es externo (Teams te lo avisa), dice ser de Dirección pero no puedes verificarlo, mete urgencia, pide secretismo y reclama dinero y datos sensibles por chat. Da igual lo convincente que parezca: ante una petición así, para y verifícalo por otro canal —una llamada, en persona—. Los atacantes cuentan con que la prisa te haga saltártelo.",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Tres campañas de phishing activas contra Microsoft 365 al descubierto por un servidor mal configurado",
@@ -1266,16 +1300,17 @@ const I18N = {
     "radar-3-headline": "Public PoC for RCE in GitLab: any authenticated user can execute commands as git on unpatched self-managed servers",
     "radar-4-headline": "Cl0p affiliates chain two vulnerabilities in PTC Windchill and FlexPLM for unauthenticated RCE in industrial environments",
     "tag-phishing": "🎯 Test your eye — The quiz of the month",
-    "sit-intro": "You're in Teams. Look at these three situations and decide, for each one, whether to trust or be suspicious.",
-    "sit1-msg": "Someone outside your organization wants to chat with you. [Accept] [Decline]",
-    "sit1-fb": "Teams warns you when the person writing to you is external. It's not bad in itself, but it's the entry point for many scams: accept only if you know who they are and were expecting the contact.",
-    "sit2-msg": "This is the CEO. I'm in a meeting and can't talk on the phone. I need you to handle an urgent transfer, but don't mention this to anyone yet. Can you take care of it now?",
-    "sit2-fb": "Three signals together: urgency, secrecy and an unusual request for money. Real management doesn't handle these things this way. Even if it looks like the CEO, verify it through another channel before lifting a finger.",
-    "sit3-msg": "I need you to confirm here the company's IBAN and the details of the employee running the project. It's to close something today.",
-    "sit3-fb": "No one trustworthy asks you for banking or personal data over chat and in a hurry. If in doubt, don't send them: confirm who is asking and why, through a different channel.",
-    "sit-btn-confio": "🤝 I trust it",
-    "sit-btn-sospecho": "⚠️ I'm suspicious",
-    "sit-cierre": "The golden rule: with any urgent request for money, data or access, stop and verify it through another channel — a call, in person — even if it seems to come from management. Attackers count on the rush making you skip that step.",
+    "chat-intro": "This conversation arrives via Teams. Read it in full and decide.",
+    "chat-avatar": "M",
+    "chat-sender": "«Management»",
+    "chat-ext": "External",
+    "chat-msg1": "Hi, I'm from Management. I'm in a meeting and can't talk on the phone right now.",
+    "chat-msg2": "I need you to handle an urgent transfer to close a deal today. It's confidential, don't mention it to anyone for now.",
+    "chat-msg3": "Also send me the company's IBAN here and I'll tell you the amount. Can you take care of it right away?",
+    "chat-question": "Do you trust it or are you suspicious?",
+    "chat-btn-confio": "I trust it",
+    "chat-btn-sospecho": "I'm suspicious",
+    "chat-fb": "Well spotted. All the signs of an impersonation come together here: the sender is external (Teams warns you), they claim to be from Management but you can't verify it, they add urgency, ask for secrecy and demand money and sensitive data over chat. No matter how convincing it looks: with a request like this, stop and verify it through another channel — a call, in person. Attackers count on the rush making you skip that step.",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "Three active phishing campaigns targeting Microsoft 365 uncovered through a misconfigured server",
@@ -1354,16 +1389,17 @@ const I18N = {
     "radar-3-headline": "PoC publique pour un RCE dans GitLab : tout utilisateur authentifié peut exécuter des commandes en tant que git sur des serveurs self-managed non mis à jour",
     "radar-4-headline": "Des affiliés de Cl0p enchaînent deux vulnérabilités dans PTC Windchill et FlexPLM pour un RCE sans authentification dans des environnements industriels",
     "tag-phishing": "🎯 Testez votre œil — Le test du mois",
-    "sit-intro": "Vous êtes dans Teams. Regardez ces trois situations et décidez, pour chacune, s'il faut faire confiance ou se méfier.",
-    "sit1-msg": "Un utilisateur externe à votre organisation souhaite discuter avec vous. [Accepter] [Refuser]",
-    "sit1-fb": "Teams vous avertit lorsque la personne qui vous écrit est externe. Ce n'est pas mauvais en soi, mais c'est la porte d'entrée de nombreuses arnaques : n'acceptez que si vous savez de qui il s'agit et que vous attendiez ce contact.",
-    "sit2-msg": "C'est le CEO. Je suis en réunion et je ne peux pas parler au téléphone. J'ai besoin que tu gères un virement urgent, mais n'en parle à personne pour l'instant. Peux-tu t'en occuper maintenant ?",
-    "sit2-fb": "Trois signaux réunis : urgence, secret et une demande d'argent inhabituelle. La vraie direction ne gère pas les choses ainsi. Même si cela semble venir du CEO, vérifiez par un autre canal avant de bouger le petit doigt.",
-    "sit3-msg": "J'ai besoin que tu me confirmes ici l'IBAN de l'entreprise et les coordonnées de l'employé qui gère le projet. C'est pour boucler quelque chose aujourd'hui même.",
-    "sit3-fb": "Personne de fiable ne vous demande des données bancaires ou personnelles par chat et dans la précipitation. En cas de doute, ne les envoyez pas : confirmez qui les demande et pourquoi, par une autre voie.",
-    "sit-btn-confio": "🤝 Je fais confiance",
-    "sit-btn-sospecho": "⚠️ Je me méfie",
-    "sit-cierre": "La règle d'or : face à toute demande urgente d'argent, de données ou d'accès, arrêtez-vous et vérifiez par un autre canal — un appel, en personne — même si cela semble venir de la direction. Les attaquants comptent sur la précipitation pour vous faire sauter cette étape.",
+    "chat-intro": "Cette conversation vous arrive par Teams. Lisez-la en entier et décidez.",
+    "chat-avatar": "D",
+    "chat-sender": "«Direction»",
+    "chat-ext": "Externe",
+    "chat-msg1": "Bonjour, je suis de la Direction. Je suis en réunion et je ne peux pas parler au téléphone pour le moment.",
+    "chat-msg2": "J'ai besoin que tu gères un virement urgent pour conclure un accord aujourd'hui. C'est confidentiel, n'en parle à personne pour l'instant.",
+    "chat-msg3": "Envoie-moi aussi l'IBAN de l'entreprise par ici et je te dirai le montant. Peux-tu t'en occuper tout de suite ?",
+    "chat-question": "Vous faites confiance ou vous vous méfiez ?",
+    "chat-btn-confio": "Je fais confiance",
+    "chat-btn-sospecho": "Je me méfie",
+    "chat-fb": "Bien vu. Tous les signaux d'une usurpation sont réunis ici : l'expéditeur est externe (Teams vous en avertit), il dit être de la Direction mais vous ne pouvez pas le vérifier, il ajoute de l'urgence, demande le secret et réclame de l'argent et des données sensibles par chat. Peu importe à quel point cela semble convaincant : face à une telle demande, arrêtez-vous et vérifiez par un autre canal — un appel, en personne. Les attaquants comptent sur la précipitation pour vous faire sauter cette étape.",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Trois campagnes de phishing actives contre Microsoft 365 révélées par un serveur mal configuré",
