@@ -769,8 +769,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Audita las plantillas de certificados de vuestro AD esta semana</div>
-      <div class="card-text" data-i18n="reto-text">Ejecuta Certify o Certipy contra vuestro entorno de Active Directory y localiza plantillas de certificados con permisos de enrolamiento excesivos — especialmente las que permitan Client Authentication a usuarios estándar. Documenta lo que encuentres y abre un ticket si hay algo que corregir: el exploit Certighost está en la calle y funciona.</div>
+      <div class="card-text" data-i18n="reto-text">Esta semana, si te llega una petición urgente de dinero, datos o accesos —por correo, Teams o donde sea—, antes de responder confírmala por otro canal: una llamada rápida, un mensaje aparte o acercarte a la persona. Treinta segundos que pueden parar un fraude. Si resulta ser de verdad, no pasa nada; si no lo era, acabas de evitar un problema.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>AGOSTO 2026</span>
@@ -810,32 +809,39 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 
     <!-- 5. PHISHING TEST — estático, ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
-      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
-      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text" data-i18n="phishing-intro">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
-      <div class="phishing-inner">
+      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">🎯 Pon a prueba tu ojo — El test del mes</div>
+      <div class="card-text" data-i18n="sit-intro">Estás en Teams. Mira estas tres situaciones y decide en cada una si confiar o sospechar.</div>
+      <div class="phishing-inner" id="sit1-block" style="margin-bottom:14px;">
         <div class="phishing-email-preview">
-          <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
-            <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
-          </div>
-          <div class="phishing-email-body">
-            Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
-          </div>
+          <div class="phishing-email-body" data-i18n="sit1-msg">Un usuario de fuera de tu organización quiere chatear contigo. [Aceptar] [Rechazar]</div>
         </div>
-        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
         <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
-          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
+          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(1, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(1, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
         </div>
-        <div class="phishing-result" id="phishing-result"></div>
+        <div class="phishing-result" id="sit1-result"><span data-i18n="sit1-fb">Teams avisa cuando quien te escribe es externo. No es malo por sí solo, pero es la puerta de entrada de muchos engaños: acepta solo si sabes quién es y esperabas el contacto.</span></div>
       </div>
+      <div class="phishing-inner" id="sit2-block" style="margin-bottom:14px;">
+        <div class="phishing-email-preview">
+          <div class="phishing-email-body" data-i18n="sit2-msg">Soy el CEO. Estoy en una reunión y no puedo hablar por teléfono. Necesito que gestiones una transferencia urgente, pero no comentes esto con nadie todavía. ¿Puedes ocuparte ahora?</div>
+        </div>
+        <div class="phishing-buttons">
+          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(2, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(2, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
+        </div>
+        <div class="phishing-result" id="sit2-result"><span data-i18n="sit2-fb">Tres señales juntas: urgencia, secretismo y una petición inusual de dinero. La dirección real no gestiona así estas cosas. Aunque parezca el CEO, verifícalo por otro canal antes de mover un dedo.</span></div>
+      </div>
+      <div class="phishing-inner" id="sit3-block" style="margin-bottom:14px;">
+        <div class="phishing-email-preview">
+          <div class="phishing-email-body" data-i18n="sit3-msg">Necesito que me confirmes por aquí el IBAN de la empresa y los datos del empleado que lleva el proyecto. Es para cerrar algo hoy mismo.</div>
+        </div>
+        <div class="phishing-buttons">
+          <button class="phishing-btn phishing-btn-no" onclick="answerSituation(3, true)" data-i18n="sit-btn-confio">🤝 Confío</button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerSituation(3, false)" data-i18n="sit-btn-sospecho">⚠️ Sospecho</button>
+        </div>
+        <div class="phishing-result" id="sit3-result"><span data-i18n="sit3-fb">Nadie de fiar te pide datos bancarios o de personas por chat y con prisa. Si dudas, no los envíes: confirma quién lo pide y por qué, por una vía distinta.</span></div>
+      </div>
+      <div class="card-text" style="margin-top:4px;" data-i18n="sit-cierre">La regla de oro: ante cualquier petición urgente de dinero, datos o accesos, para y verifícalo por otro canal —una llamada, en persona— aunque parezca venir de dirección. Los atacantes cuentan con que la prisa te haga saltarte ese paso.</div>
     </div>
 
     <!-- 6. RECURSOS — ancho completo -->
@@ -1030,32 +1036,12 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerPhishing(clickedYes) {
-  const result = document.getElementById('phishing-result');
-  if (!clickedYes) {
-    trackPhishing('correct');
-    result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace "Verificar mi cuenta" lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
-  } else {
-    trackPhishing('incorrect');
-    result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial ("24h") es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
-  }
-  try {
-    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fecha: new Date().toLocaleDateString('es-ES'),
-        hora: new Date().toLocaleTimeString('es-ES'),
-        edicion: '03',
-        respuesta: clickedYes ? 'incorrecto' : 'correcto',
-        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
-      })
-    });
-  } catch(e) {}
-  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+function answerSituation(n, trusted) {
+  const box = document.getElementById('sit' + n + '-result');
+  if (!box) return;
+  box.className = 'phishing-result show ' + (trusted ? 'wrong' : 'correct');
+  trackPhishing('sit' + n + '_' + (trusted ? 'incorrecto' : 'correcto'));
+  document.querySelectorAll('#sit' + n + '-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
 }
 
 document.addEventListener('click', function(e) {
@@ -1184,20 +1170,24 @@ const I18N = {
     "consejo-title": "Nunca te fíes del Wi-Fi que no controlas",
     "consejo-text": "Cuando estéis fuera de la oficina — hotel, aeropuerto, congreso — usad siempre la VPN corporativa antes de abrir cualquier servicio de empresa, sin excepción. El DNS de esa red puede estar apuntando a donde le dé la gana a quien la controla, y vuestras credenciales de M365 no distinguen entre una página real y una copia perfecta. Si la VPN no está disponible por cualquier motivo, los datos móviles son siempre más seguros que el Wi-Fi de un tercero.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Audita las plantillas de certificados de vuestro AD esta semana",
-    "reto-text": "Ejecuta Certify o Certipy contra vuestro entorno de Active Directory y localiza plantillas de certificados con permisos de enrolamiento excesivos — especialmente las que permitan Client Authentication a usuarios estándar. Documenta lo que encuentres y abre un ticket si hay algo que corregir: el exploit Certighost está en la calle y funciona.",
+    "reto-text": "Esta semana, si te llega una petición urgente de dinero, datos o accesos —por correo, Teams o donde sea—, antes de responder confírmala por otro canal: una llamada rápida, un mensaje aparte o acercarte a la persona. Treinta segundos que pueden parar un fraude. Si resulta ser de verdad, no pasa nada; si no lo era, acabas de evitar un problema.",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "CVE-2026-8933: escalada a root en Ubuntu Desktop con acceso local a través de snap-confine — Canonical ya tiene parche",
     "radar-2-headline": "FakeGit llena GitHub con 7.600 repositorios trampa que distribuyen el infostealer StealC camuflados como recursos de IA",
     "radar-3-headline": "PoC pública para RCE en GitLab: cualquier usuario autenticado puede ejecutar comandos como git en servidores self-managed sin actualizar",
     "radar-4-headline": "Afiliados de Cl0p encadenan dos vulnerabilidades en PTC Windchill y FlexPLM para RCE sin autenticación en entornos industriales",
-    "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
-    "phishing-title": "¿Detectarías este email antes de hacer clic?",
-    "phishing-intro": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
-    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
-    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
-    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "tag-phishing": "🎯 Pon a prueba tu ojo — El test del mes",
+    "sit-intro": "Estás en Teams. Mira estas tres situaciones y decide en cada una si confiar o sospechar.",
+    "sit1-msg": "Un usuario de fuera de tu organización quiere chatear contigo. [Aceptar] [Rechazar]",
+    "sit1-fb": "Teams avisa cuando quien te escribe es externo. No es malo por sí solo, pero es la puerta de entrada de muchos engaños: acepta solo si sabes quién es y esperabas el contacto.",
+    "sit2-msg": "Soy el CEO. Estoy en una reunión y no puedo hablar por teléfono. Necesito que gestiones una transferencia urgente, pero no comentes esto con nadie todavía. ¿Puedes ocuparte ahora?",
+    "sit2-fb": "Tres señales juntas: urgencia, secretismo y una petición inusual de dinero. La dirección real no gestiona así estas cosas. Aunque parezca el CEO, verifícalo por otro canal antes de mover un dedo.",
+    "sit3-msg": "Necesito que me confirmes por aquí el IBAN de la empresa y los datos del empleado que lleva el proyecto. Es para cerrar algo hoy mismo.",
+    "sit3-fb": "Nadie de fiar te pide datos bancarios o de personas por chat y con prisa. Si dudas, no los envíes: confirma quién lo pide y por qué, por una vía distinta.",
+    "sit-btn-confio": "🤝 Confío",
+    "sit-btn-sospecho": "⚠️ Sospecho",
+    "sit-cierre": "La regla de oro: ante cualquier petición urgente de dinero, datos o accesos, para y verifícalo por otro canal —una llamada, en persona— aunque parezca venir de dirección. Los atacantes cuentan con que la prisa te haga saltarte ese paso.",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Tres campañas de phishing activas contra Microsoft 365 al descubierto por un servidor mal configurado",
@@ -1268,20 +1258,24 @@ const I18N = {
     "consejo-title": "Never trust Wi-Fi you don't control",
     "consejo-text": "When you are away from the office — hotel, airport, conference — always use the corporate VPN before accessing any company service, no exceptions. The DNS on that network can point wherever whoever controls it wants, and your M365 credentials cannot tell the difference between a real page and a perfect copy. If the VPN is unavailable for any reason, mobile data is always safer than a third-party Wi-Fi network.",
     "tag-reto": "Challenge of the Month",
-    "reto-title": "Audit your AD certificate templates this week",
-    "reto-text": "Run Certify or Certipy against your Active Directory environment and identify certificate templates with excessive enrollment permissions — especially those that allow Client Authentication to standard users. Document what you find and open a ticket if anything needs fixing: the Certighost exploit is out in the wild and it works.",
+    "reto-text": "This week, if you get an urgent request for money, data or access — by email, Teams or anywhere else — confirm it through another channel before replying: a quick call, a separate message or walking over to the person. Thirty seconds that can stop a fraud. If it turns out to be real, nothing happens; if it wasn't, you've just avoided a problem.",
     "tag-radar": "On the Radar",
     "radar-title": "What you can't afford to miss this month",
     "radar-1-headline": "CVE-2026-8933: local privilege escalation to root on Ubuntu Desktop via snap-confine — Canonical has already released a patch",
     "radar-2-headline": "FakeGit floods GitHub with 7,600 trap repositories distributing the StealC infostealer disguised as AI resources",
     "radar-3-headline": "Public PoC for RCE in GitLab: any authenticated user can execute commands as git on unpatched self-managed servers",
     "radar-4-headline": "Cl0p affiliates chain two vulnerabilities in PTC Windchill and FlexPLM for unauthenticated RCE in industrial environments",
-    "tag-phishing": "🎯 Test your eye — Quiz of the Month",
-    "phishing-title": "Would you spot this email before clicking?",
-    "phishing-intro": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it was fake?",
-    "phishing-question": "Is this email legitimate or a phishing attempt?",
-    "phishing-btn-yes": "⚠️ It's phishing — I wouldn't click",
-    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "tag-phishing": "🎯 Test your eye — The quiz of the month",
+    "sit-intro": "You're in Teams. Look at these three situations and decide, for each one, whether to trust or be suspicious.",
+    "sit1-msg": "Someone outside your organization wants to chat with you. [Accept] [Decline]",
+    "sit1-fb": "Teams warns you when the person writing to you is external. It's not bad in itself, but it's the entry point for many scams: accept only if you know who they are and were expecting the contact.",
+    "sit2-msg": "This is the CEO. I'm in a meeting and can't talk on the phone. I need you to handle an urgent transfer, but don't mention this to anyone yet. Can you take care of it now?",
+    "sit2-fb": "Three signals together: urgency, secrecy and an unusual request for money. Real management doesn't handle these things this way. Even if it looks like the CEO, verify it through another channel before lifting a finger.",
+    "sit3-msg": "I need you to confirm here the company's IBAN and the details of the employee running the project. It's to close something today.",
+    "sit3-fb": "No one trustworthy asks you for banking or personal data over chat and in a hurry. If in doubt, don't send them: confirm who is asking and why, through a different channel.",
+    "sit-btn-confio": "🤝 I trust it",
+    "sit-btn-sospecho": "⚠️ I'm suspicious",
+    "sit-cierre": "The golden rule: with any urgent request for money, data or access, stop and verify it through another channel — a call, in person — even if it seems to come from management. Attackers count on the rush making you skip that step.",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "Three active phishing campaigns targeting Microsoft 365 uncovered through a misconfigured server",
@@ -1352,20 +1346,24 @@ const I18N = {
     "consejo-title": "Ne faites jamais confiance à un Wi-Fi que vous ne contrôlez pas",
     "consejo-text": "Lorsque vous êtes hors du bureau — hôtel, aéroport, congrès — utilisez toujours le VPN d'entreprise avant d'accéder à tout service professionnel, sans exception. Le DNS de ce réseau peut pointer où bon lui semble à celui qui le contrôle, et vos identifiants M365 ne font pas la différence entre une vraie page et une copie parfaite. Si le VPN n'est pas disponible pour quelque raison que ce soit, les données mobiles sont toujours plus sûres que le Wi-Fi d'un tiers.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Auditez les modèles de certificats de votre AD cette semaine",
-    "reto-text": "Exécutez Certify ou Certipy contre votre environnement Active Directory et identifiez les modèles de certificats présentant des permissions d'enrollment excessives — notamment ceux autorisant la Client Authentication pour des utilisateurs standard. Documentez ce que vous trouvez et ouvrez un ticket si des corrections s'imposent : l'exploit Certighost est dans la nature et il fonctionne.",
+    "reto-text": "Cette semaine, si vous recevez une demande urgente d'argent, de données ou d'accès — par e-mail, Teams ou ailleurs —, confirmez-la par un autre canal avant de répondre : un appel rapide, un message à part ou un passage en personne. Trente secondes qui peuvent arrêter une fraude. Si c'est vrai, il ne se passe rien ; si ça ne l'était pas, vous venez d'éviter un problème.",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "CVE-2026-8933 : élévation de privilèges vers root sur Ubuntu Desktop avec accès local via snap-confine — Canonical a déjà publié un correctif",
     "radar-2-headline": "FakeGit inonde GitHub avec 7 600 dépôts piégés distribuant l'infostealer StealC camouflé en ressources IA",
     "radar-3-headline": "PoC publique pour un RCE dans GitLab : tout utilisateur authentifié peut exécuter des commandes en tant que git sur des serveurs self-managed non mis à jour",
     "radar-4-headline": "Des affiliés de Cl0p enchaînent deux vulnérabilités dans PTC Windchill et FlexPLM pour un RCE sans authentification dans des environnements industriels",
-    "tag-phishing": "🎯 Testez votre œil — Test du mois",
-    "phishing-title": "Repéreriez-vous cet e-mail avant de cliquer ?",
-    "phishing-intro": "Voici le type d'e-mail qu'utilisent les attaquants. Il réunit tous les ingrédients : urgence, expéditeur apparemment légitime et un lien tentant. Sauriez-vous qu'il est faux ?",
-    "phishing-question": "Cet e-mail est-il légitime ou s'agit-il d'une tentative de phishing ?",
-    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
-    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "tag-phishing": "🎯 Testez votre œil — Le test du mois",
+    "sit-intro": "Vous êtes dans Teams. Regardez ces trois situations et décidez, pour chacune, s'il faut faire confiance ou se méfier.",
+    "sit1-msg": "Un utilisateur externe à votre organisation souhaite discuter avec vous. [Accepter] [Refuser]",
+    "sit1-fb": "Teams vous avertit lorsque la personne qui vous écrit est externe. Ce n'est pas mauvais en soi, mais c'est la porte d'entrée de nombreuses arnaques : n'acceptez que si vous savez de qui il s'agit et que vous attendiez ce contact.",
+    "sit2-msg": "C'est le CEO. Je suis en réunion et je ne peux pas parler au téléphone. J'ai besoin que tu gères un virement urgent, mais n'en parle à personne pour l'instant. Peux-tu t'en occuper maintenant ?",
+    "sit2-fb": "Trois signaux réunis : urgence, secret et une demande d'argent inhabituelle. La vraie direction ne gère pas les choses ainsi. Même si cela semble venir du CEO, vérifiez par un autre canal avant de bouger le petit doigt.",
+    "sit3-msg": "J'ai besoin que tu me confirmes ici l'IBAN de l'entreprise et les coordonnées de l'employé qui gère le projet. C'est pour boucler quelque chose aujourd'hui même.",
+    "sit3-fb": "Personne de fiable ne vous demande des données bancaires ou personnelles par chat et dans la précipitation. En cas de doute, ne les envoyez pas : confirmez qui les demande et pourquoi, par une autre voie.",
+    "sit-btn-confio": "🤝 Je fais confiance",
+    "sit-btn-sospecho": "⚠️ Je me méfie",
+    "sit-cierre": "La règle d'or : face à toute demande urgente d'argent, de données ou d'accès, arrêtez-vous et vérifiez par un autre canal — un appel, en personne — même si cela semble venir de la direction. Les attaquants comptent sur la précipitation pour vous faire sauter cette étape.",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Trois campagnes de phishing actives contre Microsoft 365 révélées par un serveur mal configuré",
