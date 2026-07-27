@@ -368,9 +368,10 @@ def render_template(content: Dict, edition: str) -> str:
         if delta == 0:
             footer_editions += f'<li><a href="/{ed_str}/">#{ed_str} — {ed_mes}{now_badge}</a></li>\n'
         else:
+            # Clase con override body.light (definida en web_template.html y en
+            # editions-nav.js) — nunca color fijo inline, que no cambia de tema.
             footer_editions += (
-                f'<li><span style="opacity:0.28;font-size:13px;font-family:\'JetBrains Mono\',monospace;'
-                f'letter-spacing:0.5px;color:var(--grey);">→ #{ed_str} — próximamente</span></li>\n'
+                f'<li><span class="ed-foot-soon">→ #{ed_str} — próximamente</span></li>\n'
             )
 
     # Fuente blocks — se inyectan ANTES de que los placeholders de URL sean sustituidos,

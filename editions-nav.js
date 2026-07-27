@@ -52,7 +52,10 @@
     st.id = 'ed-foot-style';
     st.textContent =
       ".ed-foot-cur{font-weight:700;opacity:1;}" +
-      ".ed-foot-soon{opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);}";
+      ".ed-foot-soon{opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);}" +
+      /* Modo claro: var(--grey) es un gris claro fijo (#E1E1E8) pensado para
+         fondo oscuro; sin este override el teaser es ilegible en claro. */
+      "body.light .ed-foot-soon{color:#555570;opacity:0.75;}";
     document.head.appendChild(st);
   }
 })();

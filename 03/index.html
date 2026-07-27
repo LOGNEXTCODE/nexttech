@@ -245,6 +245,8 @@ body {
 .footer-links-list li a { font-size: 13px; color: var(--grey); text-decoration: none; opacity: 0.55; transition: color 0.2s ease, opacity 0.2s ease; display: flex; align-items: center; gap: 8px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; white-space: nowrap; }
 .footer-links-list li a:hover { opacity: 1; color: var(--red); }
 .footer-links-list li a::before { content: '→'; color: var(--red); font-size: 10px; }
+.ed-foot-soon { opacity: 0.28; font-size: 13px; font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; color: var(--grey); }
+body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
 .footer-contact-item { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 12px; font-size: 13px; }
 .footer-contact-icon { color: var(--red); flex-shrink: 0; font-family: 'JetBrains Mono', monospace; font-size: 11px; margin-top: 2px; opacity: 0.7; }
 .footer-contact-text { opacity: 0.55; line-height: 1.5; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
@@ -885,8 +887,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
           <li><a href="/01/">#01 — Junio 2026</a></li>
 <li><a href="/02/">#02 — Julio 2026</a></li>
 <li><a href="/03/">#03 — Agosto 2026<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span></a></li>
-<li><span style="opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);">→ #04 — próximamente</span></li>
-<li><span style="opacity:0.28;font-size:13px;font-family:'JetBrains Mono',monospace;letter-spacing:0.5px;color:var(--grey);">→ #05 — próximamente</span></li>
+<li><span class="ed-foot-soon">→ #04 — próximamente</span></li>
+<li><span class="ed-foot-soon">→ #05 — próximamente</span></li>
 
         </ul>
       </div>
