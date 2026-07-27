@@ -219,6 +219,10 @@ body {
 .teams-bubble { display: inline-block; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.06); border-radius: 4px 12px 12px 12px; padding: 10px 14px; font-size: 14px; line-height: 1.6; color: var(--grey); max-width: 560px; }
 .teams-msg-chained .teams-bubble { border-radius: 12px; }
 .teams-bubble-row { display: flex; align-items: flex-end; gap: 8px; }
+.teams-ext-banner { font-size: 11px; text-align: center; padding: 6px 10px; margin-bottom: 14px; border-radius: 4px; background: rgba(255,250,150,0.07); border: 1px solid rgba(255,250,150,0.25); color: var(--yellow); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; }
+.phishing-buttons .phishing-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.phishing-btn-correcta { box-shadow: 0 0 0 1.5px currentColor inset; }
+body.light .teams-ext-banner { background: rgba(255,250,150,0.3); border-color: rgba(138,112,0,0.35); color: #6D5900; }
 body.light .teams-chat { background: #FFFFFF; border-color: rgba(0,0,41,0.1); }
 body.light .teams-sender { color: #000029; }
 body.light .teams-bubble { background: #F0F0F5; border-color: rgba(0,0,41,0.06); color: #1F1F33; }
@@ -838,6 +842,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="card-text" data-i18n="chat-intro">Te llega esta conversación por Teams. Léela entera y decide.</div>
       <div class="phishing-inner" id="test-block">
         <div class="teams-chat">
+          <div class="teams-ext-banner" data-i18n="chat-ext-banner">Este usuario es externo a tu organización</div>
           <div class="teams-msg">
             <div class="teams-avatar" aria-hidden="true" data-i18n="chat-avatar">D</div>
             <div class="teams-msg-main">
@@ -870,10 +875,10 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         </div>
         <div class="phishing-question" data-i18n="chat-question">¿Confías o sospechas?</div>
         <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-no" onclick="answerTest(true)" data-i18n="chat-btn-confio">Confío</button>
-          <button class="phishing-btn phishing-btn-yes" onclick="answerTest(false)" data-i18n="chat-btn-sospecho">Sospecho</button>
+          <button class="phishing-btn phishing-btn-no" onclick="answerTest(true)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="chat-btn-confio">Confío</span></button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerTest(false)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="chat-btn-sospecho">Sospecho</span></button>
         </div>
-        <div class="phishing-result" id="test-result"><span data-i18n="chat-fb">Bien visto. Aquí se juntan todas las señales de una suplantación: el remitente es externo (Teams te lo avisa), dice ser de Dirección pero no puedes verificarlo, mete urgencia, pide secretismo y reclama dinero y datos sensibles por chat. Da igual lo convincente que parezca: ante una petición así, para y verifícalo por otro canal —una llamada, en persona—. Los atacantes cuentan con que la prisa te haga saltártelo.</span></div>
+        <div class="phishing-result" id="test-result"><span id="test-fb-ok" data-i18n="chat-fb">Bien visto. Aquí se juntan todas las señales de una suplantación: el remitente es externo (Teams te lo avisa), dice ser de Dirección pero no puedes verificarlo, mete urgencia, pide secretismo y reclama dinero y datos sensibles por chat. Da igual lo convincente que parezca: ante una petición así, para y verifícalo por otro canal —una llamada, en persona—. Los atacantes cuentan con que la prisa te haga saltártelo.</span><span id="test-fb-ko" data-i18n="chat-fb-ko" style="display:none;">Cuidado: esto era un intento de suplantación. Aunque diga ser de Dirección, el remitente es externo (Teams te lo avisa) y no puedes verificarlo; además mete urgencia, pide secretismo y reclama dinero y datos por chat. Nunca actúes con una petición así sin confirmarla por otro canal —una llamada, en persona—. La próxima vez, para y verifica antes de responder.</span></div>
       </div>
     </div>
 
@@ -1073,8 +1078,13 @@ function answerTest(trusted) {
   const box = document.getElementById('test-result');
   if (!box) return;
   box.className = 'phishing-result show ' + (trusted ? 'wrong' : 'correct');
+  document.getElementById('test-fb-ok').style.display = trusted ? 'none' : 'inline';
+  document.getElementById('test-fb-ko').style.display = trusted ? 'inline' : 'none';
   trackPhishing(trusted ? 'test_incorrecto' : 'test_correcto');
   document.querySelectorAll('#test-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+  const ok = document.querySelector('#test-block .phishing-btn-yes');
+  ok.classList.add('phishing-btn-correcta');
+  ok.style.opacity = '1';
 }
 
 document.addEventListener('click', function(e) {
@@ -1222,6 +1232,8 @@ const I18N = {
     "chat-btn-confio": "Confío",
     "chat-btn-sospecho": "Sospecho",
     "chat-fb": "Bien visto. Aquí se juntan todas las señales de una suplantación: el remitente es externo (Teams te lo avisa), dice ser de Dirección pero no puedes verificarlo, mete urgencia, pide secretismo y reclama dinero y datos sensibles por chat. Da igual lo convincente que parezca: ante una petición así, para y verifícalo por otro canal —una llamada, en persona—. Los atacantes cuentan con que la prisa te haga saltártelo.",
+    "chat-fb-ko": "Cuidado: esto era un intento de suplantación. Aunque diga ser de Dirección, el remitente es externo (Teams te lo avisa) y no puedes verificarlo; además mete urgencia, pide secretismo y reclama dinero y datos por chat. Nunca actúes con una petición así sin confirmarla por otro canal —una llamada, en persona—. La próxima vez, para y verifica antes de responder.",
+    "chat-ext-banner": "Este usuario es externo a tu organización",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Tres campañas de phishing activas contra Microsoft 365 al descubierto por un servidor mal configurado",
@@ -1311,6 +1323,8 @@ const I18N = {
     "chat-btn-confio": "I trust it",
     "chat-btn-sospecho": "I'm suspicious",
     "chat-fb": "Well spotted. All the signs of an impersonation come together here: the sender is external (Teams warns you), they claim to be from Management but you can't verify it, they add urgency, ask for secrecy and demand money and sensitive data over chat. No matter how convincing it looks: with a request like this, stop and verify it through another channel — a call, in person. Attackers count on the rush making you skip that step.",
+    "chat-fb-ko": "Careful: this was an impersonation attempt. Even though they claim to be from Management, the sender is external (Teams warns you) and you can't verify it; on top of that they add urgency, ask for secrecy and demand money and data over chat. Never act on a request like this without confirming it through another channel — a call, in person. Next time, stop and verify before replying.",
+    "chat-ext-banner": "This user is external to your organization",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "Three active phishing campaigns targeting Microsoft 365 uncovered through a misconfigured server",
@@ -1400,6 +1414,8 @@ const I18N = {
     "chat-btn-confio": "Je fais confiance",
     "chat-btn-sospecho": "Je me méfie",
     "chat-fb": "Bien vu. Tous les signaux d'une usurpation sont réunis ici : l'expéditeur est externe (Teams vous en avertit), il dit être de la Direction mais vous ne pouvez pas le vérifier, il ajoute de l'urgence, demande le secret et réclame de l'argent et des données sensibles par chat. Peu importe à quel point cela semble convaincant : face à une telle demande, arrêtez-vous et vérifiez par un autre canal — un appel, en personne. Les attaquants comptent sur la précipitation pour vous faire sauter cette étape.",
+    "chat-fb-ko": "Attention : c'était une tentative d'usurpation. Même s'il dit être de la Direction, l'expéditeur est externe (Teams vous en avertit) et vous ne pouvez pas le vérifier ; de plus, il ajoute de l'urgence, demande le secret et réclame de l'argent et des données par chat. N'agissez jamais sur une telle demande sans la confirmer par un autre canal — un appel, en personne. La prochaine fois, arrêtez-vous et vérifiez avant de répondre.",
+    "chat-ext-banner": "Cet utilisateur est externe à votre organisation",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Trois campagnes de phishing actives contre Microsoft 365 révélées par un serveur mal configuré",
