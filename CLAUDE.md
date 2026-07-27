@@ -338,6 +338,13 @@ falla, la edición no sale:
       nunca el genérico de plantilla ni el heredado de otra edición.
 - [ ] **Toggle de tema oscuro/claro** presente y funcional (botón `#theme-toggle`,
       `localStorage 'nl-theme'`, canvas de partículas en claro). Probar que conmuta.
+- [ ] **Logo en SVG idéntico al de referencia** (texto NEXT blanco + TECH naranja a
+      20px, logotipo LOGNEXT en SVG con clase `topbar-logo-svg` a 33px/21px móvil,
+      símbolo X naranja, `<img>` del logo positivo para modo claro con ruta absoluta
+      `/images/`), verificado en las 3 resoluciones (escritorio, ~768px, ~375px).
+      La #01 es la referencia visual; `web_template.html` es LA FUENTE del header:
+      cualquier arreglo del header se hace EN LA PLANTILLA además de en la edición,
+      o la siguiente edición nacerá rota (pasó con la #02 y la #03).
 - [ ] **i18n ES/EN/FR completo** — `const I18N` con los 3 idiomas + selector de
       idioma operativo (ver «i18n — toda edición es trilingüe»).
 - [ ] **Cookies con igual prominencia (AEPD)** — Aceptar = Rechazar (ver «Cookies y GA4»).
