@@ -339,6 +339,11 @@ falla, la edición no sale:
 
 - [ ] **Banner/intro propio de la edición** — texto específico del tema del mes,
       nunca el genérico de plantilla ni el heredado de otra edición.
+- [ ] **Entradilla propia de la edición** — cada edición lleva su ENTRADILLA
+      (párrafo específico del contenido del mes, bloque `intro-entradilla` con
+      clave i18n `entradilla` en ES/EN/FR) además de la bienvenida genérica;
+      la bienvenida genérica NO cambia entre ediciones. El hueco está comentado
+      en `web_template.html`; patrón de referencia: `03/index.html`.
 - [ ] **Toggle de tema oscuro/claro** presente y funcional (botón `#theme-toggle`,
       `localStorage 'nl-theme'`, canvas de partículas en claro). Probar que conmuta.
 - [ ] **Logo en SVG idéntico al de referencia** (texto NEXT blanco + TECH naranja a
