@@ -1,0 +1,52 @@
+name: NextTech — Aprobar edición
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+# Aprobación con UN clic (Miguel, desde Actions → Run workflow).
+# Escribe el flag "aprobada" en published.json. La portada NO cambia aquí:
+# la conmuta portada.yml el primer miércoles (o su dispatch manual), y solo
+# si la edición está aprobada. Queda auditado: actor en el commit y en el run.
+on:
+  workflow_dispatch:
+    inputs:
+      edition:
+        description: "Edición a aprobar (ej: 03). Debe existir la carpeta NN/index.html."
+        required: true
+
+jobs:
+  aprobar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: ✅ Validar y aprobar
+        run: |
+          ED="${{ github.event.inputs.edition }}"
+          if ! echo "$ED" | grep -qE '^[0-9]{2}$'; then
+            echo "::error::Formato inválido: '$ED' (esperado NN, ej: 03)"; exit 1
+          fi
+          if [ ! -f "$ED/index.html" ]; then
+            echo "::error::No existe $ED/index.html — no se puede aprobar una edición sin generar"; exit 1
+          fi
+          PUBLICADA=$(python3 -c "import json; print(json.load(open('published.json'))['publicada'])")
+          if [ $((10#$ED)) -le $((10#$PUBLICADA)) ]; then
+            echo "::error::La edición #$ED no es posterior a la ya publicada (#$PUBLICADA)"; exit 1
+          fi
+          python3 - "$ED" <<'PYEOF'
+          import io, json, sys
+          d = json.load(open('published.json'))
+          d['aprobada'] = sys.argv[1]
+          io.open('published.json', 'w', encoding='utf-8', newline='').write(json.dumps(d, indent=2, ensure_ascii=False) + '\n')
+          PYEOF
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add published.json
+          git diff --staged --quiet || git commit -m "Edición #${ED} aprobada para publicación (por ${{ github.actor }})"
+          git push origin main
+          echo "✅ #${ED} aprobada. La portada conmutará el primer miércoles (portada.yml)."

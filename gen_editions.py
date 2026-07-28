@@ -6,6 +6,11 @@ Lista las carpetas NN/ existentes, PRESERVA las etiquetas (mes/año) ya presente
 en un editions.json anterior y, para una edición nueva sin etiqueta, usa el mes
 de PUBLICACIÓN (PUBLICATION_DATE vía pubdate.py — la edición se genera 14 días
 antes, en el mes anterior). Idempotente: mismo repo → misma salida.
+
+Con PUBLISHED_MAX=NN en el entorno, solo lista ediciones ≤ NN: las generadas
+pero aún no publicadas NO aparecen en el manifiesto (ni, por tanto, en el
+navegador público de ediciones). Sin la variable, lista todas (comportamiento
+histórico). Lo fija portada.yml al publicar.
 """
 import os
 import re
@@ -22,8 +27,10 @@ def main():
         except Exception:
             pass
 
+    cap = os.environ.get("PUBLISHED_MAX", "").strip()
     eds = sorted(d for d in os.listdir(".")
-                 if re.fullmatch(r"\d{2}", d) and os.path.isdir(d))
+                 if re.fullmatch(r"\d{2}", d) and os.path.isdir(d)
+                 and (not cap or d <= cap))
 
     pub = publication_date()
     out = []

@@ -1,0 +1,109 @@
+name: NextTech — Portada (publicación el primer miércoles)
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
+# Conmuta la portada con DOBLE CANDADO: fecha (primer miércoles) + aprobación
+# (flag "aprobada" de published.json, que escribe aprobar.yml).
+# ─────────────────────────────────────────────────────────────────
+# Cron: madrugada de TODOS los miércoles a las 05:00 UTC (07:00 Madrid en
+# verano, 06:00 en invierno) — antes del envío matinal del correo. SIN rango
+# de día de mes: GitHub evalúa día-de-mes y día-de-semana con OR, así que el
+# AND (miércoles Y día 1-7 = primer miércoles) lo impone el guard bash.
+# Si falta la aprobación o la carpeta, NO toca la portada y avisa por correo.
+# El CNAME no se toca nunca.
+# ─────────────────────────────────────────────────────────────────
+on:
+  schedule:
+    - cron: "0 5 * * 3"
+  # Lanzamiento manual (publicaciones retrasadas, p. ej. fiestas de enero):
+  # omite la restricción de FECHA, pero NUNCA los candados de aprobación
+  # y existencia.
+  workflow_dispatch:
+
+jobs:
+  conmutar-portada:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+
+    steps:
+      - name: 📥 Checkout del repositorio
+        uses: actions/checkout@v4
+
+      - name: 📅 Guard de fecha (primer miércoles, patrón AND anti-OR)
+        id: fecha
+        run: |
+          DOW=$(date -u +%u)    # 1=lunes … 7=domingo
+          DAY=$(date -u +%-d)
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "Lanzamiento manual — se omite la restricción de fecha (los candados NO se omiten)."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          elif [ "$DOW" != "3" ] || [ "$DAY" -gt 7 ]; then
+            echo "Hoy es DOW=$DOW, día $DAY — no es el primer miércoles del mes. Nada que hacer."
+            echo "skip=true" >> $GITHUB_OUTPUT
+          else
+            echo "Primer miércoles del mes — se evalúan los candados."
+            echo "skip=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🔐 Candados (aprobación + existencia de la carpeta)
+        if: steps.fecha.outputs.skip == 'false'
+        id: candados
+        run: |
+          APROBADA=$(python3 -c "import json; print(json.load(open('published.json'))['aprobada'])")
+          PUBLICADA=$(python3 -c "import json; print(json.load(open('published.json'))['publicada'])")
+          echo "aprobada=$APROBADA"   >> $GITHUB_OUTPUT
+          echo "publicada=$PUBLICADA" >> $GITHUB_OUTPUT
+          if [ "$APROBADA" = "$PUBLICADA" ]; then
+            echo "Sin edición aprobada pendiente (aprobada=#$APROBADA = publicada). La portada no cambia."
+            echo "estado=sin_pendiente" >> $GITHUB_OUTPUT
+          elif [ ! -f "$APROBADA/index.html" ]; then
+            echo "La edición aprobada #$APROBADA no tiene carpeta $APROBADA/index.html. La portada no cambia."
+            echo "estado=falta_carpeta" >> $GITHUB_OUTPUT
+          else
+            echo "Candados OK: #$APROBADA aprobada y su carpeta existe."
+            echo "estado=ok" >> $GITHUB_OUTPUT
+          fi
+
+      - name: 🌐 Conmutar portada (redirect + manifiesto)
+        if: steps.fecha.outputs.skip == 'false' && steps.candados.outputs.estado == 'ok'
+        run: |
+          ED="${{ steps.candados.outputs.aprobada }}"
+          # Redirect triple coherente (meta refresh + canonical + JS). CNAME intacto.
+          printf '<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta http-equiv="refresh" content="0; url=/%s/">\n<link rel="canonical" href="https://nexttech.lognext.com/%s/">\n<title>NextTech — LOGNEXT</title>\n<script>window.location.replace("/%s/");</script>\n</head>\n<body>\n<p>Redirigiendo a la última edición de NextTech. Si no te redirige, <a href="/%s/">haz clic aquí</a>.</p>\n</body>\n</html>\n' "$ED" "$ED" "$ED" "$ED" > index.html
+          # Manifiesto SOLO con ediciones publicadas (tope = la que se publica ahora)
+          PUBLISHED_MAX="$ED" python3 gen_editions.py
+          python3 - <<'PYEOF'
+          import io, json
+          d = json.load(open('published.json'))
+          d['publicada'] = d['aprobada']
+          io.open('published.json', 'w', encoding='utf-8', newline='').write(json.dumps(d, indent=2, ensure_ascii=False) + '\n')
+          PYEOF
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html editions.json published.json
+          git diff --staged --quiet || git commit -m "Portada → NextTech #${ED} (publicación del primer miércoles)"
+          git push origin main
+          echo "✅ Portada conmutada a #${ED}."
+
+      - name: 📧 Aviso — la portada NO ha cambiado
+        if: steps.fecha.outputs.skip == 'false' && steps.candados.outputs.estado != 'ok'
+        env:
+          MS_TENANT_ID:     ${{ secrets.MS_TENANT_ID }}
+          MS_CLIENT_ID:     ${{ secrets.MS_CLIENT_ID }}
+          MS_CLIENT_SECRET: ${{ secrets.MS_CLIENT_SECRET }}
+          MS_SENDER_EMAIL:  ${{ secrets.MS_SENDER_EMAIL }}
+          REVIEWER_EMAIL:   ${{ secrets.REVIEWER_EMAIL }}
+        run: |
+          pip install -q requests
+          PUBLICADA="${{ steps.candados.outputs.publicada }}"
+          APROBADA="${{ steps.candados.outputs.aprobada }}"
+          if [ "${{ steps.candados.outputs.estado }}" = "sin_pendiente" ]; then
+            python3 avisar.py "NextTech — portada SIN cambiar (falta aprobación)" \
+              "Hoy es primer miércoles y no hay edición aprobada pendiente: la portada sigue en la #${PUBLICADA}. Si la nueva edición está lista, apruébala en Actions → 'NextTech — Aprobar edición' y luego lanza 'NextTech — Portada' manualmente (o espera al próximo primer miércoles)."
+          else
+            python3 avisar.py "NextTech — portada SIN cambiar (falta la carpeta de la #${APROBADA})" \
+              "La edición #${APROBADA} está aprobada pero no existe ${APROBADA}/index.html en el repositorio, así que la portada sigue en la #${PUBLICADA}. Revisa la generación."
+          fi

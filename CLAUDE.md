@@ -45,7 +45,11 @@ certificación ENS de LOGNEXT.
 
 ```
 nexttech/
-├── .github/workflows/monthly.yml   # Cron: todos los miércoles 07:00 UTC — genera solo el miércoles exactamente 14 días antes del primer miércoles
+├── .github/workflows/monthly.yml   # Cron: todos los miércoles 07:00 UTC — genera solo el miércoles exactamente 14 días antes del primer miércoles (NO toca la portada)
+├── .github/workflows/aprobar.yml   # Manual (1 clic): marca una edición como APROBADA en published.json
+├── .github/workflows/portada.yml   # Cron: miércoles 05:00 UTC — conmuta la portada el primer miércoles SOLO si hay edición aprobada
+├── published.json                   # Doble candado: {"publicada": NN, "aprobada": NN} — la fuente de verdad de la portada
+├── avisar.py                        # Aviso breve por correo (Graph API) — lo usa portada.yml si no puede conmutar
 ├── main.py                          # Orquestador principal
 ├── pubdate.py                       # Lee PUBLICATION_DATE (fecha de publicación, la fija monthly.yml) + meses en español
 ├── scraper.py                       # RSS feeds de fuentes oficiales
@@ -59,17 +63,20 @@ nexttech/
 
 1. GitHub Actions → scraper.py (RSS INCIBE, CCN-CERT, El País, Xataka, etc.)
 1. Claude API → genera contenido con tono cercano
-1. GitHub Pages → publica en nexttech.lognext.com/XX
+1. GitHub Pages → guarda la edición en nexttech.lognext.com/XX (accesible por URL directa; la PORTADA no cambia)
 1. Microsoft Graph API → borrador a sistemas@lognext.com + miguel.aparicio@lognext.com (07:00 UTC)
-1. Ventana de 14 días naturales (10 laborables) de revisión → envío manual desde Outlook el primer miércoles
+1. Ventana de 14 días naturales (10 laborables) de revisión → Miguel APRUEBA con 1 clic (aprobar.yml)
+1. Primer miércoles 05:00 UTC → portada.yml conmuta la portada y el manifiesto SOLO si la edición está aprobada; después, envío manual desde Outlook esa misma mañana
 
 **Calendario editorial:**
 
 | Hito | Cuándo | Cómo |
 |------|--------|------|
-| Generación | Miércoles exactamente 14 días naturales antes del primer miércoles del mes (cae los días 15-24 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno) | `monthly.yml` automático |
-| Revisión | Ventana de 14 días naturales = 10 laborables sin festivos (miércoles de generación → primer miércoles) | Borrador por email + preview web en `/XX/` |
-| Publicación (envío a todos) | Primer miércoles del mes | Manual desde Outlook (Miguel) |
+| Generación | Miércoles exactamente 14 días naturales antes del primer miércoles del mes (cae los días 15-24 del mes anterior), 07:00 UTC (09:00 Madrid en verano, 08:00 en invierno). NO toca la portada | `monthly.yml` automático |
+| Revisión | Ventana de 14 días naturales = 10 laborables sin festivos (miércoles de generación → primer miércoles) | Borrador por email + preview web en `/XX/` (URL directa, sin enlazar) |
+| Aprobación | Cualquier día de la ventana, con 1 clic (valida que la carpeta existe; queda auditado quién y cuándo) | `aprobar.yml` manual (Miguel) |
+| Portada | Primer miércoles, 05:00 UTC (07:00 Madrid en verano, 06:00 en invierno) — SOLO si la edición está aprobada Y su carpeta existe; si no, no cambia y avisa por correo | `portada.yml` automático (dispatch manual para retrasos, p. ej. enero) |
+| Publicación (envío a todos) | Primer miércoles del mes, por la mañana (la portada ya habrá conmutado) | Manual desde Outlook (Miguel) |
 
 Histórico:
 
@@ -83,6 +90,11 @@ Histórico:
 - 2026-07-27 — corrección: la publicación/envío siempre fue el primer
   MIÉRCOLES; se realinea generación a miércoles −14 y se corrigen textos,
   cron y docs.
+- 2026-07-28 — DOBLE CANDADO de portada: generar deja de publicar. La
+  portada solo conmuta el primer miércoles (portada.yml) si la edición está
+  APROBADA (aprobar.yml → published.json). Sin aprobación, la portada no
+  cambia y avisa por correo. Motivo: la #03 estuvo de portada sin revisar
+  desde su generación (26-jul) hasta el revert manual (28-jul).
 
 Reglas del calendario (CRÍTICO — historial de fallos de cron):
 
@@ -104,6 +116,13 @@ Reglas del calendario (CRÍTICO — historial de fallos de cron):
 - En `workflow_dispatch` manual el guard se omite; los inputs `edition_number` y
   `publication_date` permiten fijar número y mes/año si se regenera fuera del
   calendario.
+- **Doble candado de portada**: generar NUNCA cambia la portada ni
+  `editions.json`. La portada solo la conmuta `portada.yml` (primer miércoles,
+  o su dispatch manual) y siempre con los dos candados: edición marcada como
+  `aprobada` en `published.json` (vía `aprobar.yml`) Y carpeta `NN/index.html`
+  existente. Sin aprobación la portada no cambia y se avisa por correo
+  (`avisar.py`). El `editions.json` público solo lista ediciones publicadas
+  (`PUBLISHED_MAX` en `gen_editions.py`). El CNAME no se toca jamás.
 
 **Recordatorio de mitad de mes — ELIMINADO 2026-07-21 (nota histórica):**
 
@@ -212,8 +231,10 @@ Guías publicadas actualmente:
 
 - **Navegación entre ediciones (footer):** la columna «Ediciones» del footer se rellena
   dinámicamente con `editions-nav.js` leyendo `/editions.json` (manifiesto de ediciones
-  publicadas). El workflow regenera `editions.json` en cada build con `gen_editions.py`.
-  Ninguna edición ya publicada reescribe su HTML: enlazan solas a las nuevas.
+  publicadas). `editions.json` lo regenera `portada.yml` AL PUBLICAR (solo ediciones
+  aprobadas/publicadas, tope `PUBLISHED_MAX` de `gen_editions.py`); las generadas sin
+  publicar no aparecen. Ninguna edición ya publicada reescribe su HTML: enlazan solas
+  a las nuevas.
 - **Guías «volver al origen»:** los enlaces HACIA una guía llevan `?from={{EDICION_NUM}}`.
   El botón «Volver a NextTech» de cada guía lee `?from=NN` y vuelve a esa edición;
   si no hay parámetro válido, vuelve a la última edición publicada (`editions.json`).

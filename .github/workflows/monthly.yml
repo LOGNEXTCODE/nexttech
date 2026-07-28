@@ -134,35 +134,33 @@ jobs:
             python translator.py index.html || echo "⚠️ Traducción fallida — se publica solo en ES."
           fi
 
-      - name: 🌐 Publicar en carpeta de edición (GitHub Pages)
+      - name: 💾 Guardar la edición en su carpeta (la PORTADA no se toca al generar)
         if: steps.check_date.outputs.skip == 'false'
-        env:
-          PUBLICATION_DATE: ${{ steps.check_date.outputs.publication_date }}
         run: |
           EDITION="${{ steps.edition.outputs.number }}"
           EDITION_FILE="${EDITION}/index.html"
-          # Si main.py hizo skip (edición ya existe), no hay index.html — nada que publicar
+          # Si main.py hizo skip (edición ya existe), no hay index.html generado — nada que guardar
           if [ ! -f "index.html" ]; then
             echo "⏭️ No hay index.html generado — main.py hizo skip de edición existente."
             exit 0
           fi
-          # Protección adicional: no sobreescribir edición ya publicada
+          # Protección adicional: no sobreescribir edición ya guardada
           if [ -f "$EDITION_FILE" ]; then
-            echo "⏭️ ${EDITION_FILE} ya existe — edición publicada protegida. Skip."
+            echo "⏭️ ${EDITION_FILE} ya existe — edición protegida. Skip."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           mkdir -p "${EDITION}"
           cp index.html "${EDITION_FILE}"
-          # Redirect de la raíz → última edición publicada (carpeta NN/ más alta)
-          LATEST=$(ls -d [0-9][0-9]/ 2>/dev/null | sort | tail -1 | tr -d '/')
-          [ -z "$LATEST" ] && LATEST="${EDITION}"
-          printf '<!DOCTYPE html>\n<html lang="es">\n<head>\n<meta charset="UTF-8">\n<meta http-equiv="refresh" content="0; url=/%s/">\n<link rel="canonical" href="https://nexttech.lognext.com/%s/">\n<title>NextTech — LOGNEXT</title>\n<script>window.location.replace("/%s/");</script>\n</head>\n<body>\n<p>Redirigiendo a la última edición de NextTech. Si no te redirige, <a href="/%s/">haz clic aquí</a>.</p>\n</body>\n</html>\n' "$LATEST" "$LATEST" "$LATEST" "$LATEST" > index.html
-          # Manifiesto de ediciones publicadas para el navegador del footer (editions-nav.js)
-          python gen_editions.py
-          git add index.html editions.json "${EDITION}/"
-          git diff --staged --quiet || git commit -m "NextTech #${EDITION} publicado — ${{ steps.check_date.outputs.publication_label }}"
+          # DOBLE CANDADO (ver portada.yml): la raíz y editions.json NO se
+          # reescriben aquí. La edición queda accesible por URL directa /NN/
+          # para revisión, pero la portada y el navegador de ediciones solo
+          # cambian cuando Miguel la aprueba (aprobar.yml) y llega el primer
+          # miércoles (portada.yml). El index.html generado en la raíz del
+          # runner NO se añade al commit (el runner es efímero).
+          git add "${EDITION}/"
+          git diff --staged --quiet || git commit -m "NextTech #${EDITION} generado, pendiente de aprobación — ${{ steps.check_date.outputs.publication_label }}"
           git push origin main
 
       - name: 🏷️ Nombre de artefacto seguro
