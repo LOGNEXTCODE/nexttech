@@ -150,7 +150,6 @@ body {
 .header-meta { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; }
 .header-issue { font-size: 11px; color: var(--red); font-weight: 700; letter-spacing: 3px; font-family: 'JetBrains Mono', monospace; }
 .intro { background: rgba(250,60,15,0.06); border-left: 4px solid var(--red); padding: 24px 40px; margin-top: 4px; font-size: 15px; line-height: 1.9; color: var(--grey); animation: fadeDown 0.6s 0.1s ease both; }
-.intro-entradilla { margin-top: 10px; }
 .sep { height: 4px; background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, var(--cyan) 33%, var(--cyan) 66%, var(--yellow) 66%); margin-top: 4px; }
 .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; }
 .full-width { grid-column: 1 / -1; }
@@ -734,13 +733,9 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
+    Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. En esta edición #03 — Agosto 2026: un agente de IA autónomo capaz de atacar sin supervisión humana y lo que eso significa para nosotros, cómo el Wi-Fi de un hotel puede costarte la cuenta de la empresa, y un caso real de suplantación por Teams para poner a prueba tu ojo. Cinco minutos que te harán mirar tu correo de otra forma.
   </div>
 
-  <!-- ENTRADILLA ESPECÍFICA DE LA EDICIÓN -->
-  <div class="intro intro-entradilla" onmouseenter="trackSection('entradilla')" data-i18n-html="entradilla">
-    <strong>Edición #03 — Agosto 2026</strong><br>Este mes, la inteligencia artificial cruza una línea inquietante: un agente autónomo capaz de atacar por su cuenta, sin que ninguna persona lo supervise. Te contamos qué significa para nosotros, cómo un simple Wi-Fi de hotel puede costarte la cuenta de la empresa, y ponemos a prueba tu ojo con un caso real de suplantación por Teams. Cinco minutos que te harán mirar tu correo de otra forma.
-  </div>
 
   <!-- SEPARADOR -->
   <div class="sep"></div>
@@ -1283,8 +1278,7 @@ const I18N = {
     "ck-reject": "Rechazar todas",
     "ck-accept": "Aceptar todas",
     "ck-only-necessary": "Aceptar solo necesarias",
-    "intro": "Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.",
-    "entradilla": "<strong>Edición #03 — Agosto 2026</strong><br>Este mes, la inteligencia artificial cruza una línea inquietante: un agente autónomo capaz de atacar por su cuenta, sin que ninguna persona lo supervise. Te contamos qué significa para nosotros, cómo un simple Wi-Fi de hotel puede costarte la cuenta de la empresa, y ponemos a prueba tu ojo con un caso real de suplantación por Teams. Cinco minutos que te harán mirar tu correo de otra forma.",
+    "intro": "Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. En esta edición #03 — Agosto 2026: un agente de IA autónomo capaz de atacar sin supervisión humana y lo que eso significa para nosotros, cómo el Wi-Fi de un hotel puede costarte la cuenta de la empresa, y un caso real de suplantación por Teams para poner a prueba tu ojo. Cinco minutos que te harán mirar tu correo de otra forma.",
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>"
@@ -1375,8 +1369,7 @@ const I18N = {
     "ck-reject": "Reject all",
     "ck-accept": "Accept all",
     "ck-only-necessary": "Accept necessary only",
-    "intro": "Welcome to NextTech, your monthly appointment with the latest in artificial intelligence and cybersecurity. Every first Wednesday of the month: news, practical guides, and resources for everyday use.",
-    "entradilla": "<strong>Edition #03 — August 2026</strong><br>This month, artificial intelligence crosses an unsettling line: an autonomous agent able to attack on its own, with no human supervising it. We explain what it means for us, how a simple hotel Wi-Fi can cost you your company account, and we put your eye to the test with a real case of impersonation over Teams. Five minutes that will make you look at your inbox differently.",
+    "intro": "Welcome to NextTech, your first-Wednesday appointment with the latest in artificial intelligence and cybersecurity. In this edition #03 — August 2026: an autonomous AI agent able to attack with no human supervision and what that means for us, how a hotel Wi-Fi can cost you your company account, and a real case of impersonation over Teams to put your eye to the test. Five minutes that will make you look at your inbox differently.",
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>"
@@ -1467,8 +1460,7 @@ const I18N = {
     "ck-reject": "Tout refuser",
     "ck-accept": "Tout accepter",
     "ck-only-necessary": "Accepter uniquement les nécessaires",
-    "intro": "Bienvenue dans NextTech, votre rendez-vous mensuel avec l'actualité en intelligence artificielle et cybersécurité. Chaque premier mercredi du mois, des nouveautés, des guides pratiques et des ressources pour le quotidien.",
-    "entradilla": "<strong>Édition #03 — Août 2026</strong><br>Ce mois-ci, l'intelligence artificielle franchit une ligne inquiétante : un agent autonome capable d'attaquer tout seul, sans aucune supervision humaine. On vous explique ce que cela signifie pour nous, comment un simple Wi-Fi d'hôtel peut vous coûter votre compte d'entreprise, et on met votre œil à l'épreuve avec un cas réel d'usurpation via Teams. Cinq minutes qui vous feront regarder votre boîte mail autrement.",
+    "intro": "Bienvenue dans NextTech, votre rendez-vous du premier mercredi avec l'actualité en intelligence artificielle et cybersécurité. Dans cette édition #03 — Août 2026 : un agent d'IA autonome capable d'attaquer sans supervision humaine et ce que cela signifie pour nous, comment le Wi-Fi d'un hôtel peut vous coûter votre compte d'entreprise, et un cas réel d'usurpation via Teams pour mettre votre œil à l'épreuve. Cinq minutes qui vous feront regarder votre boîte mail autrement.",
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>"

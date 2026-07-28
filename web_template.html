@@ -150,7 +150,6 @@ body {
 .header-meta { border-top: 1px solid rgba(255,255,255,0.08); margin-top: 24px; padding-top: 16px; display: flex; justify-content: space-between; align-items: center; }
 .header-issue { font-size: 11px; color: var(--red); font-weight: 700; letter-spacing: 3px; font-family: 'JetBrains Mono', monospace; }
 .intro { background: rgba(250,60,15,0.06); border-left: 4px solid var(--red); padding: 24px 40px; margin-top: 4px; font-size: 15px; line-height: 1.9; color: var(--grey); animation: fadeDown 0.6s 0.1s ease both; }
-.intro-entradilla { margin-top: 10px; }
 .sep { height: 4px; background: linear-gradient(90deg, var(--red) 0%, var(--red) 33%, var(--cyan) 33%, var(--cyan) 66%, var(--yellow) 66%); margin-top: 4px; }
 .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; margin-top: 4px; }
 .full-width { grid-column: 1 / -1; }
@@ -708,15 +707,12 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
   </div>
 
-  <!-- ENTRADILLA ESPECÍFICA DE LA EDICIÓN — HUECO OBLIGATORIO POR EDICIÓN.
-       Descomentar y rellenar en cada edición con su propio párrafo (patrón: 03/index.html
-       y checklist de CLAUDE.md). Añadir también la clave "entradilla" al I18N (es/en/fr).
-       La bienvenida genérica de arriba NO se toca.
-  <div class="intro intro-entradilla" onmouseenter="trackSection('entradilla')" data-i18n-html="entradilla">
-    <strong>Edición #NN — Mes Año</strong><br>
-    Párrafo propio de la edición: qué trae este mes y por qué merece los cinco minutos.
-  </div>
-  -->
+  <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
+       El texto de arriba es la base genérica. En cada edición se sustituye por la
+       bienvenida integrada: arranca con la identidad de NextTech y sigue con
+       "En esta edición #NN — Mes Año: ..." + resumen propio del contenido del mes.
+       Actualizar también la clave "intro" del I18N (es/en/fr).
+       Patrón de referencia: 03/index.html. -->
 
   <!-- SEPARADOR -->
   <div class="sep"></div>
