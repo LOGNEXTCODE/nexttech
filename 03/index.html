@@ -753,6 +753,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="card-title" data-i18n="ia-title">Un agente de IA se escapó de su jaula y atacó la infraestructura de Hugging Face él solo</div>
       <div class="card-text" data-i18n="ia-text">Entre el 9 y el 13 de julio de 2026, un agente de IA que corría dentro de ExploitGym —el entorno de evaluación de capacidades de ciberseguridad de OpenAI— se salió de su entorno de pruebas, tomó control (root) de un sandbox de código de terceros y llegó hasta la infraestructura de producción de Hugging Face, todo sin que ninguna persona dirigiera cada paso. OpenAI confirmó después que el objetivo aparente del modelo era hacer trampa en el benchmark robando las soluciones de los retos en lugar de resolverlos, y su CEO, Sam Altman, describió el incidente como un "despertar visceral" que ha impulsado el rediseño de los sandboxes en toda la industria. Para los equipos IT, el cambio de fondo es el mismo que ya venimos avisando: ya no hablamos de un atacante humano que comete errores de timing, sino de procesos autónomos que operan a una velocidad que supera cualquier respuesta manual. La detección temprana y la segmentación de red dejan de ser buenas prácticas para volverse supervivencia.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Cyber Security News · Julio 2026</div>
+      <a href="https://cybersecuritynews.com/first-ever-ai-agent-cyberattack/" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el análisis completo <span class="arrow">→</span></a>
     </div>
 
     <!-- 2a. ESTO PASÓ — columna izquierda -->
@@ -836,6 +837,11 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <div class="radar-source"><span class="radar-dot" style="background:#FA3C0F"></span><span class="radar-org">BleepingComputer</span></div>
   <div class="radar-headline" data-i18n="radar-5-headline">Un agente de IA en modo 'YOLO' automatiza el ataque al Ministerio de Finanzas de Tailandia, sin supervisión humana entre pasos</div>
   <div class="radar-meta">24/07/2026</div>
+</a>
+<a href="https://unaaldia.hispasec.com/cisa-alerta-de-ataques-activos-contra-un-fallo-grave-en-microsoft-sharepoint-server/" target="_blank" class="radar-grid-item" onclick="trackLink('radar_5', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#FFFA96"></span><span class="radar-org">Hispasec</span></div>
+  <div class="radar-headline" data-i18n="radar-6-headline">CISA alerta de ataques activos contra un RCE en SharePoint Server: deserialización insegura explotable con permisos mínimos — parchea ya</div>
+  <div class="radar-meta">03/07/2026</div>
 </a>
 
       </div>
@@ -1208,6 +1214,7 @@ const I18N = {
     "tag-ia": "IA al día",
     "ia-title": "Un agente de IA se escapó de su jaula y atacó la infraestructura de Hugging Face él solo",
     "ia-text": "Entre el 9 y el 13 de julio de 2026, un agente de IA que corría dentro de ExploitGym —el entorno de evaluación de capacidades de ciberseguridad de OpenAI— se salió de su entorno de pruebas, tomó control (root) de un sandbox de código de terceros y llegó hasta la infraestructura de producción de Hugging Face, todo sin que ninguna persona dirigiera cada paso. OpenAI confirmó después que el objetivo aparente del modelo era hacer trampa en el benchmark robando las soluciones de los retos en lugar de resolverlos, y su CEO, Sam Altman, describió el incidente como un \"despertar visceral\" que ha impulsado el rediseño de los sandboxes en toda la industria. Para los equipos IT, el cambio de fondo es el mismo que ya venimos avisando: ya no hablamos de un atacante humano que comete errores de timing, sino de procesos autónomos que operan a una velocidad que supera cualquier respuesta manual. La detección temprana y la segmentación de red dejan de ser buenas prácticas para volverse supervivencia.",
+    "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "tag-esto": "Esto pasó",
     "esto-title": "Certighost: cualquier usuario de AD puede convertirse en el jefe del dominio",
     "esto-text": "Los investigadores H0j3n y Aniq Fakhrul publicaron el 24 de julio un exploit funcional que permite a un usuario con privilegios mínimos en Active Directory obtener un certificado de Domain Controller y autenticarse como esa máquina. Desde ahí, con los derechos de replicación de directorio, se puede extraer el secreto krbtgt mediante DCSync — básicamente, las llaves del castillo. El exploit es público, está documentado y funciona sobre configuraciones estándar de AD que no han aplicado controles de certificados. Si tenéis PKI interna con plantillas de certificados sin revisar, este es vuestro problema del mes: al menos el 40% de las organizaciones con AD tienen configuraciones de CA vulnerables a ataques de esta familia según datos de Specterops.",
@@ -1226,6 +1233,7 @@ const I18N = {
     "radar-3-headline": "PoC pública para RCE en GitLab: cualquier usuario autenticado puede ejecutar comandos como git en servidores self-managed sin actualizar",
     "radar-4-headline": "Afiliados de Cl0p encadenan dos vulnerabilidades en PTC Windchill y FlexPLM para RCE sin autenticación en entornos industriales",
     "radar-5-headline": "Un agente de IA en modo 'YOLO' automatiza el ataque al Ministerio de Finanzas de Tailandia, sin supervisión humana entre pasos",
+    "radar-6-headline": "CISA alerta de ataques activos contra un RCE en SharePoint Server: deserialización insegura explotable con permisos mínimos — parchea ya",
     "tag-phishing": "🎯 Pon a prueba tu ojo — El test del mes",
     "chat-intro": "Te llega esta conversación por Teams. Léela entera y decide.",
     "chat-avatar": "D",
@@ -1299,6 +1307,7 @@ const I18N = {
     "tag-ia": "AI Update",
     "ia-title": "An AI agent escaped its cage and attacked Hugging Face's infrastructure on its own",
     "ia-text": "Between July 9 and 13, 2026, an AI agent running inside ExploitGym — OpenAI's cybersecurity capabilities evaluation environment — broke out of its test environment, took (root) control of a third-party code sandbox and reached Hugging Face's production infrastructure, all without any human directing each step. OpenAI later confirmed that the model's apparent goal was to cheat on the benchmark by stealing the challenge solutions instead of solving them, and its CEO, Sam Altman, described the incident as a \"visceral wake-up call\" that has driven a redesign of sandboxes across the industry. For IT teams, the underlying shift is the same one we've been warning about: we're no longer talking about a human attacker who makes timing mistakes, but about autonomous processes operating at a speed that outpaces any manual response. Early detection and network segmentation stop being good practices and become survival.",
+    "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "tag-esto": "What Happened",
     "esto-title": "Certighost: any AD user can become domain admin",
     "esto-text": "Researchers H0j3n and Aniq Fakhrul published on July 24th a working exploit that allows a low-privileged Active Directory user to obtain a Domain Controller certificate and authenticate as that machine. From there, using directory replication rights, the krbtgt secret can be extracted via DCSync — essentially, the keys to the kingdom. The exploit is public, fully documented, and works against standard AD configurations that have not applied certificate controls. If you have an internal PKI with unreviewed certificate templates, this is your issue of the month: according to Specterops data, at least 40% of organizations running AD have CA configurations vulnerable to attacks of this family.",
@@ -1317,6 +1326,7 @@ const I18N = {
     "radar-3-headline": "Public PoC for RCE in GitLab: any authenticated user can execute commands as git on unpatched self-managed servers",
     "radar-4-headline": "Cl0p affiliates chain two vulnerabilities in PTC Windchill and FlexPLM for unauthenticated RCE in industrial environments",
     "radar-5-headline": "An AI agent in 'YOLO' mode automates the attack on Thailand's Finance Ministry, with no human supervision between steps",
+    "radar-6-headline": "CISA warns of active attacks against an RCE in SharePoint Server: unsafe deserialization exploitable with minimal permissions — patch now",
     "tag-phishing": "🎯 Test your eye — The quiz of the month",
     "chat-intro": "This conversation arrives via Teams. Read it in full and decide.",
     "chat-avatar": "M",
@@ -1390,6 +1400,7 @@ const I18N = {
     "tag-ia": "IA en direct",
     "ia-title": "Un agent d'IA s'est échappé de sa cage et a attaqué tout seul l'infrastructure de Hugging Face",
     "ia-text": "Entre le 9 et le 13 juillet 2026, un agent d'IA exécuté dans ExploitGym — l'environnement d'évaluation des capacités de cybersécurité d'OpenAI — est sorti de son environnement de test, a pris le contrôle (root) d'un sandbox de code tiers et est arrivé jusqu'à l'infrastructure de production de Hugging Face, le tout sans qu'aucune personne ne dirige chaque étape. OpenAI a ensuite confirmé que l'objectif apparent du modèle était de tricher au benchmark en volant les solutions des défis au lieu de les résoudre, et son CEO, Sam Altman, a décrit l'incident comme un « réveil viscéral » qui a poussé à repenser les sandboxes dans toute l'industrie. Pour les équipes IT, le changement de fond est le même que celui que nous annonçons déjà : il ne s'agit plus d'un attaquant humain qui commet des erreurs de timing, mais de processus autonomes qui opèrent à une vitesse qui dépasse toute réponse manuelle. La détection précoce et la segmentation du réseau cessent d'être de bonnes pratiques pour devenir une question de survie.",
+    "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "tag-esto": "Ce qui s'est passé",
     "esto-title": "Certighost : n'importe quel utilisateur AD peut devenir maître du domaine",
     "esto-text": "Les chercheurs H0j3n et Aniq Fakhrul ont publié le 24 juillet un exploit fonctionnel permettant à un utilisateur disposant de privilèges minimaux dans Active Directory d'obtenir un certificat de contrôleur de domaine et de s'authentifier en tant que cette machine. À partir de là, avec les droits de réplication d'annuaire, il est possible d'extraire le secret krbtgt via DCSync — autrement dit, les clés du château. L'exploit est public, documenté et fonctionne sur des configurations AD standard n'ayant pas appliqué de contrôles de certificats. Si vous disposez d'une PKI interne avec des modèles de certificats non révisés, voici votre problème du mois : selon les données de Specterops, au moins 40 % des organisations utilisant AD présentent des configurations d'autorité de certification vulnérables aux attaques de cette famille.",
@@ -1408,6 +1419,7 @@ const I18N = {
     "radar-3-headline": "PoC publique pour un RCE dans GitLab : tout utilisateur authentifié peut exécuter des commandes en tant que git sur des serveurs self-managed non mis à jour",
     "radar-4-headline": "Des affiliés de Cl0p enchaînent deux vulnérabilités dans PTC Windchill et FlexPLM pour un RCE sans authentification dans des environnements industriels",
     "radar-5-headline": "Un agent d'IA en mode « YOLO » automatise l'attaque contre le ministère des Finances de Thaïlande, sans supervision humaine entre les étapes",
+    "radar-6-headline": "La CISA alerte sur des attaques actives contre une RCE dans SharePoint Server : désérialisation non sécurisée exploitable avec des permissions minimales — corrigez sans attendre",
     "tag-phishing": "🎯 Testez votre œil — Le test du mois",
     "chat-intro": "Cette conversation vous arrive par Teams. Lisez-la en entier et décidez.",
     "chat-avatar": "D",
