@@ -121,6 +121,13 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
   y el mes/año. Ejemplo: 'Hispasec · Abril 2026', 'The Hacker News · Mayo 2026'.
   Para el reto, usa siempre: 'Departamento IT LOGNEXT · [mes] [año]'.
 
+REGLA CRÍTICA — FUENTES SIN REPETIR: cada sección con enlace debe usar una
+URL DISTINTA; nunca dos secciones (p. ej. caso_real y consejo) pueden
+compartir el mismo artículo. Si el consejo deriva de la noticia del caso,
+enlázalo a una guía oficial del tema (INCIBE/CCN-CERT) de los artículos
+proporcionados, o déjalo sin URL (un consejo propio de IT no necesita
+fuente externa).
+
 REGLA CRÍTICA: El CONSEJO y el RETO deben tratar temas completamente
 diferentes y no solaparse en ningún caso.
 - El CONSEJO es una recomendación de seguridad técnica con una herramienta

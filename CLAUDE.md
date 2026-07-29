@@ -543,6 +543,8 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] GA4 con carga condicional al consentimiento
 - [ ] Cada noticia con fuente + mes/año
 - [ ] Enlaces: todos resuelven (HTTP 200); noticias preferentemente a fuente en español
+- [ ] Fuentes sin repetir: cada sección con enlace usa una fuente DISTINTA; nunca dos
+      secciones comparten la misma URL. Un consejo propio de IT puede ir sin enlace externo
 - [ ] Imágenes: tecnológicas, acordes a la noticia, resuelven
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"

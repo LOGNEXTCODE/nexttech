@@ -792,8 +792,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
       <div class="card-title" data-i18n="consejo-title">Nunca te fíes del Wi-Fi que no controlas</div>
       <div class="card-text" data-i18n="consejo-text">Cuando estéis fuera de la oficina — hotel, aeropuerto, congreso — usad siempre la VPN corporativa antes de abrir cualquier servicio de empresa, sin excepción. El DNS de esa red puede estar apuntando a donde le dé la gana a quien la controla, y vuestras credenciales de M365 no distinguen entre una página real y una copia perfecta. Si la VPN no está disponible por cualquier motivo, los datos móviles son siempre más seguros que el Wi-Fi de un tercero.</div>
-      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Bleeping Computer · Julio 2026</div>
-      <a href="https://www.bleepingcomputer.com/news/security/hackers-hijack-hotel-wi-fi-dns-to-steal-microsoft-365-accounts/" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)">Leer cómo funciona el ataque DNS en hoteles <span class="arrow">→</span></a>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>INCIBE · Guía para empresas</div>
+      <a href="https://www.incibe.es/empresas/blog/conectate-tu-empresa-forma-segura-cualquier-sitio-vpn" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)" data-i18n-html="consejo-link">Guía de INCIBE: conectarse seguro con una VPN <span class="arrow">→</span></a>
     </div>
 
     <!-- 3b. EL RETO DEL MES — columna derecha -->
@@ -1229,6 +1229,7 @@ const I18N = {
     "tag-consejo": "Consejo del mes",
     "consejo-title": "Nunca te fíes del Wi-Fi que no controlas",
     "consejo-text": "Cuando estéis fuera de la oficina — hotel, aeropuerto, congreso — usad siempre la VPN corporativa antes de abrir cualquier servicio de empresa, sin excepción. El DNS de esa red puede estar apuntando a donde le dé la gana a quien la controla, y vuestras credenciales de M365 no distinguen entre una página real y una copia perfecta. Si la VPN no está disponible por cualquier motivo, los datos móviles son siempre más seguros que el Wi-Fi de un tercero.",
+    "consejo-link": "Guía de INCIBE: conectarse seguro con una VPN <span class=\"arrow\">→</span>",
     "tag-reto": "El reto del mes",
     "reto-text": "Esta semana, si te llega una petición urgente de dinero, datos o accesos —por correo, Teams o donde sea—, antes de responder confírmala por otro canal: una llamada rápida, un mensaje aparte o acercarte a la persona. Treinta segundos que pueden parar un fraude. Si resulta ser de verdad, no pasa nada; si no lo era, acabas de evitar un problema.",
     "tag-radar": "En el radar",
@@ -1322,6 +1323,7 @@ const I18N = {
     "tag-consejo": "Tip of the Month",
     "consejo-title": "Never trust Wi-Fi you don't control",
     "consejo-text": "When you are away from the office — hotel, airport, conference — always use the corporate VPN before accessing any company service, no exceptions. The DNS on that network can point wherever whoever controls it wants, and your M365 credentials cannot tell the difference between a real page and a perfect copy. If the VPN is unavailable for any reason, mobile data is always safer than a third-party Wi-Fi network.",
+    "consejo-link": "INCIBE guide: connect securely with a VPN <span class=\"arrow\">→</span>",
     "tag-reto": "Challenge of the Month",
     "reto-text": "This week, if you get an urgent request for money, data or access — by email, Teams or anywhere else — confirm it through another channel before replying: a quick call, a separate message or walking over to the person. Thirty seconds that can stop a fraud. If it turns out to be real, nothing happens; if it wasn't, you've just avoided a problem.",
     "tag-radar": "On the Radar",
@@ -1415,6 +1417,7 @@ const I18N = {
     "tag-consejo": "Conseil du mois",
     "consejo-title": "Ne faites jamais confiance à un Wi-Fi que vous ne contrôlez pas",
     "consejo-text": "Lorsque vous êtes hors du bureau — hôtel, aéroport, congrès — utilisez toujours le VPN d'entreprise avant d'accéder à tout service professionnel, sans exception. Le DNS de ce réseau peut pointer où bon lui semble à celui qui le contrôle, et vos identifiants M365 ne font pas la différence entre une vraie page et une copie parfaite. Si le VPN n'est pas disponible pour quelque raison que ce soit, les données mobiles sont toujours plus sûres que le Wi-Fi d'un tiers.",
+    "consejo-link": "Guide INCIBE : se connecter en sécurité avec un VPN <span class=\"arrow\">→</span>",
     "tag-reto": "Le défi du mois",
     "reto-text": "Cette semaine, si vous recevez une demande urgente d'argent, de données ou d'accès — par e-mail, Teams ou ailleurs —, confirmez-la par un autre canal avant de répondre : un appel rapide, un message à part ou un passage en personne. Trente secondes qui peuvent arrêter une fraude. Si c'est vrai, il ne se passe rien ; si ça ne l'était pas, vous venez d'éviter un problème.",
     "tag-radar": "Sur le radar",
