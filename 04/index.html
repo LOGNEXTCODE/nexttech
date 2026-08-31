@@ -722,13 +722,6 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. En esta edición #04 — Septiembre 2026: agentes de IA que se «infectan» unos a otros, 3,6 millones de credenciales de Azure a la venta y un espía viviendo dentro de SharePoint. Y este mes damos un paso más: ponemos en marcha nuestro primer simulacro de phishing para entrenar juntos el ojo ante los correos trampa. Cinco minutos de lectura que llegan en el momento justo.
   </div>
 
-  <!-- BANNER SIMULACRO DE PHISHING — GoPhish septiembre (mismo estilo que el banner de la #02) -->
-  <div class="gophish-banner" onmouseenter="trackSection('gophish_banner')" style="margin-top:26px;border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
-    <div class="card-title" style="margin-bottom:10px;" data-i18n="gophish-title">🎣 Este mes: primer simulacro de phishing</div>
-    <div class="card-text" style="margin-bottom:16px;font-size:15px;opacity:1;" data-i18n="gophish-text">Llega el momento de poner en práctica lo aprendido. En los próximos días recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT—. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Si detectáis el correo, genial; si picáis, no pasa nada: para eso entrenamos. Os contaremos cómo funciona y qué aprendimos.</div>
-    <a href="/GuiaPhishing/?from=04" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish-btn">Saber más</span> <span class="arrow">→</span></a>
-  </div>
-
   <!-- SEPARADOR -->
   <div class="sep"></div>
 
@@ -791,8 +784,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Reto del mes: auditad las extensiones de vuestro VS Code o navegador</div>
-      <div class="card-text" data-i18n="reto-text">Esta semana, abrid vuestro VS Code (o el navegador que uséis para trabajar) y eliminad todas las extensiones que no hayáis instalado conscientemente o que no uséis activamente — dos extensiones maliciosas de VS Code robaron credenciales y claves de API en agosto, y bastó con tenerlas instaladas. Compartid en el canal de Slack del equipo cuántas extensiones habéis eliminado: gana quien más haya limpiado con justificación técnica.</div>
+      <div class="card-title" data-i18n="reto-title">Reto del mes: activa el doble factor donde aún no lo tengas</div>
+      <div class="card-text" data-i18n="reto-text">Esta semana, revisa tus cuentas principales —correo, M365, banca, redes— y comprueba en cuáles no tienes activado el doble factor de autenticación (2FA). Actívalo donde falte: son un par de minutos por cuenta y es la barrera que evita que, aunque alguien consiga tu contraseña, pueda entrar. Con la cantidad de credenciales que se filtran cada mes, una contraseña sola ya no basta.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>SEPTIEMBRE 2026</span>
@@ -852,6 +845,13 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         </div>
         <div class="phishing-result" id="test-result"><span id="test-fb-ok" data-i18n="sms-fb">Bien visto. Es smishing (phishing por SMS), una de las trampas que más crece. Las señales: un importe pequeño (2,99 €, lo bastante bajo para que no te lo pienses), urgencia («hoy»), un enlace raro (correos-envios.info no es el dominio real de Correos) y un canal —el SMS— donde solemos bajar la guardia. Correos, tu banco o Hacienda nunca cobran así por SMS. Ante la duda: no pinches; entra tú a la web oficial escribiendo la dirección a mano.</span><span id="test-fb-ko" data-i18n="sms-fb-ko" style="display:none;">Cuidado: esto era smishing (phishing por SMS). Aunque parezca de Correos, el enlace (correos-envios.info) no es su dominio real, el importe es pequeño para que no lo pienses y te mete prisa («hoy»). Correos, tu banco o Hacienda nunca cobran así por SMS. La próxima vez: no pinches el enlace; entra tú a la web oficial escribiendo la dirección a mano.</span></div>
       </div>
+    </div>
+
+    <!-- BANNER SIMULACRO DE PHISHING — GoPhish septiembre (tras el test; mismo estilo que el banner de la #02) -->
+    <div class="gophish-banner full-width" onmouseenter="trackSection('gophish_banner')" style="border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
+      <div class="card-title" style="margin-bottom:10px;" data-i18n="gophish-title">🎣 Este mes: primer simulacro de phishing</div>
+      <div class="card-text" style="margin-bottom:16px;font-size:15px;opacity:1;" data-i18n="gophish-text">Durante el mes de septiembre pondremos en marcha nuestro primer simulacro de phishing en toda la organización. Recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT— para entrenar juntos el ojo ante este tipo de engaños. No es un examen ni se evalúa a nadie: si lo detectáis, genial; si no, no pasa nada, para eso entrenamos. En la guía tenéis todo lo que necesitáis saber para reconocer un intento de phishing.</div>
+      <a href="/GuiaPhishing/?from=04" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish-btn">Consultar la guía</span> <span class="arrow">→</span></a>
     </div>
 
     <!-- 6. RECURSOS — ancho completo -->
@@ -1186,8 +1186,8 @@ const I18N = {
     "consejo-title": "Revisad los permisos de vuestras apps conectadas antes de que lo haga alguien más",
     "consejo-text": "Las vulnerabilidades CoSnitch en Microsoft Copilot demuestran que las apps conectadas a vuestra cuenta pueden convertirse en vectores de exfiltración silenciosa con un solo clic. Dedicad diez minutos a revisar qué aplicaciones tienen acceso a vuestros datos en Microsoft 365: id a Configuración de cuenta → Privacidad → Aplicaciones y servicios, y revocad lo que no reconozcáis o no uséis. Si no recordáis haber autorizado algo, asumir que sí lo hicisteis es el error más caro que podéis cometer.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Reto del mes: auditad las extensiones de vuestro VS Code o navegador",
-    "reto-text": "Esta semana, abrid vuestro VS Code (o el navegador que uséis para trabajar) y eliminad todas las extensiones que no hayáis instalado conscientemente o que no uséis activamente — dos extensiones maliciosas de VS Code robaron credenciales y claves de API en agosto, y bastó con tenerlas instaladas. Compartid en el canal de Slack del equipo cuántas extensiones habéis eliminado: gana quien más haya limpiado con justificación técnica.",
+    "reto-title": "Reto del mes: activa el doble factor donde aún no lo tengas",
+    "reto-text": "Esta semana, revisa tus cuentas principales —correo, M365, banca, redes— y comprueba en cuáles no tienes activado el doble factor de autenticación (2FA). Actívalo donde falte: son un par de minutos por cuenta y es la barrera que evita que, aunque alguien consiga tu contraseña, pueda entrar. Con la cantidad de credenciales que se filtran cada mes, una contraseña sola ya no basta.",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "CISA confirma que bandas de ransomware están explotando activamente el fallo de Windows Task Host clasificado como alta severidad",
@@ -1205,8 +1205,8 @@ const I18N = {
     "sms-fb": "Bien visto. Es smishing (phishing por SMS), una de las trampas que más crece. Las señales: un importe pequeño (2,99 €, lo bastante bajo para que no te lo pienses), urgencia («hoy»), un enlace raro (correos-envios.info no es el dominio real de Correos) y un canal —el SMS— donde solemos bajar la guardia. Correos, tu banco o Hacienda nunca cobran así por SMS. Ante la duda: no pinches; entra tú a la web oficial escribiendo la dirección a mano.",
     "sms-fb-ko": "Cuidado: esto era smishing (phishing por SMS). Aunque parezca de Correos, el enlace (correos-envios.info) no es su dominio real, el importe es pequeño para que no lo pienses y te mete prisa («hoy»). Correos, tu banco o Hacienda nunca cobran así por SMS. La próxima vez: no pinches el enlace; entra tú a la web oficial escribiendo la dirección a mano.",
     "gophish-title": "🎣 Este mes: primer simulacro de phishing",
-    "gophish-text": "Llega el momento de poner en práctica lo aprendido. En los próximos días recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT—. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Si detectáis el correo, genial; si picáis, no pasa nada: para eso entrenamos. Os contaremos cómo funciona y qué aprendimos.",
-    "gophish-btn": "Saber más",
+    "gophish-text": "Durante el mes de septiembre pondremos en marcha nuestro primer simulacro de phishing en toda la organización. Recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT— para entrenar juntos el ojo ante este tipo de engaños. No es un examen ni se evalúa a nadie: si lo detectáis, genial; si no, no pasa nada, para eso entrenamos. En la guía tenéis todo lo que necesitáis saber para reconocer un intento de phishing.",
+    "gophish-btn": "Consultar la guía",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "GhostSplice: cómo un servidor MCP malicioso engaña a un agente de IA para que filtre claves SSH y secretos",
@@ -1277,8 +1277,8 @@ const I18N = {
     "consejo-title": "Review your connected app permissions before someone else does it for you",
     "consejo-text": "The CoSnitch vulnerabilities in Microsoft Copilot show that apps connected to your account can become silent data exfiltration vectors with a single click. Take ten minutes to review which applications have access to your data in Microsoft 365: go to Account Settings → Privacy → Apps and services, and revoke anything you do not recognise or no longer use. If you cannot remember authorising something, assuming you did is the most costly mistake you can make.",
     "tag-reto": "The Challenge of the Month",
-    "reto-title": "Challenge of the month: audit your VS Code or browser extensions",
-    "reto-text": "This week, open your VS Code (or whichever browser you use for work) and remove all extensions you did not consciously install or are not actively using — two malicious VS Code extensions stole credentials and API keys in August, and simply having them installed was enough. Share in the team Slack channel how many extensions you removed: the winner is whoever has cleaned up the most with a solid technical justification.",
+    "reto-title": "Challenge of the month: turn on two-factor wherever you haven't yet",
+    "reto-text": "This week, go through your main accounts — email, M365, banking, social media — and check which ones don't have two-factor authentication (2FA) enabled yet. Turn it on wherever it's missing: it takes a couple of minutes per account and it's the barrier that stops anyone who gets hold of your password from logging in. With the number of credentials leaked every month, a password alone is no longer enough.",
     "tag-radar": "On the Radar",
     "radar-title": "What you cannot miss this month",
     "radar-1-headline": "CISA confirms ransomware gangs are actively exploiting the high-severity Windows Task Host flaw",
@@ -1296,8 +1296,8 @@ const I18N = {
     "sms-fb": "Well spotted. This is smishing (phishing by SMS), one of the fastest-growing scams. The signs: a small amount (€2.99, low enough that you don't think twice), urgency (“today”), an odd link (correos-envios.info is not Correos' real domain) and a channel — SMS — where we tend to let our guard down. Correos, your bank or the tax office never charge you like this by SMS. When in doubt: don't tap; go to the official website yourself by typing the address by hand.",
     "sms-fb-ko": "Careful: that was smishing (phishing by SMS). It may look like Correos, but the link (correos-envios.info) is not their real domain, the amount is small so you don't think twice, and it rushes you (“today”). Correos, your bank or the tax office never charge you like this by SMS. Next time: don't tap the link; go to the official website yourself by typing the address by hand.",
     "gophish-title": "🎣 This month: our first phishing drill",
-    "gophish-text": "It's time to put what we've learned into practice. Over the next few days you'll receive a simulated phishing email — harmless, prepared by the IT team. It's not an exam and nobody is being graded: it's training so that, when a real one arrives, we don't take the bait. If you spot the email, great; if you fall for it, no harm done: that's what we train for. We'll tell you how it went and what we learned.",
-    "gophish-btn": "Learn more",
+    "gophish-text": "Throughout September we will run our first phishing drill across the whole organisation. You'll receive a simulated phishing email — harmless, prepared by the IT team — to train our eye together against this kind of scam. It's not an exam and nobody is being graded: if you spot it, great; if not, no harm done — that's what we train for. The guide has everything you need to know to recognise a phishing attempt.",
+    "gophish-btn": "See the guide",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "GhostSplice: how a malicious MCP server tricks an AI agent into leaking SSH keys and secrets",
@@ -1368,8 +1368,8 @@ const I18N = {
     "consejo-title": "Vérifiez les permissions de vos applications connectées avant que quelqu'un d'autre ne le fasse",
     "consejo-text": "Les vulnérabilités CoSnitch dans Microsoft Copilot montrent que les applications connectées à votre compte peuvent devenir des vecteurs d'exfiltration silencieuse en un seul clic. Prenez dix minutes pour vérifier quelles applications ont accès à vos données dans Microsoft 365 : allez dans Paramètres du compte → Confidentialité → Applications et services, et révoquez ce que vous ne reconnaissez pas ou n'utilisez plus. Si vous ne vous souvenez pas d'avoir autorisé quelque chose, supposer que si est l'erreur la plus coûteuse que vous puissiez commettre.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Défi du mois : auditez les extensions de votre VS Code ou navigateur",
-    "reto-text": "Cette semaine, ouvrez votre VS Code (ou le navigateur que vous utilisez pour travailler) et supprimez toutes les extensions que vous n'avez pas installées consciemment ou que vous n'utilisez pas activement — deux extensions malveillantes de VS Code ont volé des identifiants et des clés API en août, et il suffisait de les avoir installées. Partagez dans le canal Slack de l'équipe combien d'extensions vous avez supprimées : gagne celui ou celle qui en a éliminé le plus avec une justification technique.",
+    "reto-title": "Défi du mois : activez la double authentification là où elle manque encore",
+    "reto-text": "Cette semaine, passez en revue vos comptes principaux — e-mail, M365, banque, réseaux sociaux — et vérifiez ceux où la double authentification (2FA) n'est pas encore activée. Activez-la là où elle manque : cela ne prend que quelques minutes par compte et c'est la barrière qui empêche quiconque obtient votre mot de passe d'entrer. Avec la quantité d'identifiants qui fuitent chaque mois, un mot de passe seul ne suffit plus.",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "La CISA confirme que des groupes de ransomware exploitent activement la faille de Windows Task Host classée comme haute sévérité",
@@ -1387,8 +1387,8 @@ const I18N = {
     "sms-fb": "Bien vu. C'est du smishing (phishing par SMS), l'un des pièges qui progressent le plus. Les signaux : un petit montant (2,99 €, assez bas pour ne pas y réfléchir), l'urgence (« aujourd'hui »), un lien étrange (correos-envios.info n'est pas le vrai domaine de Correos) et un canal — le SMS — où l'on baisse la garde. Correos, votre banque ou le fisc ne vous font jamais payer ainsi par SMS. En cas de doute : ne cliquez pas ; rendez-vous vous-même sur le site officiel en tapant l'adresse à la main.",
     "sms-fb-ko": "Attention : c'était du smishing (phishing par SMS). Même si cela semble venir de Correos, le lien (correos-envios.info) n'est pas leur vrai domaine, le montant est petit pour que vous n'y réfléchissiez pas et on vous presse (« aujourd'hui »). Correos, votre banque ou le fisc ne vous font jamais payer ainsi par SMS. La prochaine fois : ne cliquez pas sur le lien ; rendez-vous vous-même sur le site officiel en tapant l'adresse à la main.",
     "gophish-title": "🎣 Ce mois-ci : notre premier exercice de phishing",
-    "gophish-text": "Le moment est venu de mettre en pratique ce que nous avons appris. Dans les prochains jours, vous recevrez un e-mail de phishing simulé — inoffensif, préparé par l'équipe IT. Ce n'est ni un examen ni une évaluation : c'est un entraînement pour que, le jour où un vrai arrive, personne ne morde à l'hameçon. Si vous repérez l'e-mail, bravo ; si vous tombez dans le piège, ce n'est pas grave : c'est pour cela que nous nous entraînons. Nous vous raconterons comment cela s'est passé et ce que nous avons appris.",
-    "gophish-btn": "En savoir plus",
+    "gophish-text": "Tout au long du mois de septembre, nous mènerons notre premier exercice de phishing dans toute l'organisation. Vous recevrez un e-mail de phishing simulé — inoffensif, préparé par l'équipe IT — pour entraîner ensemble notre œil face à ce type de pièges. Ce n'est ni un examen ni une évaluation : si vous le repérez, bravo ; sinon, ce n'est pas grave, c'est pour cela que nous nous entraînons. Dans le guide, vous trouverez tout ce qu'il faut savoir pour reconnaître une tentative de phishing.",
+    "gophish-btn": "Consulter le guide",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "GhostSplice : comment un serveur MCP malveillant trompe un agent IA pour qu'il divulgue des clés SSH et des secrets",
