@@ -8,6 +8,7 @@ import os
 import json
 import re
 import anthropic
+import requests
 from typing import List, Dict
 
 from pubdate import publication_date, mes_label
@@ -36,10 +37,10 @@ def _next_month_label(year: int, month: int, delta: int) -> str:
 # ─── IMÁGENES UNSPLASH (IDs verificados, CDN directo sin API key) ───────────────
 _UNSPLASH_PHOTOS = {
     "cybersecurity": "1550751827-4bd374c3f58b",
-    "data-breach":   "1555963879-ea7c5a52a1e0",
+    "data-breach":   "1618060932014-4deda4932554",
     "hacker":        "1614064641938-3bbee52942c7",
-    "network":       "1544197150-b99a580bb7be",
-    "server":        "1558618742-b04c9b8c5ee5",
+    "network":       "1558494949-ef010cbdcc31",
+    "server":        "1591808216268-ce0b82787efe",
     "cloud":         "1451187580459-43490279c0fa",
     "code":          "1517694712202-14dd9538aa97",
     "ai":            "1676299081847-824916de030a",
@@ -54,9 +55,41 @@ _UNSPLASH_PHOTOS = {
 }
 
 
+# Cache de comprobaciones HTTP por ejecución (una petición por foto como máximo)
+_UNSPLASH_ALIVE: Dict[str, bool] = {}
+
+
+def _photo_alive(photo_id: str) -> bool:
+    """
+    True si la foto sigue viva en el CDN de Unsplash (HTTP 200).
+    Unsplash retira fotos sin avisar: en la #03 y la #04 el ID de "network"
+    murió y la edición salió con la imagen de cabecera rota.
+    Ante un error de red (sin conexión, timeout) se asume viva para no
+    bloquear la generación.
+    """
+    if photo_id not in _UNSPLASH_ALIVE:
+        try:
+            r = requests.head(
+                f"https://images.unsplash.com/photo-{photo_id}",
+                params={"auto": "format", "fit": "crop", "w": 32, "h": 32, "q": 10},
+                timeout=10,
+            )
+            _UNSPLASH_ALIVE[photo_id] = r.status_code == 200
+        except requests.RequestException:
+            _UNSPLASH_ALIVE[photo_id] = True
+    return _UNSPLASH_ALIVE[photo_id]
+
+
 def _unsplash_url(keyword: str, w: int = 1200, h: int = 220) -> str:
     key = keyword.lower().split(",")[0].replace(" ", "-").strip()
     photo_id = _UNSPLASH_PHOTOS.get(key, _UNSPLASH_PHOTOS["technology"])
+    if not _photo_alive(photo_id):
+        print(f"  ⚠️ Foto Unsplash de '{key}' ({photo_id}) ya no existe — usando fallback")
+        candidatos = [_UNSPLASH_PHOTOS["technology"]] + list(_UNSPLASH_PHOTOS.values())
+        photo_id = next(
+            (pid for pid in candidatos if pid != photo_id and _photo_alive(pid)),
+            photo_id,
+        )
     return f"https://images.unsplash.com/photo-{photo_id}?auto=format&fit=crop&w={w}&h={h}&q=80"
 
 
