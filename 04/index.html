@@ -189,11 +189,25 @@ body {
 @keyframes progressFill { to { width: 65%; } }
 .reto-label { display: flex; justify-content: space-between; font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 8px; opacity: 0.5; }
 .phishing-inner { background: rgba(200,150,255,0.05); border: 1px solid rgba(200,150,255,0.1); border-radius: 4px; padding: 24px; margin-top: 16px; }
-.phishing-email-preview { background: #fff; border-radius: 4px; padding: 16px; margin-bottom: 16px; font-family: Arial, sans-serif; color: #333; }
-.phishing-email-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; font-size: 12px; color: #666; }
-.phishing-email-subject { font-weight: bold; font-size: 14px; color: #111; margin-bottom: 4px; }
-.phishing-email-body { font-size: 13px; line-height: 1.6; color: #444; }
-.phishing-email-body a { color: #1a73e8; text-decoration: underline; }
+/* ─── TEST SMISHING (SMS en un móvil) ─── */
+.sms-phone { background: rgba(0,0,0,0.28); border: 1px solid rgba(255,255,255,0.08); border-radius: 18px; padding: 18px 16px 22px; margin: 0 auto 18px; max-width: 400px; }
+.sms-header { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 14px; }
+.sms-avatar { width: 40px; height: 40px; border-radius: 50%; background: rgba(255,255,255,0.12); color: var(--grey); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 18px; font-family: 'Space Grotesk', sans-serif; }
+.sms-sender { font-size: 13px; font-weight: 600; color: #fff; }
+.sms-day { text-align: center; font-size: 10px; color: var(--grey); opacity: 0.5; font-family: 'JetBrains Mono', monospace; margin-bottom: 10px; letter-spacing: 0.5px; }
+.sms-bubble { background: rgba(255,255,255,0.09); border: 1px solid rgba(255,255,255,0.06); border-radius: 16px 16px 16px 4px; padding: 12px 14px; font-size: 14px; line-height: 1.6; color: var(--grey); max-width: 310px; }
+.sms-link { color: #4ea0f6; text-decoration: underline; word-break: break-all; }
+.phishing-buttons .phishing-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.phishing-btn-correcta { box-shadow: 0 0 0 1.5px currentColor inset; }
+body.light .sms-phone { background: #FFFFFF; border-color: rgba(0,0,41,0.1); }
+body.light .sms-header { border-color: rgba(0,0,41,0.08); }
+body.light .sms-avatar { background: rgba(0,0,41,0.08); color: #55556e; }
+body.light .sms-sender { color: #000029; }
+body.light .sms-day { color: #2a2a4a; opacity: 0.6; }
+body.light .sms-bubble { background: #F0F0F5; border-color: rgba(0,0,41,0.06); color: #1F1F33; }
+body.light .sms-link { color: #1a56c8; }
+body.light .gophish-banner .card-link       { color: #6A28AA !important; border-color: #6A28AA !important; }
+body.light .gophish-banner .card-link:hover { background: #6A28AA !important; color: #FFFFFF !important; border-color: #6A28AA !important; }
 .phishing-question { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; line-height: 1.5; }
 .phishing-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 .phishing-btn { padding: 12px 24px; font-size: 13px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; border: none; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.5px; flex: 1; min-width: 120px; }
@@ -705,15 +719,15 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
+    Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. En esta edición #04 — Septiembre 2026: agentes de IA que se «infectan» unos a otros, 3,6 millones de credenciales de Azure a la venta y un espía viviendo dentro de SharePoint. Y este mes damos un paso más: ponemos en marcha nuestro primer simulacro de phishing para entrenar juntos el ojo ante los correos trampa. Cinco minutos de lectura que llegan en el momento justo.
   </div>
 
-  <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
-       El texto de arriba es la base genérica. En cada edición se sustituye por la
-       bienvenida integrada: arranca con la identidad de NextTech y sigue con
-       "En esta edición #NN — Mes Año: ..." + resumen propio del contenido del mes.
-       Actualizar también la clave "intro" del I18N (es/en/fr).
-       Patrón de referencia: 03/index.html. -->
+  <!-- BANNER SIMULACRO DE PHISHING — GoPhish septiembre (mismo estilo que el banner de la #02) -->
+  <div class="gophish-banner" onmouseenter="trackSection('gophish_banner')" style="margin-top:26px;border:1px solid rgba(200,150,255,0.4);background:linear-gradient(135deg,rgba(200,150,255,0.16),rgba(250,60,15,0.10));border-radius:10px;padding:22px 24px;box-shadow:inset 0 1px 0 rgba(200,150,255,0.3);">
+    <div class="card-title" style="margin-bottom:10px;" data-i18n="gophish-title">🎣 Este mes: primer simulacro de phishing</div>
+    <div class="card-text" style="margin-bottom:16px;font-size:15px;opacity:1;" data-i18n="gophish-text">Llega el momento de poner en práctica lo aprendido. En los próximos días recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT—. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Si detectáis el correo, genial; si picáis, no pasa nada: para eso entrenamos. Os contaremos cómo funciona y qué aprendimos.</div>
+    <a href="/GuiaPhishing/?from=04" class="card-link" style="color:var(--violet)" onclick="trackLink('gophish_banner', this.href)"><span data-i18n="gophish-btn">Saber más</span> <span class="arrow">→</span></a>
+  </div>
 
   <!-- SEPARADOR -->
   <div class="sep"></div>
@@ -816,33 +830,27 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
     </div>
 
-    <!-- 5. PHISHING TEST — estático, ancho completo -->
+    <!-- 5. PHISHING TEST — smishing (SMS), ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
-      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
-      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text" data-i18n="phishing-intro">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
-      <div class="phishing-inner">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
-            <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
+      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">🎯 Pon a prueba tu ojo — El test del mes</div>
+      <div class="card-text" data-i18n="sms-intro">Te llega este SMS al móvil. Léelo y decide.</div>
+      <div class="phishing-inner" id="test-block">
+        <div class="sms-phone">
+          <div class="sms-header">
+            <div class="sms-avatar" aria-hidden="true">?</div>
+            <div class="sms-sender" data-i18n="sms-sender">Número desconocido</div>
           </div>
-          <div class="phishing-email-body">
-            Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
+          <div class="sms-thread">
+            <div class="sms-day" data-i18n="sms-day">Hoy · 09:17</div>
+            <div class="sms-bubble" data-i18n-html="sms-msg">[CORREOS] Tu paquete está retenido por una tasa aduanera pendiente de 2,99 €. Paga aquí para recibirlo hoy: <span class="sms-link">correos-envios.info/pago</span></div>
           </div>
         </div>
-        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
+        <div class="phishing-question" data-i18n="sms-question">¿Confías o sospechas?</div>
         <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
-          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
+          <button class="phishing-btn phishing-btn-no" onclick="answerTest(true)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="sms-btn-confio">Confío</span></button>
+          <button class="phishing-btn phishing-btn-yes" onclick="answerTest(false)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="sms-btn-sospecho">Sospecho</span></button>
         </div>
-        <div class="phishing-result" id="phishing-result"></div>
+        <div class="phishing-result" id="test-result"><span id="test-fb-ok" data-i18n="sms-fb">Bien visto. Es smishing (phishing por SMS), una de las trampas que más crece. Las señales: un importe pequeño (2,99 €, lo bastante bajo para que no te lo pienses), urgencia («hoy»), un enlace raro (correos-envios.info no es el dominio real de Correos) y un canal —el SMS— donde solemos bajar la guardia. Correos, tu banco o Hacienda nunca cobran así por SMS. Ante la duda: no pinches; entra tú a la web oficial escribiendo la dirección a mano.</span><span id="test-fb-ko" data-i18n="sms-fb-ko" style="display:none;">Cuidado: esto era smishing (phishing por SMS). Aunque parezca de Correos, el enlace (correos-envios.info) no es su dominio real, el importe es pequeño para que no lo pienses y te mete prisa («hoy»). Correos, tu banco o Hacienda nunca cobran así por SMS. La próxima vez: no pinches el enlace; entra tú a la web oficial escribiendo la dirección a mano.</span></div>
       </div>
     </div>
 
@@ -1039,32 +1047,17 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerPhishing(clickedYes) {
-  const result = document.getElementById('phishing-result');
-  if (!clickedYes) {
-    trackPhishing('correct');
-    result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace "Verificar mi cuenta" lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
-  } else {
-    trackPhishing('incorrect');
-    result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial ("24h") es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
-  }
-  try {
-    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fecha: new Date().toLocaleDateString('es-ES'),
-        hora: new Date().toLocaleTimeString('es-ES'),
-        edicion: '04',
-        respuesta: clickedYes ? 'incorrecto' : 'correcto',
-        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
-      })
-    });
-  } catch(e) {}
-  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+function answerTest(trusted) {
+  const box = document.getElementById('test-result');
+  if (!box) return;
+  box.className = 'phishing-result show ' + (trusted ? 'wrong' : 'correct');
+  document.getElementById('test-fb-ok').style.display = trusted ? 'none' : 'inline';
+  document.getElementById('test-fb-ko').style.display = trusted ? 'inline' : 'none';
+  trackPhishing(trusted ? 'test_incorrecto' : 'test_correcto');
+  document.querySelectorAll('#test-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+  const ok = document.querySelector('#test-block .phishing-btn-yes');
+  ok.classList.add('phishing-btn-correcta');
+  ok.style.opacity = '1';
 }
 
 document.addEventListener('click', function(e) {
@@ -1201,12 +1194,19 @@ const I18N = {
     "radar-2-headline": "Bypass crítico en SharePoint explotado en la naturaleza tras publicarse un PoC: aplicad los parches de julio ya",
     "radar-3-headline": "Zapscape (CVE-2026-64561): fallo en KVM permite saltar de una VM al host Linux con privilegios de root en escenarios de virtualización anidada",
     "radar-4-headline": "CoSnitch: tres vulnerabilidades en Microsoft Copilot Personal permiten exfiltrar datos de apps conectadas con un solo clic en un enlace manipulado",
-    "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
-    "phishing-title": "¿Detectarías este email antes de hacer clic?",
-    "phishing-intro": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
-    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
-    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
-    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "tag-phishing": "🎯 Pon a prueba tu ojo — El test del mes",
+    "sms-intro": "Te llega este SMS al móvil. Léelo y decide.",
+    "sms-sender": "Número desconocido",
+    "sms-day": "Hoy · 09:17",
+    "sms-msg": "[CORREOS] Tu paquete está retenido por una tasa aduanera pendiente de 2,99 €. Paga aquí para recibirlo hoy: <span class=\"sms-link\">correos-envios.info/pago</span>",
+    "sms-question": "¿Confías o sospechas?",
+    "sms-btn-confio": "Confío",
+    "sms-btn-sospecho": "Sospecho",
+    "sms-fb": "Bien visto. Es smishing (phishing por SMS), una de las trampas que más crece. Las señales: un importe pequeño (2,99 €, lo bastante bajo para que no te lo pienses), urgencia («hoy»), un enlace raro (correos-envios.info no es el dominio real de Correos) y un canal —el SMS— donde solemos bajar la guardia. Correos, tu banco o Hacienda nunca cobran así por SMS. Ante la duda: no pinches; entra tú a la web oficial escribiendo la dirección a mano.",
+    "sms-fb-ko": "Cuidado: esto era smishing (phishing por SMS). Aunque parezca de Correos, el enlace (correos-envios.info) no es su dominio real, el importe es pequeño para que no lo pienses y te mete prisa («hoy»). Correos, tu banco o Hacienda nunca cobran así por SMS. La próxima vez: no pinches el enlace; entra tú a la web oficial escribiendo la dirección a mano.",
+    "gophish-title": "🎣 Este mes: primer simulacro de phishing",
+    "gophish-text": "Llega el momento de poner en práctica lo aprendido. En los próximos días recibiréis un correo de phishing simulado —inofensivo, preparado por el equipo de IT—. No es un examen ni se evalúa a nadie: es entrenamiento para que, cuando llegue uno de verdad, no piquemos. Si detectáis el correo, genial; si picáis, no pasa nada: para eso entrenamos. Os contaremos cómo funciona y qué aprendimos.",
+    "gophish-btn": "Saber más",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "GhostSplice: cómo un servidor MCP malicioso engaña a un agente de IA para que filtre claves SSH y secretos",
@@ -1250,7 +1250,7 @@ const I18N = {
     "ck-reject": "Rechazar todas",
     "ck-accept": "Aceptar todas",
     "ck-only-necessary": "Aceptar solo necesarias",
-    "intro": "Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.",
+    "intro": "Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. En esta edición #04 — Septiembre 2026: agentes de IA que se «infectan» unos a otros, 3,6 millones de credenciales de Azure a la venta y un espía viviendo dentro de SharePoint. Y este mes damos un paso más: ponemos en marcha nuestro primer simulacro de phishing para entrenar juntos el ojo ante los correos trampa. Cinco minutos de lectura que llegan en el momento justo.",
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>"
@@ -1285,12 +1285,19 @@ const I18N = {
     "radar-2-headline": "Critical SharePoint bypass exploited in the wild after PoC release: apply the July patches now",
     "radar-3-headline": "Zapscape (CVE-2026-64561): flaw in KVM allows escaping from a VM to the Linux host with root privileges in nested virtualisation scenarios",
     "radar-4-headline": "CoSnitch: three vulnerabilities in Microsoft Copilot Personal allow data exfiltration from connected apps with a single click on a crafted link",
-    "tag-phishing": "🎯 Test your eye — Quiz of the Month",
-    "phishing-title": "Would you spot this email before clicking?",
-    "phishing-intro": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it was fake?",
-    "phishing-question": "Is this email legitimate or a phishing attempt?",
-    "phishing-btn-yes": "⚠️ It's phishing — I would not click",
-    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "tag-phishing": "🎯 Test your eye — The quiz of the month",
+    "sms-intro": "This text message lands on your phone. Read it and decide.",
+    "sms-sender": "Unknown number",
+    "sms-day": "Today · 09:17",
+    "sms-msg": "[CORREOS] Your parcel is being held due to an outstanding customs fee of €2.99. Pay here to receive it today: <span class=\"sms-link\">correos-envios.info/pago</span>",
+    "sms-question": "Do you trust it or are you suspicious?",
+    "sms-btn-confio": "I trust it",
+    "sms-btn-sospecho": "I'm suspicious",
+    "sms-fb": "Well spotted. This is smishing (phishing by SMS), one of the fastest-growing scams. The signs: a small amount (€2.99, low enough that you don't think twice), urgency (“today”), an odd link (correos-envios.info is not Correos' real domain) and a channel — SMS — where we tend to let our guard down. Correos, your bank or the tax office never charge you like this by SMS. When in doubt: don't tap; go to the official website yourself by typing the address by hand.",
+    "sms-fb-ko": "Careful: that was smishing (phishing by SMS). It may look like Correos, but the link (correos-envios.info) is not their real domain, the amount is small so you don't think twice, and it rushes you (“today”). Correos, your bank or the tax office never charge you like this by SMS. Next time: don't tap the link; go to the official website yourself by typing the address by hand.",
+    "gophish-title": "🎣 This month: our first phishing drill",
+    "gophish-text": "It's time to put what we've learned into practice. Over the next few days you'll receive a simulated phishing email — harmless, prepared by the IT team. It's not an exam and nobody is being graded: it's training so that, when a real one arrives, we don't take the bait. If you spot the email, great; if you fall for it, no harm done: that's what we train for. We'll tell you how it went and what we learned.",
+    "gophish-btn": "Learn more",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "GhostSplice: how a malicious MCP server tricks an AI agent into leaking SSH keys and secrets",
@@ -1334,7 +1341,7 @@ const I18N = {
     "ck-reject": "Reject all",
     "ck-accept": "Accept all",
     "ck-only-necessary": "Accept necessary only",
-    "intro": "Welcome to NextTech, your monthly appointment with the latest in artificial intelligence and cybersecurity. Every first Wednesday of the month: news, practical guides, and resources for your day-to-day work.",
+    "intro": "Welcome to NextTech, your first-Wednesday appointment with the latest in artificial intelligence and cybersecurity. In this edition #04 — September 2026: AI agents that “infect” one another, 3.6 million Azure credentials up for sale and a spy living inside SharePoint. And this month we go one step further: we are launching our first phishing drill to train our eye together against booby-trapped emails. Five minutes of reading that arrive at just the right time.",
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>"
@@ -1369,12 +1376,19 @@ const I18N = {
     "radar-2-headline": "Contournement critique dans SharePoint exploité dans la nature après la publication d'un PoC : appliquez dès maintenant les correctifs de juillet",
     "radar-3-headline": "Zapscape (CVE-2026-64561) : une faille dans KVM permet de passer d'une VM à l'hôte Linux avec des privilèges root dans des scénarios de virtualisation imbriquée",
     "radar-4-headline": "CoSnitch : trois vulnérabilités dans Microsoft Copilot Personal permettent d'exfiltrer des données d'applications connectées en un seul clic sur un lien manipulé",
-    "tag-phishing": "🎯 Testez votre œil — Test du mois",
-    "phishing-title": "Détecteriez-vous cet e-mail avant de cliquer ?",
-    "phishing-intro": "Voici le type d'e-mail utilisé par les attaquants. Il contient tous les ingrédients : urgence, expéditeur apparemment légitime et un lien tentant. Sauriez-vous qu'il est faux ?",
-    "phishing-question": "Cet e-mail est-il légitime ou une tentative de phishing ?",
-    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
-    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "tag-phishing": "🎯 Testez votre œil — Le test du mois",
+    "sms-intro": "Vous recevez ce SMS sur votre téléphone. Lisez-le et décidez.",
+    "sms-sender": "Numéro inconnu",
+    "sms-day": "Aujourd'hui · 09:17",
+    "sms-msg": "[CORREOS] Votre colis est retenu en raison de frais de douane impayés de 2,99 €. Payez ici pour le recevoir aujourd'hui : <span class=\"sms-link\">correos-envios.info/pago</span>",
+    "sms-question": "Vous faites confiance ou vous vous méfiez ?",
+    "sms-btn-confio": "Je fais confiance",
+    "sms-btn-sospecho": "Je me méfie",
+    "sms-fb": "Bien vu. C'est du smishing (phishing par SMS), l'un des pièges qui progressent le plus. Les signaux : un petit montant (2,99 €, assez bas pour ne pas y réfléchir), l'urgence (« aujourd'hui »), un lien étrange (correos-envios.info n'est pas le vrai domaine de Correos) et un canal — le SMS — où l'on baisse la garde. Correos, votre banque ou le fisc ne vous font jamais payer ainsi par SMS. En cas de doute : ne cliquez pas ; rendez-vous vous-même sur le site officiel en tapant l'adresse à la main.",
+    "sms-fb-ko": "Attention : c'était du smishing (phishing par SMS). Même si cela semble venir de Correos, le lien (correos-envios.info) n'est pas leur vrai domaine, le montant est petit pour que vous n'y réfléchissiez pas et on vous presse (« aujourd'hui »). Correos, votre banque ou le fisc ne vous font jamais payer ainsi par SMS. La prochaine fois : ne cliquez pas sur le lien ; rendez-vous vous-même sur le site officiel en tapant l'adresse à la main.",
+    "gophish-title": "🎣 Ce mois-ci : notre premier exercice de phishing",
+    "gophish-text": "Le moment est venu de mettre en pratique ce que nous avons appris. Dans les prochains jours, vous recevrez un e-mail de phishing simulé — inoffensif, préparé par l'équipe IT. Ce n'est ni un examen ni une évaluation : c'est un entraînement pour que, le jour où un vrai arrive, personne ne morde à l'hameçon. Si vous repérez l'e-mail, bravo ; si vous tombez dans le piège, ce n'est pas grave : c'est pour cela que nous nous entraînons. Nous vous raconterons comment cela s'est passé et ce que nous avons appris.",
+    "gophish-btn": "En savoir plus",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "GhostSplice : comment un serveur MCP malveillant trompe un agent IA pour qu'il divulgue des clés SSH et des secrets",
@@ -1418,7 +1432,7 @@ const I18N = {
     "ck-reject": "Tout refuser",
     "ck-accept": "Tout accepter",
     "ck-only-necessary": "Accepter uniquement les nécessaires",
-    "intro": "Bienvenue dans NextTech, votre rendez-vous mensuel avec l'actualité en intelligence artificielle et cybersécurité. Chaque premier mercredi du mois, des nouveautés, des guides pratiques et des ressources pour le quotidien.",
+    "intro": "Bienvenue dans NextTech, votre rendez-vous du premier mercredi avec l'actualité en intelligence artificielle et cybersécurité. Dans cette édition #04 — Septembre 2026 : des agents d'IA qui « s'infectent » les uns les autres, 3,6 millions d'identifiants Azure mis en vente et un espion qui vit dans SharePoint. Et ce mois-ci, nous passons à l'étape suivante : nous lançons notre premier exercice de phishing pour entraîner ensemble notre œil face aux e-mails piégés. Cinq minutes de lecture qui arrivent au bon moment.",
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>"
