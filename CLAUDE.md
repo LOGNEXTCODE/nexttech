@@ -392,6 +392,16 @@ falla, la edición no sale:
       botón «Seguir leyendo» (ver patrón abajo), no como muro de texto.
 - [ ] **Responsive** verificado (ver «Compatibilidad móvil»).
 
+### Mejora pendiente — variedad de imágenes por tema (post-lanzamiento #04)
+
+`_UNSPLASH_PHOTOS` en `generator.py` mapea cada keyword a UN único ID, así que
+las secciones repiten imagen entre ediciones (la de "ai" salió idéntica en
+#02/#03/#04 hasta cambiarla a mano en la #04; la de "privacy" se repitió en los
+Consejos de #03 y #04). Pendiente: dar a cada keyword una LISTA de IDs
+verificados y elegir uno distinto por edición (p. ej. rotando por número de
+edición), manteniendo la validación HTTP de `_photo_alive`. NO implementado aún
+(anotado el 1-sep-2026).
+
 ### Patrón reutilizable — sección colapsable
 
 Para bloques largos (anuncios del Dpto IT, explicaciones técnicas), mostrar solo
