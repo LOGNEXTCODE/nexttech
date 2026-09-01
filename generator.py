@@ -318,10 +318,9 @@ def verify_content(content: Dict, edition: str) -> List[str]:
 # ─── COMILLAS TIPOGRÁFICAS ─────────────────────────────────────────────────────
 # Claude genera el contenido con comillas rectas (' y ") y las #02/#03/#04
 # salieron con ellas hasta que alguien las parcheaba a mano. Aquí se normalizan
-# ANTES de escribir el HTML: "x" y 'x' → «x» angulares SIEMPRE. No se usan
-# “ ” ni ‘ ’ porque Space Grotesk (la fuente de los títulos) dibuja la apertura
-# y el cierre con el mismo glifo y la apertura parece invertida (visto en la #04,
-# sep-2026); las « » son asimétricas y se leen bien en cualquier fuente del sitio.
+# ANTES de escribir el HTML: dobles "x" → “x” y simples 'x' → ‘x’ (curvas de
+# apertura y cierre; decisión de Miguel del 1-sep-2026 tras probar y descartar
+# las « » angulares en los entrecomillados de contenido).
 # Los apóstrofos entre letras (l'IA, don't) no se tocan, ni las URLs.
 
 _RE_DOBLES  = re.compile(r'"([^"\n]{1,200}?)"')
@@ -329,8 +328,8 @@ _RE_SIMPLES = re.compile(r"(?<![\w])'([^'\n]{1,200}?)'(?![\w])")
 
 
 def _smart_quotes(text: str) -> str:
-    text = _RE_DOBLES.sub('«\\1»', text)
-    text = _RE_SIMPLES.sub('«\\1»', text)
+    text = _RE_DOBLES.sub('“\\1”', text)
+    text = _RE_SIMPLES.sub('‘\\1’', text)
     return text
 
 
