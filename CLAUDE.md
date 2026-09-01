@@ -378,6 +378,15 @@ falla, la edición no sale:
       idioma operativo (ver «i18n — toda edición es trilingüe»).
 - [ ] **Cookies con igual prominencia (AEPD)** — Aceptar = Rechazar (ver «Cookies y GA4»).
 - [ ] **GA4 con carga condicional** — `G-H3Y3WBWSLR`, solo tras consentimiento «Analítica».
+- [ ] **Comillas angulares « », nunca rectas NI curvas ‘ ’/“ ”** — en texto
+      visible, todo entrecomillado va con « » en los 3 idiomas. Motivo doble:
+      (1) las #02/#03/#04 nacieron con comillas rectas y hubo que parchearlas a
+      mano; (2) las curvas ‘ ’/“ ” NO sirven en este sitio: Space Grotesk dibuja
+      la apertura y el cierre con el mismo glifo y la apertura parece invertida
+      (verificado con espécimen en la #04, sep-2026). `generator.py` normaliza
+      rectas → « » al generar (`_normalize_quotes`), pero verificar en cada
+      edición, títulos incluidos (ojo con lo que introduce `translator.py` en
+      EN/FR: ese paso NO normaliza).
 - [ ] **Fuente + mes/año** en cada ítem (esto_paso, caso_real, ia_dia, radar, enlaces).
 - [ ] **Secciones largas colapsadas** — los bloques de texto extenso van tras un
       botón «Seguir leyendo» (ver patrón abajo), no como muro de texto.

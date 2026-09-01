@@ -315,6 +315,36 @@ def verify_content(content: Dict, edition: str) -> List[str]:
     return issues
 
 
+# ─── COMILLAS TIPOGRÁFICAS ─────────────────────────────────────────────────────
+# Claude genera el contenido con comillas rectas (' y ") y las #02/#03/#04
+# salieron con ellas hasta que alguien las parcheaba a mano. Aquí se normalizan
+# ANTES de escribir el HTML: "x" y 'x' → «x» angulares SIEMPRE. No se usan
+# “ ” ni ‘ ’ porque Space Grotesk (la fuente de los títulos) dibuja la apertura
+# y el cierre con el mismo glifo y la apertura parece invertida (visto en la #04,
+# sep-2026); las « » son asimétricas y se leen bien en cualquier fuente del sitio.
+# Los apóstrofos entre letras (l'IA, don't) no se tocan, ni las URLs.
+
+_RE_DOBLES  = re.compile(r'"([^"\n]{1,200}?)"')
+_RE_SIMPLES = re.compile(r"(?<![\w])'([^'\n]{1,200}?)'(?![\w])")
+
+
+def _smart_quotes(text: str) -> str:
+    text = _RE_DOBLES.sub('«\\1»', text)
+    text = _RE_SIMPLES.sub('«\\1»', text)
+    return text
+
+
+def _normalize_quotes(obj, key=None):
+    """Aplica _smart_quotes a todos los strings del contenido, salvo URLs e IDs de imagen."""
+    if isinstance(obj, str):
+        return obj if key in ("url", "imagen") else _smart_quotes(obj)
+    if isinstance(obj, dict):
+        return {k: _normalize_quotes(v, k) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [_normalize_quotes(v, key) for v in obj]
+    return obj
+
+
 def _fuente_block(fuente: str) -> str:
     if not fuente:
         return ""
@@ -342,6 +372,7 @@ def _consejo_link_block(url: str, url_label: str) -> str:
 
 def render_template(content: Dict, edition: str) -> str:
     """Lee web_template.html y sustituye todos los {{PLACEHOLDERS}} con el contenido generado."""
+    content   = _normalize_quotes(content)  # comillas rectas → tipográficas antes de renderizar
     pub       = publication_date()
     mes_upper = mes_label(pub).upper()
     year      = pub.year
