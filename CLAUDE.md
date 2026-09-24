@@ -392,15 +392,31 @@ falla, la edición no sale:
       botón «Seguir leyendo» (ver patrón abajo), no como muro de texto.
 - [ ] **Responsive** verificado (ver «Compatibilidad móvil»).
 
-### Mejora pendiente — variedad de imágenes por tema (post-lanzamiento #04)
+### Imágenes de las secciones — variedad por tema (RESUELTO 24-sep-2026)
 
-`_UNSPLASH_PHOTOS` en `generator.py` mapea cada keyword a UN único ID, así que
-las secciones repiten imagen entre ediciones (la de "ai" salió idéntica en
-#02/#03/#04 hasta cambiarla a mano en la #04; la de "privacy" se repitió en los
-Consejos de #03 y #04). Pendiente: dar a cada keyword una LISTA de IDs
-verificados y elegir uno distinto por edición (p. ej. rotando por número de
-edición), manteniendo la validación HTTP de `_photo_alive`. NO implementado aún
-(anotado el 1-sep-2026).
+Las cinco secciones con cabecera visual son **IA al día, Esto pasó, Amenaza del
+mes, Consejo del mes y El reto del mes**. Las cinco llevan imagen SIEMPRE.
+
+Hasta la #05 había dos fallos distintos, ambos corregidos:
+
+1. **Imagen repetida entre ediciones.** `_UNSPLASH_PHOTOS` mapeaba cada keyword a
+   UN único ID: la foto de "ai" salió idéntica en #02/#03/#05 y la de "privacy" en
+   los Consejos de #03/#04/#05. Ahora cada keyword tiene una **lista** de 3-4 IDs
+   (62 fotos en total, todas verificadas HTTP 200) y `_pick_photo_id` elige así:
+   rota el pool por número de edición y descarta las fotos ya usadas en otras
+   ediciones (`_past_edition_photo_ids` lee los `NN/index.html` del repo) y las ya
+   colocadas en la propia ejecución (`_USED_THIS_RUN`). Si no queda ninguna nueva
+   del tema, **prefiere repetir una foto acorde antes que salirse del tema** (el
+   orden de preferencia está documentado en el docstring) y lo avisa por consola.
+   Se mantiene la validación `_photo_alive` (Unsplash retira fotos sin avisar).
+2. **El Reto nunca tuvo imagen en la plantilla.** `card-reto` no tenía bloque
+   `<img>`, así que el generador jamás le ponía foto: en la #04 y la #05 hubo que
+   añadirla a mano. Ya existe `{{RETO_IMG_URL}}` en `web_template.html` y el
+   `reto` pide su keyword `imagen` en el prompt, como las otras cuatro.
+
+Al añadir fotos al pool: verificar HTTP 200 **y** mirarlas (que encajen con el
+tema y no sean cliché); el bloque `<img>` del Reto usa el degradado a `#001a05`,
+no a `#000029` como el resto, porque el fondo de `card-reto` es distinto.
 
 ### Patrón reutilizable — sección colapsable
 
@@ -564,7 +580,10 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Enlaces: todos resuelven (HTTP 200); noticias preferentemente a fuente en español
 - [ ] Fuentes sin repetir: cada sección con enlace usa una fuente DISTINTA; nunca dos
       secciones comparten la misma URL. Un consejo propio de IT puede ir sin enlace externo
-- [ ] Imágenes: tecnológicas, acordes a la noticia, resuelven
+- [ ] Imágenes: las CINCO secciones con cabecera visual (IA al día, Esto pasó,
+      Amenaza del mes, Consejo del mes, El reto del mes) llevan imagen; tecnológicas,
+      acordes a la noticia, HTTP 200, y ninguna repetida —ni entre secciones de la
+      edición ni respecto a ediciones anteriores
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)

@@ -9,7 +9,7 @@ import json
 import re
 import anthropic
 import requests
-from typing import List, Dict
+from typing import List, Dict, Set, Optional
 
 from pubdate import publication_date, mes_label
 
@@ -34,29 +34,58 @@ def _next_month_label(year: int, month: int, delta: int) -> str:
     return f"{_MONTHS_ES[idx]} {y}"
 
 
-# ─── IMÁGENES UNSPLASH (IDs verificados, CDN directo sin API key) ───────────────
+# ─── IMÁGENES UNSPLASH (IDs verificados HTTP 200, CDN directo sin API key) ──────
+#
+# Cada keyword tiene VARIAS fotos, no una sola: con un único ID por tema la misma
+# imagen salía edición tras edición (la de "ai" se repitió en #02/#03/#05 y la de
+# "privacy" en los Consejos de #03/#04/#05). `_pick_photo_id` rota por número de
+# edición y descarta las ya usadas en ediciones anteriores y en la propia
+# ejecución, así que dos secciones nunca comparten foto ni dentro de una edición
+# ni entre ediciones mientras queden candidatas del tema.
 _UNSPLASH_PHOTOS = {
-    "cybersecurity": "1550751827-4bd374c3f58b",
-    "data-breach":   "1618060932014-4deda4932554",
-    "hacker":        "1614064641938-3bbee52942c7",
-    "network":       "1558494949-ef010cbdcc31",
-    "server":        "1591808216268-ce0b82787efe",
-    "cloud":         "1451187580459-43490279c0fa",
-    "code":          "1517694712202-14dd9538aa97",
-    "ai":            "1676299081847-824916de030a",
-    "robot":         "1485827404703-89b55fcc595e",
-    "phishing":      "1526374965328-7f61d4dc18c5",
-    "privacy":       "1610337673044-720471f83677",
-    "energy":        "1473341304170-971dccb5ac1e",
-    "business":      "1573497019236-17f8177b81e8",
-    "mobile":        "1512941937669-90a1b58e7e9c",
-    "spain":         "1539037116277-4db20889f2d4",
-    "technology":    "1518770660439-4636190af475",
+    "cybersecurity": ["1550751827-4bd374c3f58b", "1614064548237-096f735f344f",
+                      "1590065707046-4fde65275b2e", "1584433144859-1fc3ab64a957"],
+    "data-breach":   ["1618060932014-4deda4932554", "1640158615573-cd28feb1bf4e",
+                      "1529078155058-5d716f45d604", "1614064642578-7faacdc6336e"],
+    "hacker":        ["1614064641938-3bbee52942c7", "1666615435088-4865bf5ed3fd",
+                      "1562813733-b31f71025d54"],
+    "network":       ["1558494949-ef010cbdcc31", "1544197150-b99a580bb7a8",
+                      "1624965439943-09e0238644e2", "1484557052118-f32bd25b45b5"],
+    "server":        ["1591808216268-ce0b82787efe", "1680992046626-418f7e910589",
+                      "1629837093109-11325d6e7afd", "1506399558188-acca6f8cbf41"],
+    "cloud":         ["1451187580459-43490279c0fa", "1667984390538-3dea7a3fe33d",
+                      "1690627931320-16ac56eb2588", "1667984390535-6d03cff0b11a"],
+    "code":          ["1517694712202-14dd9538aa97", "1608742213509-815b97c30b36",
+                      "1461749280684-dccba630e2f6", "1542831371-29b0f74f9713"],
+    "ai":            ["1676299081847-824916de030a", "1674027444485-cec3da58eef4",
+                      "1620712943543-bcc4688e7485", "1677442135703-1787eea5ce01"],
+    "robot":         ["1485827404703-89b55fcc595e", "1737644467636-6b0053476bb2",
+                      "1527430253228-e93688616381"],
+    "phishing":      ["1526374965328-7f61d4dc18c5", "1596526131083-e8c633c948d2",
+                      "1557200134-90327ee9fafa", "1584438784894-089d6a62b8fa"],
+    "privacy":       ["1610337673044-720471f83677", "1512149673953-1e251807ec7c",
+                      "1654588831193-0285dab84d5a", "1580847097346-72d80f164702"],
+    "energy":        ["1473341304170-971dccb5ac1e", "1508791290064-c27cc1ef7a9a",
+                      "1466611653911-95081537e5b7", "1548337138-e87d889cc369"],
+    "business":      ["1573497019236-17f8177b81e8", "1497215728101-856f4ea42174",
+                      "1606857521015-7f9fcf423740", "1549637642-90187f64f420"],
+    "mobile":        ["1512941937669-90a1b58e7e9c", "1592890288564-76628a30a657",
+                      "1511707171634-5f897ff02aa9", "1598327105666-5b89351aff97"],
+    "spain":         ["1539037116277-4db20889f2d4", "1543783207-ec64e4d95325",
+                      "1570698473651-b2de99bae12f", "1574556462575-eb106a5865a0"],
+    "technology":    ["1518770660439-4636190af475", "1644088379091-d574269d422f",
+                      "1700427296131-0cc4c4610fc6", "1689443111130-6e9c7dfd8f9e"],
 }
 
 
 # Cache de comprobaciones HTTP por ejecución (una petición por foto como máximo)
 _UNSPLASH_ALIVE: Dict[str, bool] = {}
+
+# Fotos ya colocadas en ESTA ejecución (evita que dos secciones repitan imagen)
+_USED_THIS_RUN: Set[str] = set()
+
+# Fotos usadas en ediciones anteriores del repo (cache perezosa por ejecución)
+_USED_PAST_EDITIONS: Optional[Set[str]] = None
 
 
 def _photo_alive(photo_id: str) -> bool:
@@ -80,16 +109,77 @@ def _photo_alive(photo_id: str) -> bool:
     return _UNSPLASH_ALIVE[photo_id]
 
 
-def _unsplash_url(keyword: str, w: int = 1200, h: int = 220) -> str:
+def _past_edition_photo_ids(current_edition: str) -> Set[str]:
+    """
+    IDs de Unsplash ya usados en las ediciones del repo, excluyendo la que se está
+    generando (si se regenera la misma edición, sus propias fotos no deben contar
+    como "ya usadas"). Se cachea: basta con leer los HTML una vez por ejecución.
+    """
+    global _USED_PAST_EDITIONS
+    if _USED_PAST_EDITIONS is None:
+        used: Set[str] = set()
+        root = os.path.dirname(os.path.abspath(__file__))
+        try:
+            carpetas = sorted(d for d in os.listdir(root) if re.fullmatch(r"\d{2}", d))
+        except OSError:
+            carpetas = []
+        for carpeta in carpetas:
+            if carpeta == current_edition:
+                continue
+            try:
+                with open(os.path.join(root, carpeta, "index.html"), encoding="utf-8") as f:
+                    used.update(re.findall(
+                        r"images\.unsplash\.com/photo-([0-9a-f]+-[0-9a-f]+)", f.read()
+                    ))
+            except OSError:
+                continue
+        _USED_PAST_EDITIONS = used
+    return _USED_PAST_EDITIONS
+
+
+def _pick_photo_id(keyword: str, edition: str) -> str:
+    """
+    Elige una foto del tema `keyword` que no se haya usado antes.
+
+    Prioridad: (1) del tema, nunca usada y viva; (2) del tema, no usada en esta
+    edición y viva; (3) neutra de "technology" sin usar; (4) cualquiera del tema
+    que siga viva. La fidelidad al tema manda sobre la variedad: antes repetir una
+    foto acorde que colocar un molino de viento en una noticia de ransomware.
+    """
     key = keyword.lower().split(",")[0].replace(" ", "-").strip()
-    photo_id = _UNSPLASH_PHOTOS.get(key, _UNSPLASH_PHOTOS["technology"])
-    if not _photo_alive(photo_id):
-        print(f"  ⚠️ Foto Unsplash de '{key}' ({photo_id}) ya no existe — usando fallback")
-        candidatos = [_UNSPLASH_PHOTOS["technology"]] + list(_UNSPLASH_PHOTOS.values())
-        photo_id = next(
-            (pid for pid in candidatos if pid != photo_id and _photo_alive(pid)),
-            photo_id,
-        )
+    pool = _UNSPLASH_PHOTOS.get(key) or _UNSPLASH_PHOTOS["technology"]
+
+    # Rotación por número de edición: cada mes arranca en un punto distinto del pool
+    offset = (int(edition) - 1) if edition.isdigit() else 0
+    rotado = [pool[(offset + i) % len(pool)] for i in range(len(pool))]
+
+    usadas = _past_edition_photo_ids(edition)
+
+    def _elegir(candidatas, evitar_pasadas: bool):
+        for pid in candidatas:
+            if pid in _USED_THIS_RUN:
+                continue
+            if evitar_pasadas and pid in usadas:
+                continue
+            if _photo_alive(pid):
+                return pid
+        return None
+
+    photo_id = (
+        _elegir(rotado, True)
+        or _elegir(_UNSPLASH_PHOTOS["technology"], True)
+        or _elegir(rotado, False)
+        or next((pid for pid in rotado if _photo_alive(pid)), rotado[0])
+    )
+
+    if photo_id in usadas:
+        print(f"  ⚠️ Sin fotos nuevas para '{key}': se repite {photo_id} de una edición anterior")
+    _USED_THIS_RUN.add(photo_id)
+    return photo_id
+
+
+def _unsplash_url(keyword: str, w: int = 1200, h: int = 220, edition: str = "01") -> str:
+    photo_id = _pick_photo_id(keyword, edition)
     return f"https://images.unsplash.com/photo-{photo_id}?auto=format&fit=crop&w={w}&h={h}&q=80"
 
 
@@ -146,7 +236,8 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
 • esto_paso.texto: DEBE incluir al menos 1 dato numérico o porcentaje.
 • Palabras PROHIBIDAS (reescribe si aparecen): {', '.join(FORBIDDEN_WORDS)}
 • URLs: siempre de los artículos proporcionados. NUNCA inventadas.
-• ESTO_PASO, CASO_REAL y CONSEJO: campo "imagen" — elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
+• ESTO_PASO, CASO_REAL, CONSEJO, RETO e IA_DIA: campo "imagen" — elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
+  Usa una palabra DISTINTA en cada sección: son cinco cabeceras visuales seguidas y repetir tema deja la edición con dos fotos parecidas.
 • intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer miércoles, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
 • radar: EXACTAMENTE 4 ítems, de fuentes distintas.
 • enlaces: EXACTAMENTE 3 recursos (1 artículo, 1 vídeo, 1 quiz/herramienta).
@@ -222,7 +313,7 @@ Responde ÚNICAMENTE con JSON válido con esta estructura exacta:
   "esto_paso": {{"titulo": "...", "texto": "...", "url": "...", "imagen": "ONE keyword from: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology", "fuente": "Nombre medio · Mes Año"}},
   "caso_real": {{"titulo": "...", "texto": "...", "url": "...", "imagen": "ONE keyword from: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology", "fuente": "Nombre medio · Mes Año"}},
   "consejo":   {{"titulo": "...", "texto": "...", "url": "...", "url_label": "Texto del enlace", "imagen": "ONE keyword from the same list", "fuente": "Nombre medio · Mes Año"}},
-  "reto":      {{"titulo": "...", "texto": "...", "fuente": "Departamento IT LOGNEXT · [mes] [año]"}},
+  "reto":      {{"titulo": "...", "texto": "...", "imagen": "ONE keyword from the same list", "fuente": "Departamento IT LOGNEXT · [mes] [año]"}},
   "ia_dia":    {{"titulo": "...", "texto": "...", "url": "...", "imagen": "ONE keyword from the same list", "fuente": "Nombre medio · Mes Año"}},
   "radar": [
     {{"titulo": "...", "org": "...", "url": "...", "fecha": "..."}},
@@ -381,11 +472,15 @@ def render_template(content: Dict, edition: str) -> str:
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Imágenes Unsplash
-    ia_img_url      = _unsplash_url(content.get("ia_dia",   {}).get("imagen", "ai"),             1200, 180)
-    esto_img_url    = _unsplash_url(content.get("esto_paso", {}).get("imagen", "cybersecurity"), 1200, 220)
-    caso_img_url    = _unsplash_url(content.get("caso_real", {}).get("imagen", "hacker"),         800, 160)
-    consejo_img_url = _unsplash_url(content.get("consejo",  {}).get("imagen", "code"),            800, 160)
+    # Imágenes Unsplash — las cinco secciones con cabecera visual SIEMPRE llevan foto.
+    # El orden importa: `_pick_photo_id` va reservando IDs, así que la primera
+    # sección elige del pool completo de su tema y las siguientes evitan repetir.
+    _USED_THIS_RUN.clear()
+    ia_img_url      = _unsplash_url(content.get("ia_dia",    {}).get("imagen", "ai"),            1200, 180, edition)
+    esto_img_url    = _unsplash_url(content.get("esto_paso", {}).get("imagen", "cybersecurity"), 1200, 220, edition)
+    caso_img_url    = _unsplash_url(content.get("caso_real", {}).get("imagen", "hacker"),         800, 160, edition)
+    consejo_img_url = _unsplash_url(content.get("consejo",   {}).get("imagen", "code"),           800, 160, edition)
+    reto_img_url    = _unsplash_url(content.get("reto",      {}).get("imagen", "code"),           800, 160, edition)
 
     # Radar (4 items fijos)
     radar = content.get("radar", [])
@@ -499,6 +594,7 @@ def render_template(content: Dict, edition: str) -> str:
         "{{CONSEJO_IMG_URL}}": consejo_img_url,
         "{{CONSEJO_TITULO}}":  content.get("consejo",   {}).get("titulo", ""),
         "{{CONSEJO_TEXTO}}":   content.get("consejo",   {}).get("texto",  ""),
+        "{{RETO_IMG_URL}}":    reto_img_url,
         "{{RETO_TITULO}}":     content.get("reto",      {}).get("titulo", ""),
         "{{RETO_TEXTO}}":      content.get("reto",      {}).get("texto",  ""),
         "{{FOOTER_EDICIONES}}": footer_editions,
