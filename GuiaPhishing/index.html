@@ -68,7 +68,7 @@ header {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .header-inner {
-  max-width: 1280px;
+  max-width: 1560px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -128,7 +128,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
 .hero {
   background: var(--ln-dark);
   color: white;
-  padding: 88px 2rem 80px;
+  padding: 44px 2rem 40px;
   text-align: center;
   position: relative;
   overflow: hidden;
@@ -150,7 +150,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ln-red);
-  margin-bottom: 22px;
+  margin-bottom: 12px;
   display: block;
 }
 .hero h1 {
@@ -158,7 +158,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   font-weight: 700;
   line-height: 1.1;
   letter-spacing: -0.025em;
-  margin-bottom: 22px;
+  margin-bottom: 14px;
   color: white;
 }
 .hero h1 em {
@@ -169,7 +169,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   font-size: 17px;
   color: rgba(255,255,255,0.5);
   max-width: 500px;
-  margin: 0 auto 44px;
+  margin: 0 auto 26px;
   font-weight: 300;
   line-height: 1.75;
 }
@@ -190,9 +190,9 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
 
 /* ── LAYOUT ── */
 .section-wrap {
-  max-width: 1280px;
+  max-width: 1560px;
   margin: 0 auto;
-  padding: 88px 2rem;
+  padding: 52px 2rem;
 }
 .section-wrap.tight { padding-top: 0; }
 
@@ -205,8 +205,10 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   margin-bottom: 14px;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
 }
+.sec-tag::before,
 .sec-tag::after {
   content: '';
   flex: 0 0 32px;
@@ -221,19 +223,21 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   line-height: 1.15;
   color: var(--ln-text);
   margin-bottom: 14px;
+  text-align: center;
 }
 .sec-intro {
   font-size: 17px;
   color: var(--ln-textgray);
-  max-width: 720px;
-  margin-bottom: 52px;
+  max-width: 1240px;
+  margin: 0 auto 34px;
   line-height: 1.75;
   font-weight: 300;
+  text-align: center;
 }
 .divider {
   border: none;
   border-top: 1px solid var(--ln-gray);
-  max-width: 1280px;
+  max-width: 1560px;
   margin: 0 auto;
 }
 
@@ -749,7 +753,7 @@ footer {
   text-align: center;
 }
 .footer-inner {
-  max-width: 1280px;
+  max-width: 1560px;
   margin: 0 auto;
 }
 .footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
