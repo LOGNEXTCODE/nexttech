@@ -42,10 +42,6 @@
     gtag('event', 'outbound_click', { link_label: label, link_url: url, edition: '05' });
     return true;
   }
-  function trackPhishing(action) {
-    if (!window._ga4Loaded) return;
-    gtag('event', 'phishing_test', { action: action, edition: '05' });
-  }
 </script>
 <style>
 
@@ -194,19 +190,17 @@ body {
 .phishing-email-subject { font-weight: bold; font-size: 14px; color: #111; margin-bottom: 4px; }
 .phishing-email-body { font-size: 13px; line-height: 1.6; color: #444; }
 .phishing-email-body a { color: #1a73e8; text-decoration: underline; }
-.phishing-question { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; line-height: 1.5; }
-.phishing-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-.phishing-btn { padding: 12px 24px; font-size: 13px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; border: none; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.5px; flex: 1; min-width: 120px; }
-.phishing-btn-yes { background: rgba(250,60,15,0.15); color: var(--red); border: 1px solid var(--red); }
-.phishing-btn-yes:hover { background: var(--red); color: #fff; }
-.phishing-btn-no  { background: rgba(100,240,125,0.1); color: var(--green); border: 1px solid var(--green); }
-.phishing-btn-no:hover  { background: var(--green); color: var(--navy); }
-.phishing-result { display: none; padding: 16px; border-radius: 4px; font-size: 14px; line-height: 1.7; margin-top: 12px; }
-.phishing-result.show { display: block; }
-.phishing-result.correct { background: rgba(100,240,125,0.1); border: 1px solid rgba(100,240,125,0.3); color: var(--green); }
-.phishing-result.wrong   { background: rgba(250,60,15,0.1);  border: 1px solid rgba(250,60,15,0.3);  color: var(--red); }
 .phishing-clues { margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 4px; }
 .phishing-clue { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--grey); opacity: 0.8; margin-bottom: 4px; display: flex; gap: 8px; align-items: flex-start; }
+/* ─── REPASO DEL SIMULACRO (#05) ─────────────────────────────────────────── */
+.sim-block-title { font-size: 14px; font-weight: 600; color: #fff; margin: 22px 0 10px; letter-spacing: 0.3px; }
+.sim-aplauso { margin-top: 22px; padding: 16px 18px; background: rgba(100,240,125,0.08); border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.7; color: var(--grey); }
+.sim-encuesta { margin-top: 20px; font-size: 14px; line-height: 1.9; color: var(--grey); }
+/* ─── PLACEHOLDERS PENDIENTES — la #05 NO se publica con ninguno visible ─── */
+.ph-todo { display: block; margin: 0 0 16px; padding: 14px 16px; background: rgba(255,250,150,0.10); border: 2px dashed var(--yellow); border-radius: 4px; color: var(--yellow); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; }
+.ph-todo::before { content: '\26A0  PENDIENTE / TO FILL / \00C0  COMPL\00C9TER'; display: block; font-size: 10px; font-weight: 700; letter-spacing: 2px; opacity: 0.75; margin-bottom: 8px; }
+.ph-todo-inline { display: inline-block; padding: 1px 8px; background: rgba(255,250,150,0.14); border: 1px dashed var(--yellow); border-radius: 3px; color: var(--yellow); font-family: 'JetBrains Mono', monospace; font-size: 0.92em; }
+a.ph-todo-inline { text-decoration: none; cursor: not-allowed; }
 .card-radar { box-shadow: inset 0 1px 0 rgba(60,230,230,0.2); }
 .card-radar::after { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.07), transparent 70%); }
 .radar-list { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
@@ -288,7 +282,6 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .topbar-right { flex: 1; }
   .topbar-edition-num { font-size: 9px; letter-spacing: 0.3px; }
   .topbar-edition-date { font-size: 8px; letter-spacing: 0.3px; }
-  .phishing-buttons { flex-direction: column; }
   .stat-number { font-size: 24px; }
 }
 
@@ -491,25 +484,21 @@ body.light .phishing-inner {
   background: rgba(106,40,170,0.04);
   border: 1px solid rgba(106,40,170,0.12);
 }
-body.light .phishing-question { color: #000029; }
+body.light .phishing-clues    { background: rgba(0,0,41,0.04); }
 body.light .phishing-clue     { color: #2a2a4a; opacity: 1; }
-body.light .phishing-btn-yes {
-  background: rgba(200,45,0,0.08); color: #9B2200;
-  border: 1.5px solid #C82D00;
+body.light .sim-block-title   { color: #000029; }
+body.light .sim-aplauso {
+  background: rgba(26,122,56,0.07);
+  border-left-color: #1A7A38; color: #2a2a4a;
 }
-body.light .phishing-btn-yes:hover { background: #C82D00; color: #FFFFFF; }
-body.light .phishing-btn-no {
-  background: rgba(26,122,56,0.08); color: #145E2A;
-  border: 1.5px solid #1A7A38;
+body.light .sim-encuesta { color: #2a2a4a; }
+body.light .ph-todo {
+  background: rgba(180,120,0,0.08);
+  border-color: #B47800; color: #6B4700;
 }
-body.light .phishing-btn-no:hover { background: #1A7A38; color: #FFFFFF; }
-body.light .phishing-result.correct {
-  background: rgba(26,122,56,0.08);
-  border-color: rgba(26,122,56,0.3); color: #145E2A;
-}
-body.light .phishing-result.wrong {
-  background: rgba(200,45,0,0.08);
-  border-color: rgba(200,45,0,0.3); color: #9B2200;
+body.light .ph-todo-inline {
+  background: rgba(180,120,0,0.10);
+  border-color: #B47800; color: #6B4700;
 }
 
 body.light .card-link { background: transparent; }
@@ -705,7 +694,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
+    Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. El <span class="ph-todo-inline">[[DATO: % de acierto]]</span> de vosotros detectó el correo trampa y no picó — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: <span class="ph-todo-inline">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinco minutos que refuerzan lo aprendido.
   </div>
 
   <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
@@ -767,9 +756,10 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
-      <div class="card-title" data-i18n="consejo-title">Revisad los permisos de vuestras apps de terceros. Ahora.</div>
-      <div class="card-text" data-i18n="consejo-text">Cada aplicación conectada a vuestras cuentas corporativas (Google, Microsoft, GitHub…) es una puerta lateral que rara vez se revisa. Entrad hoy en la configuración de seguridad de vuestra cuenta principal y revocad el acceso a cualquier app que no reconozcáis o que ya no uséis. No hace falta ser hacker para colarse por una app olvidada de hace dos años que sigue teniendo permisos de lectura de correo.</div>
+      <div class="card-title" data-i18n="consejo-title">Consejo del mes: la VPN no es opcional fuera de la oficina</div>
+      <div class="card-text" data-i18n-html="consejo-text">Cuando trabajáis desde casa, un hotel, una cafetería o la red de un cliente, vuestra conexión pasa por manos que no controláis. Sin VPN, los datos viajan expuestos: alguien en esa misma red puede ver por dónde navegáis o colarse entre vuestro equipo y los servicios de la empresa.<br><br>La VPN cifra todo ese tráfico —lo vuelve ilegible para terceros— y os conecta de forma segura, estéis donde estéis. Da igual el proveedor: si trabajáis con datos de LOGNEXT o de nuestros clientes fuera de una red de confianza, la VPN va siempre activada, sin excepciones.<br><br>Un despiste de cinco minutos en el wifi de un aeropuerto puede costar una cuenta comprometida. Con la VPN, ese riesgo desaparece.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Octubre 2026</div>
+      <a href="/GuiaVPN/?from=05" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo_guia_vpn', this.href)" data-i18n-html="consejo-link">Consultar la guía <span class="arrow">→</span></a>
     </div>
 
     <!-- 3b. EL RETO DEL MES — columna derecha -->
@@ -819,33 +809,25 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
     </div>
 
-    <!-- 5. PHISHING TEST — estático, ancho completo -->
+    <!-- 5. REPASO DEL SIMULACRO — sustituye al test interactivo, ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
-      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
-      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text" data-i18n="phishing-intro">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
+      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo</div>
+      <div class="card-title" data-i18n="phishing-title">Repasamos el simulacro</div>
+      <div class="card-text" data-i18n="phishing-intro">Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado, y muchos supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.</div>
       <div class="phishing-inner">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
-            <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
-          </div>
-          <div class="phishing-email-body">
-            Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
-          </div>
+        <div class="ph-todo" data-i18n="sim-email-ph">[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]</div>
+
+        <div class="sim-block-title" data-i18n="sim-senales-title">Las señales que lo delataban</div>
+        <div class="phishing-clues">
+          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-1">[[DATO: señal 1]]</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-2">[[DATO: señal 2]]</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-3">[[DATO: señal 3]]</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-4">[[DATO: señal 4]]</span></div>
         </div>
-        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
-        <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
-          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
-        </div>
-        <div class="phishing-result" id="phishing-result"></div>
+
+        <div class="sim-aplauso" data-i18n-html="sim-aplauso">Un aplauso para quienes lo vieron: <span class="ph-todo-inline">[[DATO: nº]]</span> compañeros nos avisasteis directamente a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer. Gracias — sois la mejor defensa que tenemos.</div>
+
+        <div class="sim-encuesta" data-i18n-html="sim-encuesta">¿Cómo de difícil te pareció? Cuéntanoslo en 30 segundos → <a class="ph-todo-inline" href="#" onclick="return false;">[[DATO: enlace al formulario de Microsoft Forms]]</a></div>
       </div>
     </div>
 
@@ -912,6 +894,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <ul class="footer-links-list">
           <li><a href="/GuiaEtiquetas/?from=05" target="_blank" data-i18n="footer_guide_etiquetas" onclick="trackLink('footer_guide_etiquetas', this.href)">Etiquetas de confidencialidad</a></li>
           <li><a href="/GuiaPhishing/?from=05" target="_blank" data-i18n="footer_guide_phishing" onclick="trackLink('footer_guide_phishing', this.href)">Guía de phishing</a></li>
+          <li><a href="/GuiaVPN/?from=05" target="_blank" data-i18n="footer_guide_vpn" onclick="trackLink('footer_guide_vpn', this.href)">Guía de VPN</a></li>
         </ul>
       </div>
 
@@ -999,7 +982,7 @@ if (cursorLogo && ring) {
     requestAnimationFrame(animateRing);
   }
   animateRing();
-  document.querySelectorAll('.card, .link-card, .card-link, .phishing-btn, .topbar, .footer-links-list a, .footer-contact-text a').forEach(el => {
+  document.querySelectorAll('.card, .link-card, .card-link, .topbar, .footer-links-list a, .footer-contact-text a').forEach(el => {
     el.addEventListener('mouseenter', () => { cursorLogo.classList.add('hover'); ring.classList.add('hover'); });
     el.addEventListener('mouseleave', () => { cursorLogo.classList.remove('hover'); ring.classList.remove('hover'); });
   });
@@ -1043,33 +1026,6 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerPhishing(clickedYes) {
-  const result = document.getElementById('phishing-result');
-  if (!clickedYes) {
-    trackPhishing('correct');
-    result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace «Verificar mi cuenta» lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
-  } else {
-    trackPhishing('incorrect');
-    result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial («24h») es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
-  }
-  try {
-    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fecha: new Date().toLocaleDateString('es-ES'),
-        hora: new Date().toLocaleTimeString('es-ES'),
-        edicion: '05',
-        respuesta: clickedYes ? 'incorrecto' : 'correcto',
-        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
-      })
-    });
-  } catch(e) {}
-  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
-}
 
 document.addEventListener('click', function(e) {
   const a = e.target.closest('a[href]');
@@ -1194,8 +1150,8 @@ const I18N = {
     "caso-title": "Temporada 1, Episodio 3: ‘El repositorio que nadie vigilaba’",
     "caso-text": "Entre el 15 de agosto y el 8 de septiembre de 2026, atacantes encadenaron varios CVEs en instalaciones self-hosted de JFrog Artifactory para pasar de cero credenciales a control total de administrador. El guion: primero, petición sin autenticar que aprovecha CVE-2026-82329 para emitir un token de admin. Segundo, acceso al panel, creación de persistencia y despliegue de backdoors. Tercero —y lo más preocupante— manipulación silenciosa de artefactos que los pipelines CI/CD consumían automáticamente sin que nadie se diese cuenta. El daño no era solo el servidor comprometido: era todo lo que ese servidor había construido y distribuido desde entonces. Si tenéis Artifactory autoalojado con configuración por defecto, este episodio va dedicado a vosotros.",
     "tag-consejo": "Consejo del mes",
-    "consejo-title": "Revisad los permisos de vuestras apps de terceros. Ahora.",
-    "consejo-text": "Cada aplicación conectada a vuestras cuentas corporativas (Google, Microsoft, GitHub…) es una puerta lateral que rara vez se revisa. Entrad hoy en la configuración de seguridad de vuestra cuenta principal y revocad el acceso a cualquier app que no reconozcáis o que ya no uséis. No hace falta ser hacker para colarse por una app olvidada de hace dos años que sigue teniendo permisos de lectura de correo.",
+    "consejo-title": "Consejo del mes: la VPN no es opcional fuera de la oficina",
+    "consejo-text": "Cuando trabajáis desde casa, un hotel, una cafetería o la red de un cliente, vuestra conexión pasa por manos que no controláis. Sin VPN, los datos viajan expuestos: alguien en esa misma red puede ver por dónde navegáis o colarse entre vuestro equipo y los servicios de la empresa.<br><br>La VPN cifra todo ese tráfico —lo vuelve ilegible para terceros— y os conecta de forma segura, estéis donde estéis. Da igual el proveedor: si trabajáis con datos de LOGNEXT o de nuestros clientes fuera de una red de confianza, la VPN va siempre activada, sin excepciones.<br><br>Un despiste de cinco minutos en el wifi de un aeropuerto puede costar una cuenta comprometida. Con la VPN, ese riesgo desaparece.",
     "tag-reto": "El reto del mes",
     "reto-title": "Reto del mes: audita los puertos abiertos de tu equipo",
     "reto-text": "Esta semana ejecuta un escaneo rápido con `nmap -sT localhost` o usa la herramienta gratuita Nmap Zenmap en tu máquina y documenta qué puertos tienes abiertos y por qué. Si encuentras alguno que no sepas justificar, escríbelo en el canal de IT: el primero que reporte un hallazgo real se lleva el crédito (y nuestra admiración).",
@@ -1205,12 +1161,9 @@ const I18N = {
     "radar-2-headline": "ShinyHunters afirma haber accedido al FBI vía zero-day en Oracle PeopleSoft y robado datos de agentes",
     "radar-3-headline": "Exploit público para CVE-2026-80521: escape de contenedor a root en Ubuntu 22.04, 24.04 y 26.04 sin parche",
     "radar-4-headline": "Investigadores demuestran cómo un proveedor MFA externo comprometido puede robar contraseñas durante el login",
-    "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
-    "phishing-title": "¿Detectarías este email antes de hacer clic?",
-    "phishing-intro": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
-    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
-    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
-    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "tag-phishing": "🎯 Pon a prueba tu ojo",
+    "phishing-title": "Repasamos el simulacro",
+    "phishing-intro": "Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado, y muchos supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Unbound corrige un fallo crítico en DNSSEC con riesgo de RCE",
@@ -1254,10 +1207,20 @@ const I18N = {
     "ck-reject": "Rechazar todas",
     "ck-accept": "Aceptar todas",
     "ck-only-necessary": "Aceptar solo necesarias",
-    "intro": "Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.",
+    "intro": "Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. El <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> de vosotros detectó el correo trampa y no picó — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinco minutos que refuerzan lo aprendido.",
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
-    "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>"
+    "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
+    "sim-senales-title": "Las señales que lo delataban",
+    "sim-aplauso": "Un aplauso para quienes lo vieron: <span class=\"ph-todo-inline\">[[DATO: nº]]</span> compañeros nos avisasteis directamente a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer. Gracias — sois la mejor defensa que tenemos.",
+    "sim-encuesta": "¿Cómo de difícil te pareció? Cuéntanoslo en 30 segundos → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "consejo-link": "Consultar la guía <span class=\"arrow\">→</span>",
+    "footer_guide_vpn": "Guía de VPN",
+    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
+    "sim-senal-1": "[[DATO: señal 1]]",
+    "sim-senal-2": "[[DATO: señal 2]]",
+    "sim-senal-3": "[[DATO: señal 3]]",
+    "sim-senal-4": "[[DATO: señal 4]]"
   },
   "en": {
     "topbar-edition-num": "EDITION #05",
@@ -1278,8 +1241,8 @@ const I18N = {
     "caso-title": "Season 1, Episode 3: 'The Repository Nobody Was Watching'",
     "caso-text": "Between 15 August and 8 September 2026, attackers chained several CVEs in self-hosted JFrog Artifactory installations to go from zero credentials to full administrator control. The playbook: first, an unauthenticated request exploiting CVE-2026-82329 to issue an admin token. Second, access to the panel, establishing persistence, and deploying backdoors. Third — and most concerning — silent manipulation of artifacts that CI/CD pipelines were consuming automatically without anyone noticing. The damage wasn't limited to the compromised server: it extended to everything that server had built and distributed since then. If you're running self-hosted Artifactory with a default configuration, this episode is dedicated to you.",
     "tag-consejo": "Tip of the Month",
-    "consejo-title": "Review your third-party app permissions. Now.",
-    "consejo-text": "Every application connected to your corporate accounts (Google, Microsoft, GitHub…) is a side door that's rarely checked. Go into your main account's security settings today and revoke access for any app you don't recognise or no longer use. You don't need to be a hacker to slip in through a forgotten app from two years ago that still has email read permissions.",
+    "consejo-title": "Tip of the month: the VPN is not optional outside the office",
+    "consejo-text": "When you work from home, a hotel, a café or a client’s network, your connection passes through hands you do not control. Without a VPN, the data travels exposed: someone on that same network can see where you browse or slip in between your device and the company services.<br><br>The VPN encrypts all of that traffic —it makes it unreadable to third parties— and connects you securely, wherever you are. The provider does not matter: if you work with LOGNEXT or client data outside a trusted network, the VPN is always on, no exceptions.<br><br>A five-minute lapse on airport Wi-Fi can cost you a compromised account. With the VPN, that risk disappears.",
     "tag-reto": "The Monthly Challenge",
     "reto-title": "Monthly challenge: audit the open ports on your machine",
     "reto-text": "This week, run a quick scan with `nmap -sT localhost` or use the free Nmap Zenmap tool on your machine and document which ports you have open and why. If you find any you can't justify, post it in the IT channel: the first person to report a real finding gets the credit (and our admiration).",
@@ -1289,12 +1252,9 @@ const I18N = {
     "radar-2-headline": "ShinyHunters claims to have accessed the FBI via a zero-day in Oracle PeopleSoft and stolen agent data",
     "radar-3-headline": "Public exploit for CVE-2026-80521: container-to-root escape on Ubuntu 22.04, 24.04, and 26.04 with no patch available",
     "radar-4-headline": "Researchers demonstrate how a compromised third-party MFA provider can steal passwords during login",
-    "tag-phishing": "🎯 Test Your Eye — Monthly Quiz",
-    "phishing-title": "Would you spot this email before clicking?",
-    "phishing-intro": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it's fake?",
-    "phishing-question": "Is this email legitimate or a phishing attempt?",
-    "phishing-btn-yes": "⚠️ It's phishing — I wouldn't click",
-    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "tag-phishing": "🎯 Put your eye to the test",
+    "phishing-title": "Reviewing the simulation",
+    "phishing-intro": "This month it is not a test: it is a look back at what we went through. In September a simulated phishing email landed in your inbox, and many of you saw right through it. Let us go over how it gave itself away, so that next time —when it is the real thing— every one of you spots it.",
     "tag-links": "In case you want to go down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "Unbound fixes a critical DNSSEC flaw with RCE risk",
@@ -1338,10 +1298,20 @@ const I18N = {
     "ck-reject": "Reject all",
     "ck-accept": "Accept all",
     "ck-only-necessary": "Accept necessary only",
-    "intro": "Welcome to NextTech, your monthly appointment with the latest in artificial intelligence and cybersecurity. Every first Wednesday of the month: news, practical guides, and resources for day-to-day use.",
+    "intro": "Welcome to NextTech, your first-Wednesday-of-the-month appointment with the latest in artificial intelligence and cybersecurity. And this month we start with good news: we ran our first phishing simulation and you did really well. <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> of you spotted the trap email and did not take the bait — a figure that says a great deal about the awareness work we are doing together. Inside, we go over how it could be recognised, what we learned, and we ask for your opinion. In this issue #05 — October 2026: <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Five minutes that reinforce what you have learned.",
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
-    "caso-link": "View the full case <span class=\"arrow\">→</span>"
+    "caso-link": "View the full case <span class=\"arrow\">→</span>",
+    "sim-senales-title": "The signs that gave it away",
+    "sim-aplauso": "A round of applause for those who spotted it: <span class=\"ph-todo-inline\">[[DATO: nº]]</span> colleagues told IT directly that the email looked suspicious to you. That is exactly what to do. Thank you — you are the best defence we have.",
+    "sim-encuesta": "How difficult did you find it? Tell us in 30 seconds → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "consejo-link": "Read the guide <span class=\"arrow\">→</span>",
+    "footer_guide_vpn": "VPN guide",
+    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
+    "sim-senal-1": "[[DATO: señal 1]]",
+    "sim-senal-2": "[[DATO: señal 2]]",
+    "sim-senal-3": "[[DATO: señal 3]]",
+    "sim-senal-4": "[[DATO: señal 4]]"
   },
   "fr": {
     "topbar-edition-num": "ÉDITION #05",
@@ -1362,8 +1332,8 @@ const I18N = {
     "caso-title": "Saison 1, Épisode 3 : « Le dépôt que personne ne surveillait »",
     "caso-text": "Entre le 15 août et le 8 septembre 2026, des attaquants ont enchaîné plusieurs CVEs sur des installations self-hosted de JFrog Artifactory pour passer de zéro credential à un contrôle total en tant qu'administrateur. Le scénario : d'abord, une requête non authentifiée exploitant CVE-2026-82329 pour émettre un token d'admin. Ensuite, accès au panneau, création d'une persistance et déploiement de backdoors. Troisièmement — et c'est le plus préoccupant — manipulation silencieuse d'artefacts que les pipelines CI/CD consommaient automatiquement sans que personne ne s'en aperçoive. Le dommage ne se limitait pas au serveur compromis : il concernait tout ce que ce serveur avait construit et distribué depuis lors. Si vous avez Artifactory auto-hébergé avec une configuration par défaut, cet épisode vous est dédié.",
     "tag-consejo": "Conseil du mois",
-    "consejo-title": "Vérifiez les permissions de vos applications tierces. Maintenant.",
-    "consejo-text": "Chaque application connectée à vos comptes professionnels (Google, Microsoft, GitHub…) est une porte dérobée qui est rarement vérifiée. Rendez-vous dès aujourd'hui dans les paramètres de sécurité de votre compte principal et révoquez l'accès à toute application que vous ne reconnaissez pas ou que vous n'utilisez plus. Inutile d'être hacker pour se faufiler par une application oubliée depuis deux ans qui dispose toujours de permissions de lecture des e-mails.",
+    "consejo-title": "Le conseil du mois : le VPN n’est pas optionnel hors du bureau",
+    "consejo-text": "Lorsque vous travaillez depuis chez vous, un hôtel, un café ou le réseau d’un client, votre connexion passe par des mains que vous ne contrôlez pas. Sans VPN, les données circulent exposées : une personne sur ce même réseau peut voir les sites que vous consultez ou s’intercaler entre votre équipement et les services de l’entreprise.<br><br>Le VPN chiffre tout ce trafic —il le rend illisible pour des tiers— et vous connecte de façon sécurisée, où que vous soyez. Peu importe le fournisseur : si vous travaillez avec des données de LOGNEXT ou de nos clients en dehors d’un réseau de confiance, le VPN est toujours activé, sans exception.<br><br>Une inattention de cinq minutes sur le wifi d’un aéroport peut coûter un compte compromis. Avec le VPN, ce risque disparaît.",
     "tag-reto": "Le défi du mois",
     "reto-title": "Défi du mois : auditez les ports ouverts de votre machine",
     "reto-text": "Cette semaine, lancez un scan rapide avec `nmap -sT localhost` ou utilisez l'outil gratuit Nmap Zenmap sur votre machine, et documentez quels ports sont ouverts et pourquoi. Si vous en trouvez un que vous ne savez pas justifier, signalez-le dans le canal IT : le premier à rapporter une vraie découverte remportera la mise (et toute notre admiration).",
@@ -1373,12 +1343,9 @@ const I18N = {
     "radar-2-headline": "ShinyHunters affirme avoir accédé au FBI via un zero-day dans Oracle PeopleSoft et volé des données d'agents",
     "radar-3-headline": "Exploit public pour CVE-2026-80521 : évasion de conteneur vers root sur Ubuntu 22.04, 24.04 et 26.04 sans correctif",
     "radar-4-headline": "Des chercheurs démontrent comment un fournisseur MFA externe compromis peut dérober des mots de passe lors de la connexion",
-    "tag-phishing": "🎯 Testez votre œil — Test du mois",
-    "phishing-title": "Détecteriez-vous cet e-mail avant de cliquer ?",
-    "phishing-intro": "Voici le type de message qu'utilisent les attaquants. Il réunit tous les ingrédients : urgence, expéditeur apparemment légitime et un lien alléchant. Sauriez-vous qu'il est faux ?",
-    "phishing-question": "Cet e-mail est-il légitime ou une tentative de phishing ?",
-    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
-    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "tag-phishing": "🎯 Mettez votre œil à l’épreuve",
+    "phishing-title": "Retour sur l’exercice",
+    "phishing-intro": "Ce mois-ci, ce n’est pas un test : c’est un retour sur ce que nous avons vécu. En septembre, vous avez reçu un courriel de phishing simulé, et beaucoup d’entre vous ont su le repérer. Reprenons ensemble ce qui le trahissait, pour que la prochaine fois —quand ce sera pour de vrai— vous le détectiez tous.",
     "tag-links": "Si vous voulez aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Unbound corrige une faille critique dans DNSSEC avec risque de RCE",
@@ -1422,10 +1389,20 @@ const I18N = {
     "ck-reject": "Tout refuser",
     "ck-accept": "Tout accepter",
     "ck-only-necessary": "Accepter uniquement les nécessaires",
-    "intro": "Bienvenue dans NextTech, votre rendez-vous mensuel avec l'actualité en intelligence artificielle et en cybersécurité. Chaque premier mercredi du mois, retrouvez des nouveautés, des guides pratiques et des ressources pour le quotidien.",
+    "intro": "Bienvenue dans NextTech, votre rendez-vous de chaque premier mercredi avec l’actualité en intelligence artificielle et en cybersécurité. Et ce mois-ci, nous commençons par une bonne nouvelle : nous avons mené notre premier exercice de phishing et vous vous en êtes très bien sortis. <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> d’entre vous ont repéré le courriel piège et ne sont pas tombés dans le panneau — un chiffre qui en dit long sur le travail de sensibilisation que nous menons ensemble. À l’intérieur, nous vous expliquons comment le reconnaître, ce que nous avons appris, et nous vous demandons votre avis. Dans ce numéro #05 — Octobre 2026 : <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinq minutes pour consolider vos acquis.",
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
-    "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>"
+    "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
+    "sim-senales-title": "Les signes qui le trahissaient",
+    "sim-aplauso": "Un applaudissement pour celles et ceux qui l’ont vu : <span class=\"ph-todo-inline\">[[DATO: nº]]</span> collègues ont prévenu l’IT directement que le courriel leur semblait suspect. C’est exactement ce qu’il faut faire. Merci — vous êtes la meilleure défense que nous ayons.",
+    "sim-encuesta": "Vous l’avez trouvé difficile ? Dites-le-nous en 30 secondes → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "consejo-link": "Consulter le guide <span class=\"arrow\">→</span>",
+    "footer_guide_vpn": "Guide VPN",
+    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
+    "sim-senal-1": "[[DATO: señal 1]]",
+    "sim-senal-2": "[[DATO: señal 2]]",
+    "sim-senal-3": "[[DATO: señal 3]]",
+    "sim-senal-4": "[[DATO: señal 4]]"
   }
 };
 function applyLang(lang) {

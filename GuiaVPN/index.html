@@ -1,0 +1,1415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n="doc-title">Uso seguro de la VPN — LOGNEXT</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<!-- Google Analytics 4 — carga condicional: solo tras aceptar «Analítica» en el banner de cookies (RGPD) -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  function initGA4() {
+    if (window._ga4Loaded) return;
+    window._ga4Loaded = true;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-H3Y3WBWSLR';
+    document.head.appendChild(s);
+    gtag('js', new Date());
+    gtag('config', 'G-H3Y3WBWSLR');
+  }
+  (function() {
+    try {
+      var prefs = JSON.parse(localStorage.getItem('lognext_cookie_preferences') || '{}');
+      if (prefs.analytics) initGA4();
+    } catch(e) {}
+  })();
+  window.addEventListener('cookiePreferencesChanged', function(e) {
+    if (e.detail && e.detail.analytics) initGA4();
+  });
+</script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ln-dark:    #000028;
+  --ln-red:     #FA3C0F;
+  --ln-yellow:  #FFF994;
+  --ln-lavender:#CE9EFF;
+  --ln-white:   #ffffff;
+  --ln-offwhite:#F7F7F9;
+  --ln-gray:    #EEEEF2;
+  --ln-midgray: #C8C8D4;
+  --ln-textgray:#6B6B80;
+  --ln-text:    #0a0a1a;
+
+  --pub-color:  #00C06B;
+  --int-color:  #0071e3;
+  --con-color:  #FA3C0F;
+  --muc-color:  #8B00FF;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--ln-white);
+  color: var(--ln-text);
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--ln-dark);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.header-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 54px;
+}
+.logo-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.logo-svg {
+  height: 18px;
+  width: auto;
+  fill: white;
+}
+.logo-divider {
+  width: 1px;
+  height: 18px;
+  background: rgba(255,255,255,0.2);
+}
+.logo-subtitle {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+nav { display: flex; }
+nav a {
+  color: rgba(255,255,255,0.5);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 0 13px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  font-weight: 400;
+}
+nav a:hover { color: white; border-bottom-color: var(--ln-red); }
+.header-pill {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: rgba(250,60,15,0.15);
+  color: var(--ln-red);
+  border: 1px solid rgba(250,60,15,0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+}
+
+/* ── HERO ── */
+.hero {
+  background: var(--ln-dark);
+  color: white;
+  padding: 88px 2rem 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(250,60,15,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 22px;
+  display: block;
+}
+.hero h1 {
+  font-size: clamp(30px, 4.5vw, 50px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  margin-bottom: 22px;
+  color: white;
+}
+.hero h1 em {
+  font-style: normal;
+  color: var(--ln-yellow);
+}
+.hero-sub {
+  font-size: 17px;
+  color: rgba(255,255,255,0.5);
+  max-width: 500px;
+  margin: 0 auto 44px;
+  font-weight: 300;
+  line-height: 1.75;
+}
+.hero-pills {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.hero-pill-item {
+  padding: 7px 16px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid;
+  letter-spacing: 0.03em;
+}
+
+/* ── LAYOUT ── */
+.section-wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 88px 2rem;
+}
+.section-wrap.tight { padding-top: 0; }
+
+.sec-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-tag::after {
+  content: '';
+  flex: 0 0 32px;
+  height: 1.5px;
+  background: var(--ln-red);
+  border-radius: 2px;
+}
+.sec-title {
+  font-size: clamp(26px, 3.2vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--ln-text);
+  margin-bottom: 14px;
+}
+.sec-intro {
+  font-size: 17px;
+  color: var(--ln-textgray);
+  max-width: 580px;
+  margin-bottom: 52px;
+  line-height: 1.75;
+  font-weight: 300;
+}
+.divider {
+  border: none;
+  border-top: 1px solid var(--ln-gray);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ── LABEL CARDS ── */
+.labels-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+}
+.label-card {
+  border-radius: 16px;
+  padding: 28px 24px;
+  border: 1.5px solid;
+  transition: transform 0.18s;
+  position: relative;
+  overflow: hidden;
+}
+.label-card:hover { transform: translateY(-4px); }
+
+.label-card.pub { background: #f0fff8; border-color: #b3f0d0; }
+.label-card.int { background: #f0f5ff; border-color: #c0d4f8; }
+.label-card.con { background: #fff5f2; border-color: #ffd0c0; }
+.label-card.muc { background: #fdf4ff; border-color: #e0c0f8; }
+
+.label-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.label-badge.pub { background: #c8f7e0; color: #035f35; }
+.label-badge.int { background: #dbeafe; color: #1e40af; }
+.label-badge.con { background: #ffe4d8; color: #8b1a00; }
+.label-badge.muc { background: #ead5fc; color: #5b0080; }
+
+.badge-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.pub .badge-dot { background: var(--pub-color); }
+.int .badge-dot { background: var(--int-color); }
+.con .badge-dot { background: var(--con-color); }
+.muc .badge-dot { background: var(--muc-color); }
+
+.label-card h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.label-card .desc {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-weight: 300;
+}
+.examples { list-style: none; }
+.examples li {
+  font-size: 13px;
+  padding: 5px 0;
+  color: var(--ln-text);
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.examples li:last-child { border-bottom: none; }
+.examples li::before {
+  content: '›';
+  font-weight: 700;
+  flex-shrink: 0;
+  font-size: 14px;
+  margin-top: 0px;
+}
+.pub .examples li::before { color: var(--pub-color); }
+.int .examples li::before { color: var(--int-color); }
+.con .examples li::before { color: var(--con-color); }
+.muc .examples li::before { color: var(--muc-color); }
+
+/* ── OUTLOOK MOCKUP ── */
+.mockup-shell {
+  background: var(--ln-offwhite);
+  border-radius: 20px;
+  padding: 28px;
+  margin-bottom: 48px;
+  border: 1px solid var(--ln-gray);
+}
+.mockup-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ln-textgray);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mockup-label-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ln-red);
+}
+.ol-window {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.ol-bar {
+  background: #2b579a;
+  padding: 7px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.wdot { width: 10px; height: 10px; border-radius: 50%; }
+.wr { background: #ff5f57; }
+.wy { background: #febc2e; }
+.wg { background: #28c840; }
+.ol-toolbar {
+  background: #f3f2f1;
+  padding: 5px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+.tb-btn {
+  background: white;
+  border: 1px solid #c8c6c4;
+  border-radius: 3px;
+  padding: 3px 9px;
+  font-size: 11.5px;
+  color: #201f1e;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.tb-btn.active-label {
+  background: #fff5f2;
+  border-color: var(--ln-red);
+  color: var(--ln-red);
+  font-weight: 600;
+}
+.ol-body { padding: 14px 16px; }
+.email-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  border-bottom: 1px solid #f0f0f2;
+  font-size: 12.5px;
+}
+.email-row-lbl {
+  color: #999;
+  width: 46px;
+  flex-shrink: 0;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.label-row {
+  margin-top: 10px;
+  background: #f9f9fb;
+  border-radius: 7px;
+  padding: 7px 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.label-row-lbl {
+  font-size: 10.5px;
+  color: #888;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-right: 4px;
+}
+.lopt {
+  padding: 3px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  border: 1.5px solid transparent;
+  white-space: nowrap;
+}
+.lopt.p { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+.lopt.i { background: #dbeafe; color: #1e40af; border-color: #93c5fd; }
+.lopt.c { background: #ffe4d8; color: #8b1a00; border-color: var(--ln-red); box-shadow: 0 0 0 2px rgba(250,60,15,0.2); }
+.lopt.m { background: #ead5fc; color: #5b0080; border-color: #a855f7; }
+.email-body {
+  padding: 14px 0;
+  font-size: 12.5px;
+  color: #444;
+  min-height: 72px;
+  border-bottom: 1px dashed #e8e8ee;
+  line-height: 1.75;
+}
+.dlp-banner {
+  margin-top: 10px;
+  background: #fff9f0;
+  border-left: 3px solid #f59e0b;
+  border-radius: 0 7px 7px 0;
+  padding: 9px 13px;
+  font-size: 12px;
+  color: #78350f;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  line-height: 1.55;
+}
+
+/* ── STEPS ── */
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.step-card {
+  background: var(--ln-offwhite);
+  border-radius: 14px;
+  padding: 26px 22px;
+  border: 1px solid var(--ln-gray);
+}
+.step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ln-red);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.step-num::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--ln-gray);
+}
+.step-app-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  background: var(--ln-dark);
+  color: white;
+  padding: 3px 9px;
+  border-radius: 5px;
+  margin-bottom: 12px;
+}
+.step-card h3 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--ln-text);
+}
+.step-card p {
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.65;
+  font-weight: 300;
+}
+
+/* ── WORD MOCKUP ── */
+.word-win {
+  background: white;
+  border-radius: 10px;
+  border: 1px solid #d0d0da;
+  overflow: hidden;
+  box-shadow: 0 6px 28px rgba(0,0,40,0.08);
+}
+.word-bar { background: #2b5797; padding: 7px 14px; display: flex; align-items: center; gap: 8px; }
+.word-bar-title { font-size: 12px; color: rgba(255,255,255,0.65); margin-left: 8px; }
+.word-ribbon {
+  background: #f3f2f1;
+  padding: 4px 14px;
+  border-bottom: 1px solid #e0dedd;
+  display: flex;
+  gap: 4px;
+}
+.rib-btn { padding: 3px 8px; font-size: 11px; border: none; background: transparent; color: #444; border-radius: 3px; font-family: 'Space Grotesk', sans-serif; }
+.rib-btn.active { background: white; border: 1px solid #c8c6c4; color: #201f1e; }
+.word-sensitivity-bar {
+  background: #fdf0ee;
+  border-bottom: 2px solid var(--ln-red);
+  padding: 5px 14px;
+  font-size: 11.5px;
+  color: #8b1a00;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+}
+.word-doc {
+  padding: 22px 30px;
+  min-height: 150px;
+  position: relative;
+  overflow: hidden;
+}
+.word-doc p { font-size: 12.5px; color: #333; line-height: 1.8; margin-bottom: 6px; }
+.word-doc p strong { color: #111; }
+.watermark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%) rotate(-30deg);
+  font-size: 21px;
+  font-weight: 900;
+  color: rgba(139,0,255,0.09);
+  white-space: nowrap;
+  pointer-events: none;
+  letter-spacing: 0.04em;
+}
+.word-foot {
+  border-top: 1px solid #eee;
+  padding: 4px 14px;
+  font-size: 10px;
+  color: var(--muc-color);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+/* ── ALERT MOCKUP ── */
+.alert-shell {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 36px;
+  margin-bottom: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-card {
+  background: white;
+  border-radius: 14px;
+  padding: 22px 26px;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.alert-head { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.alert-icon-box {
+  width: 38px; height: 38px;
+  background: #fff5f2;
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+  border: 1.5px solid rgba(250,60,15,0.2);
+}
+.alert-card h4 { font-size: 15px; font-weight: 700; color: #0a0a1a; }
+.alert-card .source { font-size: 10.5px; color: #aaa; font-weight: 500; margin-top: 2px; }
+.alert-card .alert-body { font-size: 13px; color: #6b6b80; line-height: 1.65; margin-bottom: 14px; font-weight: 300; }
+.alert-card .alert-body strong { color: var(--ln-red); font-weight: 600; }
+.just-field {
+  width: 100%;
+  border: 1.5px solid #e0e0ea;
+  border-radius: 8px;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  color: #aaa;
+  margin-bottom: 12px;
+  font-family: 'Space Grotesk', sans-serif;
+  background: #fafafa;
+  resize: none;
+  height: 50px;
+  outline: none;
+}
+.alert-btns { display: flex; gap: 8px; }
+.btn-cancel {
+  flex: 1;
+  padding: 9px;
+  border: 1.5px solid #d8d8e0;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #444;
+  background: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+.btn-send {
+  flex: 1;
+  padding: 9px;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--ln-red);
+  color: white;
+  text-align: center;
+  cursor: pointer;
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+/* ── FAQ ── */
+.faq-list { display: flex; flex-direction: column; gap: 10px; max-width: 740px; }
+.faq-item {
+  background: var(--ln-offwhite);
+  border-radius: 12px;
+  border: 1px solid var(--ln-gray);
+  overflow: hidden;
+  cursor: pointer;
+}
+.faq-q {
+  padding: 17px 22px;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ln-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.faq-arr {
+  width: 22px; height: 22px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: var(--ln-red);
+  flex-shrink: 0;
+  border: 1px solid var(--ln-gray);
+  transition: transform 0.2s;
+  font-weight: 700;
+}
+.faq-a {
+  padding: 0 22px 16px;
+  font-size: 13.5px;
+  color: var(--ln-textgray);
+  line-height: 1.7;
+  font-weight: 300;
+  display: none;
+}
+.faq-item.open .faq-a { display: block; }
+.faq-item.open .faq-arr { transform: rotate(90deg); }
+
+/* ── CONTACT ── */
+.contact-block {
+  background: var(--ln-dark);
+  border-radius: 20px;
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.contact-block::before {
+  content: '';
+  position: absolute;
+  right: -60px;
+  top: -60px;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: rgba(250,60,15,0.08);
+  pointer-events: none;
+}
+.contact-block h3 { font-size: 22px; font-weight: 700; margin-bottom: 6px; color: white; }
+.contact-block p { font-size: 14px; color: rgba(255,255,255,0.45); font-weight: 300; }
+.contact-cta {
+  background: var(--ln-red);
+  color: white;
+  padding: 13px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+}
+.contact-cta-ghost {
+  background: transparent;
+  color: rgba(255,255,255,0.7);
+  padding: 11px 26px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  display: inline-block;
+  border: 1px solid rgba(255,255,255,0.25);
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.contact-cta-ghost:hover { border-color: rgba(255,255,255,0.55); color: white; }
+.contact-cta-group { display: flex; flex-direction: column; gap: 10px; align-items: flex-end; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ln-dark);
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 32px 2rem;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+.footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
+.footer-tag {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  line-height: 1.8;
+  font-weight: 300;
+}
+.footer-tag strong { color: rgba(255,255,255,0.5); font-weight: 500; }
+
+@media (max-width: 640px) {
+  nav { display: none; }
+  .hero h1 { font-size: 28px; }
+  .contact-block { padding: 32px 24px; }
+  .section-wrap { padding: 60px 1.25rem; }
+  .alert-shell { padding: 20px; }
+}
+
+/* ── LANG SELECTOR ── */
+.lang-selector-guia { display: flex; align-items: center; gap: 4px; margin-right: 12px; }
+.lbtn { background: none; border: none; cursor: pointer; font-family: 'Space Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 4px 6px; color: rgba(255,255,255,0.35); transition: color 0.2s ease; }
+.lbtn.active, .lbtn:hover { color: var(--ln-red); }
+.lsep { color: rgba(255,255,255,0.15); font-size: 10px; font-family: 'Space Mono', monospace; }
+
+/* ── COOKIES ─────────────────────────────────────────────────────────────── */
+@keyframes fadeInUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+.cookie-btn-fixed { position:fixed; bottom:20px; left:20px; background:linear-gradient(135deg,#1e2a3a,#0f1724); color:white; padding:12px 20px; border-radius:50px; cursor:pointer; display:flex; align-items:center; gap:10px; z-index:1000; font-family:'Space Grotesk',sans-serif; box-shadow:0 4px 15px rgba(0,0,0,0.2); transition:transform 0.3s ease,box-shadow 0.3s ease,opacity 0.5s ease; border:1px solid rgba(255,255,255,0.2); }
+.cookie-btn-fixed:hover { transform:scale(1.05); box-shadow:0 6px 20px rgba(0,0,0,0.3); background:linear-gradient(135deg,#2a3a4a,#1a2535); }
+.cookie-btn-fixed.hidden { opacity:0; pointer-events:none; }
+.cookie-icon { font-size:20px; } .cookie-text { font-size:14px; font-weight:500; letter-spacing:0.5px; }
+.cookie-modal { display:none; position:fixed; z-index:2000; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); backdrop-filter:blur(5px); justify-content:center; align-items:center; }
+.cookie-modal-content { background-color:#ffffff; margin:20px; width:90%; max-width:700px; max-height:90vh; border-radius:20px; box-shadow:0 20px 50px rgba(0,0,0,0.3); display:flex; flex-direction:column; overflow:hidden; animation:fadeInUp 0.4s ease; }
+.cookie-modal-header { background:linear-gradient(135deg,#000029,#0a0a3a); color:white; padding:20px 25px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid rgba(250,60,15,0.3); }
+.cookie-modal-header h2 { margin:0; font-size:24px; font-weight:700; background:linear-gradient(135deg,#ffffff 0%,#FA3C0F 100%); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+.cookie-modal-close { background:none; border:none; color:white; font-size:32px; cursor:pointer; transition:transform 0.3s ease; line-height:1; }
+.cookie-modal-close:hover { transform:scale(1.1); color:#FA3C0F; }
+.cookie-modal-body { padding:25px; overflow-y:auto; max-height:60vh; }
+.cookie-modal-body p { font-size:14px; line-height:1.6; color:#4a5568; margin-bottom:15px; }
+.cookie-modal-body h3 { font-size:20px; font-weight:700; color:#000029; margin-top:20px; margin-bottom:10px; }
+.cookie-category { background:#f8f9fa; border-radius:12px; padding:15px; margin-bottom:15px; border-left:3px solid #FA3C0F; transition:all 0.3s ease; }
+.cookie-category:hover { background:#ffffff; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+.cookie-category-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; }
+.cookie-category-name { font-weight:700; font-size:16px; color:#000029; }
+.cookie-category-desc { font-size:13px; color:#6c757d; margin:0; }
+.cookie-switch { position:relative; display:inline-block; width:52px; height:26px; }
+.cookie-switch input { opacity:0; width:0; height:0; }
+.cookie-slider { position:absolute; cursor:pointer; top:0; left:0; right:0; bottom:0; background-color:#ccc; transition:0.3s; border-radius:34px; }
+.cookie-slider:before { position:absolute; content:""; height:20px; width:20px; left:3px; bottom:3px; background-color:white; transition:0.3s; border-radius:50%; }
+input:checked + .cookie-slider { background-color:#FA3C0F; }
+input:checked + .cookie-slider:before { transform:translateX(26px); }
+input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
+.cookie-modal-footer { padding:20px 25px; background:#f8f9fa; display:flex; gap:15px; justify-content:flex-end; border-top:1px solid rgba(0,0,41,0.1); }
+.cookie-btn { padding:10px 24px; border:none; border-radius:40px; font-weight:600; cursor:pointer; transition:all 0.3s ease; font-size:14px; }
+.cookie-btn-accept { background:linear-gradient(135deg,#FA3C0F,#e6350a); color:white; }
+.cookie-btn-accept:hover { transform:translateY(-2px); box-shadow:0 5px 15px rgba(250,60,15,0.4); }
+.cookie-btn-reject { background:transparent; color:#4a5568; border:1px solid #cbd5e0; }
+.cookie-btn-reject:hover { background:#e2e8f0; transform:translateY(-2px); }
+.cookie-btn-necessary { background:#000029; color:white; }
+.cookie-btn-necessary:hover { background:#1e2a3a; transform:translateY(-2px); }
+@media (max-width:600px) { .cookie-modal-footer{flex-direction:column;} .cookie-btn{width:100%;text-align:center;} .cookie-modal-header h2{font-size:20px;} .cookie-modal-body{padding:20px;} .cookie-category-name{font-size:14px;} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+        <style>.s0{fill:#ffffff;}.s1{fill:#FA3C0F;}</style>
+        <polygon class="s0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+        <polygon class="s0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+        <polygon class="s1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+        <polygon class="s1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+        <path class="s0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+        <path class="s0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+        <path class="s0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+        <polygon class="s0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+        <path class="s0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+        <path class="s0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+      </svg>
+      <div class="logo-divider"></div>
+      <span class="logo-subtitle" data-i18n="logo-subtitle">Seguridad · IT</span>
+    </div>
+    <nav>
+      <a href="#que-es" data-i18n="nav-que-es">Qué es</a>
+      <a href="#cuando" data-i18n="nav-cuando">Cuándo usarla</a>
+      <a href="#riesgos" data-i18n="nav-riesgos">Riesgos</a>
+      <a href="#practicas" data-i18n="nav-practicas">Buenas prácticas</a>
+      <a href="#limites" data-i18n="nav-limites">Límites</a>
+    </nav>
+    <div class="lang-selector-guia">
+      <button class="lbtn" data-lang="es">ES</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="en">EN</button>
+      <span class="lsep">|</span>
+      <button class="lbtn" data-lang="fr">FR</button>
+    </div>
+    <span class="header-pill" data-i18n="header-pill">NextGuide · Guías prácticas</span>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-eyebrow" data-i18n="hero-eyebrow">LOGNEXT IT · Concienciación · Octubre 2026</span>
+  <h1 data-i18n-html="hero-h1">NextGuide — Uso seguro de la <em>VPN</em></h1>
+  <p class="hero-sub" data-i18n-html="hero-sub">Tu conexión segura, estés donde estés</p>
+</div>
+
+<!-- 01 QUÉ ES -->
+<div class="section-wrap" id="que-es">
+  <span class="sec-tag" data-i18n="sec01-tag">01 · Qué es</span>
+  <h2 class="sec-title" data-i18n="sec01-title">¿Qué es una VPN y por qué importa?</h2>
+  <p class="sec-intro" data-i18n="sec01-p1">Una VPN (Red Privada Virtual) crea un túnel cifrado entre tu dispositivo e internet. Todo lo que envías y recibes viaja protegido dentro de ese túnel, ilegible para cualquiera que intente espiarlo por el camino.</p>
+  <p class="sec-intro" data-i18n="sec01-p2">Sin VPN, cuando te conectas a una red que no controlas, tus datos viajan “en abierto”: la persona que gestiona esa red —o cualquiera conectado a ella— puede ver por dónde navegas e incluso colarse entre tu equipo y los servicios que usas. Con VPN, todo eso queda cifrado y a salvo.</p>
+  <p class="sec-intro" data-i18n="sec01-p3">En resumen: la VPN es lo que convierte una red desconocida en una conexión de confianza.</p>
+</div>
+
+<hr class="divider">
+
+<!-- 02 CUÁNDO USARLA -->
+<div class="section-wrap" id="cuando">
+  <span class="sec-tag" data-i18n="sec02-tag">02 · Cuándo usarla</span>
+  <h2 class="sec-title" data-i18n="sec02-title">¿Cuándo usarla? Siempre que la red no sea de confianza</h2>
+  <p class="sec-intro" data-i18n="sec02-intro">La regla es sencilla: si trabajas con datos de la empresa o de nuestros clientes fuera de una red segura, la VPN va siempre activada. Sin excepciones.</p>
+
+  <div class="labels-grid" style="grid-template-columns:1fr;">
+    <div class="label-card int">
+      <div class="label-badge int" data-i18n-html="sec02-incluye-t"><span class="badge-dot"></span>Esto incluye</div>
+      <ul class="examples">
+        <li><span data-i18n="sec02-li1">Trabajar desde casa</span></li>
+        <li><span data-i18n="sec02-li2">El wifi de un hotel, aeropuerto o estación</span></li>
+        <li><span data-i18n="sec02-li3">Una cafetería o espacio de coworking</span></li>
+        <li><span data-i18n="sec02-li4">La red de un cliente o de un tercero</span></li>
+        <li><span data-i18n="sec02-li5">Cualquier red pública o abierta</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="sec-intro" style="margin-top:24px;" data-i18n="sec02-cierre">La oficina es una red controlada. Todo lo demás, no — y ahí es donde la VPN marca la diferencia.</p>
+</div>
+
+<hr class="divider">
+
+<!-- 03 RIESGOS -->
+<div class="section-wrap" id="riesgos">
+  <span class="sec-tag" data-i18n="sec03-tag">03 · Riesgos</span>
+  <h2 class="sec-title" data-i18n="sec03-title">¿Qué riesgos evitas?</h2>
+  <p class="sec-intro" data-i18n="sec03-intro">Estos son casos reales que la VPN neutraliza:</p>
+
+  <div class="labels-grid" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr));">
+    <div class="label-card con">
+      <div class="label-badge con" data-i18n-html="riesgo1-t"><span class="badge-dot"></span>El espía en la red pública</div>
+      <p class="desc" data-i18n="riesgo1">En un wifi abierto, alguien conectado a la misma red puede interceptar el tráfico sin cifrar y capturar lo que envías, incluidas contraseñas. Con VPN, solo verían datos cifrados sin sentido.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc" data-i18n-html="riesgo2-t"><span class="badge-dot"></span>La red falsa (el “gemelo malvado”)</div>
+      <p class="desc" data-i18n="riesgo2">Un atacante monta una red con el nombre de la del hotel o la cafetería (“WiFi_Hotel_Gratis”) para que te conectes a ella. Todo lo que pase por ahí lo controla él. La VPN protege tu tráfico aunque caigas en una de estas redes.</p>
+    </div>
+    <div class="label-card int">
+      <div class="label-badge int" data-i18n-html="riesgo3-t"><span class="badge-dot"></span>El robo de credenciales en tránsito</div>
+      <p class="desc" data-i18n="riesgo3">Sin cifrado, tus datos de acceso a M365 o a los sistemas de la empresa pueden capturarse por el camino. La VPN los blinda.</p>
+    </div>
+    <div class="label-card pub">
+      <div class="label-badge pub" data-i18n-html="riesgo4-t"><span class="badge-dot"></span>El acceso indebido a recursos de empresa</div>
+      <p class="desc" data-i18n="riesgo4">Conectarte a servicios corporativos desde una red no confiable abre una puerta que la VPN mantiene cerrada.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 04 BUENAS PRÁCTICAS -->
+<div class="section-wrap" id="practicas">
+  <span class="sec-tag" data-i18n="sec04-tag">04 · Buenas prácticas</span>
+  <h2 class="sec-title" data-i18n="sec04-title">Buenas prácticas</h2>
+
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <p data-i18n="bp1">Conéctate a la VPN ANTES de abrir nada de trabajo. No al revés.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <p data-i18n="bp2">No la desactives “solo un momento”. Ese momento es justo cuando ocurren los problemas.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <p data-i18n="bp3">Verifica que está activa antes de acceder a datos sensibles.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <p data-i18n="bp4">Nunca uses un wifi abierto sin VPN para temas de trabajo.</p>
+    </div>
+    <div class="step-card">
+      <div class="step-num">05</div>
+      <p data-i18n="bp5">Si la VPN no está disponible por lo que sea, los datos móviles de tu teléfono son más seguros que el wifi de un tercero.</p>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- 05 LÍMITES -->
+<div class="section-wrap" id="limites">
+  <span class="sec-tag" data-i18n="sec05-tag">05 · Límites</span>
+  <h2 class="sec-title" data-i18n="sec05-title">Lo que la VPN NO hace (y también debes saber)</h2>
+  <p class="sec-intro" data-i18n="sec05-intro">La VPN protege tu conexión, pero no tus decisiones. Es importante no bajar la guardia por tenerla activada:</p>
+
+  <div class="labels-grid">
+    <div class="label-card con">
+      <div class="label-badge con" data-i18n-html="limite1-t"><span class="badge-dot"></span>No te protege de un phishing</div>
+      <p class="desc" data-i18n="limite1">Si haces clic en un enlace trampa o entregas tus datos en una web falsa, la VPN no lo impide. Ahí sigue mandando tu ojo crítico.</p>
+    </div>
+    <div class="label-card muc">
+      <div class="label-badge muc" data-i18n-html="limite2-t"><span class="badge-dot"></span>No sustituye al antivirus</div>
+      <p class="desc" data-i18n="limite2">No sustituye al antivirus ni a las actualizaciones de tu equipo.</p>
+    </div>
+    <div class="label-card int">
+      <div class="label-badge int" data-i18n-html="limite3-t"><span class="badge-dot"></span>No te hace invisible ni invulnerable</div>
+      <p class="desc" data-i18n="limite3">Es una capa de protección más, no un escudo total.</p>
+    </div>
+  </div>
+
+  <p class="sec-intro" style="margin-top:24px;" data-i18n="sec05-cierre">La VPN es una herramienta poderosa, pero funciona en equipo con el resto: sentido común, contraseñas robustas, doble factor y saber reconocer un engaño.</p>
+</div>
+
+<hr class="divider">
+
+<!-- CONTACT -->
+<div class="section-wrap tight">
+  <div class="contact-block">
+    <div>
+      <h3 data-i18n="contact-h3">¿Dudas sobre la VPN?</h3>
+      <p data-i18n="contact-p">Contacta con el equipo de IT. Estamos para ayudarte.</p>
+    </div>
+    <div class="contact-cta-group">
+      <a href="mailto:sistemas@lognext.com" class="contact-cta" data-i18n="contact-cta">Contactar con IT →</a>
+      <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=3AbIs9jl0ES54q7dMWko6nfQRcd3sH1EtThXUFtnQORUM0E5QVMwT1NYNURVMTlGUlpTSDY0RENJNiQlQCN0PWcu"
+         class="contact-cta-ghost" target="_blank" rel="noopener"
+         data-i18n="contact-form">Incidencias y peticiones →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <svg class="footer-logo" viewBox="0 0 1920 437.9" xmlns="http://www.w3.org/2000/svg">
+      <style>.f0{fill:#ffffff;}.f1{fill:#FA3C0F;}</style>
+      <polygon class="f0" points="1417.7,118.7 1358.3,118.7 1443,219.4 1357.9,320 1417.7,320 1485.6,243.1 1485.6,195.6"/>
+      <polygon class="f0" points="1585.9,118.7 1645.3,118.7 1560.5,219.4 1645.7,320 1585.9,320 1518,243.1 1518,195.6"/>
+      <polygon class="f1" points="1334.7,348.1 1269.7,407.7 1328.5,407.7 1391,348.1"/>
+      <polygon class="f1" points="1667.5,89.9 1730.6,30.3 1671.8,30.3 1611.2,89.9"/>
+      <path class="f0" d="M230.7,272.7v47.4H43.3V118.7h52.3v154H230.7z"/>
+      <path class="f0" d="M1175.7,162.4v38.3h161.1v37.4h-161.1v40.8h161.1v41.1h-212.9V118.7h212.9v43.7H1175.7z"/>
+      <path class="f0" d="M1032.6,118.9v195.7h-1.5l-96.8-195.7H826.5v201.2h52.3V124.4h1.5l96.5,195.7h108.1V118.9H1032.6z"/>
+      <polygon class="f0" points="1685,118.6 1645.5,164.5 1733.8,164.5 1733.8,320 1786,320 1786,164.5 1876.7,164.5 1876.7,118.6"/>
+      <path class="f0" d="M245.6,219.1c0-68.7,39.1-106.4,130.4-106.4c91,0,130.4,37.9,130.4,106.4c0,68.7-39.4,107-130.4,107C284.7,326.1,245.6,288.2,245.6,219.1z M454,219.1c0-42.1-22.4-62.6-78.1-62.6c-55.7,0-78,20.3-78,62.6c0,42.7,22.5,63.3,78,63.3C431.4,282.4,454,261.5,454,219.1z"/>
+      <path class="f0" d="M791.7,202.2H658.1v36.7h78.4c-6.4,28.8-28.3,43.9-74.3,43.9c-55.4,0-78.6-21-78.6-63.7c0-42.4,22.9-63.2,78.6-63.2c35,0,55.5,9.3,66.6,25.5h58.8c-13.1-44.5-52.8-68.7-125.4-68.7c-91.3,0-130.4,37.6-130.4,106.4c0,69,42.3,107,130.4,107c88.2,0,130.4-38.2,130.4-107C792.6,213.2,792.3,207.6,791.7,202.2z"/>
+    </svg>
+    <p class="footer-tag" data-i18n-html="footer-tag">
+      <strong>Departamento IT · LOGNEXT S.L.</strong><br>
+      Guía de VPN · Concienciación · Octubre 2026<br>
+      Documento interno · sistemas@lognext.com<br>
+      <a href="https://nexttech.lognext.com" style="color:#FA3C0F;text-decoration:none;font-weight:600;">← Volver a NextTech</a> &nbsp;·&nbsp; <span style="opacity:0.5;">Ecosistema Next · LOGNEXT</span>
+    </p>
+  </div>
+</footer>
+
+
+<script>
+// ── I18N ─────────────────────────────────────────────────────────────────────
+const I18N = {
+  "es": {
+    "doc-title": "Uso seguro de la VPN — LOGNEXT",
+    "logo-subtitle": "Seguridad · IT",
+    "nav-que-es": "Qué es",
+    "nav-cuando": "Cuándo usarla",
+    "nav-riesgos": "Riesgos",
+    "nav-practicas": "Buenas prácticas",
+    "nav-limites": "Límites",
+    "header-pill": "NextGuide · Guías prácticas",
+    "hero-eyebrow": "LOGNEXT IT · Concienciación · Octubre 2026",
+    "hero-h1": "NextGuide — Uso seguro de la <em>VPN</em>",
+    "hero-sub": "Tu conexión segura, estés donde estés",
+    "sec01-tag": "01 · Qué es",
+    "sec01-title": "¿Qué es una VPN y por qué importa?",
+    "sec01-p1": "Una VPN (Red Privada Virtual) crea un túnel cifrado entre tu dispositivo e internet. Todo lo que envías y recibes viaja protegido dentro de ese túnel, ilegible para cualquiera que intente espiarlo por el camino.",
+    "sec01-p2": "Sin VPN, cuando te conectas a una red que no controlas, tus datos viajan “en abierto”: la persona que gestiona esa red —o cualquiera conectado a ella— puede ver por dónde navegas e incluso colarse entre tu equipo y los servicios que usas. Con VPN, todo eso queda cifrado y a salvo.",
+    "sec01-p3": "En resumen: la VPN es lo que convierte una red desconocida en una conexión de confianza.",
+    "sec02-tag": "02 · Cuándo usarla",
+    "sec02-title": "¿Cuándo usarla? Siempre que la red no sea de confianza",
+    "sec02-intro": "La regla es sencilla: si trabajas con datos de la empresa o de nuestros clientes fuera de una red segura, la VPN va siempre activada. Sin excepciones.",
+    "sec02-incluye-t": "<span class=\"badge-dot\"></span>Esto incluye",
+    "sec02-li1": "Trabajar desde casa",
+    "sec02-li2": "El wifi de un hotel, aeropuerto o estación",
+    "sec02-li3": "Una cafetería o espacio de coworking",
+    "sec02-li4": "La red de un cliente o de un tercero",
+    "sec02-li5": "Cualquier red pública o abierta",
+    "sec02-cierre": "La oficina es una red controlada. Todo lo demás, no — y ahí es donde la VPN marca la diferencia.",
+    "sec03-tag": "03 · Riesgos",
+    "sec03-title": "¿Qué riesgos evitas?",
+    "sec03-intro": "Estos son casos reales que la VPN neutraliza:",
+    "riesgo1-t": "<span class=\"badge-dot\"></span>El espía en la red pública",
+    "riesgo1": "En un wifi abierto, alguien conectado a la misma red puede interceptar el tráfico sin cifrar y capturar lo que envías, incluidas contraseñas. Con VPN, solo verían datos cifrados sin sentido.",
+    "riesgo2-t": "<span class=\"badge-dot\"></span>La red falsa (el “gemelo malvado”)",
+    "riesgo2": "Un atacante monta una red con el nombre de la del hotel o la cafetería (“WiFi_Hotel_Gratis”) para que te conectes a ella. Todo lo que pase por ahí lo controla él. La VPN protege tu tráfico aunque caigas en una de estas redes.",
+    "riesgo3-t": "<span class=\"badge-dot\"></span>El robo de credenciales en tránsito",
+    "riesgo3": "Sin cifrado, tus datos de acceso a M365 o a los sistemas de la empresa pueden capturarse por el camino. La VPN los blinda.",
+    "riesgo4-t": "<span class=\"badge-dot\"></span>El acceso indebido a recursos de empresa",
+    "riesgo4": "Conectarte a servicios corporativos desde una red no confiable abre una puerta que la VPN mantiene cerrada.",
+    "sec04-tag": "04 · Buenas prácticas",
+    "sec04-title": "Buenas prácticas",
+    "bp1": "Conéctate a la VPN ANTES de abrir nada de trabajo. No al revés.",
+    "bp2": "No la desactives “solo un momento”. Ese momento es justo cuando ocurren los problemas.",
+    "bp3": "Verifica que está activa antes de acceder a datos sensibles.",
+    "bp4": "Nunca uses un wifi abierto sin VPN para temas de trabajo.",
+    "bp5": "Si la VPN no está disponible por lo que sea, los datos móviles de tu teléfono son más seguros que el wifi de un tercero.",
+    "sec05-tag": "05 · Límites",
+    "sec05-title": "Lo que la VPN NO hace (y también debes saber)",
+    "sec05-intro": "La VPN protege tu conexión, pero no tus decisiones. Es importante no bajar la guardia por tenerla activada:",
+    "limite1-t": "<span class=\"badge-dot\"></span>No te protege de un phishing",
+    "limite1": "Si haces clic en un enlace trampa o entregas tus datos en una web falsa, la VPN no lo impide. Ahí sigue mandando tu ojo crítico.",
+    "limite2-t": "<span class=\"badge-dot\"></span>No sustituye al antivirus",
+    "limite2": "No sustituye al antivirus ni a las actualizaciones de tu equipo.",
+    "limite3-t": "<span class=\"badge-dot\"></span>No te hace invisible ni invulnerable",
+    "limite3": "Es una capa de protección más, no un escudo total.",
+    "sec05-cierre": "La VPN es una herramienta poderosa, pero funciona en equipo con el resto: sentido común, contraseñas robustas, doble factor y saber reconocer un engaño.",
+    "contact-h3": "¿Dudas sobre la VPN?",
+    "contact-p": "Contacta con el equipo de IT. Estamos para ayudarte.",
+    "contact-cta": "Contactar con IT →",
+    "contact-form": "Incidencias y peticiones →",
+    "footer-tag": "<strong>Departamento IT · LOGNEXT S.L.</strong><br/>\n      Guía de VPN · Concienciación · Octubre 2026<br/>\n      Documento interno · sistemas@lognext.com<br/>\n<a href=\"https://nexttech.lognext.com\" style=\"color:#FA3C0F;text-decoration:none;font-weight:600;\">← Volver a NextTech</a>  ·  <span style=\"opacity:0.5;\">Ecosistema Next · LOGNEXT</span>",
+    "ck-btn": "Cookies",
+    "ck-title": "Valoramos tu privacidad",
+    "ck-p1": "Usamos cookies para mejorar tu experiencia de navegación, mostrarte anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en «Aceptar todas» das tu consentimiento a nuestro uso de las cookies.",
+    "ck-customize": "Personalizar las preferencias de consentimiento",
+    "ck-p2": "Usamos cookies para ayudarte a navegar de manera eficiente y realizar ciertas funciones. Encontrarás información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.",
+    "ck-p3": "Las cookies categorizadas como «Necesarias» se guardan en tu navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.",
+    "ck-p4": "También utilizamos cookies de terceros que nos ayudan a analizar cómo utilizas este sitio, guardar tus preferencias y ofrecerte el contenido que te sea relevante. Estas cookies solo se guardan en tu navegador previo consentimiento por tu parte.",
+    "ck-p5": "Puedes optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a tu experiencia de navegación.",
+    "ck-necessary": "Necesaria",
+    "ck-necessary-desc": "Las cookies necesarias son cruciales para las funciones básicas del sitio web y este no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.",
+    "ck-functional": "Funcional",
+    "ck-functional-desc": "Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.",
+    "ck-analytics": "Analítica",
+    "ck-analytics-desc": "Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como número de visitantes, tasa de rebote, fuente de tráfico, etc.",
+    "ck-performance": "Rendimiento",
+    "ck-performance-desc": "Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.",
+    "ck-advertising": "Anuncio",
+    "ck-advertising-desc": "Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.",
+    "ck-reject": "Rechazar todas",
+    "ck-accept": "Aceptar todas",
+    "ck-only-necessary": "Aceptar solo necesarias"
+  },
+  "en": {
+    "doc-title": "Safe use of the VPN — LOGNEXT",
+    "logo-subtitle": "Security · IT",
+    "nav-que-es": "What it is",
+    "nav-cuando": "When to use it",
+    "nav-riesgos": "Risks",
+    "nav-practicas": "Best practices",
+    "nav-limites": "Limits",
+    "header-pill": "NextGuide · Practical guides",
+    "hero-eyebrow": "LOGNEXT IT · Awareness · October 2026",
+    "hero-h1": "NextGuide — Safe use of the <em>VPN</em>",
+    "hero-sub": "Your secure connection, wherever you are",
+    "sec01-tag": "01 · What it is",
+    "sec01-title": "What is a VPN and why does it matter?",
+    "sec01-p1": "A VPN (Virtual Private Network) creates an encrypted tunnel between your device and the internet. Everything you send and receive travels protected inside that tunnel, unreadable to anyone trying to spy on it along the way.",
+    "sec01-p2": "Without a VPN, when you connect to a network you do not control, your data travels “in the open”: whoever runs that network —or anyone connected to it— can see where you browse and even slip in between your device and the services you use. With a VPN, all of that stays encrypted and safe.",
+    "sec01-p3": "In short: a VPN is what turns an unknown network into a trusted connection.",
+    "sec02-tag": "02 · When to use it",
+    "sec02-title": "When should you use it? Whenever the network is not trusted",
+    "sec02-intro": "The rule is simple: if you work with company or client data outside a secure network, the VPN is always on. No exceptions.",
+    "sec02-incluye-t": "<span class=\"badge-dot\"></span>This includes",
+    "sec02-li1": "Working from home",
+    "sec02-li2": "Hotel, airport or station Wi-Fi",
+    "sec02-li3": "A café or a coworking space",
+    "sec02-li4": "A client’s network or a third party’s",
+    "sec02-li5": "Any public or open network",
+    "sec02-cierre": "The office is a controlled network. Everything else is not — and that is where the VPN makes the difference.",
+    "sec03-tag": "03 · Risks",
+    "sec03-title": "What risks do you avoid?",
+    "sec03-intro": "These are real cases that the VPN neutralises:",
+    "riesgo1-t": "<span class=\"badge-dot\"></span>The eavesdropper on the public network",
+    "riesgo1": "On open Wi-Fi, someone connected to the same network can intercept unencrypted traffic and capture what you send, passwords included. With a VPN, all they would see is meaningless encrypted data.",
+    "riesgo2-t": "<span class=\"badge-dot\"></span>The fake network (the “evil twin”)",
+    "riesgo2": "An attacker sets up a network using the name of the hotel’s or the café’s (“WiFi_Hotel_Gratis”) so that you connect to it. Everything that goes through it is under their control. The VPN protects your traffic even if you fall for one of these networks.",
+    "riesgo3-t": "<span class=\"badge-dot\"></span>Credential theft in transit",
+    "riesgo3": "Without encryption, your login details for M365 or the company systems can be captured along the way. The VPN shields them.",
+    "riesgo4-t": "<span class=\"badge-dot\"></span>Improper access to company resources",
+    "riesgo4": "Connecting to corporate services from an untrusted network opens a door that the VPN keeps shut.",
+    "sec04-tag": "04 · Best practices",
+    "sec04-title": "Best practices",
+    "bp1": "Connect to the VPN BEFORE opening anything work-related. Not the other way round.",
+    "bp2": "Do not switch it off “just for a moment”. That moment is exactly when problems happen.",
+    "bp3": "Check that it is active before accessing sensitive data.",
+    "bp4": "Never use open Wi-Fi without a VPN for work matters.",
+    "bp5": "If the VPN is unavailable for whatever reason, your phone’s mobile data is safer than a third party’s Wi-Fi.",
+    "sec05-tag": "05 · Limits",
+    "sec05-title": "What the VPN does NOT do (and you should also know)",
+    "sec05-intro": "The VPN protects your connection, but not your decisions. It is important not to lower your guard just because it is switched on:",
+    "limite1-t": "<span class=\"badge-dot\"></span>It does not protect you from phishing",
+    "limite1": "If you click a trap link or hand over your details on a fake website, the VPN will not stop it. There, your critical eye is still what counts.",
+    "limite2-t": "<span class=\"badge-dot\"></span>It does not replace your antivirus",
+    "limite2": "It does not replace your antivirus or your device updates.",
+    "limite3-t": "<span class=\"badge-dot\"></span>It does not make you invisible or invulnerable",
+    "limite3": "It is one more layer of protection, not a complete shield.",
+    "sec05-cierre": "The VPN is a powerful tool, but it works as a team with the rest: common sense, strong passwords, two-factor authentication and knowing how to recognise a scam.",
+    "contact-h3": "Any questions about the VPN?",
+    "contact-p": "Get in touch with the IT team. We are here to help.",
+    "contact-cta": "Contact IT →",
+    "contact-form": "Incidents and requests →",
+    "footer-tag": "<strong>IT Department · LOGNEXT S.L.</strong><br/>\n      VPN Guide · Awareness · October 2026<br/>\n      Internal document · sistemas@lognext.com<br/>\n<a href=\"https://nexttech.lognext.com\" style=\"color:#FA3C0F;text-decoration:none;font-weight:600;\">← Back to NextTech</a>  ·  <span style=\"opacity:0.5;\">Next Ecosystem · LOGNEXT</span>",
+    "ck-btn": "Cookies",
+    "ck-title": "We value your privacy",
+    "ck-p1": "We use cookies to improve your browsing experience, show you personalised ads or content, and analyse our traffic. By clicking \"Accept all\" you consent to our use of cookies.",
+    "ck-customize": "Customise consent preferences",
+    "ck-p2": "We use cookies to help you navigate efficiently and to perform certain functions. You will find detailed information about each cookie under each consent category below.",
+    "ck-p3": "Cookies categorised as \"Necessary\" are stored in your browser as they are essential for enabling the basic functionalities of the website.",
+    "ck-p4": "We also use third-party cookies that help us analyse how you use this site, store your preferences, and deliver content that is relevant to you. These cookies will only be stored in your browser with your prior consent.",
+    "ck-p5": "You may choose to enable or disable some or all of these cookies, though disabling some of them may affect your browsing experience.",
+    "ck-necessary": "Necessary",
+    "ck-necessary-desc": "Necessary cookies are essential for the basic functions of the website and the site will not work as intended without them. These cookies do not store any personally identifiable data.",
+    "ck-functional": "Functional",
+    "ck-functional-desc": "Functional cookies help perform certain functionalities, such as sharing website content on social media platforms, collecting feedback, and other third-party features.",
+    "ck-analytics": "Analytics",
+    "ck-analytics-desc": "Analytics cookies are used to understand how visitors interact with the website. These cookies help provide information on metrics such as number of visitors, bounce rate, traffic source, etc.",
+    "ck-performance": "Performance",
+    "ck-performance-desc": "Performance cookies are used to understand and analyse the key performance indices of the website, which helps deliver a better user experience for visitors.",
+    "ck-advertising": "Advertising",
+    "ck-advertising-desc": "Advertising cookies are used to deliver visitors with personalised advertisements based on the pages they previously visited and to analyse the effectiveness of the advertising campaign.",
+    "ck-reject": "Reject all",
+    "ck-accept": "Accept all",
+    "ck-only-necessary": "Accept necessary only"
+  },
+  "fr": {
+    "doc-title": "Utilisation sécurisée du VPN — LOGNEXT",
+    "logo-subtitle": "Sécurité · IT",
+    "nav-que-es": "Définition",
+    "nav-cuando": "Quand l’utiliser",
+    "nav-riesgos": "Risques",
+    "nav-practicas": "Bonnes pratiques",
+    "nav-limites": "Limites",
+    "header-pill": "NextGuide · Guides pratiques",
+    "hero-eyebrow": "LOGNEXT IT · Sensibilisation · Octobre 2026",
+    "hero-h1": "NextGuide — Utilisation sécurisée du <em>VPN</em>",
+    "hero-sub": "Votre connexion sécurisée, où que vous soyez",
+    "sec01-tag": "01 · Qu’est-ce que c’est",
+    "sec01-title": "Qu’est-ce qu’un VPN et pourquoi est-ce important ?",
+    "sec01-p1": "Un VPN (réseau privé virtuel) crée un tunnel chiffré entre votre appareil et internet. Tout ce que vous envoyez et recevez circule protégé à l’intérieur de ce tunnel, illisible pour quiconque tenterait de l’espionner en chemin.",
+    "sec01-p2": "Sans VPN, lorsque vous vous connectez à un réseau que vous ne contrôlez pas, vos données circulent « en clair » : la personne qui gère ce réseau —ou n’importe qui y est connecté— peut voir les sites que vous consultez et même s’intercaler entre votre appareil et les services que vous utilisez. Avec un VPN, tout cela reste chiffré et à l’abri.",
+    "sec01-p3": "En résumé : le VPN est ce qui transforme un réseau inconnu en une connexion de confiance.",
+    "sec02-tag": "02 · Quand l’utiliser",
+    "sec02-title": "Quand l’utiliser ? Dès que le réseau n’est pas de confiance",
+    "sec02-intro": "La règle est simple : si vous travaillez avec des données de l’entreprise ou de nos clients en dehors d’un réseau sécurisé, le VPN est toujours activé. Sans exception.",
+    "sec02-incluye-t": "<span class=\"badge-dot\"></span>Cela comprend",
+    "sec02-li1": "Le travail depuis chez vous",
+    "sec02-li2": "Le wifi d’un hôtel, d’un aéroport ou d’une gare",
+    "sec02-li3": "Un café ou un espace de coworking",
+    "sec02-li4": "Le réseau d’un client ou d’un tiers",
+    "sec02-li5": "Tout réseau public ou ouvert",
+    "sec02-cierre": "Le bureau est un réseau contrôlé. Tout le reste ne l’est pas — et c’est là que le VPN fait la différence.",
+    "sec03-tag": "03 · Risques",
+    "sec03-title": "Quels risques évitez-vous ?",
+    "sec03-intro": "Voici des cas réels que le VPN neutralise :",
+    "riesgo1-t": "<span class=\"badge-dot\"></span>L’espion sur le réseau public",
+    "riesgo1": "Sur un wifi ouvert, une personne connectée au même réseau peut intercepter le trafic non chiffré et capturer ce que vous envoyez, mots de passe compris. Avec un VPN, elle ne verrait que des données chiffrées sans aucun sens.",
+    "riesgo2-t": "<span class=\"badge-dot\"></span>Le faux réseau (le « jumeau maléfique »)",
+    "riesgo2": "Un attaquant crée un réseau portant le nom de celui de l’hôtel ou du café (« WiFi_Hotel_Gratis ») pour que vous vous y connectiez. Tout ce qui y passe, c’est lui qui le contrôle. Le VPN protège votre trafic même si vous tombez dans l’un de ces réseaux.",
+    "riesgo3-t": "<span class=\"badge-dot\"></span>Le vol d’identifiants en transit",
+    "riesgo3": "Sans chiffrement, vos identifiants d’accès à M365 ou aux systèmes de l’entreprise peuvent être capturés en chemin. Le VPN les blinde.",
+    "riesgo4-t": "<span class=\"badge-dot\"></span>L’accès indu aux ressources de l’entreprise",
+    "riesgo4": "Vous connecter aux services d’entreprise depuis un réseau non fiable ouvre une porte que le VPN maintient fermée.",
+    "sec04-tag": "04 · Bonnes pratiques",
+    "sec04-title": "Bonnes pratiques",
+    "bp1": "Connectez-vous au VPN AVANT d’ouvrir quoi que ce soit lié au travail. Pas l’inverse.",
+    "bp2": "Ne le désactivez pas « juste un instant ». C’est précisément à ce moment-là que les problèmes surviennent.",
+    "bp3": "Vérifiez qu’il est actif avant d’accéder à des données sensibles.",
+    "bp4": "N’utilisez jamais un wifi ouvert sans VPN pour des sujets professionnels.",
+    "bp5": "Si le VPN n’est pas disponible pour une raison quelconque, les données mobiles de votre téléphone sont plus sûres que le wifi d’un tiers.",
+    "sec05-tag": "05 · Limites",
+    "sec05-title": "Ce que le VPN ne fait PAS (et qu’il faut aussi savoir)",
+    "sec05-intro": "Le VPN protège votre connexion, mais pas vos décisions. Il est important de ne pas baisser la garde sous prétexte qu’il est activé :",
+    "limite1-t": "<span class=\"badge-dot\"></span>Il ne vous protège pas du phishing",
+    "limite1": "Si vous cliquez sur un lien piège ou communiquez vos données sur un faux site, le VPN ne l’empêchera pas. Là, c’est toujours votre œil critique qui commande.",
+    "limite2-t": "<span class=\"badge-dot\"></span>Il ne remplace pas l’antivirus",
+    "limite2": "Il ne remplace ni l’antivirus ni les mises à jour de votre équipement.",
+    "limite3-t": "<span class=\"badge-dot\"></span>Il ne vous rend ni invisible ni invulnérable",
+    "limite3": "C’est une couche de protection supplémentaire, pas un bouclier total.",
+    "sec05-cierre": "Le VPN est un outil puissant, mais il fonctionne en équipe avec le reste : bon sens, mots de passe robustes, double facteur et savoir reconnaître une arnaque.",
+    "contact-h3": "Des questions sur le VPN ?",
+    "contact-p": "Contactez l’équipe IT. Nous sommes là pour vous aider.",
+    "contact-cta": "Contacter l’IT →",
+    "contact-form": "Incidents et demandes →",
+    "footer-tag": "<strong>Département IT · LOGNEXT S.L.</strong><br/>\n      Guide VPN · Sensibilisation · Octobre 2026<br/>\n      Document interne · sistemas@lognext.com<br/>\n<a href=\"https://nexttech.lognext.com\" style=\"color:#FA3C0F;text-decoration:none;font-weight:600;\">← Retour à NextTech</a>  ·  <span style=\"opacity:0.5;\">Écosystème Next · LOGNEXT</span>",
+    "ck-btn": "Cookies",
+    "ck-title": "Nous respectons votre vie privée",
+    "ck-p1": "Nous utilisons des cookies pour améliorer votre expérience de navigation, vous afficher des publicités ou des contenus personnalisés et analyser notre trafic. En cliquant sur « Tout accepter », vous consentez à notre utilisation des cookies.",
+    "ck-customize": "Personnaliser les préférences de consentement",
+    "ck-p2": "Nous utilisons des cookies pour vous aider à naviguer efficacement et à réaliser certaines fonctions. Vous trouverez des informations détaillées sur chacun des cookies sous chaque catégorie de consentement ci-dessous.",
+    "ck-p3": "Les cookies classés comme « Nécessaires » sont enregistrés dans votre navigateur, car ils sont indispensables pour permettre les fonctionnalités de base du site web.",
+    "ck-p4": "Nous utilisons également des cookies tiers qui nous aident à analyser la façon dont vous utilisez ce site, à enregistrer vos préférences et à vous proposer un contenu pertinent. Ces cookies ne sont enregistrés dans votre navigateur qu'avec votre consentement préalable.",
+    "ck-p5": "Vous pouvez choisir d'activer ou de désactiver certains ou tous ces cookies, bien que la désactivation de certains d'entre eux puisse affecter votre expérience de navigation.",
+    "ck-necessary": "Nécessaire",
+    "ck-necessary-desc": "Les cookies nécessaires sont essentiels aux fonctions de base du site web, qui ne fonctionnera pas comme prévu sans eux. Ces cookies ne stockent aucune donnée d'identification personnelle.",
+    "ck-functional": "Fonctionnel",
+    "ck-functional-desc": "Les cookies fonctionnels permettent d'assurer certaines fonctionnalités, comme le partage du contenu du site web sur des plateformes de réseaux sociaux, la collecte de commentaires et d'autres fonctionnalités tierces.",
+    "ck-analytics": "Analytique",
+    "ck-analytics-desc": "Les cookies analytiques sont utilisés pour comprendre comment les visiteurs interagissent avec le site web. Ces cookies fournissent des informations sur des métriques telles que le nombre de visiteurs, le taux de rebond, la source du trafic, etc.",
+    "ck-performance": "Performance",
+    "ck-performance-desc": "Les cookies de performance sont utilisés pour comprendre et analyser les indicateurs de performance clés du site web, ce qui contribue à offrir une meilleure expérience utilisateur aux visiteurs.",
+    "ck-advertising": "Publicité",
+    "ck-advertising-desc": "Les cookies publicitaires sont utilisés pour proposer aux visiteurs des publicités personnalisées basées sur les pages qu'ils ont visitées précédemment et pour analyser l'efficacité des campagnes publicitaires.",
+    "ck-reject": "Tout refuser",
+    "ck-accept": "Tout accepter",
+    "ck-only-necessary": "Accepter uniquement les nécessaires"
+  }
+};;
+
+function applyLang(lang) {
+  document.documentElement.lang = lang;
+  localStorage.setItem('guia-lang', lang);
+  const url = new URL(window.location);
+  url.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', url);
+  const t = I18N[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n')];
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    const v = t[el.getAttribute('data-i18n-html')];
+    if (v !== undefined) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.getAttribute('data-i18n-attr').split(' ').forEach(pair => {
+      const [attr, key] = pair.split(':');
+      const v = t[key];
+      if (v !== undefined) el.setAttribute(attr, v);
+    });
+  });
+  document.querySelectorAll('.lbtn').forEach(b =>
+    b.classList.toggle('active', b.dataset.lang === lang));
+}
+
+const initLang = new URLSearchParams(window.location.search).get('lang')
+  || localStorage.getItem('guia-lang') || 'es';
+applyLang(initLang);
+document.querySelectorAll('.lbtn').forEach(b =>
+  b.addEventListener('click', () => applyLang(b.dataset.lang)));
+</script>
+
+<!-- ── COOKIES ── -->
+<div class="cookie-btn-fixed" id="cookieBtn">
+  <span class="cookie-icon">🍪</span>
+  <span class="cookie-text" data-i18n="ck-btn">Cookies</span>
+</div>
+<div id="cookieModal" class="cookie-modal">
+  <div class="cookie-modal-content">
+    <div class="cookie-modal-header">
+      <h2 data-i18n="ck-title">Valoramos tu privacidad</h2>
+      <button class="cookie-modal-close" id="closeCookieModal">&times;</button>
+    </div>
+    <div class="cookie-modal-body">
+      <p data-i18n="ck-p1">Usamos cookies para mejorar tu experiencia de navegación, mostrarte anuncios o contenidos personalizados y analizar nuestro tráfico. Al hacer clic en «Aceptar todas» das tu consentimiento a nuestro uso de las cookies.</p>
+      <h3 data-i18n="ck-customize">Personalizar las preferencias de consentimiento</h3>
+      <p data-i18n="ck-p2">Usamos cookies para ayudarte a navegar de manera eficiente y realizar ciertas funciones. Encontrarás información detallada sobre cada una de las cookies bajo cada categoría de consentimiento a continuación.</p>
+      <p data-i18n="ck-p3">Las cookies categorizadas como «Necesarias» se guardan en tu navegador, ya que son esenciales para permitir las funcionalidades básicas del sitio web.</p>
+      <p data-i18n="ck-p4">También utilizamos cookies de terceros que nos ayudan a analizar cómo utilizas este sitio, guardar tus preferencias y ofrecerte el contenido que te sea relevante. Estas cookies solo se guardan en tu navegador previo consentimiento por tu parte.</p>
+      <p data-i18n="ck-p5">Puedes optar por activar o desactivar alguna o todas estas cookies, aunque la desactivación de algunas podría afectar a tu experiencia de navegación.</p>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-necessary">Necesaria</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieNecessary" checked disabled><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-necessary-desc">Las cookies necesarias son cruciales para las funciones básicas del sitio web y este no funcionará de la forma prevista sin ellas. Estas cookies no almacenan ningún dato de identificación personal.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-functional">Funcional</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieFunctional"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-functional-desc">Las cookies funcionales ayudan a realizar ciertas funcionalidades, como compartir el contenido del sitio web en plataformas de redes sociales, recopilar comentarios y otras características de terceros.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-analytics">Analítica</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAnalytics"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-analytics-desc">Las cookies analíticas se utilizan para comprender cómo interactúan los visitantes con el sitio web. Estas cookies ayudan a proporcionar información sobre métricas como número de visitantes, tasa de rebote, fuente de tráfico, etc.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-performance">Rendimiento</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookiePerformance"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-performance-desc">Las cookies de rendimiento se utilizan para comprender y analizar los índices de rendimiento clave del sitio web, lo que ayuda a proporcionar una mejor experiencia de usuario para los visitantes.</p>
+      </div>
+      <div class="cookie-category">
+        <div class="cookie-category-header"><span class="cookie-category-name" data-i18n="ck-advertising">Anuncio</span><label class="cookie-switch"><input type="checkbox" class="cookie-checkbox" id="cookieAdvertising"><span class="cookie-slider"></span></label></div>
+        <p class="cookie-category-desc" data-i18n="ck-advertising-desc">Las cookies publicitarias se utilizan para entregar a los visitantes anuncios personalizados basados en las páginas que visitaron antes y analizar la efectividad de la campaña publicitaria.</p>
+      </div>
+    </div>
+    <div class="cookie-modal-footer">
+      <button class="cookie-btn cookie-btn-reject" id="rejectAllCookies" data-i18n="ck-reject">Rechazar todas</button>
+      <button class="cookie-btn cookie-btn-accept" id="acceptAllCookies" data-i18n="ck-accept">Aceptar todas</button>
+      <button class="cookie-btn cookie-btn-necessary" id="acceptNecessaryCookies" data-i18n="ck-only-necessary">Aceptar solo necesarias</button>
+    </div>
+  </div>
+</div>
+<script>
+(function() {
+  const STORAGE_KEY = 'lognext_cookie_preferences';
+  const modal=document.getElementById('cookieModal'), btn=document.getElementById('cookieBtn'), closeBtn=document.getElementById('closeCookieModal');
+  const acceptBtn=document.getElementById('acceptAllCookies'), rejectBtn=document.getElementById('rejectAllCookies'), necessaryBtn=document.getElementById('acceptNecessaryCookies');
+  const chkF=document.getElementById('cookieFunctional'), chkA=document.getElementById('cookieAnalytics'), chkP=document.getElementById('cookiePerformance'), chkAd=document.getElementById('cookieAdvertising');
+  function loadPrefs() { const p=localStorage.getItem(STORAGE_KEY)?JSON.parse(localStorage.getItem(STORAGE_KEY)):{necessary:true,functional:false,analytics:false,performance:false,advertising:false}; if(chkF)chkF.checked=!!p.functional; if(chkA)chkA.checked=!!p.analytics; if(chkP)chkP.checked=!!p.performance; if(chkAd)chkAd.checked=!!p.advertising; }
+  function savePrefs() { const p={necessary:true,functional:chkF?chkF.checked:false,analytics:chkA?chkA.checked:false,performance:chkP?chkP.checked:false,advertising:chkAd?chkAd.checked:false}; localStorage.setItem(STORAGE_KEY,JSON.stringify(p)); window.dispatchEvent(new CustomEvent('cookiePreferencesChanged',{detail:p})); }
+  function openModal() { if(modal){modal.style.display='flex';document.body.style.overflow='hidden';} }
+  function closeModal() { if(modal){modal.style.display='none';document.body.style.overflow='';} }
+  function acceptAll() { if(chkF)chkF.checked=true; if(chkA)chkA.checked=true; if(chkP)chkP.checked=true; if(chkAd)chkAd.checked=true; savePrefs(); closeModal(); }
+  function rejectAll() { if(chkF)chkF.checked=false; if(chkA)chkA.checked=false; if(chkP)chkP.checked=false; if(chkAd)chkAd.checked=false; savePrefs(); closeModal(); }
+  loadPrefs();
+  if(!localStorage.getItem(STORAGE_KEY)) setTimeout(openModal, 500);
+  if(btn) btn.addEventListener('click',openModal);
+  if(closeBtn) closeBtn.addEventListener('click',closeModal);
+  if(acceptBtn) acceptBtn.addEventListener('click',acceptAll);
+  if(rejectBtn) rejectBtn.addEventListener('click',rejectAll);
+  if(necessaryBtn) necessaryBtn.addEventListener('click',rejectAll);
+  if(modal) modal.addEventListener('click',e=>{if(e.target===modal)closeModal();});
+  [chkF,chkA,chkP,chkAd].forEach(c=>{if(c)c.addEventListener('change',savePrefs);});
+})();
+(function() {
+  const ckb = document.getElementById('cookieBtn');
+  if (!ckb) return;
+  let t;
+  function show() { ckb.classList.remove('hidden'); clearTimeout(t); t = setTimeout(() => ckb.classList.add('hidden'), 3000); }
+  document.addEventListener('scroll',     show, { passive: true });
+  document.addEventListener('mousemove',  show, { passive: true });
+  document.addEventListener('touchstart', show, { passive: true });
+  document.addEventListener('keydown',    show);
+  ckb.addEventListener('mouseenter', () => clearTimeout(t));
+  ckb.addEventListener('mouseleave', show);
+  show();
+})();
+</script>
+
+<script>
+/* Volver a NextTech: vuelve a la edición de origen (?from=NN); respaldo: última edición publicada. */
+(function () {
+  var from = new URLSearchParams(location.search).get('from');
+  function repoint(url) {
+    document.querySelectorAll('a[href="https://nexttech.lognext.com"], a[href="https://nexttech.lognext.com/"]').forEach(function (a) { a.setAttribute('href', url); });
+  }
+  fetch('/editions.json', { cache: 'no-cache' })
+    .then(function (r) { return r.json(); })
+    .then(function (eds) {
+      if (!Array.isArray(eds) || !eds.length) return;
+      var url;
+      if (from && /^\d{2}$/.test(from) && eds.some(function (e) { return String(e.n) === from; })) url = '/' + from + '/';
+      else { eds.sort(function (a, b) { return String(a.n).localeCompare(String(b.n)); }); url = eds[eds.length - 1].url; }
+      repoint(url);
+      var foot = document.querySelector('[data-i18n-html="footer-tag"]');
+      if (foot && window.MutationObserver) new MutationObserver(function () { repoint(url); }).observe(foot, { childList: true, subtree: true });
+    })
+    .catch(function () { if (from && /^\d{2}$/.test(from)) repoint('/' + from + '/'); });
+})();
+</script>
+
+</body>
+</html>

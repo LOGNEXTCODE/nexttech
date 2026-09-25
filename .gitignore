@@ -5,6 +5,7 @@ index.html
 !/index.html
 !/GuiaEtiquetas/index.html
 !/GuiaPhishing/index.html
+!/GuiaVPN/index.html
 !/[0-9]*/index.html
 preview.html
 .env

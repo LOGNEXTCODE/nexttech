@@ -220,12 +220,17 @@ guías publicadas. El contenido es **estático** (no usa `{{PLACEHOLDER}}`).
 1. Añadir un `<li>` en la columna NextGuide de `web_template.html`
 2. Añadir el mismo `<li>` en **todas** las ediciones publicadas (`XX/index.html`)
 3. Añadir la traducción de la clave i18n en I18N.es/en/fr de cada edición
+4. Añadir la guía a la lista blanca del `.gitignore` (`!/GuiaXxx/index.html`): el
+   repo ignora `index.html` en global y solo permite los de la lista. Sin este
+   paso la guía queda fuera del commit sin previo aviso.
 
 Guías publicadas actualmente:
 
 | Ruta | Descripción |
 |------|-------------|
 | `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
+| `/GuiaPhishing/` | Cómo reconocer un phishing |
+| `/GuiaVPN/` | Uso seguro de la VPN |
 
 ### Navegación entre ediciones y guías (reglas fijas)
 
@@ -471,10 +476,10 @@ NextTech genera automáticamente evidencias ENS:
 - ⚠️ **ID de medición correcto: `G-H3Y3WBWSLR`** (verificado en navegador: sirve `gtag.js`).
   El ID `G-116HSWHBE9` usado anteriormente era **erróneo**: Google devolvía **404** al pedir su
   `gtag.js`, por lo que GA4 no cargaba y no llegaban datos. **No volver a usar `G-116HSWHBE9`.**
-- Etiqueta gtag presente en **ediciones y en ambas guías** (`GuiaEtiquetas`, `GuiaPhishing`).
+- Etiqueta gtag presente en **ediciones y en las tres guías** (`GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN`).
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
-- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas` y `GuiaPhishing`
+- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing` y `GuiaVPN`
 - **Igual prominencia (AEPD mayo 2024 / CEPD 03/2022):** "Aceptar todas" y
   "Rechazar todas" son botones **idénticos** (mismo relleno sólido naranja
   `#FA3C0F`, texto blanco, tamaño, padding y radio). "Aceptar solo necesarias"
@@ -587,7 +592,7 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
-- [ ] Enlaces a TODAS las NextGuides (Etiquetas y Phishing) con `?from={{EDICION_NUM}}`
+- [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing y VPN) con `?from={{EDICION_NUM}}`
 
 ### Orden canónico de la edición (desde la #02)
 `Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
