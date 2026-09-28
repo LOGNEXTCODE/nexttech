@@ -68,7 +68,7 @@ header {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .header-inner {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -190,7 +190,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
 
 /* ── LAYOUT ── */
 .section-wrap {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 52px 2rem;
 }
@@ -205,10 +205,8 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   margin-bottom: 14px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
 }
-.sec-tag::before,
 .sec-tag::after {
   content: '';
   flex: 0 0 32px;
@@ -223,21 +221,20 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   line-height: 1.15;
   color: var(--ln-text);
   margin-bottom: 14px;
-  text-align: center;
+  max-width: 900px;
 }
 .sec-intro {
   font-size: 17px;
   color: var(--ln-textgray);
-  max-width: 1240px;
-  margin: 0 auto 34px;
+  max-width: 720px;
+  margin: 0 0 34px;
   line-height: 1.75;
   font-weight: 300;
-  text-align: center;
 }
 .divider {
   border: none;
   border-top: 1px solid var(--ln-gray);
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -753,7 +750,7 @@ footer {
   text-align: center;
 }
 .footer-inner {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
@@ -765,9 +762,12 @@ footer {
 }
 .footer-tag strong { color: rgba(255,255,255,0.5); font-weight: 500; }
 
+/* La pildora decorativa no cabe junto al nav por debajo de ~900px: se partia en
+   3 lineas y desbordaba la altura del header. Se oculta antes que el nav. */
+@media (max-width: 900px) { .header-pill { display: none; } }
+
 @media (max-width: 640px) {
   nav { display: none; }
-  .header-pill { display: none; }
   .hero h1 { font-size: 28px; }
   .contact-block { padding: 32px 24px; }
   .section-wrap { padding: 60px 1.25rem; }
@@ -882,7 +882,7 @@ input:disabled + .cookie-slider { opacity:0.6; cursor:not-allowed; }
   <h2 class="sec-title" data-i18n="sec02-title">¿Cuándo usarla? Siempre que la red no sea de confianza</h2>
   <p class="sec-intro" data-i18n="sec02-intro">La regla es sencilla: si trabajas con datos de la empresa o de nuestros clientes fuera de una red segura, la VPN va siempre activada. Sin excepciones.</p>
 
-  <div class="labels-grid" style="grid-template-columns:1fr;">
+  <div class="labels-grid" style="grid-template-columns:1fr;max-width:720px;">
     <div class="label-card int">
       <div class="label-badge int" data-i18n-html="sec02-incluye-t"><span class="badge-dot"></span>Esto incluye</div>
       <ul class="examples">
@@ -1127,7 +1127,7 @@ const I18N = {
     "sec01-tag": "01 · What it is",
     "sec01-title": "What is a VPN and why does it matter?",
     "sec01-p1": "A VPN (Virtual Private Network) creates an encrypted tunnel between your device and the internet. Everything you send and receive travels protected inside that tunnel, unreadable to anyone trying to spy on it along the way.",
-    "sec01-p2": "Without a VPN, when you connect to a network you do not control, your data travels “in the open”: whoever runs that network —or anyone connected to it— can see where you browse and even slip in between your device and the services you use. With a VPN, all of that stays encrypted and safe.",
+    "sec01-p2": "Without a VPN, when you connect to a network you do not control, your data travels “in the open”: whoever runs that network — or anyone connected to it — can see where you browse and even slip in between your device and the services you use. With a VPN, all of that stays encrypted and safe.",
     "sec01-p3": "In short: a VPN is what turns an unknown network into a trusted connection.",
     "sec02-tag": "02 · When to use it",
     "sec02-title": "When should you use it? Whenever the network is not trusted",
@@ -1145,7 +1145,7 @@ const I18N = {
     "riesgo1-t": "<span class=\"badge-dot\"></span>The eavesdropper on the public network",
     "riesgo1": "On open Wi-Fi, someone connected to the same network can intercept unencrypted traffic and capture what you send, passwords included. With a VPN, all they would see is meaningless encrypted data.",
     "riesgo2-t": "<span class=\"badge-dot\"></span>The fake network (the “evil twin”)",
-    "riesgo2": "An attacker sets up a network using the name of the hotel’s or the café’s (“WiFi_Hotel_Gratis”) so that you connect to it. Everything that goes through it is under their control. The VPN protects your traffic even if you fall for one of these networks.",
+    "riesgo2": "An attacker sets up a network with the same name as the hotel’s or the café’s (“WiFi_Hotel_Gratis”) so that you connect to it. Everything that goes through it is under their control. The VPN protects your traffic even if you fall for one of these networks.",
     "riesgo3-t": "<span class=\"badge-dot\"></span>Credential theft in transit",
     "riesgo3": "Without encryption, your login details for M365 or the company systems can be captured along the way. The VPN shields them.",
     "riesgo4-t": "<span class=\"badge-dot\"></span>Improper access to company resources",
@@ -1158,10 +1158,10 @@ const I18N = {
     "bp4": "Never use open Wi-Fi without a VPN for work matters.",
     "bp5": "If the VPN is unavailable for whatever reason, your phone’s mobile data is safer than a third party’s Wi-Fi.",
     "sec05-tag": "05 · Limits",
-    "sec05-title": "What the VPN does NOT do (and you should also know)",
+    "sec05-title": "What the VPN does NOT do (and you should know this too)",
     "sec05-intro": "The VPN protects your connection, but not your decisions. It is important not to lower your guard just because it is switched on:",
     "limite1-t": "<span class=\"badge-dot\"></span>It does not protect you from phishing",
-    "limite1": "If you click a trap link or hand over your details on a fake website, the VPN will not stop it. There, your critical eye is still what counts.",
+    "limite1": "If you click a trap link or hand over your details on a fake website, the VPN will not stop it. That is where your critical eye still rules.",
     "limite2-t": "<span class=\"badge-dot\"></span>It does not replace your antivirus",
     "limite2": "It does not replace your antivirus or your device updates.",
     "limite3-t": "<span class=\"badge-dot\"></span>It does not make you invisible or invulnerable",
@@ -1209,13 +1209,13 @@ const I18N = {
     "sec01-tag": "01 · Qu’est-ce que c’est",
     "sec01-title": "Qu’est-ce qu’un VPN et pourquoi est-ce important ?",
     "sec01-p1": "Un VPN (réseau privé virtuel) crée un tunnel chiffré entre votre appareil et internet. Tout ce que vous envoyez et recevez circule protégé à l’intérieur de ce tunnel, illisible pour quiconque tenterait de l’espionner en chemin.",
-    "sec01-p2": "Sans VPN, lorsque vous vous connectez à un réseau que vous ne contrôlez pas, vos données circulent « en clair » : la personne qui gère ce réseau —ou n’importe qui y est connecté— peut voir les sites que vous consultez et même s’intercaler entre votre appareil et les services que vous utilisez. Avec un VPN, tout cela reste chiffré et à l’abri.",
+    "sec01-p2": "Sans VPN, lorsque vous vous connectez à un réseau que vous ne contrôlez pas, vos données circulent « en clair » : la personne qui gère ce réseau — ou n’importe qui y est connecté — peut voir les sites que vous consultez et même s’intercaler entre votre appareil et les services que vous utilisez. Avec un VPN, tout cela reste chiffré et à l’abri.",
     "sec01-p3": "En résumé : le VPN est ce qui transforme un réseau inconnu en une connexion de confiance.",
     "sec02-tag": "02 · Quand l’utiliser",
     "sec02-title": "Quand l’utiliser ? Dès que le réseau n’est pas de confiance",
     "sec02-intro": "La règle est simple : si vous travaillez avec des données de l’entreprise ou de nos clients en dehors d’un réseau sécurisé, le VPN est toujours activé. Sans exception.",
     "sec02-incluye-t": "<span class=\"badge-dot\"></span>Cela comprend",
-    "sec02-li1": "Le travail depuis chez vous",
+    "sec02-li1": "Le télétravail depuis chez vous",
     "sec02-li2": "Le wifi d’un hôtel, d’un aéroport ou d’une gare",
     "sec02-li3": "Un café ou un espace de coworking",
     "sec02-li4": "Le réseau d’un client ou d’un tiers",

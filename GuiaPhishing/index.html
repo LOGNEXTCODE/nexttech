@@ -68,7 +68,7 @@ header {
   border-bottom: 1px solid rgba(255,255,255,0.06);
 }
 .header-inner {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 0 2rem;
   display: flex;
@@ -190,7 +190,7 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
 
 /* ── LAYOUT ── */
 .section-wrap {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
   padding: 52px 2rem;
 }
@@ -205,10 +205,8 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   margin-bottom: 14px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 10px;
 }
-.sec-tag::before,
 .sec-tag::after {
   content: '';
   flex: 0 0 32px;
@@ -223,21 +221,20 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   line-height: 1.15;
   color: var(--ln-text);
   margin-bottom: 14px;
-  text-align: center;
+  max-width: 900px;
 }
 .sec-intro {
   font-size: 17px;
   color: var(--ln-textgray);
-  max-width: 1240px;
-  margin: 0 auto 34px;
+  max-width: 720px;
+  margin: 0 0 34px;
   line-height: 1.75;
   font-weight: 300;
-  text-align: center;
 }
 .divider {
   border: none;
   border-top: 1px solid var(--ln-gray);
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 
@@ -753,7 +750,7 @@ footer {
   text-align: center;
 }
 .footer-inner {
-  max-width: 1560px;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .footer-logo { height: 14px; opacity: 0.5; margin-bottom: 10px; }
@@ -765,9 +762,12 @@ footer {
 }
 .footer-tag strong { color: rgba(255,255,255,0.5); font-weight: 500; }
 
+/* La pildora decorativa no cabe junto al nav por debajo de ~900px: se partia en
+   3 lineas y desbordaba la altura del header. Se oculta antes que el nav. */
+@media (max-width: 900px) { .header-pill { display: none; } }
+
 @media (max-width: 640px) {
   nav { display: none; }
-  .header-pill { display: none; }
   .hero h1 { font-size: 28px; }
   .contact-block { padding: 32px 24px; }
   .section-wrap { padding: 60px 1.25rem; }
