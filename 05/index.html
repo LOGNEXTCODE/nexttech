@@ -706,7 +706,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. El <span class="ph-todo-inline">[[DATO: % de acierto]]</span> de vosotros detectó el correo trampa y no picó — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: <span class="ph-todo-inline">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinco minutos que refuerzan lo aprendido.
+    Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. Más del 90% de vosotros no cayó en la trampa — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: los modelos de IA más avanzados que siguen intentando saltarse las reglas, un fallo de nota perfecta en Cisco ISE, y un repositorio sin vigilar que acabó en disgusto. Cinco minutos que refuerzan lo aprendido.
   </div>
 
   <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
@@ -782,8 +782,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Reto del mes: audita los puertos abiertos de tu equipo</div>
-      <div class="card-text" data-i18n="reto-text">Esta semana ejecuta un escaneo rápido con `nmap -sT localhost` o usa la herramienta gratuita Nmap Zenmap en tu máquina y documenta qué puertos tienes abiertos y por qué. Si encuentras alguno que no sepas justificar, escríbelo en el canal de IT: el primero que reporte un hallazgo real se lleva el crédito (y nuestra admiración).</div>
+      <div class="card-title" data-i18n="reto-title">Reto del mes: cierra las sesiones que no reconozcas</div>
+      <div class="card-text" data-i18n="reto-text">Esta semana, entra en tu cuenta de Microsoft 365 (y en las que más uses: correo, redes, banca) y revisa el listado de dispositivos y sesiones activas. Si ves alguna sesión o dispositivo que no reconoces —un sitio raro, un equipo que no es tuyo—, ciérrala. Son dos minutos y es la forma más rápida de echar a quien no debería estar ahí, aunque tenga tu contraseña.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>OCTUBRE 2026</span>
@@ -836,7 +836,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
             <div class="phishing-email-subject" data-i18n="sim-mail-subject">Aviso de seguridad: tu contraseña de Microsoft 365 caduca pronto</div>
           </div>
           <div class="phishing-email-brand">Microsoft 365</div>
-          <div class="phishing-email-body" data-i18n-html="sim-mail-body">Hola Miguel,<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<span class="phishing-email-btn">Revisar mi cuenta</span>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365</div>
+          <div class="phishing-email-body" data-i18n-html="sim-mail-body">Hola [nombre],<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<span class="phishing-email-btn">Revisar mi cuenta</span>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365</div>
           <div class="phishing-email-foot" data-i18n="sim-mail-foot">Este mensaje se ha enviado automáticamente. Por favor, no respondas a este correo.</div>
         </div>
 
@@ -1179,8 +1179,8 @@ const I18N = {
     "consejo-title": "Consejo del mes: la VPN no es opcional fuera de la oficina",
     "consejo-text": "Cuando trabajáis desde casa, un hotel, una cafetería o la red de un cliente, vuestra conexión pasa por manos que no controláis. Sin VPN, los datos viajan expuestos: alguien en esa misma red puede ver por dónde navegáis o colarse entre vuestro equipo y los servicios de la empresa.<br><br>La VPN cifra todo ese tráfico —lo vuelve ilegible para terceros— y os conecta de forma segura, estéis donde estéis. Da igual el proveedor: si trabajáis con datos de LOGNEXT o de nuestros clientes fuera de una red de confianza, la VPN va siempre activada, sin excepciones.<br><br>Un despiste de cinco minutos en el wifi de un aeropuerto puede costar una cuenta comprometida. Con la VPN, ese riesgo desaparece.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Reto del mes: audita los puertos abiertos de tu equipo",
-    "reto-text": "Esta semana ejecuta un escaneo rápido con `nmap -sT localhost` o usa la herramienta gratuita Nmap Zenmap en tu máquina y documenta qué puertos tienes abiertos y por qué. Si encuentras alguno que no sepas justificar, escríbelo en el canal de IT: el primero que reporte un hallazgo real se lleva el crédito (y nuestra admiración).",
+    "reto-title": "Reto del mes: cierra las sesiones que no reconozcas",
+    "reto-text": "Esta semana, entra en tu cuenta de Microsoft 365 (y en las que más uses: correo, redes, banca) y revisa el listado de dispositivos y sesiones activas. Si ves alguna sesión o dispositivo que no reconoces —un sitio raro, un equipo que no es tuyo—, ciérrala. Son dos minutos y es la forma más rápida de echar a quien no debería estar ahí, aunque tenga tu contraseña.",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "Hackers chinos encadenan tres zero-days en Chrome y Windows para desplegar el malware CLEANGULP",
@@ -1233,7 +1233,7 @@ const I18N = {
     "ck-reject": "Rechazar todas",
     "ck-accept": "Aceptar todas",
     "ck-only-necessary": "Aceptar solo necesarias",
-    "intro": "Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. El <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> de vosotros detectó el correo trampa y no picó — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinco minutos que refuerzan lo aprendido.",
+    "intro": "Bienvenidos a NextTech, vuestra cita de cada primer miércoles con la actualidad en inteligencia artificial y ciberseguridad. Y este mes empezamos con una buena noticia: hicimos nuestro primer simulacro de phishing y lo hicisteis muy bien. Más del 90% de vosotros no cayó en la trampa — una cifra que dice mucho del trabajo que estamos haciendo juntos en concienciación. Dentro os contamos cómo se podía reconocer, qué aprendimos y os pedimos vuestra opinión. En esta edición #05 — Octubre 2026: los modelos de IA más avanzados que siguen intentando saltarse las reglas, un fallo de nota perfecta en Cisco ISE, y un repositorio sin vigilar que acabó en disgusto. Cinco minutos que refuerzan lo aprendido.",
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
@@ -1250,7 +1250,7 @@ const I18N = {
     "sim-mail-to-lbl": "Para",
     "sim-mail-from": "Soporte de Microsoft 365",
     "sim-mail-subject": "Aviso de seguridad: tu contraseña de Microsoft 365 caduca pronto",
-    "sim-mail-body": "Hola Miguel,<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<span class=\"phishing-email-btn\">Revisar mi cuenta</span>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365",
+    "sim-mail-body": "Hola [nombre],<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<span class=\"phishing-email-btn\">Revisar mi cuenta</span>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365",
     "sim-mail-foot": "Este mensaje se ha enviado automáticamente. Por favor, no respondas a este correo.",
     "sim-senal-5": "<strong>El “no respondas a este correo”.</strong> Los correos automáticos que evitan que verifiques son una señal de alerta: cortan justo la vía por la que podrías comprobar si es real.",
     "sim-cierre": "La lección: ante cualquier correo que te meta prisa y te pida datos o accesos, para y verifica por otro canal antes de hacer clic. Si de verdad tu contraseña va a caducar, te lo dirá el propio sistema cuando entres a Microsoft 365 — no un correo con un botón."
@@ -1277,8 +1277,8 @@ const I18N = {
     "consejo-title": "Tip of the month: the VPN is not optional outside the office",
     "consejo-text": "When you work from home, a hotel, a café or a client’s network, your connection passes through hands you do not control. Without a VPN, the data travels exposed: someone on that same network can see where you browse or slip in between your device and the company services.<br><br>The VPN encrypts all of that traffic —it makes it unreadable to third parties— and connects you securely, wherever you are. The provider does not matter: if you work with LOGNEXT or client data outside a trusted network, the VPN is always on, no exceptions.<br><br>A five-minute lapse on airport Wi-Fi can cost you a compromised account. With the VPN, that risk disappears.",
     "tag-reto": "The Monthly Challenge",
-    "reto-title": "Monthly challenge: audit the open ports on your machine",
-    "reto-text": "This week, run a quick scan with `nmap -sT localhost` or use the free Nmap Zenmap tool on your machine and document which ports you have open and why. If you find any you can't justify, post it in the IT channel: the first person to report a real finding gets the credit (and our admiration).",
+    "reto-title": "Monthly challenge: sign out of any session you don’t recognise",
+    "reto-text": "This week, go into your Microsoft 365 account (and the ones you use most: email, social media, banking) and review the list of active devices and sessions. If you see a session or a device you don’t recognise —an odd location, a machine that isn’t yours—, sign it out. It takes two minutes and it is the fastest way to kick out anyone who should not be there, even if they have your password.",
     "tag-radar": "On the Radar",
     "radar-title": "What you can't miss this month",
     "radar-1-headline": "Chinese hackers chain three zero-days in Chrome and Windows to deploy CLEANGULP malware",
@@ -1331,7 +1331,7 @@ const I18N = {
     "ck-reject": "Reject all",
     "ck-accept": "Accept all",
     "ck-only-necessary": "Accept necessary only",
-    "intro": "Welcome to NextTech, your first-Wednesday-of-the-month appointment with the latest in artificial intelligence and cybersecurity. And this month we start with good news: we ran our first phishing simulation and you did really well. <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> of you spotted the trap email and did not take the bait — a figure that says a great deal about the awareness work we are doing together. Inside, we go over how it could be recognised, what we learned, and we ask for your opinion. In this issue #05 — October 2026: <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Five minutes that reinforce what you have learned.",
+    "intro": "Welcome to NextTech, your first-Wednesday-of-the-month date with what is happening in artificial intelligence and cybersecurity. And this month we start with good news: we ran our first phishing simulation and you did really well. More than 90% of you did not fall for it — a figure that says a lot about the work we are doing together on awareness. Inside we go over how you could spot it, what we learned, and we ask for your opinion. In this issue #05 — October 2026: the most advanced AI models still trying to break the rules, a flaw with a perfect score in Cisco ISE, and an unwatched repository that ended badly. Five minutes that reinforce what we learned.",
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>",
@@ -1348,7 +1348,7 @@ const I18N = {
     "sim-mail-to-lbl": "To",
     "sim-mail-from": "Microsoft 365 Support",
     "sim-mail-subject": "Security notice: your Microsoft 365 password expires soon",
-    "sim-mail-body": "Hi Miguel,<br><br>As part of your organisation’s security policy, the password for your Microsoft 365 account will expire within the next 3 days.<br><br>To keep access to your email, Teams and files, review your account status and update your password if necessary.<span class=\"phishing-email-btn\">Review my account</span>If you have already updated your password recently, you can ignore this message.<br><br>Thank you,<br>Microsoft 365 Support",
+    "sim-mail-body": "Hi [name],<br><br>As part of your organisation’s security policy, the password for your Microsoft 365 account will expire within the next 3 days.<br><br>To keep access to your email, Teams and files, review your account status and update your password if necessary.<span class=\"phishing-email-btn\">Review my account</span>If you have already updated your password recently, you can ignore this message.<br><br>Thank you,<br>Microsoft 365 Support",
     "sim-mail-foot": "This message was sent automatically. Please do not reply to this email.",
     "sim-senal-5": "<strong>The “do not reply to this email”.</strong> Automated emails that stop you from checking are a red flag: they cut off the very channel you would use to confirm whether it is real.",
     "sim-cierre": "The lesson: with any email that rushes you and asks for data or access, stop and verify through another channel before clicking. If your password really is about to expire, the system itself will tell you when you sign in to Microsoft 365 — not an email with a button."
@@ -1375,8 +1375,8 @@ const I18N = {
     "consejo-title": "Le conseil du mois : le VPN n’est pas optionnel hors du bureau",
     "consejo-text": "Lorsque vous travaillez depuis chez vous, un hôtel, un café ou le réseau d’un client, votre connexion passe par des mains que vous ne contrôlez pas. Sans VPN, les données circulent exposées : une personne sur ce même réseau peut voir les sites que vous consultez ou s’intercaler entre votre équipement et les services de l’entreprise.<br><br>Le VPN chiffre tout ce trafic —il le rend illisible pour des tiers— et vous connecte de façon sécurisée, où que vous soyez. Peu importe le fournisseur : si vous travaillez avec des données de LOGNEXT ou de nos clients en dehors d’un réseau de confiance, le VPN est toujours activé, sans exception.<br><br>Une inattention de cinq minutes sur le wifi d’un aéroport peut coûter un compte compromis. Avec le VPN, ce risque disparaît.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Défi du mois : auditez les ports ouverts de votre machine",
-    "reto-text": "Cette semaine, lancez un scan rapide avec `nmap -sT localhost` ou utilisez l'outil gratuit Nmap Zenmap sur votre machine, et documentez quels ports sont ouverts et pourquoi. Si vous en trouvez un que vous ne savez pas justifier, signalez-le dans le canal IT : le premier à rapporter une vraie découverte remportera la mise (et toute notre admiration).",
+    "reto-title": "Défi du mois : fermez les sessions que vous ne reconnaissez pas",
+    "reto-text": "Cette semaine, connectez-vous à votre compte Microsoft 365 (et à ceux que vous utilisez le plus : messagerie, réseaux sociaux, banque) et passez en revue la liste des appareils et des sessions actives. Si vous voyez une session ou un appareil que vous ne reconnaissez pas —un lieu étrange, une machine qui n’est pas la vôtre—, fermez-la. Cela prend deux minutes et c’est le moyen le plus rapide de mettre dehors quelqu’un qui ne devrait pas être là, même s’il a votre mot de passe.",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "Des hackers chinois enchaînent trois zero-days dans Chrome et Windows pour déployer le malware CLEANGULP",
@@ -1429,7 +1429,7 @@ const I18N = {
     "ck-reject": "Tout refuser",
     "ck-accept": "Tout accepter",
     "ck-only-necessary": "Accepter uniquement les nécessaires",
-    "intro": "Bienvenue dans NextTech, votre rendez-vous de chaque premier mercredi avec l’actualité en intelligence artificielle et en cybersécurité. Et ce mois-ci, nous commençons par une bonne nouvelle : nous avons mené notre premier exercice de phishing et vous vous en êtes très bien sortis. <span class=\"ph-todo-inline\">[[DATO: % de acierto]]</span> d’entre vous ont repéré le courriel piège et ne sont pas tombés dans le panneau — un chiffre qui en dit long sur le travail de sensibilisation que nous menons ensemble. À l’intérieur, nous vous expliquons comment le reconnaître, ce que nous avons appris, et nous vous demandons votre avis. Dans ce numéro #05 — Octobre 2026 : <span class=\"ph-todo-inline\">[[DATO: gancho de 2-3 noticias del mes]]</span>. Cinq minutes pour consolider vos acquis.",
+    "intro": "Bienvenue dans NextTech, votre rendez-vous de chaque premier mercredi avec l’actualité de l’intelligence artificielle et de la cybersécurité. Et ce mois-ci, nous commençons par une bonne nouvelle : nous avons mené notre premier exercice de phishing et vous vous en êtes très bien sortis. Plus de 90 % d’entre vous ne sont pas tombés dans le piège — un chiffre qui en dit long sur le travail que nous menons ensemble en matière de sensibilisation. À l’intérieur, nous revenons sur ce qui permettait de le reconnaître, sur ce que nous avons appris, et nous vous demandons votre avis. Dans ce numéro #05 — Octobre 2026 : les modèles d’IA les plus avancés qui continuent d’essayer de contourner les règles, une faille notée au maximum dans Cisco ISE, et un dépôt laissé sans surveillance qui a mal fini. Cinq minutes pour consolider ce que nous avons appris.",
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
@@ -1446,7 +1446,7 @@ const I18N = {
     "sim-mail-to-lbl": "À",
     "sim-mail-from": "Assistance Microsoft 365",
     "sim-mail-subject": "Avis de sécurité : votre mot de passe Microsoft 365 expire bientôt",
-    "sim-mail-body": "Bonjour Miguel,<br><br>Dans le cadre de la politique de sécurité de votre organisation, le mot de passe de votre compte Microsoft 365 expirera dans les 3 prochains jours.<br><br>Pour conserver l’accès à votre messagerie, à Teams et à vos fichiers, vérifiez l’état de votre compte et mettez à jour votre mot de passe si nécessaire.<span class=\"phishing-email-btn\">Vérifier mon compte</span>Si vous avez déjà mis à jour votre mot de passe récemment, vous pouvez ignorer ce message.<br><br>Merci,<br>Assistance Microsoft 365",
+    "sim-mail-body": "Bonjour [prénom],<br><br>Dans le cadre de la politique de sécurité de votre organisation, le mot de passe de votre compte Microsoft 365 expirera dans les 3 prochains jours.<br><br>Pour conserver l’accès à votre messagerie, à Teams et à vos fichiers, vérifiez l’état de votre compte et mettez à jour votre mot de passe si nécessaire.<span class=\"phishing-email-btn\">Vérifier mon compte</span>Si vous avez déjà mis à jour votre mot de passe récemment, vous pouvez ignorer ce message.<br><br>Merci,<br>Assistance Microsoft 365",
     "sim-mail-foot": "Ce message a été envoyé automatiquement. Merci de ne pas répondre à cet e-mail.",
     "sim-senal-5": "<strong>Le « ne répondez pas à cet e-mail ».</strong> Les e-mails automatiques qui vous empêchent de vérifier sont un signal d’alerte : ils coupent précisément le canal par lequel vous pourriez confirmer s’il est authentique.",
     "sim-cierre": "La leçon : face à tout e-mail qui vous presse et vous réclame des données ou des accès, arrêtez-vous et vérifiez par un autre canal avant de cliquer. Si votre mot de passe doit vraiment expirer, c’est le système lui-même qui vous le dira à la connexion à Microsoft 365 — pas un e-mail avec un bouton."
