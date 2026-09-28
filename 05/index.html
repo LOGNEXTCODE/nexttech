@@ -195,6 +195,7 @@ body {
 /* ─── REPASO DEL SIMULACRO (#05) ─────────────────────────────────────────── */
 .sim-block-title { font-size: 14px; font-weight: 600; color: #fff; margin: 22px 0 10px; letter-spacing: 0.3px; }
 .sim-aplauso { margin-top: 22px; padding: 16px 18px; background: rgba(100,240,125,0.08); border-left: 3px solid var(--green); border-radius: 0 4px 4px 0; font-size: 14px; line-height: 1.7; color: var(--grey); }
+.sim-cierre { margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(200,150,255,0.15); font-size: 13.5px; line-height: 1.85; color: var(--grey); }
 .sim-encuesta { margin-top: 20px; font-size: 14px; line-height: 1.9; color: var(--grey); }
 /* ─── PLACEHOLDERS PENDIENTES — la #05 NO se publica con ninguno visible ─── */
 .ph-todo { display: block; margin: 0 0 16px; padding: 14px 16px; background: rgba(255,250,150,0.10); border: 2px dashed var(--yellow); border-radius: 4px; color: var(--yellow); font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 1.6; }
@@ -813,21 +814,35 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
       <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo</div>
       <div class="card-title" data-i18n="phishing-title">Repasamos el simulacro</div>
-      <div class="card-text" data-i18n="phishing-intro">Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado, y muchos supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.</div>
+      <div class="card-text" data-i18n="phishing-intro">Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado —un falso aviso de que vuestra contraseña de Microsoft 365 estaba a punto de caducar—, y la gran mayoría supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.</div>
       <div class="phishing-inner">
-        <div class="ph-todo" data-i18n="sim-email-ph">[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]</div>
+        <!-- Reproduccion del correo del simulacro (formativa). El boton es un
+             <span>, nunca un enlace: no debe poder pincharse. -->
+        <div class="phishing-email-preview">
+          <div class="phishing-email-header">
+            <div><strong><span data-i18n="sim-mail-from-lbl">De</span>:</strong> <span data-i18n="sim-mail-from">Soporte de Microsoft 365</span></div>
+            <div><strong><span data-i18n="sim-mail-to-lbl">Para</span>:</strong> tu@lognext.com</div>
+            <div class="phishing-email-subject" data-i18n="sim-mail-subject">Aviso de seguridad: tu contraseña de Microsoft 365 caduca pronto</div>
+          </div>
+          <div style="background:#0078D4;color:#fff;padding:9px 14px;border-radius:3px;font-size:13px;font-weight:700;margin-bottom:14px;">Microsoft 365</div>
+          <div class="phishing-email-body" data-i18n-html="sim-mail-body">Hola Miguel,<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<br><br><span style="display:inline-block;background:#0078D4;color:#fff;padding:9px 18px;border-radius:3px;font-weight:600;font-size:12.5px;cursor:not-allowed;">Revisar mi cuenta</span><br><br>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365</div>
+          <div style="margin-top:14px;padding-top:10px;border-top:1px solid #eee;font-size:11px;color:#888;" data-i18n="sim-mail-foot">Este mensaje se ha enviado automáticamente. Por favor, no respondas a este correo.</div>
+        </div>
 
         <div class="sim-block-title" data-i18n="sim-senales-title">Las señales que lo delataban</div>
         <div class="phishing-clues">
-          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-1">[[DATO: señal 1]]</span></div>
-          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-2">[[DATO: señal 2]]</span></div>
-          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-3">[[DATO: señal 3]]</span></div>
-          <div class="phishing-clue">&#9888;&#65039; <span class="ph-todo-inline" data-i18n="sim-senal-4">[[DATO: señal 4]]</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span data-i18n-html="sim-senal-1"><strong>La urgencia.</strong> “Caducará en los próximos 3 días” busca que actúes rápido, sin pararte a pensar. Es la táctica más común del phishing.</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span data-i18n-html="sim-senal-2"><strong>El remitente.</strong> Firmaba como “Soporte de Microsoft 365”, pero no era una dirección de LOGNEXT. Tu equipo de IT nunca te pide esto desde una cuenta genérica.</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span data-i18n-html="sim-senal-3"><strong>El botón “Revisar mi cuenta”.</strong> Te llevaba a una página externa a introducir tu contraseña. Para cambiar tu contraseña de M365, entras tú al portal oficial — nunca desde un enlace de un correo.</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span data-i18n-html="sim-senal-4"><strong>La petición en sí.</strong> Actualizar la contraseña “por si es necesario” desde un enlace: eso no se hace nunca. Ante la duda, ve directo a la fuente oficial.</span></div>
+          <div class="phishing-clue">&#9888;&#65039; <span data-i18n-html="sim-senal-5"><strong>El “no respondas a este correo”.</strong> Los correos automáticos que evitan que verifiques son una señal de alerta: cortan justo la vía por la que podrías comprobar si es real.</span></div>
         </div>
 
-        <div class="sim-aplauso" data-i18n-html="sim-aplauso">Un aplauso para quienes lo vieron: <span class="ph-todo-inline">[[DATO: nº]]</span> compañeros nos avisasteis directamente a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer. Gracias — sois la mejor defensa que tenemos.</div>
+        <div class="sim-aplauso" data-i18n="sim-aplauso">Un aplauso especial para quienes, además de no picar, nos avisasteis a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer — sois la mejor defensa que tenemos.</div>
 
-        <div class="sim-encuesta" data-i18n-html="sim-encuesta">¿Cómo de difícil te pareció? Cuéntanoslo en 30 segundos → <a class="ph-todo-inline" href="#" onclick="return false;">[[DATO: enlace al formulario de Microsoft Forms]]</a></div>
+        <div class="sim-cierre" data-i18n="sim-cierre">La lección: ante cualquier correo que te meta prisa y te pida datos o accesos, para y verifica por otro canal antes de hacer clic. Si de verdad tu contraseña va a caducar, te lo dirá el propio sistema cuando entres a Microsoft 365 — no un correo con un botón.</div>
+
+        <div class="sim-encuesta" data-i18n-html="sim-encuesta">¿Cómo de difícil te pareció detectarlo? Cuéntanoslo en 30 segundos → <a class="ph-todo-inline" href="#" onclick="return false;">[[DATO: enlace Microsoft Forms]]</a></div>
       </div>
     </div>
 
@@ -1163,7 +1178,7 @@ const I18N = {
     "radar-4-headline": "Investigadores demuestran cómo un proveedor MFA externo comprometido puede robar contraseñas durante el login",
     "tag-phishing": "🎯 Pon a prueba tu ojo",
     "phishing-title": "Repasamos el simulacro",
-    "phishing-intro": "Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado, y muchos supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.",
+    "phishing-intro": "Este mes no es un test: es la vuelta a lo que vivimos. En septiembre os llegó un correo de phishing simulado —un falso aviso de que vuestra contraseña de Microsoft 365 estaba a punto de caducar—, y la gran mayoría supisteis verlo. Vamos a repasar cómo se delataba, para que la próxima vez —cuando sea de verdad— lo detectéis todos.",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Unbound corrige un fallo crítico en DNSSEC con riesgo de RCE",
@@ -1212,15 +1227,22 @@ const I18N = {
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
     "sim-senales-title": "Las señales que lo delataban",
-    "sim-aplauso": "Un aplauso para quienes lo vieron: <span class=\"ph-todo-inline\">[[DATO: nº]]</span> compañeros nos avisasteis directamente a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer. Gracias — sois la mejor defensa que tenemos.",
-    "sim-encuesta": "¿Cómo de difícil te pareció? Cuéntanoslo en 30 segundos → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "sim-aplauso": "Un aplauso especial para quienes, además de no picar, nos avisasteis a IT de que el correo os parecía sospechoso. Eso es exactamente lo que hay que hacer — sois la mejor defensa que tenemos.",
+    "sim-encuesta": "¿Cómo de difícil te pareció detectarlo? Cuéntanoslo en 30 segundos → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace Microsoft Forms]]</a>",
     "consejo-link": "Consultar la guía <span class=\"arrow\">→</span>",
     "footer_guide_vpn": "Guía de VPN",
-    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
-    "sim-senal-1": "[[DATO: señal 1]]",
-    "sim-senal-2": "[[DATO: señal 2]]",
-    "sim-senal-3": "[[DATO: señal 3]]",
-    "sim-senal-4": "[[DATO: señal 4]]"
+    "sim-senal-1": "<strong>La urgencia.</strong> “Caducará en los próximos 3 días” busca que actúes rápido, sin pararte a pensar. Es la táctica más común del phishing.",
+    "sim-senal-2": "<strong>El remitente.</strong> Firmaba como “Soporte de Microsoft 365”, pero no era una dirección de LOGNEXT. Tu equipo de IT nunca te pide esto desde una cuenta genérica.",
+    "sim-senal-3": "<strong>El botón “Revisar mi cuenta”.</strong> Te llevaba a una página externa a introducir tu contraseña. Para cambiar tu contraseña de M365, entras tú al portal oficial — nunca desde un enlace de un correo.",
+    "sim-senal-4": "<strong>La petición en sí.</strong> Actualizar la contraseña “por si es necesario” desde un enlace: eso no se hace nunca. Ante la duda, ve directo a la fuente oficial.",
+    "sim-mail-from-lbl": "De",
+    "sim-mail-to-lbl": "Para",
+    "sim-mail-from": "Soporte de Microsoft 365",
+    "sim-mail-subject": "Aviso de seguridad: tu contraseña de Microsoft 365 caduca pronto",
+    "sim-mail-body": "Hola Miguel,<br><br>Como parte de la política de seguridad de tu organización, la contraseña de tu cuenta de Microsoft 365 caducará en los próximos 3 días.<br><br>Para mantener el acceso a tu correo, Teams y archivos, revisa el estado de tu cuenta y actualiza tu contraseña si es necesario.<br><br><span style=\"display:inline-block;background:#0078D4;color:#fff;padding:9px 18px;border-radius:3px;font-weight:600;font-size:12.5px;cursor:not-allowed;\">Revisar mi cuenta</span><br><br>Si ya has actualizado tu contraseña recientemente, puedes ignorar este mensaje.<br><br>Gracias,<br>Soporte de Microsoft 365",
+    "sim-mail-foot": "Este mensaje se ha enviado automáticamente. Por favor, no respondas a este correo.",
+    "sim-senal-5": "<strong>El “no respondas a este correo”.</strong> Los correos automáticos que evitan que verifiques son una señal de alerta: cortan justo la vía por la que podrías comprobar si es real.",
+    "sim-cierre": "La lección: ante cualquier correo que te meta prisa y te pida datos o accesos, para y verifica por otro canal antes de hacer clic. Si de verdad tu contraseña va a caducar, te lo dirá el propio sistema cuando entres a Microsoft 365 — no un correo con un botón."
   },
   "en": {
     "topbar-edition-num": "EDITION #05",
@@ -1254,7 +1276,7 @@ const I18N = {
     "radar-4-headline": "Researchers demonstrate how a compromised third-party MFA provider can steal passwords during login",
     "tag-phishing": "🎯 Put your eye to the test",
     "phishing-title": "Reviewing the simulation",
-    "phishing-intro": "This month it is not a test: it is a look back at what we went through. In September a simulated phishing email landed in your inbox, and many of you saw right through it. Let us go over how it gave itself away, so that next time —when it is the real thing— every one of you spots it.",
+    "phishing-intro": "This month it is not a test: it is a look back at what we went through. In September you received a simulated phishing email —a fake warning that your Microsoft 365 password was about to expire—, and the vast majority of you saw straight through it. Let’s go over how it gave itself away, so that next time —when it is the real thing— every one of you spots it.",
     "tag-links": "In case you want to go down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "Unbound fixes a critical DNSSEC flaw with RCE risk",
@@ -1303,15 +1325,22 @@ const I18N = {
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>",
     "sim-senales-title": "The signs that gave it away",
-    "sim-aplauso": "A round of applause for those who spotted it: <span class=\"ph-todo-inline\">[[DATO: nº]]</span> colleagues told IT directly that the email looked suspicious to you. That is exactly what to do. Thank you — you are the best defence we have.",
-    "sim-encuesta": "How difficult did you find it? Tell us in 30 seconds → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "sim-aplauso": "A special round of applause for those of you who, on top of not falling for it, told IT that the email looked suspicious. That is exactly what to do — you are the best defence we have.",
+    "sim-encuesta": "How hard did you find it to spot? Tell us in 30 seconds → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace Microsoft Forms]]</a>",
     "consejo-link": "Read the guide <span class=\"arrow\">→</span>",
     "footer_guide_vpn": "VPN guide",
-    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
-    "sim-senal-1": "[[DATO: señal 1]]",
-    "sim-senal-2": "[[DATO: señal 2]]",
-    "sim-senal-3": "[[DATO: señal 3]]",
-    "sim-senal-4": "[[DATO: señal 4]]"
+    "sim-senal-1": "<strong>The urgency.</strong> “Will expire within the next 3 days” is there to make you act fast, without stopping to think. It is the most common phishing tactic.",
+    "sim-senal-2": "<strong>The sender.</strong> It signed off as “Microsoft 365 Support”, but it was not a LOGNEXT address. Your IT team never asks you for this from a generic account.",
+    "sim-senal-3": "<strong>The “Review my account” button.</strong> It took you to an external page to enter your password. To change your M365 password, you go to the official portal yourself — never from a link in an email.",
+    "sim-senal-4": "<strong>The request itself.</strong> Updating your password “in case it is necessary” from a link: that is never done. When in doubt, go straight to the official source.",
+    "sim-mail-from-lbl": "From",
+    "sim-mail-to-lbl": "To",
+    "sim-mail-from": "Microsoft 365 Support",
+    "sim-mail-subject": "Security notice: your Microsoft 365 password expires soon",
+    "sim-mail-body": "Hi Miguel,<br><br>As part of your organisation’s security policy, the password for your Microsoft 365 account will expire within the next 3 days.<br><br>To keep access to your email, Teams and files, review your account status and update your password if necessary.<br><br><span style=\"display:inline-block;background:#0078D4;color:#fff;padding:9px 18px;border-radius:3px;font-weight:600;font-size:12.5px;cursor:not-allowed;\">Review my account</span><br><br>If you have already updated your password recently, you can ignore this message.<br><br>Thank you,<br>Microsoft 365 Support",
+    "sim-mail-foot": "This message was sent automatically. Please do not reply to this email.",
+    "sim-senal-5": "<strong>The “do not reply to this email”.</strong> Automated emails that stop you from checking are a red flag: they cut off the very channel you would use to confirm whether it is real.",
+    "sim-cierre": "The lesson: with any email that rushes you and asks for data or access, stop and verify through another channel before clicking. If your password really is about to expire, the system itself will tell you when you sign in to Microsoft 365 — not an email with a button."
   },
   "fr": {
     "topbar-edition-num": "ÉDITION #05",
@@ -1345,7 +1374,7 @@ const I18N = {
     "radar-4-headline": "Des chercheurs démontrent comment un fournisseur MFA externe compromis peut dérober des mots de passe lors de la connexion",
     "tag-phishing": "🎯 Mettez votre œil à l’épreuve",
     "phishing-title": "Retour sur l’exercice",
-    "phishing-intro": "Ce mois-ci, ce n’est pas un test : c’est un retour sur ce que nous avons vécu. En septembre, vous avez reçu un courriel de phishing simulé, et beaucoup d’entre vous ont su le repérer. Reprenons ensemble ce qui le trahissait, pour que la prochaine fois —quand ce sera pour de vrai— vous le détectiez tous.",
+    "phishing-intro": "Ce mois-ci, ce n’est pas un test : c’est un retour sur ce que nous avons vécu. En septembre, vous avez reçu un e-mail de phishing simulé —un faux avertissement indiquant que votre mot de passe Microsoft 365 allait bientôt expirer—, et la grande majorité d’entre vous l’a repéré. Revenons sur ce qui le trahissait, pour que la prochaine fois —quand ce sera pour de vrai— vous le détectiez tous.",
     "tag-links": "Si vous voulez aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Unbound corrige une faille critique dans DNSSEC avec risque de RCE",
@@ -1394,15 +1423,22 @@ const I18N = {
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
     "sim-senales-title": "Les signes qui le trahissaient",
-    "sim-aplauso": "Un applaudissement pour celles et ceux qui l’ont vu : <span class=\"ph-todo-inline\">[[DATO: nº]]</span> collègues ont prévenu l’IT directement que le courriel leur semblait suspect. C’est exactement ce qu’il faut faire. Merci — vous êtes la meilleure défense que nous ayons.",
-    "sim-encuesta": "Vous l’avez trouvé difficile ? Dites-le-nous en 30 secondes → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace al formulario de Microsoft Forms]]</a>",
+    "sim-aplauso": "Une mention spéciale pour celles et ceux qui, en plus de ne pas être tombés dans le piège, ont prévenu l’équipe IT que l’e-mail leur semblait suspect. C’est exactement ce qu’il faut faire — vous êtes la meilleure défense dont nous disposons.",
+    "sim-encuesta": "L’avez-vous trouvé difficile à repérer ? Dites-le-nous en 30 secondes → <a class=\"ph-todo-inline\" href=\"#\" onclick=\"return false;\">[[DATO: enlace Microsoft Forms]]</a>",
     "consejo-link": "Consulter le guide <span class=\"arrow\">→</span>",
     "footer_guide_vpn": "Guide VPN",
-    "sim-email-ph": "[[DATO: reproducir aquí el correo real del simulacro, con sus señales marcadas]]",
-    "sim-senal-1": "[[DATO: señal 1]]",
-    "sim-senal-2": "[[DATO: señal 2]]",
-    "sim-senal-3": "[[DATO: señal 3]]",
-    "sim-senal-4": "[[DATO: señal 4]]"
+    "sim-senal-1": "<strong>L’urgence.</strong> « Expirera dans les 3 prochains jours » vise à vous faire agir vite, sans prendre le temps de réfléchir. C’est la tactique de phishing la plus courante.",
+    "sim-senal-2": "<strong>L’expéditeur.</strong> Il signait « Assistance Microsoft 365 », mais ce n’était pas une adresse LOGNEXT. Votre équipe IT ne vous demande jamais cela depuis un compte générique.",
+    "sim-senal-3": "<strong>Le bouton « Vérifier mon compte ».</strong> Il vous menait vers une page externe pour saisir votre mot de passe. Pour changer votre mot de passe M365, vous allez vous-même sur le portail officiel — jamais depuis un lien reçu par e-mail.",
+    "sim-senal-4": "<strong>La demande elle-même.</strong> Mettre à jour son mot de passe « au cas où ce serait nécessaire » depuis un lien : cela ne se fait jamais. En cas de doute, allez directement à la source officielle.",
+    "sim-mail-from-lbl": "De",
+    "sim-mail-to-lbl": "À",
+    "sim-mail-from": "Assistance Microsoft 365",
+    "sim-mail-subject": "Avis de sécurité : votre mot de passe Microsoft 365 expire bientôt",
+    "sim-mail-body": "Bonjour Miguel,<br><br>Dans le cadre de la politique de sécurité de votre organisation, le mot de passe de votre compte Microsoft 365 expirera dans les 3 prochains jours.<br><br>Pour conserver l’accès à votre messagerie, à Teams et à vos fichiers, vérifiez l’état de votre compte et mettez à jour votre mot de passe si nécessaire.<br><br><span style=\"display:inline-block;background:#0078D4;color:#fff;padding:9px 18px;border-radius:3px;font-weight:600;font-size:12.5px;cursor:not-allowed;\">Vérifier mon compte</span><br><br>Si vous avez déjà mis à jour votre mot de passe récemment, vous pouvez ignorer ce message.<br><br>Merci,<br>Assistance Microsoft 365",
+    "sim-mail-foot": "Ce message a été envoyé automatiquement. Merci de ne pas répondre à cet e-mail.",
+    "sim-senal-5": "<strong>Le « ne répondez pas à cet e-mail ».</strong> Les e-mails automatiques qui vous empêchent de vérifier sont un signal d’alerte : ils coupent précisément le canal par lequel vous pourriez confirmer s’il est authentique.",
+    "sim-cierre": "La leçon : face à tout e-mail qui vous presse et vous réclame des données ou des accès, arrêtez-vous et vérifiez par un autre canal avant de cliquer. Si votre mot de passe doit vraiment expirer, c’est le système lui-même qui vous le dira à la connexion à Microsoft 365 — pas un e-mail avec un bouton."
   }
 };
 function applyLang(lang) {
