@@ -196,13 +196,18 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
 }
 .section-wrap.tight { padding-top: 0; }
 
+/* Columna de texto: 720px centrados en el contenedor (margin auto). El tag, el
+   titulo y la entradilla comparten anchura para que sus bordes coincidan; el
+   texto va alineado a la izquierda DENTRO de la columna, nunca centrado linea
+   a linea (se lee mal en parrafos largos). */
 .sec-tag {
   font-family: 'Space Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--ln-red);
-  margin-bottom: 14px;
+  max-width: 720px;
+  margin: 0 auto 14px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -220,14 +225,14 @@ nav a:hover { color: white; border-bottom-color: var(--ln-red); }
   letter-spacing: -0.025em;
   line-height: 1.15;
   color: var(--ln-text);
-  margin-bottom: 14px;
-  max-width: 900px;
+  max-width: 720px;
+  margin: 0 auto 14px;
 }
 .sec-intro {
   font-size: 17px;
   color: var(--ln-textgray);
   max-width: 720px;
-  margin: 0 0 34px;
+  margin: 0 auto 34px;
   line-height: 1.75;
   font-weight: 300;
 }
