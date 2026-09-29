@@ -564,6 +564,21 @@ Claude recibe el aviso y marca las secciones afectadas con
 - El preheader NO repite el titular de ninguna sección.
 - Antes de publicar: verificar que intro y titulares no digan lo mismo.
 
+### Regla — Sin rayas largas ni medias (decisión de Miguel, 29-sep-2026)
+- **No usar rayas largas (—) ni medias (–) en los textos de las ediciones**;
+  sustituir por comas, puntos, dos puntos o paréntesis, lo que haga la frase
+  natural. Aplicar en cada edición nueva, en los TRES idiomas.
+- Comprobación antes de publicar: `grep -n '—' NN/index.html` debe salir vacío.
+- Para separar etiquetas (título de pestaña, listado de ediciones del footer,
+  "fuente · mes año") se usa el punto medio `·`, que ya es el separador de la casa.
+- Aplicado por primera vez en la #05 (commit de 29-sep-2026). Las #01-#04 se
+  quedan como están: no se reescriben ediciones ya publicadas.
+- ⚠️ **Pendiente**: `editions-nav.js` (compartido por TODAS las ediciones) sigue
+  generando ` — ` en el listado del footer (`var label = ' — ' + e.label` y el
+  teaser `'— próximamente'`), y reescribe ese `<ul>` por JS al cargar. Mientras no
+  se cambie ahí, el footer de la #05 muestra rayas en runtime aunque su HTML no las
+  tenga. Cambiarlo afecta al footer de #01-#04, así que requiere decisión explícita.
+
 ### Regla — Sección fija "Novedades del Departamento IT"
 - Recurrente, cabecera e icono constantes (🛠️), lenguaje claro, ubicada tras "IA al día".
 - Es el lugar donde IT comunica sus cambios (DLP, GoPhish, VLAN, etc.).
