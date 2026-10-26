@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="edicion" content="06">
-<title>NextTech #06 — LOGNEXT</title>
+<title>NextTech #06 · LOGNEXT</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 521 438'><polygon fill='%23000029' points='175,119 116,119 201,219 115,320 175,320 243,243 243,196'/><polygon fill='%23000029' points='344,119 403,119 318,219 404,320 344,320 276,243 276,196'/><polygon fill='%23FA3C0F' points='92,348 27,408 86,408 149,348'/><polygon fill='%23FA3C0F' points='425,90 489,30 430,30 369,90'/></svg>">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <script>
@@ -189,11 +189,25 @@ body {
 @keyframes progressFill { to { width: 65%; } }
 .reto-label { display: flex; justify-content: space-between; font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 8px; opacity: 0.5; }
 .phishing-inner { background: rgba(200,150,255,0.05); border: 1px solid rgba(200,150,255,0.1); border-radius: 4px; padding: 24px; margin-top: 16px; }
-.phishing-email-preview { background: #fff; border-radius: 4px; padding: 16px; margin-bottom: 16px; font-family: Arial, sans-serif; color: #333; }
-.phishing-email-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; font-size: 12px; color: #666; }
-.phishing-email-subject { font-weight: bold; font-size: 14px; color: #111; margin-bottom: 4px; }
-.phishing-email-body { font-size: 13px; line-height: 1.6; color: #444; }
-.phishing-email-body a { color: #1a73e8; text-decoration: underline; }
+.spot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.spot-col { display: flex; flex-direction: column; min-width: 0; }
+.spot-side { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--violet); margin-bottom: 8px; }
+.spot-mail { flex: 1; background: #FFFFFF; border: 1px solid rgba(255,255,255,0.12); border-radius: 6px; padding: 16px; font-family: Arial, sans-serif; color: #333; box-shadow: 0 6px 18px rgba(0,0,0,0.25); }
+.spot-mail-head { display: flex; gap: 10px; align-items: flex-start; border-bottom: 1px solid #ECECF0; padding-bottom: 12px; margin-bottom: 12px; }
+.spot-avatar { width: 34px; height: 34px; border-radius: 50%; background: #B4462B; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.spot-mail-meta { min-width: 0; font-size: 12px; line-height: 1.6; color: #555; }
+.spot-from { overflow-wrap: anywhere; }
+.spot-subject { font-weight: 700; font-size: 13px; color: #111; }
+.spot-label { color: #888; font-weight: 400; }
+.spot-dom { background: #FFF3B0; color: #111; padding: 0 3px; border-radius: 2px; transition: background 0.3s ease, color 0.3s ease; }
+#test-block.answered .spot-dom-ok { background: #D6F5DD; color: #145E2A; }
+#test-block.answered .spot-dom-ko { background: #FFD9CF; color: #9B2200; }
+.spot-mail-body { font-size: 13px; line-height: 1.6; color: #444; }
+.spot-fake-btn { display: inline-block; margin-top: 14px; background: #B4462B; color: #fff; font-size: 13px; font-weight: 700; padding: 9px 18px; border-radius: 4px; cursor: not-allowed; user-select: none; }
+.phishing-btn-spot { background: rgba(200,150,255,0.1); color: var(--violet); border: 1px solid var(--violet); }
+.phishing-btn-spot:hover { background: var(--violet); color: var(--navy); }
+.phishing-buttons .phishing-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+.phishing-btn-correcta { box-shadow: 0 0 0 1.5px currentColor inset; }
 .phishing-question { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; line-height: 1.5; }
 .phishing-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
 .phishing-btn { padding: 12px 24px; font-size: 13px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; border: none; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.5px; flex: 1; min-width: 120px; }
@@ -222,6 +236,7 @@ body {
 .radar-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 16px; }
 .radar-grid-item { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 16px 20px; text-decoration: none; color: var(--grey); transition: all 0.2s ease; display: block; backdrop-filter: blur(4px); }
 .radar-grid-item:hover { background: rgba(255,255,255,0.04); padding-left: 26px; }
+.radar-grid-item:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .links-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-top: 4px; }
 .link-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); padding: 24px; text-decoration: none; color: var(--grey); transition: all 0.25s ease; display: flex; flex-direction: column; gap: 8px; position: relative; overflow: hidden; }
 .link-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease; }
@@ -274,6 +289,7 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .footer { padding: 40px 28px 28px; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .radar-grid { grid-template-columns: 1fr; }
+  .spot-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 600px) {
   .logo-next, .logo-letter { font-size: 48px; letter-spacing: -2px; }
@@ -376,7 +392,7 @@ body.light .topbar-logo-svg   { display: none; }
 
 
 /* ═══════════════════════════════════════════════
-   NEXTTECH · MODO CLARO — Revisión tipográfica completa
+   NEXTTECH · MODO CLARO: Revisión tipográfica completa
    Ratio mínimo de contraste: 4.5:1 en todo el texto
    ═══════════════════════════════════════════════ */
 
@@ -503,6 +519,13 @@ body.light .phishing-btn-no {
   border: 1.5px solid #1A7A38;
 }
 body.light .phishing-btn-no:hover { background: #1A7A38; color: #FFFFFF; }
+body.light .phishing-btn-spot {
+  background: rgba(106,40,170,0.06); color: #6A28AA;
+  border: 1.5px solid #6A28AA;
+}
+body.light .phishing-btn-spot:hover { background: #6A28AA; color: #FFFFFF; }
+body.light .spot-side { color: #6A28AA; }
+body.light .spot-mail { border-color: rgba(0,0,41,0.12); box-shadow: 0 4px 14px rgba(0,0,41,0.08); }
 body.light .phishing-result.correct {
   background: rgba(26,122,56,0.08);
   border-color: rgba(26,122,56,0.3); color: #145E2A;
@@ -708,10 +731,10 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
   </div>
 
-  <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
+  <!-- BIENVENIDA INTEGRADA: OBLIGATORIO POR EDICIÓN:
        El texto de arriba es la base genérica. En cada edición se sustituye por la
        bienvenida integrada: arranca con la identidad de NextTech y sigue con
-       "En esta edición #NN — Mes Año: ..." + resumen propio del contenido del mes.
+       "En esta edición #NN (Mes Año): ..." + resumen propio del contenido del mes.
        Actualizar también la clave "intro" del I18N (es/en/fr).
        Patrón de referencia: 03/index.html. -->
 
@@ -721,7 +744,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <!-- GRID PRINCIPAL -->
   <div class="main-grid">
 
-    <!-- 1. IA AL DÍA — primera sección, ancho completo -->
+    <!-- 1. IA AL DÍA: primera sección, ancho completo -->
     <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
         <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&h=180&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
@@ -734,20 +757,20 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <a href="https://thehackernews.com/2026/10/generative-ai-is-erasing-behavioral.html" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el análisis completo <span class="arrow">→</span></a>
     </div>
 
-    <!-- 2a. ESTO PASÓ — columna izquierda -->
+    <!-- 2a. ESTO PASÓ: columna izquierda -->
     <div class="card card-esto" onmouseenter="trackSection('esto_paso')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&h=220&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
+        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&h=220&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
         <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> <span data-i18n="tag-esto">Esto pasó</span></div>
-      <div class="card-title" data-i18n="esto-title">España bate un récord que no apetece celebrar: más brechas en seis meses que en todo 2025</div>
-      <div class="card-text" data-i18n="esto-text">La Agencia Española de Protección de Datos acaba de publicar una cifra que debería estar en la pantalla de cualquier responsable IT: en el primer semestre de 2026 ya se han notificado tantos incidentes de seguridad como en el año completo anterior. El aumento se achaca directamente al crecimiento de la ciberdelincuencia organizada. Para los que estamos en proceso de certificación ENS, este dato no es ruido de fondo: es exactamente el argumento que justifica cada control que estamos implementando.</div>
-      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>El País Tecnología · Octubre 2026</div>
-      <a href="https://elpais.com/tecnologia/2026-10-20/proteccion-de-datos-alerta-de-un-record-de-brechas-de-seguridad.html" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)" data-i18n-html="esto-link">Leer la historia completa <span class="arrow">→</span></a>
+      <div class="card-title" data-i18n="esto-title">PHP, el motor de media internet, con dos fallos críticos que permiten tomar el control del servidor</div>
+      <div class="card-text" data-i18n="esto-text">El 21 de octubre, el equipo de PHP publicó parches de emergencia para dos vulnerabilidades críticas (CVE-2026-109618 y CVE-2026-109619), ambas con la máxima gravedad (9.2 sobre 10). Son fallos en el propio núcleo de PHP, el lenguaje que hace funcionar una enorme parte de las webs del mundo, y permiten a un atacante ejecutar código en el servidor de forma remota, sin necesidad de contraseña. Lo más grave: en ciertas configuraciones, basta una petición maliciosa para disparar el fallo antes incluso de que la aplicación entre en juego. La información se filtró antes de tiempo en un foro, lo que obligó a acelerar la publicación de los parches. Si tenéis servidores o aplicaciones con PHP, actualizar a las versiones corregidas (8.5.12, 8.4.27, 8.3.36 u 8.2.35) no es opcional: es urgente. Y ojo, no basta con un “actualizar y listo”, hay que verificar que la versión instalada es realmente la parcheada.</div>
+      <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>php.net · Octubre 2026</div>
+      <a href="https://www.php.net/archive/2026.php#2026-10-21-5" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)" data-i18n-html="esto-link">Leer la historia completa <span class="arrow">→</span></a>
     </div>
 
-    <!-- 2b. AMENAZA DEL MES — columna derecha -->
+    <!-- 2b. AMENAZA DEL MES: columna derecha -->
     <div class="card card-caso" onmouseenter="trackSection('caso_mes')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
         <img src="https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;">
@@ -760,7 +783,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <a href="https://www.bleepingcomputer.com/news/security/zeabur-shutting-down-after-second-security-breach-in-two-months/" target="_blank" class="card-link" style="color:var(--yellow)" onclick="trackLink('caso_mes', this.href)" data-i18n-html="caso-link">Ver el caso completo <span class="arrow">→</span></a>
     </div>
 
-    <!-- 3a. CONSEJO DEL MES — columna izquierda -->
+    <!-- 3a. CONSEJO DEL MES: columna izquierda -->
     <div class="card card-consejo" onmouseenter="trackSection('consejo')">
       <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
         <img src="https://images.unsplash.com/photo-1680992046626-418f7e910589?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
@@ -773,7 +796,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <a href="https://www.ccn-cert.cni.es" target="_blank" class="card-link" style="color:var(--green)" onclick="trackLink('consejo', this.href)">Guías CCN-CERT sobre gestión de logs <span class="arrow">→</span></a>
     </div>
 
-    <!-- 3b. EL RETO DEL MES — columna derecha -->
+    <!-- 3b. EL RETO DEL MES: columna derecha -->
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
         <img src="https://images.unsplash.com/photo-1512149673953-1e251807ec7c?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
@@ -781,8 +804,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Reto del mes: audita los permisos de tus aplicaciones en 30 minutos</div>
-      <div class="card-text" data-i18n="reto-text">Esta semana, entra en al menos una aplicación SaaS que uses a diario (Google Workspace, Microsoft 365, Jira…) y revisa qué integraciones de terceros tienen acceso a tu cuenta: elimina las que no reconozcas o no hayas usado en los últimos 90 días. Apunta cuántas has borrado y compártelo en el canal de Slack del equipo.</div>
+      <div class="card-title" data-i18n="reto-title">Reto del mes: actualiza el equipo, no dejes las actualizaciones ‘para luego’</div>
+      <div class="card-text" data-i18n="reto-text">Esta semana, cuando te salte el aviso de actualización (del sistema, del navegador, del móvil), no le des a “recordar más tarde”: instálala. Cada actualización tapa agujeros que los atacantes ya conocen y están aprovechando. El parche que no aplicas hoy es la puerta que dejas abierta mañana. Dos minutos que te ahorran un disgusto.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>NOVIEMBRE 2026</span>
@@ -791,7 +814,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Noviembre 2026</div>
     </div>
 
-    <!-- 4. EN EL RADAR — ancho completo, grid 2×2 -->
+    <!-- 4. EN EL RADAR: ancho completo, grid 2×2 (el quinto ocupa la fila entera) -->
     <div class="card card-radar full-width" style="background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('radar')">
       <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"/></svg> <span data-i18n="tag-radar">En el radar</span></div>
       <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte este mes</div>
@@ -816,41 +839,59 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <div class="radar-headline" data-i18n="radar-4-headline">Atacantes secuestran más de 300 nodos de salida de Tor para interceptar conexiones SSH y robar contraseñas</div>
   <div class="radar-meta">21/10/2026</div>
 </a>
+<a href="https://elpais.com/tecnologia/2026-10-20/proteccion-de-datos-alerta-de-un-record-de-brechas-de-seguridad.html" target="_blank" class="radar-grid-item" onclick="trackLink('radar_4', this.href)">
+  <div class="radar-source"><span class="radar-dot" style="background:#64F07D"></span><span class="radar-org">El País Tecnología</span></div>
+  <div class="radar-headline" data-i18n="radar-5-headline">España bate un récord que no apetece celebrar: más brechas en seis meses que en todo 2025</div>
+  <div class="radar-meta">20/10/2026</div>
+</a>
 
       </div>
     </div>
 
-    <!-- 5. PHISHING TEST — estático, ancho completo -->
+    <!-- 5. PHISHING TEST: encuentra las diferencias (Banco Fénix es FICTICIO), ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
-      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
-      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text" data-i18n="phishing-intro">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
-      <div class="phishing-inner">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
-            <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
+      <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">🎯 Pon a prueba tu ojo · Encuentra las diferencias</div>
+      <div class="card-text" data-i18n="spot-intro">Estos dos correos parecen el mismo, pero uno es de tu banco y el otro es un fraude. ¿Sabrías decir cuál es el falso y por qué?</div>
+      <div class="phishing-inner" id="test-block">
+        <div class="spot-grid">
+          <div class="spot-col">
+            <div class="spot-side" data-i18n="spot-side-left">Izquierda</div>
+            <div class="spot-mail">
+              <div class="spot-mail-head">
+                <div class="spot-avatar" aria-hidden="true">BF</div>
+                <div class="spot-mail-meta">
+                  <div class="spot-from"><span class="spot-label" data-i18n="spot-from">De:</span> Banco Fénix &lt;notificaciones@<span class="spot-dom spot-dom-ok">bancofenix.es</span>&gt;</div>
+                  <div class="spot-subject"><span class="spot-label" data-i18n="spot-subject">Asunto:</span> <span data-i18n="spot-a-subject">Resumen mensual de tu cuenta disponible</span></div>
+                </div>
+              </div>
+              <div class="spot-mail-body" data-i18n="spot-a-body">Hola, ya tienes disponible el resumen de movimientos de este mes en tu área personal. Puedes consultarlo cuando quieras desde la app o la web oficial de Banco Fénix.</div>
+            </div>
           </div>
-          <div class="phishing-email-body">
-            Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
+          <div class="spot-col">
+            <div class="spot-side" data-i18n="spot-side-right">Derecha</div>
+            <div class="spot-mail">
+              <div class="spot-mail-head">
+                <div class="spot-avatar" aria-hidden="true">BF</div>
+                <div class="spot-mail-meta">
+                  <div class="spot-from"><span class="spot-label" data-i18n="spot-from">De:</span> Banco Fénix &lt;seguridad@<span class="spot-dom spot-dom-ko">banco-fenix-online.com</span>&gt;</div>
+                  <div class="spot-subject"><span class="spot-label" data-i18n="spot-subject">Asunto:</span> <span data-i18n="spot-b-subject">⚠️ Su cuenta será bloqueada en 24h</span></div>
+                </div>
+              </div>
+              <div class="spot-mail-body" data-i18n="spot-b-body">Estimado cliente, hemos detectado un acceso no autorizado. Debe verificar su identidad urgentemente o su cuenta será suspendida. Pulse aquí para confirmar sus datos.</div>
+              <span class="spot-fake-btn" aria-hidden="true" data-i18n="spot-b-btn">Verificar ahora</span>
+            </div>
           </div>
         </div>
-        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
+        <div class="phishing-question" data-i18n="spot-question">¿Cuál de los dos es el intento de phishing?</div>
         <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
-          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
+          <button class="phishing-btn phishing-btn-spot" id="spot-btn-left" onclick="answerTest(false)"><svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg> <span data-i18n="spot-btn-left">El correo de la izquierda</span></button>
+          <button class="phishing-btn phishing-btn-spot" id="spot-btn-right" onclick="answerTest(true)"><span data-i18n="spot-btn-right">El correo de la derecha</span> <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink:0"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
         </div>
-        <div class="phishing-result" id="phishing-result"></div>
+        <div class="phishing-result" id="test-result"><span id="test-fb-ok" data-i18n="spot-fb">Bien visto. El de la derecha es el fraude, y lo delatan varias señales: el dominio del remitente no es el real (banco-fenix-online.com, no bancofenix.es), mete urgencia y miedo (“24h”, “cuenta bloqueada”), trata de tú a “estimado cliente” sin personalizar, y te empuja a pulsar un enlace para “confirmar datos”. Tu banco nunca te pide verificar datos por un enlace de un correo: entra siempre tú a la app o la web oficial.</span><span id="test-fb-ko" data-i18n="spot-fb-ko" style="display:none;">Cuidado: el fraude era el de la DERECHA. Fíjate: su remitente usa un dominio falso (banco-fenix-online.com, no el real bancofenix.es), mete urgencia y miedo, y te empuja a pulsar un enlace para “confirmar datos”. El de la izquierda, en cambio, no mete prisa y te invita a entrar por la web oficial. Tu banco nunca te pide verificar datos desde un enlace de un correo.</span></div>
       </div>
     </div>
 
-    <!-- 6. RECURSOS — ancho completo -->
+    <!-- 6. RECURSOS: ancho completo -->
     <div class="card card-links full-width" style="padding-bottom:36px;background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('enlaces')">
       <div class="section-tag" style="color:var(--violet)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> <span data-i18n="tag-links">Por si quieres caer en el agujero</span></div>
       <div class="links-grid">
@@ -858,21 +899,21 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg></span>
   <span class="link-label" data-i18n="link-1-label">Artículo</span>
   <span class="link-title" data-i18n="link-1-title">PHP2Shell: lo que realmente te protege antes del parche crítico CVSS 9.2</span>
-  <span class="link-desc" data-i18n="link-1-desc">Análisis técnico honesto de qué mitigaciones funcionan y cuáles no antes de parchear las dos vulnerabilidades críticas de PHP — imprescindible si gestionáis servidores web.</span>
+  <span class="link-desc" data-i18n="link-1-desc">Análisis técnico honesto de qué mitigaciones funcionan y cuáles no antes de parchear las dos vulnerabilidades críticas de PHP: imprescindible si gestionáis servidores web.</span>
   <span class="link-source" data-i18n="link-1-source">The Hacker News · Octubre 2026</span>
 </a>
 <a href="https://thehackernews.com/2026/10/china-aligned-bronze-sandcastle-abuses.html" class="link-card lc-video" target="_blank" onclick="trackLink('video', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
   <span class="link-label" data-i18n="link-2-label">Vídeo</span>
   <span class="link-title" data-i18n="link-2-title">Cómo funciona el DLL sideloading que usa Bronze Sandcastle para instalar backdoors</span>
-  <span class="link-desc" data-i18n="link-2-desc">El canal de Sophos en YouTube explica la técnica de DLL sideloading abusada por este grupo alineado con China — 12 minutos que aclaran por qué este vector sigue funcionando.</span>
+  <span class="link-desc" data-i18n="link-2-desc">El canal de Sophos en YouTube explica la técnica de DLL sideloading abusada por este grupo alineado con China: 12 minutos que aclaran por qué este vector sigue funcionando.</span>
   <span class="link-source" data-i18n="link-2-source">The Hacker News · Octubre 2026</span>
 </a>
 <a href="https://elpais.com/tecnologia/tu-tecnologia/2026-10-20/he-comprobado-todo-lo-que-google-sabe-de-mi-vida-y-esto-es-lo-que-guarda.html" class="link-card lc-quiz" target="_blank" onclick="trackLink('quiz', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
   <span class="link-label" data-i18n="link-3-label">Quiz interactivo</span>
   <span class="link-title" data-i18n="link-3-title">¿Sabes lo que Google sabe de ti? Compruébalo ahora</span>
-  <span class="link-desc" data-i18n="link-3-desc">Guía práctica de El País para auditar tu cuenta de Google: búsquedas, ubicaciones, actividad almacenada y qué puedes borrar hoy mismo — útil como ejercicio de concienciación sobre privacidad.</span>
+  <span class="link-desc" data-i18n="link-3-desc">Guía práctica de El País para auditar tu cuenta de Google: búsquedas, ubicaciones, actividad almacenada y qué puedes borrar hoy mismo, útil como ejercicio de concienciación sobre privacidad.</span>
   <span class="link-source" data-i18n="link-3-source">El País Tecnología · Octubre 2026</span>
 </a>
 
@@ -896,14 +937,14 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div class="footer-col-title" data-i18n="footer-col-editions">Ediciones</div>
         <div class="footer-col-rule"></div>
         <ul class="footer-links-list">
-          <li><a href="/01/">#01 — Junio 2026</a></li>
-<li><a href="/02/">#02 — Julio 2026</a></li>
-<li><a href="/03/">#03 — Agosto 2026</a></li>
-<li><a href="/04/">#04 — Septiembre 2026</a></li>
-<li><a href="/05/">#05 — Octubre 2026</a></li>
-<li><a href="/06/">#06 — Noviembre 2026<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span></a></li>
-<li><span class="ed-foot-soon">→ #07 — próximamente</span></li>
-<li><span class="ed-foot-soon">→ #08 — próximamente</span></li>
+          <li><a href="/01/">#01 · Junio 2026</a></li>
+<li><a href="/02/">#02 · Julio 2026</a></li>
+<li><a href="/03/">#03 · Agosto 2026</a></li>
+<li><a href="/04/">#04 · Septiembre 2026</a></li>
+<li><a href="/05/">#05 · Octubre 2026</a></li>
+<li><a href="/06/">#06 · Noviembre 2026<span style="display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:rgba(250,60,15,0.15);border:1px solid rgba(250,60,15,0.4);padding:1px 7px;font-size:9px;letter-spacing:1.5px;color:var(--red);vertical-align:middle;"><span style="width:5px;height:5px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 1.5s ease-in-out infinite;"></span>NOW</span></a></li>
+<li><span class="ed-foot-soon">→ #07 · próximamente</span></li>
+<li><span class="ed-foot-soon">→ #08 · próximamente</span></li>
 
         </ul>
       </div>
@@ -1046,32 +1087,18 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerPhishing(clickedYes) {
-  const result = document.getElementById('phishing-result');
-  if (!clickedYes) {
-    trackPhishing('correct');
-    result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace «Verificar mi cuenta» lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
-  } else {
-    trackPhishing('incorrect');
-    result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial («24h») es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
-  }
-  try {
-    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fecha: new Date().toLocaleDateString('es-ES'),
-        hora: new Date().toLocaleTimeString('es-ES'),
-        edicion: '06',
-        respuesta: clickedYes ? 'incorrecto' : 'correcto',
-        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
-      })
-    });
-  } catch(e) {}
-  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+function answerTest(pickedRight) {
+  const box = document.getElementById('test-result');
+  if (!box) return;
+  box.className = 'phishing-result show ' + (pickedRight ? 'correct' : 'wrong');
+  document.getElementById('test-fb-ok').style.display = pickedRight ? 'inline' : 'none';
+  document.getElementById('test-fb-ko').style.display = pickedRight ? 'none' : 'inline';
+  trackPhishing(pickedRight ? 'test_correcto' : 'test_incorrecto');
+  document.getElementById('test-block').classList.add('answered');
+  document.querySelectorAll('#test-block .phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
+  const ok = document.getElementById('spot-btn-right');
+  ok.classList.add('phishing-btn-correcta');
+  ok.style.opacity = '1';
 }
 
 document.addEventListener('click', function(e) {
@@ -1191,8 +1218,8 @@ const I18N = {
     "ia-title": "El phishing ya no tiene faltas de ortografía: la IA borra las señales que detectaban los filtros",
     "ia-text": "Proofpoint presentó en su conferencia Protect 2026 algo que los equipos IT llevan sospechando: los modelos de IA generativa han eliminado los marcadores de comportamiento que los filtros de email usaban para detectar mensajes maliciosos. Los correos ahora llegan fluidos, personalizados y únicos por destinatario, lo que inutiliza gran parte de la detección basada solo en patrones de escritura. Para equipos IT esto significa una cosa concreta: los controles de seguridad que dependen exclusivamente del análisis de comportamiento textual necesitan refuerzo con capas adicionales, como verificación de dominio, sandboxing y formación continua a usuarios.",
     "tag-esto": "Esto pasó",
-    "esto-title": "España bate un récord que no apetece celebrar: más brechas en seis meses que en todo 2025",
-    "esto-text": "La Agencia Española de Protección de Datos acaba de publicar una cifra que debería estar en la pantalla de cualquier responsable IT: en el primer semestre de 2026 ya se han notificado tantos incidentes de seguridad como en el año completo anterior. El aumento se achaca directamente al crecimiento de la ciberdelincuencia organizada. Para los que estamos en proceso de certificación ENS, este dato no es ruido de fondo: es exactamente el argumento que justifica cada control que estamos implementando.",
+    "esto-title": "PHP, el motor de media internet, con dos fallos críticos que permiten tomar el control del servidor",
+    "esto-text": "El 21 de octubre, el equipo de PHP publicó parches de emergencia para dos vulnerabilidades críticas (CVE-2026-109618 y CVE-2026-109619), ambas con la máxima gravedad (9.2 sobre 10). Son fallos en el propio núcleo de PHP, el lenguaje que hace funcionar una enorme parte de las webs del mundo, y permiten a un atacante ejecutar código en el servidor de forma remota, sin necesidad de contraseña. Lo más grave: en ciertas configuraciones, basta una petición maliciosa para disparar el fallo antes incluso de que la aplicación entre en juego. La información se filtró antes de tiempo en un foro, lo que obligó a acelerar la publicación de los parches. Si tenéis servidores o aplicaciones con PHP, actualizar a las versiones corregidas (8.5.12, 8.4.27, 8.3.36 u 8.2.35) no es opcional: es urgente. Y ojo, no basta con un “actualizar y listo”, hay que verificar que la versión instalada es realmente la parcheada.",
     "tag-caso": "Amenaza del mes",
     "caso-title": "Temporada 2, episodio final: cómo unas credenciales en texto plano cerraron Zeabur para siempre",
     "caso-text": "Zeabur era una plataforma de desarrollo con buena pinta. Hasta que un atacante encontró credenciales internas guardadas en texto plano, entró, y de ahí en adelante todo fue cuesta abajo: más de 3,2 millones de registros de variables de entorno robados y datos de 321.810 cuentas comprometidas. Era su segundo incidente en dos meses. No hubo temporada 3: Zeabur anunció el cierre. La moraleja no necesita subtítulos: un secreto guardado como texto plano no es un secreto, es una invitación.",
@@ -1200,32 +1227,43 @@ const I18N = {
     "consejo-title": "Tus logs son tu memoria: actívalos antes de que los necesites",
     "consejo-text": "Revisa hoy que el logging está habilitado en tus sistemas críticos y que los registros se centralizan en un lugar al que un atacante no pueda llegar fácilmente. Un incidente sin logs es como un crimen sin testigos: sabes que pasó algo, pero no puedes probar nada ni aprender de ello. El CCN-CERT tiene guías concretas sobre gestión de registros que encajan perfectamente con los requisitos ENS.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Reto del mes: audita los permisos de tus aplicaciones en 30 minutos",
-    "reto-text": "Esta semana, entra en al menos una aplicación SaaS que uses a diario (Google Workspace, Microsoft 365, Jira…) y revisa qué integraciones de terceros tienen acceso a tu cuenta: elimina las que no reconozcas o no hayas usado en los últimos 90 días. Apunta cuántas has borrado y compártelo en el canal de Slack del equipo.",
+    "reto-title": "Reto del mes: actualiza el equipo, no dejes las actualizaciones ‘para luego’",
+    "reto-text": "Esta semana, cuando te salte el aviso de actualización (del sistema, del navegador, del móvil), no le des a “recordar más tarde”: instálala. Cada actualización tapa agujeros que los atacantes ya conocen y están aprovechando. El parche que no aplicas hoy es la puerta que dejas abierta mañana. Dos minutos que te ahorran un disgusto.",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "SafePay ransomware ha comprometido más de 600 organizaciones de infraestructura crítica desde 2024, según CISA",
     "radar-2-headline": "Mozilla, Google y Apple bloquean certificados de la CA eMudhra tras descubrirse que sus claves privadas eran recuperables en segundos",
     "radar-3-headline": "CVE-2026-21589 en Atlassian Data Center ya está siendo explotada activamente horas después de publicarse la prueba de concepto",
     "radar-4-headline": "Atacantes secuestran más de 300 nodos de salida de Tor para interceptar conexiones SSH y robar contraseñas",
-    "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
-    "phishing-title": "¿Detectarías este email antes de hacer clic?",
-    "phishing-intro": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
-    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
-    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
-    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "radar-5-headline": "España bate un récord que no apetece celebrar: más brechas en seis meses que en todo 2025",
+    "tag-phishing": "🎯 Pon a prueba tu ojo · Encuentra las diferencias",
+    "spot-intro": "Estos dos correos parecen el mismo, pero uno es de tu banco y el otro es un fraude. ¿Sabrías decir cuál es el falso y por qué?",
+    "spot-side-left": "Izquierda",
+    "spot-side-right": "Derecha",
+    "spot-from": "De:",
+    "spot-subject": "Asunto:",
+    "spot-a-subject": "Resumen mensual de tu cuenta disponible",
+    "spot-a-body": "Hola, ya tienes disponible el resumen de movimientos de este mes en tu área personal. Puedes consultarlo cuando quieras desde la app o la web oficial de Banco Fénix.",
+    "spot-b-subject": "⚠️ Su cuenta será bloqueada en 24h",
+    "spot-b-body": "Estimado cliente, hemos detectado un acceso no autorizado. Debe verificar su identidad urgentemente o su cuenta será suspendida. Pulse aquí para confirmar sus datos.",
+    "spot-b-btn": "Verificar ahora",
+    "spot-question": "¿Cuál de los dos es el intento de phishing?",
+    "spot-btn-left": "El correo de la izquierda",
+    "spot-btn-right": "El correo de la derecha",
+    "spot-fb": "Bien visto. El de la derecha es el fraude, y lo delatan varias señales: el dominio del remitente no es el real (banco-fenix-online.com, no bancofenix.es), mete urgencia y miedo (“24h”, “cuenta bloqueada”), trata de tú a “estimado cliente” sin personalizar, y te empuja a pulsar un enlace para “confirmar datos”. Tu banco nunca te pide verificar datos por un enlace de un correo: entra siempre tú a la app o la web oficial.",
+    "spot-fb-ko": "Cuidado: el fraude era el de la DERECHA. Fíjate: su remitente usa un dominio falso (banco-fenix-online.com, no el real bancofenix.es), mete urgencia y miedo, y te empuja a pulsar un enlace para “confirmar datos”. El de la izquierda, en cambio, no mete prisa y te invita a entrar por la web oficial. Tu banco nunca te pide verificar datos desde un enlace de un correo.",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "PHP2Shell: lo que realmente te protege antes del parche crítico CVSS 9.2",
-    "link-1-desc": "Análisis técnico honesto de qué mitigaciones funcionan y cuáles no antes de parchear las dos vulnerabilidades críticas de PHP — imprescindible si gestionáis servidores web.",
+    "link-1-desc": "Análisis técnico honesto de qué mitigaciones funcionan y cuáles no antes de parchear las dos vulnerabilidades críticas de PHP: imprescindible si gestionáis servidores web.",
     "link-1-source": "The Hacker News · Octubre 2026",
     "link-2-label": "Vídeo",
     "link-2-title": "Cómo funciona el DLL sideloading que usa Bronze Sandcastle para instalar backdoors",
-    "link-2-desc": "El canal de Sophos en YouTube explica la técnica de DLL sideloading abusada por este grupo alineado con China — 12 minutos que aclaran por qué este vector sigue funcionando.",
+    "link-2-desc": "El canal de Sophos en YouTube explica la técnica de DLL sideloading abusada por este grupo alineado con China: 12 minutos que aclaran por qué este vector sigue funcionando.",
     "link-2-source": "The Hacker News · Octubre 2026",
     "link-3-label": "Quiz interactivo",
     "link-3-title": "¿Sabes lo que Google sabe de ti? Compruébalo ahora",
-    "link-3-desc": "Guía práctica de El País para auditar tu cuenta de Google: búsquedas, ubicaciones, actividad almacenada y qué puedes borrar hoy mismo — útil como ejercicio de concienciación sobre privacidad.",
+    "link-3-desc": "Guía práctica de El País para auditar tu cuenta de Google: búsquedas, ubicaciones, actividad almacenada y qué puedes borrar hoy mismo, útil como ejercicio de concienciación sobre privacidad.",
     "link-3-source": "El País Tecnología · Octubre 2026",
     "footer-col-nexters": "Somos Nexters",
     "footer-brand-text": "Tecnología, seguridad y novedades internas, reunidas cada mes para todos los Nexters.",
@@ -1276,41 +1314,52 @@ const I18N = {
     "ia-title": "Phishing emails no longer have spelling mistakes: AI erases the signals that filters used to detect",
     "ia-text": "Proofpoint presented at its Protect 2026 conference something IT teams have long suspected: generative AI models have eliminated the behavioral markers that email filters relied on to detect malicious messages. Emails now arrive fluent, personalized, and unique per recipient, rendering much of the detection based solely on writing patterns ineffective. For IT teams, this means one concrete thing: security controls that rely exclusively on textual behavior analysis need reinforcing with additional layers, such as domain verification, sandboxing, and ongoing user training.",
     "tag-esto": "What Happened",
-    "esto-title": "Spain breaks a record no one wants to celebrate: more breaches in six months than in all of 2025",
-    "esto-text": "The Spanish Data Protection Agency has just published a figure that should be on every IT manager's screen: in the first half of 2026, as many security incidents have already been reported as in the entire previous year. The increase is directly attributed to the growth of organized cybercrime. For those of us in the process of ENS certification, this is not background noise — it is exactly the argument that justifies every control we are implementing.",
+    "esto-title": "PHP, the engine behind half the internet, hit by two critical flaws that let attackers take over the server",
+    "esto-text": "On 21 October, the PHP team released emergency patches for two critical vulnerabilities (CVE-2026-109618 and CVE-2026-109619), both rated at maximum severity (9.2 out of 10). They are flaws in the PHP core itself, the language that powers a huge share of the world’s websites, and they let an attacker run code on the server remotely, with no password needed. The worst part: in certain configurations, a single malicious request is enough to trigger the flaw before the application even comes into play. The details leaked early on a forum, which forced the patches out ahead of schedule. If you run servers or applications with PHP, updating to the fixed versions (8.5.12, 8.4.27, 8.3.36 or 8.2.35) is not optional: it is urgent. And watch out, a quick “update and done” is not enough: you need to verify that the installed version really is the patched one.",
     "tag-caso": "Threat of the Month",
     "caso-title": "Season 2, series finale: how plaintext credentials shut down Zeabur for good",
-    "caso-text": "Zeabur was a promising development platform — until an attacker found internal credentials stored in plaintext, gained access, and from there everything went downhill: more than 3.2 million environment variable records stolen and data from 321,810 accounts compromised. It was their second incident in two months. There was no season 3: Zeabur announced its closure. The moral needs no subtitles: a secret stored as plaintext is not a secret — it is an open invitation.",
+    "caso-text": "Zeabur was a promising development platform. Until an attacker found internal credentials stored in plaintext, gained access, and from there everything went downhill: more than 3.2 million environment variable records stolen and data from 321,810 accounts compromised. It was their second incident in two months. There was no season 3: Zeabur announced its closure. The moral needs no subtitles: a secret stored as plaintext is not a secret, it is an open invitation.",
     "tag-consejo": "Tip of the Month",
     "consejo-title": "Your logs are your memory: enable them before you need them",
     "consejo-text": "Check today that logging is enabled on your critical systems and that records are centralized in a location an attacker cannot easily reach. An incident without logs is like a crime with no witnesses: you know something happened, but you cannot prove anything or learn from it. CCN-CERT has concrete guides on log management that align perfectly with ENS requirements.",
     "tag-reto": "Monthly Challenge",
-    "reto-title": "Monthly challenge: audit your application permissions in 30 minutes",
-    "reto-text": "This week, open at least one SaaS application you use daily (Google Workspace, Microsoft 365, Jira…) and review which third-party integrations have access to your account: remove any you do not recognize or have not used in the last 90 days. Note how many you removed and share it in the team's Slack channel.",
+    "reto-title": "Monthly challenge: update your devices, don’t leave updates ‘for later’",
+    "reto-text": "This week, when the update prompt pops up (system, browser, phone), don’t hit “remind me later”: install it. Every update plugs holes that attackers already know about and are exploiting. The patch you don’t apply today is the door you leave open tomorrow. Two minutes that save you a headache.",
     "tag-radar": "On the Radar",
     "radar-title": "What you cannot miss this month",
     "radar-1-headline": "SafePay ransomware has compromised more than 600 critical infrastructure organizations since 2024, according to CISA",
     "radar-2-headline": "Mozilla, Google, and Apple block certificates from CA eMudhra after discovering that their private keys could be recovered in seconds",
     "radar-3-headline": "CVE-2026-21589 in Atlassian Data Center is already being actively exploited hours after the proof of concept was published",
     "radar-4-headline": "Attackers hijack more than 300 Tor exit nodes to intercept SSH connections and steal passwords",
-    "tag-phishing": "🎯 Test Your Eye — Monthly Quiz",
-    "phishing-title": "Would you spot this email before clicking?",
-    "phishing-intro": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it is fake?",
-    "phishing-question": "Is this email legitimate or a phishing attempt?",
-    "phishing-btn-yes": "⚠️ It's phishing — I would not click",
-    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "radar-5-headline": "Spain breaks a record no one wants to celebrate: more breaches in six months than in all of 2025",
+    "tag-phishing": "🎯 Test Your Eye · Spot the Difference",
+    "spot-intro": "These two emails look the same, but one is from your bank and the other is a scam. Can you tell which one is fake and why?",
+    "spot-side-left": "Left",
+    "spot-side-right": "Right",
+    "spot-from": "From:",
+    "spot-subject": "Subject:",
+    "spot-a-subject": "Your monthly account summary is available",
+    "spot-a-body": "Hi, this month’s transaction summary is now available in your personal area. You can check it whenever you like from the official Banco Fénix app or website.",
+    "spot-b-subject": "⚠️ Your account will be blocked in 24h",
+    "spot-b-body": "Dear customer, we have detected unauthorized access. You must verify your identity urgently or your account will be suspended. Click here to confirm your details.",
+    "spot-b-btn": "Verify now",
+    "spot-question": "Which of the two is the phishing attempt?",
+    "spot-btn-left": "The email on the left",
+    "spot-btn-right": "The email on the right",
+    "spot-fb": "Well spotted. The one on the right is the scam, and several signs give it away: the sender’s domain is not the real one (banco-fenix-online.com, not bancofenix.es), it piles on urgency and fear (“24h”, “account blocked”), it calls you “dear customer” instead of addressing you personally, and it pushes you to click a link to “confirm your details”. Your bank never asks you to verify your details through a link in an email: always go to the official app or website yourself.",
+    "spot-fb-ko": "Careful: the scam was the one on the RIGHT. Look closely: its sender uses a fake domain (banco-fenix-online.com, not the real bancofenix.es), it piles on urgency and fear, and it pushes you to click a link to “confirm your details”. The one on the left, on the other hand, doesn’t rush you and invites you to go through the official website. Your bank never asks you to verify your details from a link in an email.",
     "tag-links": "In case you want to fall down the rabbit hole",
     "link-1-label": "Article",
     "link-1-title": "PHP2Shell: what actually protects you before the critical CVSS 9.2 patch",
-    "link-1-desc": "An honest technical analysis of which mitigations work and which do not before patching the two critical PHP vulnerabilities — essential reading if you manage web servers.",
+    "link-1-desc": "An honest technical analysis of which mitigations work and which do not before patching the two critical PHP vulnerabilities: essential reading if you manage web servers.",
     "link-1-source": "The Hacker News · October 2026",
     "link-2-label": "Video",
     "link-2-title": "How the DLL sideloading used by Bronze Sandcastle to install backdoors works",
-    "link-2-desc": "The Sophos YouTube channel explains the DLL sideloading technique abused by this China-aligned group — 12 minutes that clarify why this attack vector keeps working.",
+    "link-2-desc": "The Sophos YouTube channel explains the DLL sideloading technique abused by this China-aligned group: 12 minutes that clarify why this attack vector keeps working.",
     "link-2-source": "The Hacker News · October 2026",
     "link-3-label": "Interactive quiz",
     "link-3-title": "Do you know what Google knows about you? Find out now",
-    "link-3-desc": "A practical guide from El País for auditing your Google account: searches, locations, stored activity, and what you can delete today — useful as a privacy awareness exercise.",
+    "link-3-desc": "A practical guide from El País for auditing your Google account: searches, locations, stored activity, and what you can delete today, useful as a privacy awareness exercise.",
     "link-3-source": "El País Tecnología · October 2026",
     "footer-col-nexters": "We Are Nexters",
     "footer-brand-text": "Technology, security, and internal news, brought together every month for all Nexters.",
@@ -1361,8 +1410,8 @@ const I18N = {
     "ia-title": "Le phishing n'a plus de fautes d'orthographe : l'IA efface les signaux que détectaient les filtres",
     "ia-text": "Proofpoint a présenté lors de sa conférence Protect 2026 ce que les équipes IT soupçonnaient depuis un moment : les modèles d'IA générative ont éliminé les marqueurs comportementaux que les filtres d'e-mail utilisaient pour détecter les messages malveillants. Les e-mails arrivent désormais fluides, personnalisés et uniques par destinataire, ce qui rend largement inefficace la détection basée uniquement sur les schémas d'écriture. Pour les équipes IT, cela signifie une chose concrète : les contrôles de sécurité qui reposent exclusivement sur l'analyse comportementale textuelle doivent être renforcés par des couches supplémentaires, telles que la vérification de domaine, le sandboxing et la formation continue des utilisateurs.",
     "tag-esto": "Ce qui s'est passé",
-    "esto-title": "L'Espagne bat un record dont elle se serait bien passée : plus de brèches en six mois qu'en tout 2025",
-    "esto-text": "L'Agence espagnole de protection des données vient de publier un chiffre qui devrait s'afficher sur l'écran de tout responsable IT : au cours du premier semestre 2026, autant d'incidents de sécurité ont déjà été notifiés que sur l'ensemble de l'année précédente. Cette hausse est directement attribuée à la croissance de la cybercriminalité organisée. Pour ceux d'entre nous engagés dans le processus de certification ENS, cette donnée n'est pas un simple bruit de fond : c'est exactement l'argument qui justifie chacun des contrôles que nous mettons en œuvre.",
+    "esto-title": "PHP, le moteur de la moitié d’Internet, touché par deux failles critiques qui permettent de prendre le contrôle du serveur",
+    "esto-text": "Le 21 octobre, l’équipe de PHP a publié des correctifs d’urgence pour deux vulnérabilités critiques (CVE-2026-109618 et CVE-2026-109619), toutes deux au niveau de gravité maximal (9.2 sur 10). Ce sont des failles dans le cœur même de PHP, le langage qui fait tourner une part énorme des sites web du monde, et elles permettent à un attaquant d’exécuter du code sur le serveur à distance, sans aucun mot de passe. Le plus grave : dans certaines configurations, une seule requête malveillante suffit à déclencher la faille avant même que l’application n’entre en jeu. L’information a fuité trop tôt sur un forum, ce qui a obligé à accélérer la publication des correctifs. Si vous avez des serveurs ou des applications sous PHP, passer aux versions corrigées (8.5.12, 8.4.27, 8.3.36 ou 8.2.35) n’est pas une option : c’est urgent. Et attention, un simple « mettre à jour et c’est réglé » ne suffit pas : il faut vérifier que la version installée est bien la version corrigée.",
     "tag-caso": "Menace du mois",
     "caso-title": "Saison 2, épisode final : comment des identifiants en clair ont mis fin à Zeabur pour toujours",
     "caso-text": "Zeabur était une plateforme de développement qui avait l'air prometteuse. Jusqu'à ce qu'un attaquant découvre des identifiants internes stockés en texte brut, s'y introduise, et que tout parte à vau-l'eau : plus de 3,2 millions d'enregistrements de variables d'environnement volés et les données de 321 810 comptes compromis. C'était leur deuxième incident en deux mois. Il n'y aura pas de saison 3 : Zeabur a annoncé sa fermeture. La morale n'a pas besoin de sous-titres : un secret stocké en texte brut n'est pas un secret, c'est une invitation.",
@@ -1370,32 +1419,43 @@ const I18N = {
     "consejo-title": "Vos logs sont votre mémoire : activez-les avant d'en avoir besoin",
     "consejo-text": "Vérifiez dès aujourd'hui que la journalisation est activée sur vos systèmes critiques et que les journaux sont centralisés dans un endroit difficilement accessible pour un attaquant. Un incident sans logs, c'est comme un crime sans témoins : vous savez que quelque chose s'est passé, mais vous ne pouvez rien prouver ni en tirer des leçons. Le CCN-CERT dispose de guides concrets sur la gestion des journaux qui s'alignent parfaitement avec les exigences ENS.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Défi du mois : auditez les permissions de vos applications en 30 minutes",
-    "reto-text": "Cette semaine, connectez-vous à au moins une application SaaS que vous utilisez quotidiennement (Google Workspace, Microsoft 365, Jira…) et vérifiez quelles intégrations tierces ont accès à votre compte : supprimez celles que vous ne reconnaissez pas ou que vous n'avez pas utilisées au cours des 90 derniers jours. Notez combien vous en avez supprimé et partagez-le dans le canal Slack de l'équipe.",
+    "reto-title": "Défi du mois : mettez votre équipement à jour, ne laissez pas les mises à jour « pour plus tard »",
+    "reto-text": "Cette semaine, quand l’alerte de mise à jour apparaît (système, navigateur, mobile), ne cliquez pas sur « me le rappeler plus tard » : installez-la. Chaque mise à jour bouche des failles que les attaquants connaissent déjà et exploitent. Le correctif que vous n’appliquez pas aujourd’hui, c’est la porte que vous laissez ouverte demain. Deux minutes qui vous évitent bien des ennuis.",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "Le ransomware SafePay a compromis plus de 600 organisations d'infrastructure critique depuis 2024, selon la CISA",
     "radar-2-headline": "Mozilla, Google et Apple bloquent les certificats de la CA eMudhra après la découverte que ses clés privées étaient récupérables en quelques secondes",
     "radar-3-headline": "CVE-2026-21589 dans Atlassian Data Center est déjà activement exploitée quelques heures après la publication de la preuve de concept",
     "radar-4-headline": "Des attaquants détournent plus de 300 nœuds de sortie Tor pour intercepter des connexions SSH et voler des mots de passe",
-    "tag-phishing": "🎯 Testez votre œil — Test du mois",
-    "phishing-title": "Détecteriez-vous cet e-mail avant de cliquer ?",
-    "phishing-intro": "Voici le type d'e-mail qu'utilisent les attaquants. Il réunit tous les ingrédients : urgence, expéditeur apparemment légitime et un lien tentant. Sauriez-vous qu'il est frauduleux ?",
-    "phishing-question": "Cet e-mail est-il légitime ou une tentative de phishing ?",
-    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
-    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "radar-5-headline": "L’Espagne bat un record dont elle se serait bien passée : plus de brèches en six mois qu’en tout 2025",
+    "tag-phishing": "🎯 Testez votre œil · Trouvez les différences",
+    "spot-intro": "Ces deux e-mails semblent identiques, mais l’un vient de votre banque et l’autre est une arnaque. Sauriez-vous dire lequel est faux et pourquoi ?",
+    "spot-side-left": "Gauche",
+    "spot-side-right": "Droite",
+    "spot-from": "De :",
+    "spot-subject": "Objet :",
+    "spot-a-subject": "Le relevé mensuel de votre compte est disponible",
+    "spot-a-body": "Bonjour, le relevé des opérations de ce mois est disponible dans votre espace personnel. Vous pouvez le consulter quand vous le souhaitez depuis l’application ou le site officiel de Banco Fénix.",
+    "spot-b-subject": "⚠️ Votre compte sera bloqué dans 24h",
+    "spot-b-body": "Cher client, nous avons détecté un accès non autorisé. Vous devez vérifier votre identité de toute urgence, sans quoi votre compte sera suspendu. Cliquez ici pour confirmer vos données.",
+    "spot-b-btn": "Vérifier maintenant",
+    "spot-question": "Lequel des deux est la tentative de phishing ?",
+    "spot-btn-left": "L’e-mail de gauche",
+    "spot-btn-right": "L’e-mail de droite",
+    "spot-fb": "Bien vu. Celui de droite est l’arnaque, et plusieurs signaux le trahissent : le domaine de l’expéditeur n’est pas le vrai (banco-fenix-online.com, et non bancofenix.es), il joue sur l’urgence et la peur (« 24h », « compte bloqué »), il vous appelle « cher client » sans personnaliser, et il vous pousse à cliquer sur un lien pour « confirmer vos données ». Votre banque ne vous demande jamais de vérifier vos données via un lien dans un e-mail : allez toujours vous-même sur l’application ou le site officiel.",
+    "spot-fb-ko": "Attention : l’arnaque était celui de DROITE. Regardez bien : son expéditeur utilise un faux domaine (banco-fenix-online.com, et non le vrai bancofenix.es), il joue sur l’urgence et la peur, et il vous pousse à cliquer sur un lien pour « confirmer vos données ». Celui de gauche, en revanche, ne vous presse pas et vous invite à passer par le site officiel. Votre banque ne vous demande jamais de vérifier vos données depuis un lien dans un e-mail.",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "PHP2Shell : ce qui vous protège vraiment avant le patch critique CVSS 9.2",
-    "link-1-desc": "Analyse technique honnête des mesures d'atténuation qui fonctionnent et de celles qui ne fonctionnent pas avant de corriger les deux vulnérabilités critiques de PHP — indispensable si vous gérez des serveurs web.",
+    "link-1-desc": "Analyse technique honnête des mesures d’atténuation qui fonctionnent et de celles qui ne fonctionnent pas avant de corriger les deux vulnérabilités critiques de PHP : indispensable si vous gérez des serveurs web.",
     "link-1-source": "The Hacker News · Octobre 2026",
     "link-2-label": "Vidéo",
     "link-2-title": "Comment fonctionne le DLL sideloading utilisé par Bronze Sandcastle pour installer des backdoors",
-    "link-2-desc": "La chaîne Sophos sur YouTube explique la technique de DLL sideloading exploitée par ce groupe aligné sur la Chine — 12 minutes qui permettent de comprendre pourquoi ce vecteur continue de fonctionner.",
+    "link-2-desc": "La chaîne Sophos sur YouTube explique la technique de DLL sideloading exploitée par ce groupe aligné sur la Chine : 12 minutes qui permettent de comprendre pourquoi ce vecteur continue de fonctionner.",
     "link-2-source": "The Hacker News · Octobre 2026",
     "link-3-label": "Quiz interactif",
     "link-3-title": "Savez-vous ce que Google sait de vous ? Vérifiez-le maintenant",
-    "link-3-desc": "Guide pratique d'El País pour auditer votre compte Google : recherches, localisations, activité enregistrée et ce que vous pouvez supprimer dès aujourd'hui — utile comme exercice de sensibilisation à la vie privée.",
+    "link-3-desc": "Guide pratique d’El País pour auditer votre compte Google : recherches, localisations, activité enregistrée et ce que vous pouvez supprimer dès aujourd’hui, utile comme exercice de sensibilisation à la vie privée.",
     "link-3-source": "El País Tecnología · Octobre 2026",
     "footer-col-nexters": "Nous sommes Nexters",
     "footer-brand-text": "Technologie, sécurité et actualités internes, réunies chaque mois pour tous les Nexters.",
@@ -1554,7 +1614,7 @@ function drawParticles() {
 })();
 
 
-// ── BOTONES FLOTANTES — auto-ocultar ─────────────────────────────────────────
+// ── BOTONES FLOTANTES: auto-ocultar ─────────────────────────────────────────
 (function() {
   const fab = document.getElementById('theme-toggle');
   const ckb = document.getElementById('cookieBtn');
