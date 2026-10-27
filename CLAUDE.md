@@ -410,7 +410,7 @@ Hasta la #05 había dos fallos distintos, ambos corregidos:
 1. **Imagen repetida entre ediciones.** `_UNSPLASH_PHOTOS` mapeaba cada keyword a
    UN único ID: la foto de "ai" salió idéntica en #02/#03/#05 y la de "privacy" en
    los Consejos de #03/#04/#05. Ahora cada keyword tiene una **lista** de 3-4 IDs
-   (63 fotos en total, todas verificadas HTTP 200) y `_pick_photo_id` elige así:
+   (52 fotos en total, todas verificadas HTTP 200) y `_pick_photo_id` elige así:
    rota el pool por número de edición y descarta las fotos ya usadas en otras
    ediciones (`_past_edition_photo_ids` lee los `NN/index.html` del repo) y las ya
    colocadas en la propia ejecución (`_USED_THIS_RUN`). Si no queda ninguna nueva
@@ -423,8 +423,19 @@ Hasta la #05 había dos fallos distintos, ambos corregidos:
    `reto` pide su keyword `imagen` en el prompt, como las otras cuatro.
 
 Al añadir fotos al pool: verificar HTTP 200 **y** mirarlas (que encajen con el
-tema y no sean cliché); el bloque `<img>` del Reto usa el degradado a `#001a05`,
+tema y no sean cliché) **y que no sean oscuras de origen** (brillo medio >= 15 %;
+el 27-oct-2026 se retiraron 11 fotos por debajo); el bloque `<img>` del Reto usa el degradado a `#001a05`,
 no a `#000029` como el resto, porque el fondo de `card-reto` es distinto.
+
+**Visibilidad de las cabeceras (27-oct-2026).** Se veían casi negras por la suma
+de tres cosas: `opacity` 0.3-0.45 en la foto, un degradado al color de la tarjeta
+desde el 30 % de la altura, y fotos oscuras de origen. Además se pedían a 1200 o
+800 px de ancho, poco para pantallas 2x. Valores vigentes, iguales en las seis secciones
+y en `web_template.html`: foto con `class="card-hero-img"` y `opacity:0.75` (0.9 en
+modo claro); degradado `card-hero-fade` desde el 55 % (en modo claro funde al fondo
+claro de cada tarjeta); tamaños pedidos a Unsplash 2200×400 en ancho completo (IA,
+Privacidad) y 1100×360 en media columna (Esto pasó, Amenaza, Consejo, Reto). No hay
+texto encima de las fotos, así que la opacidad no afecta a la legibilidad.
 
 ### Patrón reutilizable — sección colapsable
 

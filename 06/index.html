@@ -504,6 +504,16 @@ body.light .card-reto {
 body.light .reto-badge    { background: #1A7A38; color: #fff; }
 body.light .reto-progress { background: rgba(26,122,56,0.15); }
 body.light .reto-label    { color: #555570; opacity: 1; }
+/* Cabeceras de sección: foto bien visible (opacity 0.75) y fundido solo en la mitad
+   inferior. En modo claro la foto sube a 0.9 y se funde con el fondo CLARO de cada
+   tarjeta (antes terminaba en el color oscuro y dejaba una franja negra). */
+body.light .card-hero-img { opacity: 0.9 !important; }
+body.light .card-ia      .card-hero-fade { background: linear-gradient(to bottom, rgba(245,248,255,0) 55%, #F5F8FF 100%) !important; }
+body.light .card-esto    .card-hero-fade { background: linear-gradient(to bottom, rgba(255,255,255,0) 55%, #FFFFFF 100%) !important; }
+body.light .card-caso    .card-hero-fade { background: linear-gradient(to bottom, rgba(255,254,245,0) 55%, #FFFEF5 100%) !important; }
+body.light .card-consejo .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,248,0) 55%, #F5FFF8 100%) !important; }
+body.light .card-reto    .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,249,0) 55%, #F5FFF9 100%) !important; }
+body.light .card-priv    .card-hero-fade { background: linear-gradient(to bottom, rgba(242,251,252,0) 55%, #F2FBFC 100%) !important; }
 body.light .card-ia {
   background: #F5F8FF;
   border-left: 4px solid #1A5CB0;
@@ -788,8 +798,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 1. IA AL DÍA: primera sección, ancho completo -->
     <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&h=180&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,14,34,0) 30%,#000e22 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,14,34,0) 55%,#000e22 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> <span data-i18n="tag-ia">IA al día</span></div>
       <div class="card-title" data-i18n="ia-title">El phishing ya no tiene faltas de ortografía: la IA borra las señales que detectaban los filtros</div>
@@ -801,8 +811,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 2a. ESTO PASÓ: columna izquierda -->
     <div class="card card-esto" onmouseenter="trackSection('esto_paso')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1200&h=220&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.45;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1100&h=360&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 55%,#000029 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> <span data-i18n="tag-esto">Esto pasó</span></div>
       <div class="card-title" data-i18n="esto-title">Dos fallos críticos en el núcleo de PHP permiten ejecutar código en servidores sin autenticación</div>
@@ -814,8 +824,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 2b. AMENAZA DEL MES: columna derecha -->
     <div class="card card-caso" onmouseenter="trackSection('caso_mes')">
       <div style="height:180px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.4;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 30%,#05051f 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1640158615573-cd28feb1bf4e?auto=format&fit=crop&w=1100&h=360&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 55%,#05051f 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--yellow)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="tag-caso">Amenaza del mes</span></div>
       <div class="card-title" data-i18n="caso-title">Zeabur cierra tras su segundo incidente en dos meses: todo empezó con credenciales en texto plano</div>
@@ -827,8 +837,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 3a. CONSEJO DEL MES: columna izquierda -->
     <div class="card card-consejo" onmouseenter="trackSection('consejo')">
       <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1680992046626-418f7e910589?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 30%,#000029 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1484557052118-f32bd25b45b5?auto=format&fit=crop&w=1100&h=360&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,41,0) 55%,#000029 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
       <div class="card-title" data-i18n="consejo-title">Tus logs son tu memoria: actívalos antes de que los necesites</div>
@@ -840,8 +850,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 3b. EL RETO DEL MES: columna derecha -->
     <div class="card card-reto" onmouseenter="trackSection('reto')">
       <div style="height:160px;overflow:hidden;margin:-36px -44px 24px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1512149673953-1e251807ec7c?auto=format&fit=crop&w=800&h=160&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.3;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,5,0) 30%,#001a05 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1592890288564-76628a30a657?auto=format&fit=crop&w=1100&h=360&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,5,0) 55%,#001a05 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
@@ -858,8 +868,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo; foto de cabecera arriba y visual Para/CC/CCO entre el texto y la nota ISO -->
     <div class="card card-priv full-width" onmouseenter="trackSection('privacidad_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
-        <img src="https://images.unsplash.com/photo-1654588831193-0285dab84d5a?auto=format&fit=crop&w=1200&h=180&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
-        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,31,0) 30%,#001a1f 100%);"></div>
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1654588831193-0285dab84d5a?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,31,0) 55%,#001a1f 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="tag-priv">Privacidad al día</span></div>
       <div class="card-title" data-i18n="priv-title">Antes de enviar un correo, revisa los destinatarios</div>

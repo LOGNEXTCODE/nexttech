@@ -42,30 +42,29 @@ def _next_month_label(year: int, month: int, delta: int) -> str:
 # edición y descarta las ya usadas en ediciones anteriores y en la propia
 # ejecución, así que dos secciones nunca comparten foto ni dentro de una edición
 # ni entre ediciones mientras queden candidatas del tema.
+# Solo fotos con brillo medio >= 15 %: en la cabecera se muestran con opacity 0.75 y
+# fundido inferior, y una foto oscura de origen queda casi negra (27-oct-2026 se
+# retiraron 11 por debajo de ese umbral).
 _UNSPLASH_PHOTOS = {
     "cybersecurity": ["1550751827-4bd374c3f58b", "1614064548237-096f735f344f",
                       "1590065707046-4fde65275b2e", "1584433144859-1fc3ab64a957"],
     "data-breach":   ["1618060932014-4deda4932554", "1640158615573-cd28feb1bf4e",
                       "1529078155058-5d716f45d604", "1614064642578-7faacdc6336e"],
-    "hacker":        ["1614064641938-3bbee52942c7", "1666615435088-4865bf5ed3fd",
-                      "1562813733-b31f71025d54"],
+    "hacker":        ["1614064641938-3bbee52942c7"],
     "network":       ["1558494949-ef010cbdcc31", "1544197150-b99a580bb7a8",
                       "1624965439943-09e0238644e2", "1484557052118-f32bd25b45b5"],
-    "server":        ["1591808216268-ce0b82787efe", "1680992046626-418f7e910589",
-                      "1629837093109-11325d6e7afd", "1506399558188-acca6f8cbf41"],
-    "cloud":         ["1451187580459-43490279c0fa", "1667984390538-3dea7a3fe33d",
-                      "1690627931320-16ac56eb2588", "1667984390535-6d03cff0b11a"],
+    "server":        ["1629837093109-11325d6e7afd", "1506399558188-acca6f8cbf41"],
+    "cloud":         ["1667984390538-3dea7a3fe33d", "1690627931320-16ac56eb2588"],
     "code":          ["1517694712202-14dd9538aa97", "1608742213509-815b97c30b36",
                       "1461749280684-dccba630e2f6", "1542831371-29b0f74f9713"],
-    "ai":            ["1676299081847-824916de030a", "1674027444485-cec3da58eef4",
-                      "1620712943543-bcc4688e7485", "1677442135703-1787eea5ce01"],
+    "ai":            ["1674027444485-cec3da58eef4", "1620712943543-bcc4688e7485",
+                      "1677442135703-1787eea5ce01"],
     "robot":         ["1485827404703-89b55fcc595e", "1737644467636-6b0053476bb2",
                       "1527430253228-e93688616381"],
-    "phishing":      ["1526374965328-7f61d4dc18c5", "1596526131083-e8c633c948d2",
-                      "1557200134-90327ee9fafa", "1584438784894-089d6a62b8fa"],
-    "privacy":       ["1610337673044-720471f83677", "1512149673953-1e251807ec7c",
-                      "1654588831193-0285dab84d5a", "1580847097346-72d80f164702",
-                      "1614064642639-e398cf05badb"],
+    "phishing":      ["1596526131083-e8c633c948d2", "1557200134-90327ee9fafa",
+                      "1584438784894-089d6a62b8fa"],
+    "privacy":       ["1610337673044-720471f83677", "1654588831193-0285dab84d5a",
+                      "1580847097346-72d80f164702", "1614064642639-e398cf05badb"],
     "energy":        ["1473341304170-971dccb5ac1e", "1508791290064-c27cc1ef7a9a",
                       "1466611653911-95081537e5b7", "1548337138-e87d889cc369"],
     "business":      ["1573497019236-17f8177b81e8", "1497215728101-856f4ea42174",
@@ -74,8 +73,7 @@ _UNSPLASH_PHOTOS = {
                       "1511707171634-5f897ff02aa9", "1598327105666-5b89351aff97"],
     "spain":         ["1539037116277-4db20889f2d4", "1543783207-ec64e4d95325",
                       "1570698473651-b2de99bae12f", "1574556462575-eb106a5865a0"],
-    "technology":    ["1518770660439-4636190af475", "1644088379091-d574269d422f",
-                      "1700427296131-0cc4c4610fc6", "1689443111130-6e9c7dfd8f9e"],
+    "technology":    ["1518770660439-4636190af475", "1700427296131-0cc4c4610fc6"],
 }
 
 
@@ -524,12 +522,12 @@ def render_template(content: Dict, edition: str) -> str:
     # El orden importa: `_pick_photo_id` va reservando IDs, así que la primera
     # sección elige del pool completo de su tema y las siguientes evitan repetir.
     _USED_THIS_RUN.clear()
-    ia_img_url      = _unsplash_url(content.get("ia_dia",    {}).get("imagen", "ai"),            1200, 180, edition)
-    esto_img_url    = _unsplash_url(content.get("esto_paso", {}).get("imagen", "cybersecurity"), 1200, 220, edition)
-    caso_img_url    = _unsplash_url(content.get("caso_real", {}).get("imagen", "hacker"),         800, 160, edition)
-    consejo_img_url = _unsplash_url(content.get("consejo",   {}).get("imagen", "code"),           800, 160, edition)
-    reto_img_url    = _unsplash_url(content.get("reto",      {}).get("imagen", "code"),           800, 160, edition)
-    priv_img_url    = _unsplash_url(content.get("privacidad", {}).get("imagen", "privacy"),       1200, 180, edition)
+    ia_img_url      = _unsplash_url(content.get("ia_dia",    {}).get("imagen", "ai"),            2200, 400, edition)
+    esto_img_url    = _unsplash_url(content.get("esto_paso", {}).get("imagen", "cybersecurity"), 1100, 360, edition)
+    caso_img_url    = _unsplash_url(content.get("caso_real", {}).get("imagen", "hacker"),        1100, 360, edition)
+    consejo_img_url = _unsplash_url(content.get("consejo",   {}).get("imagen", "code"),          1100, 360, edition)
+    reto_img_url    = _unsplash_url(content.get("reto",      {}).get("imagen", "code"),          1100, 360, edition)
+    priv_img_url    = _unsplash_url(content.get("privacidad", {}).get("imagen", "privacy"),       2200, 400, edition)
 
     # Radar (4 items fijos)
     radar = content.get("radar", [])
