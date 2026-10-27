@@ -170,6 +170,26 @@ body {
 .card-links  { background: #000029; box-shadow: inset 0 1px 0 rgba(200,150,255,0.2); }
 .card-ia     { background: #000e22; border-left: 4px solid var(--blue); box-shadow: inset 0 1px 0 rgba(55,145,245,0.25); }
 .card-ia::after { background: radial-gradient(ellipse at 50% 0%, rgba(55,145,245,0.1), transparent 70%); }
+.card-priv   { background: #001a1f; border-left: 4px solid var(--cyan); box-shadow: inset 0 1px 0 rgba(60,230,230,0.25); }
+.card-priv::after { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.1), transparent 70%); }
+.priv-visual { height: 200px; overflow: hidden; margin: -36px -44px 28px; position: relative; display: flex; align-items: center; justify-content: center; padding: 0 24px; background: radial-gradient(ellipse at 50% 120%, rgba(60,230,230,0.16), transparent 65%), #00121a; }
+.priv-mail { width: 100%; max-width: 560px; background: rgba(255,255,255,0.04); border: 1px solid rgba(60,230,230,0.18); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+.priv-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(60,230,230,0.1); color: var(--grey); }
+.priv-row:last-child { border-bottom: none; }
+.priv-label { width: 44px; flex-shrink: 0; opacity: 0.55; letter-spacing: 1px; display: flex; align-items: center; gap: 5px; }
+.priv-chip { display: inline-block; padding: 3px 9px; border-radius: 10px; background: rgba(255,255,255,0.07); margin-right: 6px; white-space: nowrap; }
+.priv-row-bcc { background: rgba(60,230,230,0.1); box-shadow: inset 3px 0 0 var(--cyan); }
+.priv-row-bcc .priv-label { color: var(--cyan); opacity: 1; font-weight: 700; }
+.priv-row-bcc .priv-chip { background: rgba(60,230,230,0.16); color: #fff; }
+.priv-chips { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; row-gap: 4px; }
+.priv-hint { flex-shrink: 0; font-size: 10px; letter-spacing: 1px; color: var(--cyan); opacity: 0.8; }
+.priv-body p { margin: 0 0 12px; }
+.priv-body ul { margin: 0 0 12px; padding-left: 20px; }
+.priv-body li { margin-bottom: 4px; }
+.priv-body li::marker { color: var(--cyan); }
+.priv-body p:last-child { margin-bottom: 0; }
+.priv-note { font-size: 13px; font-style: italic; line-height: 1.7; color: var(--grey); opacity: 0.7; border-top: 1px solid rgba(60,230,230,0.18); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.priv-note svg { color: var(--cyan); margin-top: 4px; flex-shrink: 0; }
 .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .section-tag::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.12; }
 .card-title { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
@@ -290,6 +310,7 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .radar-grid { grid-template-columns: 1fr; }
   .spot-grid { grid-template-columns: 1fr; }
+  .priv-visual { margin: -28px -28px 24px; }
 }
 @media (max-width: 600px) {
   .logo-next, .logo-letter { font-size: 48px; letter-spacing: -2px; }
@@ -305,6 +326,9 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .topbar-edition-num { font-size: 9px; letter-spacing: 0.3px; }
   .topbar-edition-date { font-size: 8px; letter-spacing: 0.3px; }
   .phishing-buttons { flex-direction: column; }
+  .priv-visual { margin: -24px -20px 24px; padding: 0 14px; }
+  .priv-hint { display: none; }
+  .priv-row { padding: 9px 10px; gap: 8px; }
   .stat-number { font-size: 24px; }
 }
 
@@ -457,6 +481,7 @@ body.light .card-consejo .section-tag  { color: #1A7A38 !important; }
 body.light .card-radar   .section-tag  { color: #007A8A !important; }
 body.light .card-phishing .section-tag { color: #6A28AA !important; }
 body.light .card-ia      .section-tag  { color: #1A5CB0 !important; }
+body.light .card-priv    .section-tag  { color: #007A8A !important; }
 body.light .card-esto    .section-tag  { color: #C82D00 !important; }
 body.light .card-links   .section-tag  { color: #6A28AA !important; }
 
@@ -483,6 +508,21 @@ body.light .card-ia {
   border-left: 4px solid #1A5CB0;
   box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,92,176,0.15);
 }
+body.light .card-priv {
+  background: #F2FBFC;
+  border-left: 4px solid #007A8A;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(0,122,138,0.15);
+}
+body.light .priv-visual { background: radial-gradient(ellipse at 50% 120%, rgba(0,122,138,0.14), transparent 65%), #E3F4F6; }
+body.light .priv-mail { background: #FFFFFF; border-color: rgba(0,122,138,0.25); box-shadow: 0 2px 12px rgba(0,0,41,0.06); }
+body.light .priv-row { color: #2a2a4a; border-bottom-color: rgba(0,122,138,0.12); }
+body.light .priv-chip { background: rgba(0,0,41,0.06); }
+body.light .priv-row-bcc { background: rgba(0,122,138,0.08); box-shadow: inset 3px 0 0 #007A8A; }
+body.light .priv-row-bcc .priv-label, body.light .priv-hint { color: #007A8A; }
+body.light .priv-row-bcc .priv-chip { background: rgba(0,122,138,0.14); color: #000029; }
+body.light .priv-body li::marker { color: #007A8A; }
+body.light .priv-note { color: #2a2a4a; opacity: 0.85; border-top-color: rgba(0,122,138,0.25); }
+body.light .priv-note svg { color: #007A8A; }
 
 body.light .card-radar { background: transparent; box-shadow: none; }
 body.light .radar-grid-item {
@@ -812,6 +852,21 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <span>¿Lo has hecho ya? ✓</span>
       </div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Noviembre 2026</div>
+    </div>
+
+    <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo (mismo formato que IA al día) -->
+    <div class="card card-priv full-width" onmouseenter="trackSection('privacidad_dia')">
+      <div class="priv-visual" aria-hidden="true">
+        <div class="priv-mail">
+          <div class="priv-row"><span class="priv-label" data-i18n="priv-to">Para</span><div class="priv-chips"><span class="priv-chip">Marta Ruiz</span></div></div>
+          <div class="priv-row"><span class="priv-label" data-i18n="priv-cc">CC</span><div class="priv-chips"><span class="priv-chip" data-i18n="priv-mock-cc">Equipo de proyecto</span></div></div>
+          <div class="priv-row priv-row-bcc"><span class="priv-label"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-i18n="priv-bcc">CCO</span></span><div class="priv-chips" data-i18n-html="priv-mock-bcc"><span class="priv-chip">Cliente A</span><span class="priv-chip">Cliente B</span><span class="priv-chip">Cliente C</span></div><span class="priv-hint" data-i18n="priv-mock-hint">nadie ve a los demás</span></div>
+        </div>
+      </div>
+      <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="tag-priv">Privacidad al día</span></div>
+      <div class="card-title" data-i18n="priv-title">Antes de enviar un correo, revisa los destinatarios</div>
+      <div class="card-text priv-body" data-i18n-html="priv-text"><p>Un correo enviado a la persona equivocada puede convertirse en una filtración de datos sin que te des cuenta. Un apellido que autocompleta mal, un “responder a todos” de más, o adjuntar el archivo que no era: basta un clic para que información confidencial acabe donde no debe.</p><p>Antes de darle a “Enviar”, párate dos segundos y comprueba:</p><ul><li>A quién se lo mandas (¿es esa persona, o una que autocompletó sola con un nombre parecido?).</li><li>Quién va en copia (¿necesitan todos ver esto?).</li><li>Qué adjuntas (¿es el archivo correcto y no otro con datos de más?).</li></ul><p>Y cuando escribas a varias personas que no se conocen entre sí, usa siempre la copia oculta (CCO): así no expones los correos de unos a otros.</p></div>
+      <div class="priv-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="priv-note">Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.</span></div>
     </div>
 
     <!-- 4. EN EL RADAR: ancho completo, grid 2×2 (el quinto ocupa la fila entera) -->
@@ -1229,6 +1284,16 @@ const I18N = {
     "tag-reto": "El reto del mes",
     "reto-title": "Reto del mes: actualiza el equipo, no dejes las actualizaciones ‘para luego’",
     "reto-text": "Esta semana, cuando te salte el aviso de actualización (del sistema, del navegador, del móvil), no le des a “recordar más tarde”: instálala. Cada actualización tapa agujeros que los atacantes ya conocen y están aprovechando. El parche que no aplicas hoy es la puerta que dejas abierta mañana. Dos minutos que te ahorran un disgusto.",
+    "tag-priv": "Privacidad al día",
+    "priv-title": "Antes de enviar un correo, revisa los destinatarios",
+    "priv-text": "<p>Un correo enviado a la persona equivocada puede convertirse en una filtración de datos sin que te des cuenta. Un apellido que autocompleta mal, un “responder a todos” de más, o adjuntar el archivo que no era: basta un clic para que información confidencial acabe donde no debe.</p><p>Antes de darle a “Enviar”, párate dos segundos y comprueba:</p><ul><li>A quién se lo mandas (¿es esa persona, o una que autocompletó sola con un nombre parecido?).</li><li>Quién va en copia (¿necesitan todos ver esto?).</li><li>Qué adjuntas (¿es el archivo correcto y no otro con datos de más?).</li></ul><p>Y cuando escribas a varias personas que no se conocen entre sí, usa siempre la copia oculta (CCO): así no expones los correos de unos a otros.</p>",
+    "priv-note": "Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.",
+    "priv-to": "Para",
+    "priv-cc": "CC",
+    "priv-bcc": "CCO",
+    "priv-mock-cc": "Equipo de proyecto",
+    "priv-mock-bcc": "<span class=\"priv-chip\">Cliente A</span><span class=\"priv-chip\">Cliente B</span><span class=\"priv-chip\">Cliente C</span>",
+    "priv-mock-hint": "nadie ve a los demás",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "SafePay ransomware ha comprometido más de 600 organizaciones de infraestructura crítica desde 2024, según CISA",
@@ -1325,6 +1390,16 @@ const I18N = {
     "tag-reto": "Monthly Challenge",
     "reto-title": "Monthly challenge: update your devices, don’t leave updates ‘for later’",
     "reto-text": "This week, when the update prompt pops up (system, browser, phone), don’t hit “remind me later”: install it. Every update plugs holes that attackers already know about and are exploiting. The patch you don’t apply today is the door you leave open tomorrow. Two minutes that save you a headache.",
+    "tag-priv": "Privacy Update",
+    "priv-title": "Before you send an email, check the recipients",
+    "priv-text": "<p>An email sent to the wrong person can turn into a data leak without you even noticing. A surname that autocompletes wrongly, one “reply all” too many, or attaching the wrong file: one click is all it takes for confidential information to end up where it shouldn’t.</p><p>Before you hit “Send”, stop for two seconds and check:</p><ul><li>Who you’re sending it to (is it really that person, or someone autocomplete picked because the name looks similar?).</li><li>Who’s in copy (do they all need to see this?).</li><li>What you’re attaching (is it the right file, and not another one with more data than it should have?).</li></ul><p>And when you write to several people who don’t know each other, always use blind copy (BCC): that way you don’t expose everyone’s email address to the others.</p>",
+    "priv-note": "This section is born with our ISO 27701 privacy certification. Every month, one good practice to protect data: ours, and that of everyone who trusts us.",
+    "priv-to": "To",
+    "priv-cc": "Cc",
+    "priv-bcc": "Bcc",
+    "priv-mock-cc": "Project team",
+    "priv-mock-bcc": "<span class=\"priv-chip\">Client A</span><span class=\"priv-chip\">Client B</span><span class=\"priv-chip\">Client C</span>",
+    "priv-mock-hint": "no one sees the others",
     "tag-radar": "On the Radar",
     "radar-title": "What you cannot miss this month",
     "radar-1-headline": "SafePay ransomware has compromised more than 600 critical infrastructure organizations since 2024, according to CISA",
@@ -1421,6 +1496,16 @@ const I18N = {
     "tag-reto": "Le défi du mois",
     "reto-title": "Défi du mois : mettez votre équipement à jour, ne laissez pas les mises à jour « pour plus tard »",
     "reto-text": "Cette semaine, quand l’alerte de mise à jour apparaît (système, navigateur, mobile), ne cliquez pas sur « me le rappeler plus tard » : installez-la. Chaque mise à jour bouche des failles que les attaquants connaissent déjà et exploitent. Le correctif que vous n’appliquez pas aujourd’hui, c’est la porte que vous laissez ouverte demain. Deux minutes qui vous évitent bien des ennuis.",
+    "tag-priv": "Confidentialité en direct",
+    "priv-title": "Avant d’envoyer un e-mail, vérifiez les destinataires",
+    "priv-text": "<p>Un e-mail envoyé à la mauvaise personne peut devenir une fuite de données sans même que vous vous en rendiez compte. Un nom de famille mal complété automatiquement, un « répondre à tous » de trop, ou la mauvaise pièce jointe : il suffit d’un clic pour que des informations confidentielles se retrouvent là où elles ne devraient pas.</p><p>Avant de cliquer sur « Envoyer », prenez deux secondes et vérifiez :</p><ul><li>À qui vous l’envoyez (est-ce bien cette personne, ou une autre proposée automatiquement à cause d’un nom similaire ?).</li><li>Qui est en copie (ont-ils tous besoin de voir ceci ?).</li><li>Ce que vous joignez (est-ce le bon fichier, et pas un autre contenant plus de données que nécessaire ?).</li></ul><p>Et quand vous écrivez à plusieurs personnes qui ne se connaissent pas, utilisez toujours la copie cachée (Cci) : ainsi, vous n’exposez pas les adresses des uns aux autres.</p>",
+    "priv-note": "Cette rubrique naît avec notre certification ISO 27701 en matière de confidentialité. Chaque mois, une bonne pratique pour protéger les données : les nôtres, et celles de ceux qui nous font confiance.",
+    "priv-to": "À",
+    "priv-cc": "Cc",
+    "priv-bcc": "Cci",
+    "priv-mock-cc": "Équipe projet",
+    "priv-mock-bcc": "<span class=\"priv-chip\">Client A</span><span class=\"priv-chip\">Client B</span><span class=\"priv-chip\">Client C</span>",
+    "priv-mock-hint": "personne ne voit les autres",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "Le ransomware SafePay a compromis plus de 600 organisations d'infrastructure critique depuis 2024, selon la CISA",
