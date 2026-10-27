@@ -183,6 +183,33 @@ def _unsplash_url(keyword: str, w: int = 1200, h: int = 220, edition: str = "01"
     return f"https://images.unsplash.com/photo-{photo_id}?auto=format&fit=crop&w={w}&h={h}&q=80"
 
 
+def _privacidad_ya_tratadas(current_edition: str) -> str:
+    """
+    Titulares de "Privacidad al día" ya publicados (leídos de los NN/index.html del
+    repo, salvo la edición en curso) para que el prompt no repita la práctica del mes.
+    Devuelve una lista con viñetas lista para insertar en el prompt.
+    """
+    root = os.path.dirname(os.path.abspath(__file__))
+    titulos = []
+    try:
+        carpetas = sorted(d for d in os.listdir(root) if re.fullmatch(r"\d{2}", d))
+    except OSError:
+        carpetas = []
+    for carpeta in carpetas:
+        if carpeta == current_edition:
+            continue
+        try:
+            with open(os.path.join(root, carpeta, "index.html"), encoding="utf-8") as f:
+                m = re.search(r'data-i18n="priv-title">([^<]+)<', f.read())
+        except OSError:
+            continue
+        if m:
+            titulos.append(f"#{carpeta}: {m.group(1).strip()}")
+    if not titulos:
+        return "     (ninguna todavía)"
+    return "\n".join(f"     · {t}" for t in titulos)
+
+
 # ─── SELECCIÓN Y REDACCIÓN ─────────────────────────────────────────────────────
 
 def select_and_draft(articles: List[Dict], warnings: List[str] = None) -> Dict:
@@ -236,8 +263,8 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
 • esto_paso.texto: DEBE incluir al menos 1 dato numérico o porcentaje.
 • Palabras PROHIBIDAS (reescribe si aparecen): {', '.join(FORBIDDEN_WORDS)}
 • URLs: siempre de los artículos proporcionados. NUNCA inventadas.
-• ESTO_PASO, CASO_REAL, CONSEJO, RETO e IA_DIA: campo "imagen" — elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
-  Usa una palabra DISTINTA en cada sección: son cinco cabeceras visuales seguidas y repetir tema deja la edición con dos fotos parecidas.
+• ESTO_PASO, CASO_REAL, CONSEJO, RETO, IA_DIA y PRIVACIDAD: campo "imagen": elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
+  Usa una palabra DISTINTA en cada sección: son seis cabeceras visuales seguidas y repetir tema deja la edición con dos fotos parecidas.
 • intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer miércoles, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
 • radar: EXACTAMENTE 4 ítems, de fuentes distintas.
 • enlaces: EXACTAMENTE 3 recursos (1 artículo, 1 vídeo, 1 quiz/herramienta).
@@ -302,6 +329,17 @@ SECCIONES A GENERAR
 
 8. INTRO: 2-3 líneas de apertura. Cálida, directa, que enganche. Sin usar "newsletter".
 
+9. PRIVACIDAD ("Privacidad al día", serie mensual ligada a la certificación ISO 27701
+   de LOGNEXT): UNA buena práctica de protección de datos personales que cualquier
+   empleado aplica en su día a día (correo, documentos, papel, pantalla, móvil,
+   compartir archivos, datos de clientes...). No es una noticia: no lleva URL ni fuente.
+   - titulo: imperativo y concreto (ej.: "Antes de enviar un correo, revisa los destinatarios").
+   - texto: 80-130 palabras en HTML simple, SOLO <p>, <ul> y <li>: por qué importa
+     (el riesgo real), qué comprobar o hacer (2-3 puntos en <ul>) y un cierre práctico.
+   - Tema DISTINTO del consejo y del reto de esta edición.
+   - NO repitas ninguna práctica ya publicada:
+{_privacidad_ya_tratadas(EDITION_NUMBER)}
+
 Responde ÚNICAMENTE con JSON válido con esta estructura exacta:
 {{
   "razonamiento": {{
@@ -314,6 +352,7 @@ Responde ÚNICAMENTE con JSON válido con esta estructura exacta:
   "caso_real": {{"titulo": "...", "texto": "...", "url": "...", "imagen": "ONE keyword from: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology", "fuente": "Nombre medio · Mes Año"}},
   "consejo":   {{"titulo": "...", "texto": "...", "url": "...", "url_label": "Texto del enlace", "imagen": "ONE keyword from the same list", "fuente": "Nombre medio · Mes Año"}},
   "reto":      {{"titulo": "...", "texto": "...", "imagen": "ONE keyword from the same list", "fuente": "Departamento IT LOGNEXT · [mes] [año]"}},
+  "privacidad": {{"titulo": "...", "texto": "<p>...</p><ul><li>...</li></ul><p>...</p>", "imagen": "ONE keyword from the same list (preferably privacy)"}},
   "ia_dia":    {{"titulo": "...", "texto": "...", "url": "...", "imagen": "ONE keyword from the same list", "fuente": "Nombre medio · Mes Año"}},
   "radar": [
     {{"titulo": "...", "org": "...", "url": "...", "fecha": "..."}},
@@ -399,6 +438,14 @@ def verify_content(content: Dict, edition: str) -> List[str]:
     if len(reto_frases) > 2:
         issues.append(f"reto.texto con {len(reto_frases)} frases — máx 2")
 
+    privacidad = content.get("privacidad", {})
+    if not privacidad.get("titulo") or not privacidad.get("texto"):
+        issues.append("privacidad sin titulo o texto: la sección Privacidad al día es obligatoria")
+    else:
+        ya = _privacidad_ya_tratadas(edition).lower()
+        if privacidad["titulo"].strip().lower() in ya:
+            issues.append(f"privacidad repite una práctica ya publicada: '{privacidad['titulo']}'")
+
     enlaces = content.get("enlaces", [])
     if len(enlaces) != 3:
         issues.append(f"enlaces con {len(enlaces)} ítems — necesita exactamente 3")
@@ -481,6 +528,7 @@ def render_template(content: Dict, edition: str) -> str:
     caso_img_url    = _unsplash_url(content.get("caso_real", {}).get("imagen", "hacker"),         800, 160, edition)
     consejo_img_url = _unsplash_url(content.get("consejo",   {}).get("imagen", "code"),           800, 160, edition)
     reto_img_url    = _unsplash_url(content.get("reto",      {}).get("imagen", "code"),           800, 160, edition)
+    priv_img_url    = _unsplash_url(content.get("privacidad", {}).get("imagen", "privacy"),       1200, 180, edition)
 
     # Radar (4 items fijos)
     radar = content.get("radar", [])
@@ -597,6 +645,9 @@ def render_template(content: Dict, edition: str) -> str:
         "{{RETO_IMG_URL}}":    reto_img_url,
         "{{RETO_TITULO}}":     content.get("reto",      {}).get("titulo", ""),
         "{{RETO_TEXTO}}":      content.get("reto",      {}).get("texto",  ""),
+        "{{PRIV_IMG_URL}}":    priv_img_url,
+        "{{PRIV_TITULO}}":     content.get("privacidad", {}).get("titulo", ""),
+        "{{PRIV_TEXTO}}":      content.get("privacidad", {}).get("texto",  ""),
         "{{FOOTER_EDICIONES}}": footer_editions,
     }
 

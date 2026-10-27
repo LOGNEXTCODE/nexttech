@@ -169,6 +169,7 @@ El HTML generado debe replicar EXACTAMENTE el diseño oficial:
 - `card-reto` — fondo #001a05, borde verde
 - `card-radar` — cyan
 - `card-ia` — fondo #000e22, borde azul izquierdo
+- `card-priv`: fondo #001a1f, borde cian izquierdo (Privacidad al día)
 - `card-phishing` — fondo #0a0020, borde violeta
 - `card-links` — violeta
 
@@ -182,6 +183,7 @@ El HTML generado debe replicar EXACTAMENTE el diseño oficial:
 |😱 **El Caso del Mes**|Dinámico|Incidente real narrado como serie          |
 |💡 **El Consejo**     |Dinámico|Un consejo práctico aplicable hoy          |
 |🎯 **El Reto**        |Dinámico|Acción concreta con barra de progreso      |
+|🔒 **Privacidad al día**|Dinámico|Buena práctica de protección de datos (ISO 27701), tras el Reto, full width|
 |📡 **En el Radar**    |Dinámico|4 titulares de fuentes oficiales           |
 |🤖 **IA al Día**      |Dinámico|Tendencias IA del mes — full width         |
 |🎯 **Test Phishing**  |Estático|Prueba interactiva con feedback            |
@@ -352,7 +354,7 @@ Cuando se pida generar o revisar una edición:
 1. Clasificar por impacto para el sector IT español y ENS
 1. Añadir fuente + fecha a cada ítem — URLs reales verificadas
 1. Generar HTML usando el diseño oficial de NextTech (generator.py)
-1. Incluir TODAS las secciones: esto_paso, caso_real, consejo, reto, radar (x4), ia_dia, test_phishing, enlaces (x3)
+1. Incluir TODAS las secciones: esto_paso, caso_real, consejo, reto, privacidad, radar (x4), ia_dia, test_phishing, enlaces (x3)
 1. Proponer subject line + preview text para el envío desde Outlook
 1. Sugerir fragmento para LinkedIn post de la edición
 
@@ -583,6 +585,20 @@ Claude recibe el aviso y marca las secciones afectadas con
 - Recurrente, cabecera e icono constantes (🛠️), lenguaje claro, ubicada tras "IA al día".
 - Es el lugar donde IT comunica sus cambios (DLP, GoPhish, VLAN, etc.).
 
+### Regla · Sección mensual "Privacidad al día" (ISO 27701, desde la #06)
+- Serie mensual de buenas prácticas de protección de datos ligada a la certificación
+  ISO 27701. Va **tras el Reto del mes y antes de "En el radar"**, a ancho completo y
+  con el mismo formato y peso visual que "IA al día" (`card-priv`, cian, icono candado).
+- **La buena práctica cambia CADA edición**: el titular, el cuerpo y la imagen los
+  redacta `generator.py` (clave `privacidad` del JSON, placeholders `{{PRIV_TITULO}}`,
+  `{{PRIV_TEXTO}}` y `{{PRIV_IMG_URL}}`) y se revisan/retocan a mano en la ventana de
+  revisión como el resto. `_privacidad_ya_tratadas()` pasa al prompt los titulares ya
+  publicados y `verify_content()` falla si falta la sección o repite uno.
+- **Fija** en `web_template.html`: la estructura y la nota al pie sobre la ISO 27701.
+- Si la práctica del mes se presta a un visual propio (como los campos Para/CC/CCO de
+  la #06), se puede sustituir a mano la foto de cabecera por ese visual en la edición.
+- Prácticas publicadas: #06 «Antes de enviar un correo, revisa los destinatarios».
+
 ### Patrón — Sección colapsable
 - Secciones largas: párrafo visible + botón "Seguir leyendo" accesible
   (`aria-expanded`), en los 3 idiomas (ES «Seguir leyendo» / EN «Read more» /
@@ -606,8 +622,9 @@ Claude recibe el aviso y marca las secciones afectadas con
       edición ni respecto a ediciones anteriores
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
+- [ ] Sección "Privacidad al día" presente tras el Reto, con una práctica NUEVA (no repetida de ediciones anteriores) y la nota ISO 27701
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
 - [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing y VPN) con `?from={{EDICION_NUM}}`
 
 ### Orden canónico de la edición (desde la #02)
-`Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
+`Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Privacidad al día → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
