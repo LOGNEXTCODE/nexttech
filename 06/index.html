@@ -854,8 +854,12 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Noviembre 2026</div>
     </div>
 
-    <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo; visual Para/CC/CCO entre el texto y la nota ISO -->
+    <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo; foto de cabecera arriba y visual Para/CC/CCO entre el texto y la nota ISO -->
     <div class="card card-priv full-width" onmouseenter="trackSection('privacidad_dia')">
+      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
+        <img src="https://images.unsplash.com/photo-1654588831193-0285dab84d5a?auto=format&fit=crop&w=1200&h=180&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.35;">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,31,0) 30%,#001a1f 100%);"></div>
+      </div>
       <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="tag-priv">Privacidad al día</span></div>
       <div class="card-title" data-i18n="priv-title">Antes de enviar un correo, revisa los destinatarios</div>
       <div class="card-text priv-body" data-i18n-html="priv-text"><p>Un correo enviado a la persona equivocada puede convertirse en una filtración de datos sin que te des cuenta. Un apellido que autocompleta mal, un “responder a todos” de más, o adjuntar el archivo que no era: basta un clic para que información confidencial acabe donde no debe.</p><p>Antes de darle a “Enviar”, párate dos segundos y comprueba:</p><ul><li>A quién se lo mandas (¿es esa persona, o una que autocompletó sola con un nombre parecido?).</li><li>Quién va en copia (¿necesitan todos ver esto?).</li><li>Qué adjuntas (¿es el archivo correcto y no otro con datos de más?).</li></ul><p>Y cuando escribas a varias personas que no se conocen entre sí, usa siempre la copia oculta (CCO): así no expones los correos de unos a otros.</p></div>

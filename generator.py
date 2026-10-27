@@ -64,7 +64,8 @@ _UNSPLASH_PHOTOS = {
     "phishing":      ["1526374965328-7f61d4dc18c5", "1596526131083-e8c633c948d2",
                       "1557200134-90327ee9fafa", "1584438784894-089d6a62b8fa"],
     "privacy":       ["1610337673044-720471f83677", "1512149673953-1e251807ec7c",
-                      "1654588831193-0285dab84d5a", "1580847097346-72d80f164702"],
+                      "1654588831193-0285dab84d5a", "1580847097346-72d80f164702",
+                      "1614064642639-e398cf05badb"],
     "energy":        ["1473341304170-971dccb5ac1e", "1508791290064-c27cc1ef7a9a",
                       "1466611653911-95081537e5b7", "1548337138-e87d889cc369"],
     "business":      ["1573497019236-17f8177b81e8", "1497215728101-856f4ea42174",
@@ -519,7 +520,7 @@ def render_template(content: Dict, edition: str) -> str:
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
 
-    # Imágenes Unsplash — las cinco secciones con cabecera visual SIEMPRE llevan foto.
+    # Imágenes Unsplash: las seis secciones con cabecera visual SIEMPRE llevan foto.
     # El orden importa: `_pick_photo_id` va reservando IDs, así que la primera
     # sección elige del pool completo de su tema y las siguientes evitan repetir.
     _USED_THIS_RUN.clear()

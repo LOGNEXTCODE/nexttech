@@ -401,15 +401,16 @@ falla, la edición no sale:
 
 ### Imágenes de las secciones — variedad por tema (RESUELTO 24-sep-2026)
 
-Las cinco secciones con cabecera visual son **IA al día, Esto pasó, Amenaza del
-mes, Consejo del mes y El reto del mes**. Las cinco llevan imagen SIEMPRE.
+Las seis secciones con cabecera visual son **IA al día, Esto pasó, Amenaza del
+mes, Consejo del mes, El reto del mes y Privacidad al día** (esta desde la #06).
+Las seis llevan imagen SIEMPRE.
 
 Hasta la #05 había dos fallos distintos, ambos corregidos:
 
 1. **Imagen repetida entre ediciones.** `_UNSPLASH_PHOTOS` mapeaba cada keyword a
    UN único ID: la foto de "ai" salió idéntica en #02/#03/#05 y la de "privacy" en
    los Consejos de #03/#04/#05. Ahora cada keyword tiene una **lista** de 3-4 IDs
-   (62 fotos en total, todas verificadas HTTP 200) y `_pick_photo_id` elige así:
+   (63 fotos en total, todas verificadas HTTP 200) y `_pick_photo_id` elige así:
    rota el pool por número de edición y descarta las fotos ya usadas en otras
    ediciones (`_past_edition_photo_ids` lee los `NN/index.html` del repo) y las ya
    colocadas en la propia ejecución (`_USED_THIS_RUN`). Si no queda ninguna nueva
@@ -616,8 +617,8 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Enlaces: todos resuelven (HTTP 200); noticias preferentemente a fuente en español
 - [ ] Fuentes sin repetir: cada sección con enlace usa una fuente DISTINTA; nunca dos
       secciones comparten la misma URL. Un consejo propio de IT puede ir sin enlace externo
-- [ ] Imágenes: las CINCO secciones con cabecera visual (IA al día, Esto pasó,
-      Amenaza del mes, Consejo del mes, El reto del mes) llevan imagen; tecnológicas,
+- [ ] Imágenes: las SEIS secciones con cabecera visual (IA al día, Esto pasó,
+      Amenaza del mes, Consejo del mes, El reto del mes, Privacidad al día) llevan imagen; tecnológicas,
       acordes a la noticia, HTTP 200, y ninguna repetida —ni entre secciones de la
       edición ni respecto a ediciones anteriores
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
