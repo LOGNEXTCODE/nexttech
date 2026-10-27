@@ -172,7 +172,7 @@ body {
 .card-ia::after { background: radial-gradient(ellipse at 50% 0%, rgba(55,145,245,0.1), transparent 70%); }
 .card-priv   { background: #001a1f; border-left: 4px solid var(--cyan); box-shadow: inset 0 1px 0 rgba(60,230,230,0.25); }
 .card-priv::after { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.1), transparent 70%); }
-.priv-visual { height: 200px; overflow: hidden; margin: -36px -44px 28px; position: relative; display: flex; align-items: center; justify-content: center; padding: 0 24px; background: radial-gradient(ellipse at 50% 120%, rgba(60,230,230,0.16), transparent 65%), #00121a; }
+.priv-visual { height: 200px; overflow: hidden; margin: 4px -44px 24px; position: relative; display: flex; align-items: center; justify-content: center; padding: 0 24px; background: radial-gradient(ellipse at 50% 120%, rgba(60,230,230,0.16), transparent 65%), #00121a; }
 .priv-mail { width: 100%; max-width: 560px; background: rgba(255,255,255,0.04); border: 1px solid rgba(60,230,230,0.18); border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
 .priv-row { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-bottom: 1px solid rgba(60,230,230,0.1); color: var(--grey); }
 .priv-row:last-child { border-bottom: none; }
@@ -310,7 +310,7 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
   .radar-grid { grid-template-columns: 1fr; }
   .spot-grid { grid-template-columns: 1fr; }
-  .priv-visual { margin: -28px -28px 24px; }
+  .priv-visual { margin: 4px -28px 24px; }
 }
 @media (max-width: 600px) {
   .logo-next, .logo-letter { font-size: 48px; letter-spacing: -2px; }
@@ -326,7 +326,7 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .topbar-edition-num { font-size: 9px; letter-spacing: 0.3px; }
   .topbar-edition-date { font-size: 8px; letter-spacing: 0.3px; }
   .phishing-buttons { flex-direction: column; }
-  .priv-visual { margin: -24px -20px 24px; padding: 0 14px; }
+  .priv-visual { margin: 4px -20px 20px; padding: 0 14px; }
   .priv-hint { display: none; }
   .priv-row { padding: 9px 10px; gap: 8px; }
   .stat-number { font-size: 24px; }
@@ -854,8 +854,11 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Noviembre 2026</div>
     </div>
 
-    <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo (mismo formato que IA al día) -->
+    <!-- 3c. PRIVACIDAD AL DÍA: serie mensual ISO 27701, ancho completo; visual Para/CC/CCO entre el texto y la nota ISO -->
     <div class="card card-priv full-width" onmouseenter="trackSection('privacidad_dia')">
+      <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="tag-priv">Privacidad al día</span></div>
+      <div class="card-title" data-i18n="priv-title">Antes de enviar un correo, revisa los destinatarios</div>
+      <div class="card-text priv-body" data-i18n-html="priv-text"><p>Un correo enviado a la persona equivocada puede convertirse en una filtración de datos sin que te des cuenta. Un apellido que autocompleta mal, un “responder a todos” de más, o adjuntar el archivo que no era: basta un clic para que información confidencial acabe donde no debe.</p><p>Antes de darle a “Enviar”, párate dos segundos y comprueba:</p><ul><li>A quién se lo mandas (¿es esa persona, o una que autocompletó sola con un nombre parecido?).</li><li>Quién va en copia (¿necesitan todos ver esto?).</li><li>Qué adjuntas (¿es el archivo correcto y no otro con datos de más?).</li></ul><p>Y cuando escribas a varias personas que no se conocen entre sí, usa siempre la copia oculta (CCO): así no expones los correos de unos a otros.</p></div>
       <div class="priv-visual" aria-hidden="true">
         <div class="priv-mail">
           <div class="priv-row"><span class="priv-label" data-i18n="priv-to">Para</span><div class="priv-chips"><span class="priv-chip">Marta Ruiz</span></div></div>
@@ -863,9 +866,6 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
           <div class="priv-row priv-row-bcc"><span class="priv-label"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span data-i18n="priv-bcc">CCO</span></span><div class="priv-chips" data-i18n-html="priv-mock-bcc"><span class="priv-chip">Cliente A</span><span class="priv-chip">Cliente B</span><span class="priv-chip">Cliente C</span></div><span class="priv-hint" data-i18n="priv-mock-hint">nadie ve a los demás</span></div>
         </div>
       </div>
-      <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="tag-priv">Privacidad al día</span></div>
-      <div class="card-title" data-i18n="priv-title">Antes de enviar un correo, revisa los destinatarios</div>
-      <div class="card-text priv-body" data-i18n-html="priv-text"><p>Un correo enviado a la persona equivocada puede convertirse en una filtración de datos sin que te des cuenta. Un apellido que autocompleta mal, un “responder a todos” de más, o adjuntar el archivo que no era: basta un clic para que información confidencial acabe donde no debe.</p><p>Antes de darle a “Enviar”, párate dos segundos y comprueba:</p><ul><li>A quién se lo mandas (¿es esa persona, o una que autocompletó sola con un nombre parecido?).</li><li>Quién va en copia (¿necesitan todos ver esto?).</li><li>Qué adjuntas (¿es el archivo correcto y no otro con datos de más?).</li></ul><p>Y cuando escribas a varias personas que no se conocen entre sí, usa siempre la copia oculta (CCO): así no expones los correos de unos a otros.</p></div>
       <div class="priv-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="priv-note">Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.</span></div>
     </div>
 
