@@ -9,7 +9,7 @@ import os
 import sys
 import requests
 
-from mailer import get_access_token, SENDER_EMAIL
+from mailer import get_access_token, respuesta_ok, SENDER_EMAIL
 
 
 def main():
@@ -37,7 +37,8 @@ def main():
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         json=payload,
     )
-    r.raise_for_status()
+    if not respuesta_ok(r, "Graph sendMail (aviso)", 202):
+        sys.exit(1)
     print(f"  ✅ Aviso enviado a {', '.join(to)}: {subject}")
 
 
