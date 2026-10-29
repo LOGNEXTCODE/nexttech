@@ -13,7 +13,7 @@ import re
 import sys
 import requests
 
-from mailer import get_access_token, SENDER_EMAIL
+from mailer import get_access_token, respuesta_ok, SENDER_EMAIL
 
 
 def main():
@@ -48,7 +48,8 @@ def main():
         headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
         json=payload,
     )
-    r.raise_for_status()
+    if not respuesta_ok(r, "Graph sendMail (correo)", 202):
+        sys.exit(1)
     print(f"  ✅ Correo enviado a {', '.join(to)}")
     print(f"  📧 Asunto: {subject}")
     print(f"  ↪️  Recuerda: el reenvío a la organización es manual desde Outlook.")

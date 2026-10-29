@@ -13,10 +13,12 @@ from pubdate import publication_date, mes_label
 
 
 # ─── CONFIGURACIÓN (via GitHub Secrets) ────────────────────────────────────────
-TENANT_ID      = os.environ["MS_TENANT_ID"]
-CLIENT_ID      = os.environ["MS_CLIENT_ID"]
-CLIENT_SECRET  = os.environ["MS_CLIENT_SECRET"]
-SENDER_EMAIL   = os.environ["MS_SENDER_EMAIL"]     # sistemas@lognext.com
+# .strip(): un salto de línea o espacio pegado en el secret rompe la URL del
+# token y Microsoft responde con una página HTML en vez de JSON.
+TENANT_ID      = os.environ["MS_TENANT_ID"].strip()
+CLIENT_ID      = os.environ["MS_CLIENT_ID"].strip()
+CLIENT_SECRET  = os.environ["MS_CLIENT_SECRET"].strip()
+SENDER_EMAIL   = os.environ["MS_SENDER_EMAIL"].strip()     # sistemas@lognext.com
 REVIEWER_EMAIL = os.environ.get("REVIEWER_EMAIL", "")  # solo necesario en send_draft()
 EDITION_NUMBER = os.environ.get("EDITION_NUMBER", "01")
 
@@ -25,6 +27,20 @@ WEB_URL = f"https://nexttech.lognext.com/{EDITION_NUMBER}/"
 _RADAR_DOT_COLORS = ["#FA3C0F", "#FFFA96", "#3CE6E6", "#C896FF"]
 _TIPO_LABELS      = {"articulo": "ARTÍCULO", "video": "VÍDEO", "quiz": "QUIZ"}
 _TIPO_COLORS      = {"articulo": "#FA3C0F", "video": "#3CE6E6", "quiz": "#FFFA96"}
+
+
+def respuesta_ok(response, que: str, esperado: int, json_esperado: bool = False) -> bool:
+    """
+    True si la respuesta trae el código esperado (y JSON, si se pide).
+    Si no, imprime SOLO el código HTTP, el content-type y los 200 primeros
+    caracteres de la respuesta. Nunca la petición: ni secretos ni el token.
+    """
+    ctype = response.headers.get("Content-Type", "")
+    if response.status_code == esperado and (not json_esperado or "json" in ctype.lower()):
+        return True
+    print(f"::error::{que}: HTTP {response.status_code} (esperado {esperado}) · content-type: {ctype or '(vacío)'}")
+    print(f"  Respuesta (200 primeros caracteres): {response.text[:200]!r}")
+    return False
 
 
 def get_access_token() -> str:
@@ -36,9 +52,10 @@ def get_access_token() -> str:
         "scope":         "https://graph.microsoft.com/.default",
     }
     response = requests.post(url, data=data)
-    response.raise_for_status()
+    if not respuesta_ok(response, "Token de Entra ID", 200, json_esperado=True):
+        raise SystemExit(1)
     token = response.json()["access_token"]
-    print(f"  Token obtenido: {token[:20]}...")
+    print("  Token obtenido.")
     return token
 
 
@@ -171,15 +188,13 @@ def send_draft(content: dict) -> bool:
     }
 
     response = requests.post(url, headers=headers, json=payload)
-    response.raise_for_status()
 
-    if response.status_code == 202:
+    if respuesta_ok(response, "Graph sendMail (borrador)", 202):
         print(f"  ✅ Borrador enviado a: {', '.join(reviewer_list)}")
         print(f"  🌐 Versión web: {WEB_URL}")
         print(f"  📅 Publicación: primer miércoles del mes — envío final es MANUAL")
         return True
     else:
-        print(f"  ❌ Error al enviar: {response.status_code} — {response.text}")
         return False
 
 
