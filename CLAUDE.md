@@ -233,6 +233,7 @@ Guías publicadas actualmente:
 | `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
 | `/GuiaPhishing/` | Cómo reconocer un phishing |
 | `/GuiaVPN/` | Uso seguro de la VPN |
+| `/GuiaNextCards/` | Tu tarjeta digital (NextCards: cartera de Apple y Google, avisos de contactos) |
 
 ### Navegación entre ediciones y guías (reglas fijas)
 
@@ -490,10 +491,10 @@ NextTech genera automáticamente evidencias ENS:
 - ⚠️ **ID de medición correcto: `G-H3Y3WBWSLR`** (verificado en navegador: sirve `gtag.js`).
   El ID `G-116HSWHBE9` usado anteriormente era **erróneo**: Google devolvía **404** al pedir su
   `gtag.js`, por lo que GA4 no cargaba y no llegaban datos. **No volver a usar `G-116HSWHBE9`.**
-- Etiqueta gtag presente en **ediciones y en las tres guías** (`GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN`).
+- Etiqueta gtag presente en **ediciones y en las cuatro guías** (`GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN`, `GuiaNextCards`).
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
-- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing` y `GuiaVPN`
+- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN` y `GuiaNextCards`
 - **Igual prominencia (AEPD mayo 2024 / CEPD 03/2022):** "Aceptar todas" y
   "Rechazar todas" son botones **idénticos** (mismo relleno sólido naranja
   `#FA3C0F`, texto blanco, tamaño, padding y radio). "Aceptar solo necesarias"
@@ -636,7 +637,7 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
 - [ ] Sección "Privacidad al día" presente tras el Reto, con una práctica NUEVA (no repetida de ediciones anteriores) y la nota ISO 27701
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
-- [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing y VPN) con `?from={{EDICION_NUM}}`
+- [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing, VPN y Tu tarjeta digital) con `?from={{EDICION_NUM}}`
 
 ### Orden canónico de la edición (desde la #02)
 `Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Privacidad al día → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
