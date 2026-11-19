@@ -248,6 +248,14 @@ Guías publicadas actualmente:
   si no hay parámetro válido, vuelve a la última edición publicada (`editions.json`).
 - **Toda edición debe enlazar a TODAS las NextGuides publicadas** (columna NextGuide del
   footer), con su `?from`.
+- **Edición generada ANTES de añadir una guía a la plantilla:** nace sin su enlace. Pasó con
+  la #07 y «Tu tarjeta digital»: se le añadió a mano el `<li>` (`?from=07`) y la clave
+  `footer_guide_nextcards` en es, en y fr (`aa2b454`, 19-nov-2026). Si vuelve a ocurrir,
+  hacerlo antes de aprobar la edición, en commit aparte y sin tocar nada más de ella.
+- **GuiaNextCards — el correo dibujado está en español en los tres idiomas** (es una imagen
+  del aviso real). Por eso los textos EN y FR que lo acompañan nombran el botón como se ve:
+  «Use the Reply button (“Responder”)…» / «Utilisez le bouton Répondre (« Responder »)…»
+  (`fe4364d`). Si se cambia el correo dibujado, revisar esos textos.
 
 ### i18n — toda edición es trilingüe (ES · EN · FR)
 
@@ -495,6 +503,11 @@ NextTech genera automáticamente evidencias ENS:
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
 - Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN` y `GuiaNextCards`
+- **Guías antiguas al día (19-nov-2026, `982bb01`, publicado en `41740a1`):** el banner de
+  `GuiaVPN`, `GuiaPhishing` y `GuiaEtiquetas` destacaba «Aceptar todas»; ahora «Rechazar
+  todas» y «Aceptar todas» son idénticos también allí. Verificado en producción con
+  navegador sin interfaz: mismos estilos calculados en los dos botones, 0 peticiones a
+  Google antes de aceptar y medición activa tras aceptar.
 - **Igual prominencia (AEPD mayo 2024 / CEPD 03/2022):** "Aceptar todas" y
   "Rechazar todas" son botones **idénticos** (mismo relleno sólido naranja
   `#FA3C0F`, texto blanco, tamaño, padding y radio). "Aceptar solo necesarias"
