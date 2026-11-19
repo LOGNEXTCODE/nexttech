@@ -233,7 +233,29 @@ Guías publicadas actualmente:
 | `/GuiaEtiquetas/` | Etiquetas de confidencialidad |
 | `/GuiaPhishing/` | Cómo reconocer un phishing |
 | `/GuiaVPN/` | Uso seguro de la VPN |
+
+### Guías NO enlazadas (solo para staff)
+
+| Ruta | Descripción |
+|------|-------------|
 | `/GuiaNextCards/` | Tu tarjeta digital (NextCards: cartera de Apple y Google, avisos de contactos) |
+
+- **Guía no enlazada, solo para staff: NO añadirla a la columna NextGuide ni a ninguna
+  edición; se llega desde el correo de NextCards.** Tampoco a la portada, a otras guías
+  ni a `editions.json`. Se decidió el 19-nov-2026, tras haberla enlazado ese mismo día
+  (`145fc2a` y `aa2b454`); los pies de la plantilla y de las ediciones 01-07 volvieron a
+  su estado anterior.
+- Lleva `<meta name="robots" content="noindex, nofollow">`, y el mismo GA4 condicional y
+  banner de cookies que las demás guías. Sigue en la lista blanca del `.gitignore`
+  (`!/GuiaNextCards/index.html`): sin ella no se publicaría ni por enlace directo.
+- **El correo dibujado está en español en los tres idiomas** (es una imagen
+  del aviso real). Por eso los textos EN y FR que lo acompañan nombran el botón como se ve:
+  «Use the Reply button (“Responder”)…» / «Utilisez le bouton Répondre (« Responder »)…»
+  (`fe4364d`). Si se cambia el correo dibujado, revisar esos textos.
+- El paso 2 de iPhone y de Android cita el texto exacto del badge oficial de cada idioma
+  («Añadir a Cartera de Apple», «Add to Apple Wallet», «Ajouter à l’app Cartes Apple»;
+  «Añadir a Google Wallet», «Add to Google Wallet», «Ajouter au Google Wallet»). Si se
+  cambia un badge en `images/guia-nextcards/`, cambiar también ese texto.
 
 ### Navegación entre ediciones y guías (reglas fijas)
 
@@ -246,16 +268,13 @@ Guías publicadas actualmente:
 - **Guías «volver al origen»:** los enlaces HACIA una guía llevan `?from={{EDICION_NUM}}`.
   El botón «Volver a NextTech» de cada guía lee `?from=NN` y vuelve a esa edición;
   si no hay parámetro válido, vuelve a la última edición publicada (`editions.json`).
-- **Toda edición debe enlazar a TODAS las NextGuides publicadas** (columna NextGuide del
-  footer), con su `?from`.
+- **Toda edición debe enlazar a TODAS las NextGuides de la tabla «Guías publicadas»** (columna
+  NextGuide del footer), con su `?from`. Las «Guías NO enlazadas» no se enlazan nunca.
 - **Edición generada ANTES de añadir una guía a la plantilla:** nace sin su enlace. Pasó con
-  la #07 y «Tu tarjeta digital»: se le añadió a mano el `<li>` (`?from=07`) y la clave
-  `footer_guide_nextcards` en es, en y fr (`aa2b454`, 19-nov-2026). Si vuelve a ocurrir,
-  hacerlo antes de aprobar la edición, en commit aparte y sin tocar nada más de ella.
-- **GuiaNextCards — el correo dibujado está en español en los tres idiomas** (es una imagen
-  del aviso real). Por eso los textos EN y FR que lo acompañan nombran el botón como se ve:
-  «Use the Reply button (“Responder”)…» / «Utilisez le bouton Répondre (« Responder »)…»
-  (`fe4364d`). Si se cambia el correo dibujado, revisar esos textos.
+  la #07 (`aa2b454`, 19-nov-2026, después revertido al dejar esa guía sin enlazar). Si
+  vuelve a ocurrir con una guía de la tabla «Guías publicadas», añadir a mano el `<li>` y
+  su clave i18n en es, en y fr antes de aprobar la edición, en commit aparte y sin tocar
+  nada más de ella.
 
 ### i18n — toda edición es trilingüe (ES · EN · FR)
 
@@ -499,10 +518,10 @@ NextTech genera automáticamente evidencias ENS:
 - ⚠️ **ID de medición correcto: `G-H3Y3WBWSLR`** (verificado en navegador: sirve `gtag.js`).
   El ID `G-116HSWHBE9` usado anteriormente era **erróneo**: Google devolvía **404** al pedir su
   `gtag.js`, por lo que GA4 no cargaba y no llegaban datos. **No volver a usar `G-116HSWHBE9`.**
-- Etiqueta gtag presente en **ediciones y en las cuatro guías** (`GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN`, `GuiaNextCards`).
+- Etiqueta gtag presente en **ediciones y en las tres guías** (`GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN`), y en la guía no enlazada `GuiaNextCards`.
 - 5 categorías: Necesaria (fija), Funcional, Analítica, Rendimiento, Anuncio
 - Consentimiento en `localStorage` con clave `lognext_cookie_preferences`
-- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing`, `GuiaVPN` y `GuiaNextCards`
+- Aplicado a todas las ediciones (`web_template.html`), `GuiaEtiquetas`, `GuiaPhishing` y `GuiaVPN` (y la guía no enlazada `GuiaNextCards`)
 - **Guías antiguas al día (19-nov-2026, `982bb01`, publicado en `41740a1`):** el banner de
   `GuiaVPN`, `GuiaPhishing` y `GuiaEtiquetas` destacaba «Aceptar todas»; ahora «Rechazar
   todas» y «Aceptar todas» son idénticos también allí. Verificado en producción con
@@ -650,7 +669,7 @@ Claude recibe el aviso y marca las secciones afectadas con
 - [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
 - [ ] Sección "Privacidad al día" presente tras el Reto, con una práctica NUEVA (no repetida de ediciones anteriores) y la nota ISO 27701
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
-- [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing, VPN y Tu tarjeta digital) con `?from={{EDICION_NUM}}`
+- [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing y VPN; nunca las no enlazadas) con `?from={{EDICION_NUM}}`
 
 ### Orden canónico de la edición (desde la #02)
 `Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Privacidad al día → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
