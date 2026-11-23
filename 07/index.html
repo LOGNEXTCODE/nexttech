@@ -179,6 +179,13 @@ body {
 .priv-body p:last-child { margin-bottom: 0; }
 .priv-note { font-size: 13px; font-style: italic; line-height: 1.7; color: var(--grey); opacity: 0.7; border-top: 1px solid rgba(60,230,230,0.18); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .priv-note svg { color: var(--cyan); margin-top: 4px; flex-shrink: 0; }
+/* Mejora continua (solo #07): acento verde, mismo molde que Privacidad al día */
+.card-mejora { background: #001a08; border-left: 4px solid var(--green); box-shadow: inset 0 1px 0 rgba(100,240,125,0.25); }
+.card-mejora::after { background: radial-gradient(ellipse at 50% 0%, rgba(100,240,125,0.1), transparent 70%); }
+.mejora-body p { margin: 0 0 12px; }
+.mejora-body p:last-child { margin-bottom: 0; }
+.mejora-note { font-size: 13px; font-style: italic; line-height: 1.7; color: var(--grey); opacity: 0.7; border-top: 1px solid rgba(100,240,125,0.18); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.mejora-note svg { color: var(--green); margin-top: 4px; flex-shrink: 0; }
 .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .section-tag::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.12; }
 .card-title { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
@@ -431,6 +438,7 @@ body.light .card-radar   .section-tag  { color: #007A8A !important; }
 body.light .card-phishing .section-tag { color: #6A28AA !important; }
 body.light .card-ia      .section-tag  { color: #1A5CB0 !important; }
 body.light .card-priv    .section-tag  { color: #007A8A !important; }
+body.light .card-mejora  .section-tag  { color: #1A7A38 !important; }
 body.light .card-esto    .section-tag  { color: #C82D00 !important; }
 body.light .card-links   .section-tag  { color: #6A28AA !important; }
 
@@ -462,6 +470,7 @@ body.light .card-caso    .card-hero-fade { background: linear-gradient(to bottom
 body.light .card-consejo .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,248,0) 55%, #F5FFF8 100%) !important; }
 body.light .card-reto    .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,249,0) 55%, #F5FFF9 100%) !important; }
 body.light .card-priv    .card-hero-fade { background: linear-gradient(to bottom, rgba(242,251,252,0) 55%, #F2FBFC 100%) !important; }
+body.light .card-mejora  .card-hero-fade { background: linear-gradient(to bottom, rgba(244,253,246,0) 55%, #F4FDF6 100%) !important; }
 body.light .card-ia {
   background: #F5F8FF;
   border-left: 4px solid #1A5CB0;
@@ -475,6 +484,13 @@ body.light .card-priv {
 body.light .priv-body li::marker { color: #007A8A; }
 body.light .priv-note { color: #2a2a4a; opacity: 0.85; border-top-color: rgba(0,122,138,0.25); }
 body.light .priv-note svg { color: #007A8A; }
+body.light .card-mejora {
+  background: #F4FDF6;
+  border-left: 4px solid #1A7A38;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,122,56,0.15);
+}
+body.light .mejora-note { color: #2a2a4a; opacity: 0.85; border-top-color: rgba(26,122,56,0.25); }
+body.light .mejora-note svg { color: #1A7A38; }
 
 body.light .card-radar { background: transparent; box-shadow: none; }
 body.light .radar-grid-item {
@@ -904,6 +920,19 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="card-title" data-i18n="priv-title">Antes de compartir un archivo, revisa qué datos contiene y quién puede verlo</div>
       <div class="card-text priv-body" data-i18n-html="priv-text"><p>Compartir un documento por error con una persona de más es uno de los incidentes de privacidad más habituales en cualquier organización, y suele ocurrir sin mala intención. Un archivo de proyecto puede contener datos personales de clientes, empleados o proveedores sin que lo hayamos notado al crearlo.</p><ul><li>Antes de enviar o compartir un archivo, abre una última vez y comprueba si contiene nombres, DNIs, correos, teléfonos u otro dato personal que no necesite estar ahí.</li><li>Ajusta los permisos al mínimo necesario: si el destinatario solo necesita leer, no le des permisos de edición ni de reenvío.</li><li>En plataformas como SharePoint, Google Drive o Dropbox, revisa que el enlace generado no sea público ni accesible para cualquiera con la URL.</li></ul><p>Un minuto de revisión antes de hacer clic en ‘Compartir’ puede evitar una brecha de datos real y, en el contexto de nuestra certificación ENS, una no conformidad innecesaria.</p></div>
       <div class="priv-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="priv-note">Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.</span></div>
+    </div>
+
+    <!-- 3d. MEJORA CONTINUA · artesanal (solo #07): lo que hace IT, ancho completo, acento verde.
+         Mismo molde que Privacidad al día; sin botón de enlace, nota al pie en cursiva. -->
+    <div class="card card-mejora full-width" onmouseenter="trackSection('mejora_continua')">
+      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,8,0) 55%,#001a08 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">Mejora continua</span></div>
+      <div class="card-title" data-i18n="mejora-title">Hemos reforzado la protección de vuestro equipo</div>
+      <div class="card-text mejora-body" data-i18n-html="mejora-text"><p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p><p>Si notáis algo raro en vuestro equipo, abrid un ticket y lo revisamos.</p></div>
+      <div class="mejora-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="mejora-note">Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.</span></div>
     </div>
 
     <!-- 4. EN EL RADAR — ancho completo, grid 2×2 -->
@@ -1355,6 +1384,9 @@ const I18N = {
     "tag-priv": "Privacidad al día",
     "priv-title": "Antes de compartir un archivo, revisa qué datos contiene y quién puede verlo",
     "priv-note": "Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.",
+    "tag-mejora": "Mejora continua",
+    "mejora-title": "Hemos reforzado la protección de vuestro equipo",
+    "mejora-note": "Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.",
     "tag-radar": "En el radar",
     "radar-title": "Lo que no puedes perderte este mes",
     "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1): RCE sin autenticación en Jira, Jenkins, Confluence y Keycloak — CISA pide parchear ya",
@@ -1458,6 +1490,7 @@ const I18N = {
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
+    "mejora-text": "<p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p><p>Si notáis algo raro en vuestro equipo, abrid un ticket y lo revisamos.</p>",
     "priv-text": "<p>Compartir un documento por error con una persona de más es uno de los incidentes de privacidad más habituales en cualquier organización, y suele ocurrir sin mala intención. Un archivo de proyecto puede contener datos personales de clientes, empleados o proveedores sin que lo hayamos notado al crearlo.</p><ul><li>Antes de enviar o compartir un archivo, abre una última vez y comprueba si contiene nombres, DNIs, correos, teléfonos u otro dato personal que no necesite estar ahí.</li><li>Ajusta los permisos al mínimo necesario: si el destinatario solo necesita leer, no le des permisos de edición ni de reenvío.</li><li>En plataformas como SharePoint, Google Drive o Dropbox, revisa que el enlace generado no sea público ni accesible para cualquiera con la URL.</li></ul><p>Un minuto de revisión antes de hacer clic en ‘Compartir’ puede evitar una brecha de datos real y, en el contexto de nuestra certificación ENS, una no conformidad innecesaria.</p>"
   },
   "en": {
@@ -1487,6 +1520,9 @@ const I18N = {
     "tag-priv": "Privacy Update",
     "priv-title": "Before Sharing a File, Check What Data It Contains and Who Can See It",
     "priv-note": "This section was born alongside our ISO 27701 privacy certification. Each month, one good practice to protect data — ours and that of those who trust us.",
+    "tag-mejora": "Continuous improvement",
+    "mejora-title": "We’ve strengthened the protection on your device",
+    "mejora-note": "We provide the tools; you provide the critical eye. Together we’re the best defense.",
     "tag-radar": "On the Radar",
     "radar-title": "What You Can't Miss This Month",
     "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1): Unauthenticated RCE in Jira, Jenkins, Confluence, and Keycloak — CISA urges immediate patching",
@@ -1590,6 +1626,7 @@ const I18N = {
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>",
+    "mejora-text": "<p>As part of the continuous improvement of our security, this month we’ve renewed the protection on every device: we’ve moved from SentinelOne to CrowdStrike Falcon, one of the market’s leading detection and response (EDR) solutions.</p><p>For you it’s been seamless: you didn’t have to do anything. We installed the new protection, let it run alongside the old one for a few days, and then removed SentinelOne. The change is now live on every device.</p><p>If you notice anything odd on your device, open a ticket and we’ll look into it.</p>",
     "priv-text": "<p>Accidentally sharing a document with one person too many is one of the most common privacy incidents in any organisation, and it usually happens without any malicious intent. A project file may contain personal data belonging to clients, employees, or suppliers without us having noticed when we created it.</p><ul><li>Before sending or sharing a file, open it one last time and check whether it contains names, ID numbers, email addresses, phone numbers, or any other personal data that doesn't need to be there.</li><li>Set permissions to the minimum necessary: if the recipient only needs to read the file, do not grant editing or forwarding permissions.</li><li>On platforms such as SharePoint, Google Drive, or Dropbox, check that the generated link is not public or accessible to anyone with the URL.</li></ul><p>One minute of review before clicking 'Share' can prevent a real data breach and, in the context of our ENS certification, an unnecessary non-conformity.</p>"
   },
   "fr": {
@@ -1619,6 +1656,9 @@ const I18N = {
     "tag-priv": "Confidentialité en direct",
     "priv-title": "Avant de partager un fichier, vérifiez quelles données il contient et qui peut le consulter",
     "priv-note": "Cette section naît avec notre certification ISO 27701 en matière de confidentialité. Chaque mois, une bonne pratique pour protéger les données — les nôtres et celles de ceux qui nous font confiance.",
+    "tag-mejora": "Amélioration continue",
+    "mejora-title": "Nous avons renforcé la protection de votre poste",
+    "mejora-note": "Nous fournissons les outils ; vous, l’œil critique. Ensemble, nous sommes la meilleure défense.",
     "tag-radar": "Sur le radar",
     "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
     "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1) : RCE sans authentification sur Jira, Jenkins, Confluence et Keycloak — la CISA demande de corriger immédiatement",
@@ -1722,6 +1762,7 @@ const I18N = {
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
+    "mejora-text": "<p>Dans le cadre de l’amélioration continue de notre sécurité, nous avons renouvelé ce mois-ci la protection de tous les postes : nous passons de SentinelOne à CrowdStrike Falcon, l’une des solutions de détection et de réponse (EDR) les plus performantes du marché.</p><p>Pour vous, cela a été transparent : vous n’avez rien eu à faire. Nous avons installé la nouvelle protection, l’avons laissée cohabiter quelques jours avec l’ancienne, puis nous avons retiré SentinelOne. Le changement est désormais appliqué et actif sur tous les postes.</p><p>Si vous remarquez quelque chose d’anormal sur votre poste, ouvrez un ticket et nous le vérifierons.</p>",
     "priv-text": "<p>Partager par erreur un document avec une personne de trop est l'un des incidents de confidentialité les plus courants dans toute organisation, et il survient généralement sans mauvaise intention. Un fichier de projet peut contenir des données personnelles de clients, d'employés ou de fournisseurs sans que nous l'ayons remarqué au moment de sa création.</p><ul><li>Avant d'envoyer ou de partager un fichier, ouvrez-le une dernière fois et vérifiez s'il contient des noms, des DNIs, des adresses e-mail, des numéros de téléphone ou toute autre donnée personnelle qui n'a pas à s'y trouver.</li><li>Réduisez les permissions au strict nécessaire : si le destinataire n'a besoin que de lire, ne lui accordez pas de droits de modification ni de transfert.</li><li>Sur des plateformes telles que SharePoint, Google Drive ou Dropbox, vérifiez que le lien généré n'est ni public ni accessible à quiconque possède l'URL.</li></ul><p>Une minute de vérification avant de cliquer sur « Partager » peut éviter une véritable fuite de données et, dans le contexte de notre certification ENS, une non-conformité inutile.</p>"
   }
 };
