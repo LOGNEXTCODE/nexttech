@@ -197,25 +197,6 @@ body {
 .reto-progress-bar { height: 100%; width: 0%; background: var(--green); border-radius: 2px; animation: progressFill 2s 1s ease forwards; }
 @keyframes progressFill { to { width: 65%; } }
 .reto-label { display: flex; justify-content: space-between; font-size: 11px; font-family: 'JetBrains Mono', monospace; margin-top: 8px; opacity: 0.5; }
-.phishing-inner { background: rgba(200,150,255,0.05); border: 1px solid rgba(200,150,255,0.1); border-radius: 4px; padding: 24px; margin-top: 16px; }
-.phishing-email-preview { background: #fff; border-radius: 4px; padding: 16px; margin-bottom: 16px; font-family: Arial, sans-serif; color: #333; }
-.phishing-email-header { border-bottom: 1px solid #eee; padding-bottom: 10px; margin-bottom: 10px; font-size: 12px; color: #666; }
-.phishing-email-subject { font-weight: bold; font-size: 14px; color: #111; margin-bottom: 4px; }
-.phishing-email-body { font-size: 13px; line-height: 1.6; color: #444; }
-.phishing-email-body a { color: #1a73e8; text-decoration: underline; }
-.phishing-question { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 16px; line-height: 1.5; }
-.phishing-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
-.phishing-btn { padding: 12px 24px; font-size: 13px; font-weight: 600; font-family: 'Space Grotesk', sans-serif; border: none; cursor: pointer; transition: all 0.25s ease; letter-spacing: 0.5px; flex: 1; min-width: 120px; }
-.phishing-btn-yes { background: rgba(250,60,15,0.15); color: var(--red); border: 1px solid var(--red); }
-.phishing-btn-yes:hover { background: var(--red); color: #fff; }
-.phishing-btn-no  { background: rgba(100,240,125,0.1); color: var(--green); border: 1px solid var(--green); }
-.phishing-btn-no:hover  { background: var(--green); color: var(--navy); }
-.phishing-result { display: none; padding: 16px; border-radius: 4px; font-size: 14px; line-height: 1.7; margin-top: 12px; }
-.phishing-result.show { display: block; }
-.phishing-result.correct { background: rgba(100,240,125,0.1); border: 1px solid rgba(100,240,125,0.3); color: var(--green); }
-.phishing-result.wrong   { background: rgba(250,60,15,0.1);  border: 1px solid rgba(250,60,15,0.3);  color: var(--red); }
-.phishing-clues { margin-top: 12px; padding: 12px; background: rgba(0,0,0,0.3); border-radius: 4px; }
-.phishing-clue { font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--grey); opacity: 0.8; margin-bottom: 4px; display: flex; gap: 8px; align-items: flex-start; }
 .card-radar { box-shadow: inset 0 1px 0 rgba(60,230,230,0.2); }
 .card-radar::after { background: radial-gradient(ellipse at 50% 0%, rgba(60,230,230,0.07), transparent 70%); }
 .radar-list { display: flex; flex-direction: column; gap: 0; margin-top: 4px; }
@@ -297,7 +278,6 @@ body.light .ed-foot-soon { color: #555570; opacity: 0.75; }
   .topbar-right { flex: 1; }
   .topbar-edition-num { font-size: 9px; letter-spacing: 0.3px; }
   .topbar-edition-date { font-size: 8px; letter-spacing: 0.3px; }
-  .phishing-buttons { flex-direction: column; }
   .stat-number { font-size: 24px; }
 }
 
@@ -515,29 +495,123 @@ body.light .card-phishing {
   background: #FDF8FF;
   border: 1px solid rgba(106,40,170,0.2);
 }
-body.light .phishing-inner {
-  background: rgba(106,40,170,0.04);
-  border: 1px solid rgba(106,40,170,0.12);
+
+/* ── Pon a prueba tu ojo #07: juego «caza el correo falso» (artesanal, solo #07) ──
+   Tema: variables --ojo-* en la tarjeta (oscuro) y bajo body.light (claro).
+   Los correos se quedan blancos en ambos modos, con fuente de sistema. */
+.card-phishing, #ojo-toast {
+  --ojo-panel: rgba(200,150,255,0.05);
+  --ojo-panel-2: rgba(255,255,255,0.035);
+  --ojo-line: rgba(200,150,255,0.18);
+  --ojo-ink: #ffffff;
+  --ojo-muted: rgba(225,225,232,0.68);
+  --ojo-acento: var(--violet);
+  --ojo-acento-glow: rgba(200,150,255,0.55);
+  --ojo-naranja: var(--red);
+  --ojo-ok: var(--green);
+  --ojo-ok-bg: rgba(100,240,125,0.10);
+  --ojo-ok-line: rgba(100,240,125,0.40);
+  --ojo-ok-ink: #c9f7d3;
+  --ojo-bad-bg: rgba(250,60,15,0.10);
+  --ojo-bad-line: rgba(250,60,15,0.50);
+  --ojo-bad-ink: #ffcdbd;
+  --ojo-btn-bg: rgba(200,150,255,0.07);
+  --ojo-btn-hover: rgba(200,150,255,0.16);
+  --ojo-toast-bg: #1a1a46;
+  --ojo-toast-shadow: 0 10px 40px rgba(0,0,0,0.5);
 }
-body.light .phishing-question { color: #000029; }
-body.light .phishing-clue     { color: #2a2a4a; opacity: 1; }
-body.light .phishing-btn-yes {
-  background: rgba(200,45,0,0.08); color: #9B2200;
-  border: 1.5px solid #C82D00;
+body.light .card-phishing, body.light #ojo-toast {
+  --ojo-panel: rgba(106,40,170,0.04);
+  --ojo-panel-2: #ffffff;
+  --ojo-line: rgba(106,40,170,0.16);
+  --ojo-ink: #000029;
+  --ojo-muted: #4a4a6a;
+  --ojo-acento: #6A28AA;
+  --ojo-acento-glow: rgba(106,40,170,0.35);
+  --ojo-naranja: #C82D00;
+  --ojo-ok: #1A7A38;
+  --ojo-ok-bg: rgba(26,122,56,0.08);
+  --ojo-ok-line: rgba(26,122,56,0.35);
+  --ojo-ok-ink: #145E2A;
+  --ojo-bad-bg: rgba(200,45,0,0.07);
+  --ojo-bad-line: rgba(200,45,0,0.35);
+  --ojo-bad-ink: #9B2200;
+  --ojo-btn-bg: #ffffff;
+  --ojo-btn-hover: rgba(106,40,170,0.08);
+  --ojo-toast-bg: #ffffff;
+  --ojo-toast-shadow: 0 10px 40px rgba(0,0,41,0.18);
 }
-body.light .phishing-btn-yes:hover { background: #C82D00; color: #FFFFFF; }
-body.light .phishing-btn-no {
-  background: rgba(26,122,56,0.08); color: #145E2A;
-  border: 1.5px solid #1A7A38;
+.ojo-game { background: var(--ojo-panel); border: 1px solid var(--ojo-line); border-radius: 8px; padding: 24px; margin-top: 20px; color: var(--ojo-ink); }
+.ojo-game [hidden] { display: none !important; }
+.card-phishing, #ojo-phase2, .ojo-win { scroll-margin-top: 110px; }
+.ojo-phase-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--ojo-acento); margin: 0 0 8px; outline: none; }
+.ojo-q { font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--ojo-ink); margin: 0 0 18px; }
+.ojo-q b { color: var(--ojo-acento); font-weight: 700; }
+.ojo-mails { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.ojo-col { display: flex; flex-direction: column; min-width: 0; }
+.ojo-col-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--ojo-muted); text-align: center; margin: 0 0 8px; }
+.ojo-mail { background: #ffffff; color: #1a1a1a; border: 1px solid #e0e0e6; border-radius: 10px; overflow: hidden; font-family: "Segoe UI", Arial, sans-serif; font-size: 13.5px; line-height: 1.5; display: flex; flex-direction: column; flex: 1; box-shadow: 0 2px 10px rgba(0,0,0,0.12); }
+.ojo-hdr { padding: 12px 14px; border-bottom: 1px solid #e6e6e6; background: #fafafa; }
+.ojo-row { display: flex; gap: 6px; margin: 1px 0; }
+.ojo-row .k { color: #5a5a5a; min-width: 46px; flex: none; }
+.ojo-row .v { color: #1a1a1a; min-width: 0; overflow-wrap: anywhere; }
+.ojo-subject { font-weight: 700; font-size: 14.5px; line-height: 1.3; margin: 8px 0 0; color: #111; }
+.ojo-body { padding: 14px; flex: 1; color: #1a1a1a; }
+.ojo-body p { margin: 0 0 10px; }
+.ojo-iban { font-family: Consolas, "Courier New", monospace; font-weight: 700; letter-spacing: 0.3px; color: #111; }
+.ojo-attach { display: inline-flex; align-items: center; gap: 7px; max-width: 100%; margin-top: 4px; background: #f1f3f5; border: 1px solid #dde1e4; border-radius: 6px; padding: 7px 11px; font-size: 12.5px; color: #333; overflow-wrap: anywhere; }
+.ojo-attach svg { flex: none; }
+.ojo-choose { display: block; width: 100%; margin-top: 12px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; padding: 11px 14px; border-radius: 8px; cursor: pointer; background: var(--ojo-btn-bg); color: var(--ojo-ink); border: 1px solid var(--ojo-line); transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+.ojo-choose:hover { border-color: var(--ojo-naranja); background: var(--ojo-btn-hover); }
+.ojo-choose:active { transform: translateY(1px); }
+.ojo-choose:focus-visible { outline: 2px solid var(--ojo-acento); outline-offset: 2px; }
+.ojo-choose:disabled { opacity: 0.5; cursor: default; }
+.ojo-fb { display: none; margin-top: 16px; padding: 13px 16px; border-radius: 8px; font-size: 15px; line-height: 1.6; border: 1px solid; }
+.ojo-fb.show { display: block; }
+.ojo-fb.bad { background: var(--ojo-bad-bg); border-color: var(--ojo-bad-line); color: var(--ojo-bad-ink); }
+.ojo-fb.ok  { background: var(--ojo-ok-bg);  border-color: var(--ojo-ok-line);  color: var(--ojo-ok-ink); }
+.ojo-hunt-top { display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-start; justify-content: space-between; margin-bottom: 16px; }
+.ojo-hunt-top .ojo-q { margin: 0; max-width: 40ch; }
+.ojo-counter { display: flex; align-items: center; gap: 10px; font-family: 'JetBrains Mono', monospace; font-size: 15px; font-weight: 700; color: var(--ojo-acento); }
+.ojo-pips { display: flex; gap: 5px; }
+.ojo-pip { width: 20px; height: 7px; border-radius: 4px; background: var(--ojo-line); transition: background 0.2s, box-shadow 0.2s; }
+.ojo-pip.on { background: var(--ojo-acento); box-shadow: 0 0 8px var(--ojo-acento-glow); }
+.ojo-zone { cursor: pointer; border-radius: 4px; padding: 0 2px; -webkit-box-decoration-break: clone; box-decoration-break: clone; transition: background 0.15s, box-shadow 0.15s; }
+.ojo-zone:hover { background: rgba(250,60,15,0.12); }
+.ojo-zone:focus-visible { outline: 2px solid #FA3C0F; outline-offset: 1px; }
+.ojo-zone.found, .ojo-zone.found:hover { background: rgba(100,240,125,0.28); box-shadow: inset 0 0 0 2px rgba(26,122,56,0.55); cursor: default; }
+.ojo-mark { display: none; width: 16px; height: 16px; margin-left: 4px; vertical-align: -2px; border-radius: 50%; background: #1A7A38; color: #ffffff; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; line-height: 1; align-items: center; justify-content: center; }
+.ojo-zone.found .ojo-mark { display: inline-flex; }
+.ojo-attach .ojo-mark { margin-left: 0; }
+.ojo-hint { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--ojo-muted); margin: 14px 0 4px; }
+.ojo-clues { list-style: none; margin: 10px 0 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.ojo-clue { display: flex; gap: 11px; padding: 11px 13px; border-radius: 8px; background: var(--ojo-panel-2); border: 1px solid var(--ojo-line); }
+.ojo-clue.pending { opacity: 0.55; }
+.ojo-clue .ci { flex: none; width: 24px; height: 24px; border-radius: 6px; display: grid; place-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 700; background: var(--ojo-line); color: var(--ojo-muted); }
+.ojo-clue.done .ci { background: var(--ojo-ok-bg); color: var(--ojo-ok); }
+.ojo-clue .ct { font-size: 14.5px; line-height: 1.55; color: var(--ojo-ink); min-width: 0; }
+.ojo-clue.pending .ct { color: var(--ojo-muted); }
+.ojo-clue .ex { display: none; margin-top: 3px; font-size: 14px; color: var(--ojo-muted); }
+.ojo-clue.done .ex { display: block; }
+.ojo-win { display: none; margin-top: 18px; padding: 18px 20px; border-radius: 10px; background: linear-gradient(135deg, var(--ojo-ok-bg), rgba(200,150,255,0.08)); border: 1px solid var(--ojo-ok-line); }
+.ojo-win.show { display: block; }
+.ojo-win h3 { font-family: 'Space Grotesk', sans-serif; font-size: 19px; font-weight: 700; color: var(--ojo-ok-ink); margin: 0 0 6px; }
+.ojo-win p { font-size: 15px; line-height: 1.6; color: var(--ojo-ink); margin: 0 0 14px; }
+.ojo-reset { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; background: var(--ojo-naranja); color: #ffffff; border: none; padding: 10px 20px; border-radius: 8px; }
+.ojo-reset:hover { filter: brightness(1.08); }
+.ojo-reset:active { transform: translateY(1px); }
+.ojo-reset:focus-visible { outline: 2px solid var(--ojo-acento); outline-offset: 2px; }
+#ojo-toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); background: var(--ojo-toast-bg); color: var(--ojo-ink); border: 1px solid var(--ojo-line); padding: 11px 18px; border-radius: 999px; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 500; box-shadow: var(--ojo-toast-shadow); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; z-index: 9000; max-width: calc(100vw - 32px); width: max-content; text-align: center; }
+#ojo-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+@media (max-width: 760px) { .ojo-mails { grid-template-columns: 1fr; } }
+@media (max-width: 600px) {
+  .ojo-game { padding: 16px; }
+  .ojo-q { font-size: 15px; }
+  .ojo-mail { font-size: 13px; }
+  #ojo-toast { border-radius: 14px; }
 }
-body.light .phishing-btn-no:hover { background: #1A7A38; color: #FFFFFF; }
-body.light .phishing-result.correct {
-  background: rgba(26,122,56,0.08);
-  border-color: rgba(26,122,56,0.3); color: #145E2A;
-}
-body.light .phishing-result.wrong {
-  background: rgba(200,45,0,0.08);
-  border-color: rgba(200,45,0,0.3); color: #9B2200;
+@media (prefers-reduced-motion: reduce) {
+  .ojo-game *, #ojo-toast { transition: none !important; }
 }
 
 body.light .card-link { background: transparent; }
@@ -861,33 +935,95 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
     </div>
 
-    <!-- 5. PHISHING TEST — estático, ancho completo -->
+    <!-- 5. PON A PRUEBA TU OJO · juego interactivo artesanal (solo #07), ancho completo -->
     <div class="card card-phishing full-width" onmouseenter="trackSection('phishing_test')">
       <div class="section-tag" style="color:var(--violet)" data-i18n="tag-phishing">&#127919; Pon a prueba tu ojo &#8212; Test del mes</div>
-      <div class="card-title" data-i18n="phishing-title">&#191;Detectar&#237;as este email antes de hacer clic?</div>
-      <div class="card-text" data-i18n="phishing-intro">Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente leg&#237;timo y un enlace tentador. &#191;Sabr&#237;as que es falso?</div>
-      <div class="phishing-inner">
-        <div class="phishing-email-preview">
-          <div class="phishing-email-header">
-            <div><strong>De:</strong> soporte@microsoft-365security.com</div>
-            <div><strong>Para:</strong> tu@lognext.com</div>
-            <div class="phishing-email-subject">&#9888;&#65039; URGENTE: Tu cuenta de Microsoft 365 ser&#225; suspendida en 24h</div>
+      <div class="card-title" data-i18n="ojo-title">¿Sabrías cazar el correo falso?</div>
+      <div class="card-text" data-i18n="ojo-intro">Este mes la actividad es interactiva. Primero, decide cuál de los dos correos es un intento de fraude. Después, caza tú mismo las cinco señales que lo delatan.</div>
+      <div class="ojo-game" id="ojo-game">
+
+        <!-- Paso 1: ¿cuál es el fraude? -->
+        <section id="ojo-phase1">
+          <p class="ojo-phase-tag" data-i18n="ojo-step1">Paso 1 de 2</p>
+          <p class="ojo-q" data-i18n-html="ojo-q1">Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar vuestros pagos.</b> ¿Cuál es el fraude?</p>
+          <div class="ojo-mails">
+            <div class="ojo-col">
+              <p class="ojo-col-tag" data-i18n="ojo-mail-a">Correo A</p>
+              <article class="ojo-mail">
+                <div class="ojo-hdr">
+                  <div class="ojo-row"><span class="k" data-i18n="ojo-from">De:</span><span class="v">Laura Giménez · Delta Print &lt;facturacion@deltaprint.es&gt;</span></div>
+                  <div class="ojo-row"><span class="k" data-i18n="ojo-to">Para:</span><span class="v" data-i18n="ojo-to-val">Administración</span></div>
+                  <p class="ojo-subject" data-i18n="ojo-a-subject">Factura de noviembre</p>
+                </div>
+                <div class="ojo-body">
+                  <p data-i18n="ojo-a-p1">Hola:</p>
+                  <p data-i18n="ojo-a-p2">Os adjunto la factura de los trabajos de noviembre. El pago, como siempre, a la cuenta de costumbre. Cualquier duda, me decís.</p>
+                  <p><span data-i18n="ojo-a-p3">Gracias y un saludo,</span><br>Laura</p>
+                  <div class="ojo-attach"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg><span data-i18n="ojo-a-attach">Factura_Noviembre.pdf</span></div>
+                </div>
+              </article>
+              <button type="button" class="ojo-choose" data-pick="A" data-i18n="ojo-pick">Este es el fraude</button>
+            </div>
+            <div class="ojo-col">
+              <p class="ojo-col-tag" data-i18n="ojo-mail-b">Correo B</p>
+              <article class="ojo-mail">
+                <div class="ojo-hdr">
+                  <div class="ojo-row"><span class="k" data-i18n="ojo-from">De:</span><span class="v">Laura Giménez · Delta Print &lt;facturacion@deltaprint-pagos.es&gt;</span></div>
+                  <div class="ojo-row"><span class="k" data-i18n="ojo-to">Para:</span><span class="v" data-i18n="ojo-to-val">Administración</span></div>
+                  <p class="ojo-subject"><span data-i18n="ojo-b-subj-pre">IMPORTANTE:</span> <span data-i18n="ojo-b-subj-zone">nueva cuenta bancaria para vuestros pagos</span></p>
+                </div>
+                <div class="ojo-body">
+                  <p data-i18n="ojo-b-p1">Buenos días:</p>
+                  <p><span data-i18n="ojo-b-p2-pre">Os informamos de que hemos cambiado de banco. A partir de ahora, abonad las facturas pendientes y futuras a nuestra nueva cuenta: </span><span class="ojo-iban">ES76 2100 5842 9103 7766 0021</span>.</p>
+                  <p><span data-i18n="ojo-b-p3-pre">Adjuntamos el certificado de titularidad para que lo verifiquéis. Es importante actualizarlo </span><span data-i18n="ojo-b-p3-zone">hoy mismo para no retrasar los pagos</span>.</p>
+                  <div class="ojo-attach"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg><span data-i18n="ojo-b-attach">Certificado_Titularidad_Bancaria.pdf</span></div>
+                </div>
+              </article>
+              <button type="button" class="ojo-choose" data-pick="B" data-i18n="ojo-pick">Este es el fraude</button>
+            </div>
           </div>
-          <div class="phishing-email-body">
-            Hola,<br><br>
-            Hemos detectado actividad sospechosa en tu cuenta corporativa. Para evitar la suspensi&#243;n inmediata de tu acceso, debes verificar tu identidad en las pr&#243;ximas <strong>24 horas</strong>.<br><br>
-            <a href="javascript:void(0)" onclick="return false;" style="color:#1a73e8;text-decoration:underline;cursor:not-allowed;">&#8594; Verificar mi cuenta ahora</a><br><br>
-            Si no realizas esta verificaci&#243;n, tu acceso quedar&#225; bloqueado y deber&#225;s contactar con el departamento de IT para restaurarlo.<br><br>
-            Atentamente,<br>
-            Equipo de Seguridad de Microsoft
+          <div class="ojo-fb" id="ojo-fb" role="status" aria-live="polite"></div>
+        </section>
+
+        <!-- Paso 2: caza las 5 señales -->
+        <section id="ojo-phase2" hidden>
+          <p class="ojo-phase-tag" id="ojo-step2" tabindex="-1" data-i18n="ojo-step2">Paso 2 de 2</p>
+          <div class="ojo-hunt-top">
+            <p class="ojo-q" data-i18n-html="ojo-q2">Bien. Ahora <b>haz clic sobre las 5 señales</b> que delatan al correo fraudulento.</p>
+            <div class="ojo-counter">
+              <span id="ojo-cnt" aria-live="polite">0 / 5</span>
+              <span class="ojo-pips" aria-hidden="true"><span class="ojo-pip" data-p="1"></span><span class="ojo-pip" data-p="2"></span><span class="ojo-pip" data-p="3"></span><span class="ojo-pip" data-p="4"></span><span class="ojo-pip" data-p="5"></span></span>
+            </div>
           </div>
-        </div>
-        <div class="phishing-question" data-i18n="phishing-question">&#191;Es este email leg&#237;timo o un intento de phishing?</div>
-        <div class="phishing-buttons">
-          <button class="phishing-btn phishing-btn-yes" onclick="answerPhishing(false)" data-i18n="phishing-btn-yes">&#9888;&#65039; Es phishing &#8212; No har&#237;a clic</button>
-          <button class="phishing-btn phishing-btn-no"  onclick="answerPhishing(true)" data-i18n="phishing-btn-no">&#9989; Parece leg&#237;timo &#8212; Har&#237;a clic</button>
-        </div>
-        <div class="phishing-result" id="phishing-result"></div>
+          <div class="ojo-hunt-mail">
+            <article class="ojo-mail">
+              <div class="ojo-hdr">
+                <div class="ojo-row"><span class="k" data-i18n="ojo-from">De:</span><span class="v">Laura Giménez · Delta Print &lt;<span class="ojo-zone" data-tell="1" tabindex="0" role="button" aria-label="Analizar remitente" data-i18n-attr="aria-label:ojo-aria-1">facturacion@deltaprint-pagos.es<span class="ojo-mark" aria-hidden="true">✓</span></span>&gt;</span></div>
+                <div class="ojo-row"><span class="k" data-i18n="ojo-to">Para:</span><span class="v" data-i18n="ojo-to-val">Administración</span></div>
+                <p class="ojo-subject"><span data-i18n="ojo-b-subj-pre">IMPORTANTE:</span> <span class="ojo-zone" data-tell="2" tabindex="0" role="button" aria-label="Analizar cambio de cuenta" data-i18n-attr="aria-label:ojo-aria-2"><span data-i18n="ojo-b-subj-zone">nueva cuenta bancaria para vuestros pagos</span><span class="ojo-mark" aria-hidden="true">✓</span></span></p>
+              </div>
+              <div class="ojo-body">
+                <p data-i18n="ojo-b-p1">Buenos días:</p>
+                <p><span data-i18n="ojo-b-p2-pre">Os informamos de que hemos cambiado de banco. A partir de ahora, abonad las facturas pendientes y futuras a nuestra nueva cuenta: </span><span class="ojo-zone" data-tell="3" tabindex="0" role="button" aria-label="Analizar cuenta nueva" data-i18n-attr="aria-label:ojo-aria-3"><span class="ojo-iban">ES76 2100 5842 9103 7766 0021</span><span class="ojo-mark" aria-hidden="true">✓</span></span>.</p>
+                <p><span data-i18n="ojo-b-p3-pre">Adjuntamos el certificado de titularidad para que lo verifiquéis. Es importante actualizarlo </span><span class="ojo-zone" data-tell="4" tabindex="0" role="button" aria-label="Analizar urgencia" data-i18n-attr="aria-label:ojo-aria-4"><span data-i18n="ojo-b-p3-zone">hoy mismo para no retrasar los pagos</span><span class="ojo-mark" aria-hidden="true">✓</span></span>.</p>
+                <div class="ojo-attach ojo-zone" data-tell="5" tabindex="0" role="button" aria-label="Analizar adjunto" data-i18n-attr="aria-label:ojo-aria-5"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#666" stroke-width="2" aria-hidden="true"><path d="M21.44 11.05l-9.19 9.19a6 6 0 01-8.49-8.49l9.19-9.19a4 4 0 015.66 5.66l-9.2 9.19a2 2 0 01-2.83-2.83l8.49-8.48"/></svg><span data-i18n="ojo-b-attach">Certificado_Titularidad_Bancaria.pdf</span><span class="ojo-mark" aria-hidden="true">✓</span></div>
+              </div>
+            </article>
+          </div>
+          <p class="ojo-hint"><span aria-hidden="true">💡</span> <span data-i18n="ojo-hint">Hay 5 señales. Haz clic sobre lo que te resulte sospechoso.</span></p>
+          <ul class="ojo-clues">
+              <li class="ojo-clue pending" data-c="1"><span class="ci">1</span><span class="ct"><b data-i18n="ojo-c1-t">El remitente</b><span class="ex" data-i18n-html="ojo-c1-x">El dominio imita al del proveedor: pone deltaprint-<b>pagos</b>.es, no el real deltaprint.es. Un añadido en el dominio y el correo ya no es de quien dice ser.</span></span></li>
+              <li class="ojo-clue pending" data-c="2"><span class="ci">2</span><span class="ct"><b data-i18n="ojo-c2-t">El cambio de cuenta</b><span class="ex" data-i18n-html="ojo-c2-x">Cambiar la cuenta donde se paga a un proveedor nunca se hace solo con un correo. Es el fraude más caro que sufren las empresas: el del falso proveedor.</span></span></li>
+              <li class="ojo-clue pending" data-c="3"><span class="ci">3</span><span class="ct"><b data-i18n="ojo-c3-t">La cuenta nueva</b><span class="ex" data-i18n-html="ojo-c3-x">Te piden desviar el dinero a un IBAN nuevo, a menudo de otro banco. Ante cualquier cambio de cuenta, confírmalo por teléfono con el proveedor, con el número de siempre, no con el del correo.</span></span></li>
+              <li class="ojo-clue pending" data-c="4"><span class="ci">4</span><span class="ct"><b data-i18n="ojo-c4-t">La urgencia</b><span class="ex" data-i18n-html="ojo-c4-x">“Hoy mismo” y “no retrasar los pagos” buscan que pagues antes de verificar. La prisa es la palanca del fraude.</span></span></li>
+              <li class="ojo-clue pending" data-c="5"><span class="ci">5</span><span class="ct"><b data-i18n="ojo-c5-t">El certificado adjunto</b><span class="ex" data-i18n-html="ojo-c5-x">Un certificado o documento adjunto no valida nada: se falsifica en minutos. Precisamente lo adjuntan para dar apariencia de legitimidad.</span></span></li>
+          </ul>
+          <div class="ojo-win" id="ojo-win">
+            <h3><span data-i18n="ojo-win-title">¡Las 5 cazadas!</span> <span aria-hidden="true">🎯</span></h3>
+            <p data-i18n="ojo-win-text">Ante cualquier correo que pida cambiar una cuenta bancaria o pagar a una cuenta nueva, para y confírmalo por teléfono con la persona o el proveedor, con el número de siempre. Un documento adjunto no es una prueba. Si dudas, consúltalo con IT o Administración antes de pagar.</p>
+            <button type="button" class="ojo-reset" id="ojo-reset" data-i18n="ojo-reset">Volver a empezar</button>
+          </div>
+        </section>
       </div>
     </div>
 
@@ -1088,34 +1224,6 @@ function drawNebula() {
   requestAnimationFrame(drawNebula);
 }
 drawNebula();
-function answerPhishing(clickedYes) {
-  const result = document.getElementById('phishing-result');
-  if (!clickedYes) {
-    trackPhishing('correct');
-    result.className = 'phishing-result show correct';
-    result.innerHTML = '<strong>✅ ¡Correcto! Este email es phishing.</strong><br><br>Buen ojo. Aquí tienes las pistas que lo delatan:<div class="phishing-clues"><div class="phishing-clue">⚠️ <span>El dominio del remitente es <strong>microsoft-365security.com</strong>, no microsoft.com</span></div><div class="phishing-clue">⚠️ <span>Microsoft nunca os pedirá verificación por email con <strong>urgencia de 24h</strong></span></div><div class="phishing-clue">⚠️ <span>El enlace «Verificar mi cuenta» lleva a un dominio desconocido, no a microsoft.com</span></div><div class="phishing-clue">✅ <span>Ante la duda: <strong>llamad a IT</strong> antes de hacer clic en cualquier enlace urgente</span></div></div>';
-  } else {
-    trackPhishing('incorrect');
-    result.className = 'phishing-result show wrong';
-    result.innerHTML = '<strong>❌ ¡Cuidado! Este email es phishing.</strong><br><br>Habrías caído. Estas son las señales de alarma que pasaste por alto:<div class="phishing-clues"><div class="phishing-clue">🚨 <span>El dominio del remitente es <strong>microsoft-365security.com</strong> — NO es Microsoft</span></div><div class="phishing-clue">🚨 <span>La urgencia artificial («24h») es la táctica más usada para que no pienses</span></div><div class="phishing-clue">🚨 <span>Microsoft nunca suspende cuentas por email sin avisos previos en el portal</span></div><div class="phishing-clue">✅ <span>Regla de oro: <strong>ante la duda, llama a IT</strong> antes de hacer clic</span></div></div>';
-  }
-  try {
-    fetch('https://script.google.com/macros/s/APPS_SCRIPT_ID/exec', {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        fecha: new Date().toLocaleDateString('es-ES'),
-        hora: new Date().toLocaleTimeString('es-ES'),
-        edicion: '07',
-        respuesta: clickedYes ? 'incorrecto' : 'correcto',
-        boton: clickedYes ? 'Parece legítimo - Haría clic' : 'Es phishing - No haría clic'
-      })
-    });
-  } catch(e) {}
-  document.querySelectorAll('.phishing-btn').forEach(b => { b.disabled = true; b.style.opacity = '0.5'; b.style.cursor = 'default'; });
-}
-
 document.addEventListener('click', function(e) {
   const a = e.target.closest('a[href]');
   if (!a) return;
@@ -1254,11 +1362,54 @@ const I18N = {
     "radar-3-headline": "Puppet Enterprise bajo ataque activo: CISA añade CVE-2026-115731 (CVSS 9.4) al catálogo de vulnerabilidades explotadas",
     "radar-4-headline": "Los grandes centros de datos de EE UU ya consumen el 1,8% de la electricidad del país — el equivalente a toda Chile",
     "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
-    "phishing-title": "¿Detectarías este email antes de hacer clic?",
-    "phishing-intro": "Este es el tipo de correo que usan los atacantes. Tiene todos los ingredientes: urgencia, remitente aparentemente legítimo y un enlace tentador. ¿Sabrías que es falso?",
-    "phishing-question": "¿Es este email legítimo o un intento de phishing?",
-    "phishing-btn-yes": "⚠️ Es phishing — No haría clic",
-    "phishing-btn-no": "✅ Parece legítimo — Haría clic",
+    "ojo-title": "¿Sabrías cazar el correo falso?",
+    "ojo-intro": "Este mes la actividad es interactiva. Primero, decide cuál de los dos correos es un intento de fraude. Después, caza tú mismo las cinco señales que lo delatan.",
+    "ojo-step1": "Paso 1 de 2",
+    "ojo-step2": "Paso 2 de 2",
+    "ojo-q1": "Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar vuestros pagos.</b> ¿Cuál es el fraude?",
+    "ojo-mail-a": "Correo A",
+    "ojo-mail-b": "Correo B",
+    "ojo-pick": "Este es el fraude",
+    "ojo-from": "De:",
+    "ojo-to": "Para:",
+    "ojo-to-val": "Administración",
+    "ojo-a-subject": "Factura de noviembre",
+    "ojo-a-p1": "Hola:",
+    "ojo-a-p2": "Os adjunto la factura de los trabajos de noviembre. El pago, como siempre, a la cuenta de costumbre. Cualquier duda, me decís.",
+    "ojo-a-p3": "Gracias y un saludo,",
+    "ojo-a-attach": "Factura_Noviembre.pdf",
+    "ojo-b-subj-pre": "IMPORTANTE:",
+    "ojo-b-subj-zone": "nueva cuenta bancaria para vuestros pagos",
+    "ojo-b-p1": "Buenos días:",
+    "ojo-b-p2-pre": "Os informamos de que hemos cambiado de banco. A partir de ahora, abonad las facturas pendientes y futuras a nuestra nueva cuenta: ",
+    "ojo-b-p3-pre": "Adjuntamos el certificado de titularidad para que lo verifiquéis. Es importante actualizarlo ",
+    "ojo-b-p3-zone": "hoy mismo para no retrasar los pagos",
+    "ojo-b-attach": "Certificado_Titularidad_Bancaria.pdf",
+    "ojo-q2": "Bien. Ahora <b>haz clic sobre las 5 señales</b> que delatan al correo fraudulento.",
+    "ojo-hint": "Hay 5 señales. Haz clic sobre lo que te resulte sospechoso.",
+    "ojo-c1-t": "El remitente",
+    "ojo-c1-x": "El dominio imita al del proveedor: pone deltaprint-<b>pagos</b>.es, no el real deltaprint.es. Un añadido en el dominio y el correo ya no es de quien dice ser.",
+    "ojo-c2-t": "El cambio de cuenta",
+    "ojo-c2-x": "Cambiar la cuenta donde se paga a un proveedor nunca se hace solo con un correo. Es el fraude más caro que sufren las empresas: el del falso proveedor.",
+    "ojo-c3-t": "La cuenta nueva",
+    "ojo-c3-x": "Te piden desviar el dinero a un IBAN nuevo, a menudo de otro banco. Ante cualquier cambio de cuenta, confírmalo por teléfono con el proveedor, con el número de siempre, no con el del correo.",
+    "ojo-c4-t": "La urgencia",
+    "ojo-c4-x": "“Hoy mismo” y “no retrasar los pagos” buscan que pagues antes de verificar. La prisa es la palanca del fraude.",
+    "ojo-c5-t": "El certificado adjunto",
+    "ojo-c5-x": "Un certificado o documento adjunto no valida nada: se falsifica en minutos. Precisamente lo adjuntan para dar apariencia de legitimidad.",
+    "ojo-fb-ok": "Correcto. El correo B es el fraude. Vamos a ver por qué…",
+    "ojo-fb-bad": "Ese es el legítimo: llega de deltaprint.es, no cambia ninguna cuenta y no mete prisa. El fraude es el otro, que pide pagar a una cuenta nueva. Fíjate en el remitente y en lo que te piden, y vuelve a intentarlo.",
+    "ojo-neutral-1": "Ahí no hay trampa. Fíjate en el remitente, en lo que te piden, la prisa, la cuenta nueva y el adjunto.",
+    "ojo-neutral-2": "Eso es normal. Busca lo que resulta raro o fuera de lugar.",
+    "ojo-neutral-3": "Por ahí no. Las señales están en quién lo manda y en lo que te pide hacer.",
+    "ojo-win-title": "¡Las 5 cazadas!",
+    "ojo-win-text": "Ante cualquier correo que pida cambiar una cuenta bancaria o pagar a una cuenta nueva, para y confírmalo por teléfono con la persona o el proveedor, con el número de siempre. Un documento adjunto no es una prueba. Si dudas, consúltalo con IT o Administración antes de pagar.",
+    "ojo-reset": "Volver a empezar",
+    "ojo-aria-1": "Analizar remitente",
+    "ojo-aria-2": "Analizar cambio de cuenta",
+    "ojo-aria-3": "Analizar cuenta nueva",
+    "ojo-aria-4": "Analizar urgencia",
+    "ojo-aria-5": "Analizar adjunto",
     "tag-links": "Por si quieres caer en el agujero",
     "link-1-label": "Artículo",
     "link-1-title": "Deepfakes en el helpdesk: cómo los atacantes se hacen pasar por soporte IT",
@@ -1343,11 +1494,54 @@ const I18N = {
     "radar-3-headline": "Puppet Enterprise under active attack: CISA adds CVE-2026-115731 (CVSS 9.4) to its catalogue of exploited vulnerabilities",
     "radar-4-headline": "Major US data centres now consume 1.8% of the country's electricity — the equivalent of all of Chile's consumption",
     "tag-phishing": "🎯 Test Your Eye — Quiz of the Month",
-    "phishing-title": "Would You Spot This Email Before Clicking?",
-    "phishing-intro": "This is the type of email attackers use. It has all the ingredients: urgency, an apparently legitimate sender, and a tempting link. Would you know it's fake?",
-    "phishing-question": "Is this email legitimate or a phishing attempt?",
-    "phishing-btn-yes": "⚠️ It's phishing — I wouldn't click",
-    "phishing-btn-no": "✅ Looks legitimate — I would click",
+    "ojo-title": "Could you spot the fake email?",
+    "ojo-intro": "This month’s activity is interactive. First, decide which of the two emails is an attempted fraud. Then hunt down the five signs that give it away yourself.",
+    "ojo-step1": "Step 1 of 2",
+    "ojo-step2": "Step 2 of 2",
+    "ojo-q1": "Both appear to come from the same supplier. <b>One is real; the other wants to divert your payments.</b> Which one is the fraud?",
+    "ojo-mail-a": "Email A",
+    "ojo-mail-b": "Email B",
+    "ojo-pick": "This is the fraud",
+    "ojo-from": "From:",
+    "ojo-to": "To:",
+    "ojo-to-val": "Administration",
+    "ojo-a-subject": "November invoice",
+    "ojo-a-p1": "Hello,",
+    "ojo-a-p2": "I’m attaching the invoice for November’s work. Payment, as always, to the usual account. Any questions, just let me know.",
+    "ojo-a-p3": "Thanks and best regards,",
+    "ojo-a-attach": "Invoice_November.pdf",
+    "ojo-b-subj-pre": "IMPORTANT:",
+    "ojo-b-subj-zone": "new bank account for your payments",
+    "ojo-b-p1": "Good morning,",
+    "ojo-b-p2-pre": "We’re informing you that we’ve changed banks. From now on, please pay outstanding and future invoices to our new account: ",
+    "ojo-b-p3-pre": "We attach the certificate of ownership so you can verify it. It’s important to update this ",
+    "ojo-b-p3-zone": "today so payments aren’t delayed",
+    "ojo-b-attach": "Bank_Ownership_Certificate.pdf",
+    "ojo-q2": "Good. Now <b>click on the 5 signs</b> that give the fraudulent email away.",
+    "ojo-hint": "There are 5 signs. Click on whatever looks suspicious to you.",
+    "ojo-c1-t": "The sender",
+    "ojo-c1-x": "The domain imitates the supplier’s: it reads deltaprint-<b>pagos</b>.es, not the real deltaprint.es. One addition to the domain and the email is no longer from who it claims to be.",
+    "ojo-c2-t": "The account change",
+    "ojo-c2-x": "Changing the account a supplier is paid into is never done by email alone. It’s the costliest fraud companies suffer: the fake-supplier scam.",
+    "ojo-c3-t": "The new account",
+    "ojo-c3-x": "They ask you to divert the money to a new IBAN, often at a different bank. For any account change, confirm it by phone with the supplier, using the usual number, not the one in the email.",
+    "ojo-c4-t": "The urgency",
+    "ojo-c4-x": "“Today” and “so payments aren’t delayed” are there to make you pay before you verify. Haste is the lever of fraud.",
+    "ojo-c5-t": "The attached certificate",
+    "ojo-c5-x": "An attached certificate or document validates nothing: it can be forged in minutes. That’s exactly why they attach it, to look legitimate.",
+    "ojo-fb-ok": "Correct. Email B is the fraud. Let’s see why…",
+    "ojo-fb-bad": "That’s the legitimate one: it comes from deltaprint.es, changes no account and applies no pressure. The fraud is the other one, which asks you to pay into a new account. Look at the sender and at what they’re asking, and try again.",
+    "ojo-neutral-1": "No trap there. Look at the sender, what they ask, the haste, the new account and the attachment.",
+    "ojo-neutral-2": "That’s normal. Look for what seems odd or out of place.",
+    "ojo-neutral-3": "Not there. The signs are in who sends it and in what it asks you to do.",
+    "ojo-win-title": "All 5 spotted!",
+    "ojo-win-text": "With any email asking to change a bank account or pay into a new one, stop and confirm it by phone with the person or supplier, using the usual number. An attached document is not proof. If in doubt, check with IT or Administration before paying.",
+    "ojo-reset": "Start over",
+    "ojo-aria-1": "Check the sender",
+    "ojo-aria-2": "Check the account change",
+    "ojo-aria-3": "Check the new account",
+    "ojo-aria-4": "Check the urgency",
+    "ojo-aria-5": "Check the attachment",
     "tag-links": "In Case You Want to Fall Down the Rabbit Hole",
     "link-1-label": "Article",
     "link-1-title": "Deepfakes at the Helpdesk: How Attackers Impersonate IT Support",
@@ -1432,11 +1626,54 @@ const I18N = {
     "radar-3-headline": "Puppet Enterprise sous attaque active : la CISA ajoute CVE-2026-115731 (CVSS 9.4) au catalogue des vulnérabilités exploitées",
     "radar-4-headline": "Les grands centres de données américains consomment déjà 1,8 % de l'électricité du pays — l'équivalent de toute la consommation du Chili",
     "tag-phishing": "🎯 Testez votre œil — Quiz du mois",
-    "phishing-title": "Repéreriez-vous cet e-mail avant de cliquer ?",
-    "phishing-intro": "Voici le type de message qu'utilisent les attaquants. Il réunit tous les ingrédients : urgence, expéditeur apparemment légitime et lien tentant. Sauriez-vous qu'il est frauduleux ?",
-    "phishing-question": "Cet e-mail est-il légitime ou une tentative de phishing ?",
-    "phishing-btn-yes": "⚠️ C'est du phishing — Je ne cliquerais pas",
-    "phishing-btn-no": "✅ Semble légitime — Je cliquerais",
+    "ojo-title": "Sauriez-vous repérer le faux courriel ?",
+    "ojo-intro": "Ce mois-ci, l’activité est interactive. D’abord, déterminez lequel des deux courriels est une tentative de fraude. Ensuite, repérez vous-même les cinq signes qui la trahissent.",
+    "ojo-step1": "Étape 1 sur 2",
+    "ojo-step2": "Étape 2 sur 2",
+    "ojo-q1": "Les deux semblent provenir du même fournisseur. <b>L’un est authentique ; l’autre veut détourner vos paiements.</b> Lequel est frauduleux ?",
+    "ojo-mail-a": "Courriel A",
+    "ojo-mail-b": "Courriel B",
+    "ojo-pick": "C’est le courriel frauduleux",
+    "ojo-from": "De :",
+    "ojo-to": "À :",
+    "ojo-to-val": "Administration",
+    "ojo-a-subject": "Facture de novembre",
+    "ojo-a-p1": "Bonjour,",
+    "ojo-a-p2": "Je vous joins la facture des travaux de novembre. Le paiement, comme toujours, sur le compte habituel. Pour toute question, dites-le-moi.",
+    "ojo-a-p3": "Merci et cordialement,",
+    "ojo-a-attach": "Facture_Novembre.pdf",
+    "ojo-b-subj-pre": "IMPORTANT :",
+    "ojo-b-subj-zone": "nouveau compte bancaire pour vos paiements",
+    "ojo-b-p1": "Bonjour,",
+    "ojo-b-p2-pre": "Nous vous informons que nous avons changé de banque. Désormais, réglez les factures en attente et à venir sur notre nouveau compte : ",
+    "ojo-b-p3-pre": "Nous joignons le certificat de titularité pour que vous puissiez le vérifier. Il est important de le mettre à jour ",
+    "ojo-b-p3-zone": "dès aujourd’hui afin de ne pas retarder les paiements",
+    "ojo-b-attach": "Certificat_Titularite_Bancaire.pdf",
+    "ojo-q2": "Bien. <b>Cliquez maintenant sur les 5 signes</b> qui trahissent le courriel frauduleux.",
+    "ojo-hint": "Il y a 5 signes. Cliquez sur ce qui vous paraît suspect.",
+    "ojo-c1-t": "L’expéditeur",
+    "ojo-c1-x": "Le domaine imite celui du fournisseur : il indique deltaprint-<b>pagos</b>.es, et non le vrai deltaprint.es. Un ajout dans le domaine et le courriel n’émane plus de qui il prétend.",
+    "ojo-c2-t": "Le changement de compte",
+    "ojo-c2-x": "Changer le compte sur lequel on paie un fournisseur ne se fait jamais par un simple courriel. C’est la fraude la plus coûteuse pour les entreprises : celle du faux fournisseur.",
+    "ojo-c3-t": "Le nouveau compte",
+    "ojo-c3-x": "On vous demande de détourner l’argent vers un nouvel IBAN, souvent dans une autre banque. Pour tout changement de compte, confirmez-le par téléphone avec le fournisseur, au numéro habituel, pas à celui du courriel.",
+    "ojo-c4-t": "L’urgence",
+    "ojo-c4-x": "« Dès aujourd’hui » et « ne pas retarder les paiements » visent à vous faire payer avant de vérifier. La précipitation est le levier de la fraude.",
+    "ojo-c5-t": "Le certificat joint",
+    "ojo-c5-x": "Un certificat ou document joint ne valide rien : il se falsifie en quelques minutes. C’est précisément pour cela qu’on le joint : pour se donner une apparence de légitimité.",
+    "ojo-fb-ok": "Exact. Le courriel B est frauduleux. Voyons pourquoi…",
+    "ojo-fb-bad": "Celui-ci est légitime : il provient de deltaprint.es, ne change aucun compte et ne met pas la pression. La fraude, c’est l’autre, qui demande de payer sur un nouveau compte. Regardez l’expéditeur et ce qu’on vous demande, puis réessayez.",
+    "ojo-neutral-1": "Pas de piège ici. Regardez l’expéditeur, ce qu’on vous demande, l’urgence, le nouveau compte et la pièce jointe.",
+    "ojo-neutral-2": "C’est normal. Cherchez ce qui semble étrange ou déplacé.",
+    "ojo-neutral-3": "Pas par là. Les signes se trouvent dans l’expéditeur et dans ce qu’on vous demande de faire.",
+    "ojo-win-title": "Les 5 repérés !",
+    "ojo-win-text": "Face à tout courriel demandant de changer un compte bancaire ou de payer sur un nouveau compte, arrêtez-vous et confirmez par téléphone avec la personne ou le fournisseur, au numéro habituel. Un document joint n’est pas une preuve. En cas de doute, vérifiez avec l’IT ou l’Administration avant de payer.",
+    "ojo-reset": "Recommencer",
+    "ojo-aria-1": "Analyser l’expéditeur",
+    "ojo-aria-2": "Analyser le changement de compte",
+    "ojo-aria-3": "Analyser le nouveau compte",
+    "ojo-aria-4": "Analyser l’urgence",
+    "ojo-aria-5": "Analyser la pièce jointe",
     "tag-links": "Pour ceux qui veulent aller plus loin",
     "link-1-label": "Article",
     "link-1-title": "Deepfakes au helpdesk : comment les attaquants se font passer pour le support IT",
@@ -1503,6 +1740,110 @@ function applyLang(lang) {
   const lang = (urlLang && ['es','en','fr'].includes(urlLang)) ? urlLang : (localStorage.getItem('nl-lang') || 'es');
   applyLang(lang);
   document.querySelectorAll('.lang-btn').forEach(btn => { btn.addEventListener('click', () => applyLang(btn.dataset.lang)); });
+})();
+
+// ── PON A PRUEBA TU OJO #07: juego «caza el correo falso» ─────────────────────
+// Los textos dinámicos (feedback y toast) llevan data-i18n, así que applyLang()
+// los repinta al cambiar de idioma igual que el resto de la página.
+(function () {
+  const game = document.getElementById('ojo-game');
+  if (!game) return;
+  const TOTAL = 5;
+  const found = new Set();
+  let ni = 0, toastT = null, locked = false;
+  const p1 = document.getElementById('ojo-phase1');
+  const p2 = document.getElementById('ojo-phase2');
+  const fb = document.getElementById('ojo-fb');
+  const cnt = document.getElementById('ojo-cnt');
+  const win = document.getElementById('ojo-win');
+  const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const toast = document.createElement('div');
+  toast.id = 'ojo-toast';
+  toast.setAttribute('role', 'status');
+  toast.setAttribute('aria-live', 'polite');
+  document.body.appendChild(toast);
+
+  function t(key) {
+    const d = I18N[document.documentElement.lang] || I18N.es;
+    return d[key] !== undefined ? d[key] : (I18N.es[key] || '');
+  }
+  function say(el, key) { el.setAttribute('data-i18n', key); el.textContent = t(key); }
+  function go(el, block) { el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: block }); }
+  function track(action) { if (typeof trackPhishing === 'function') trackPhishing(action); }
+
+  game.querySelectorAll('.ojo-choose').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (locked) return;
+      if (btn.dataset.pick === 'B') {
+        locked = true;
+        say(fb, 'ojo-fb-ok'); fb.className = 'ojo-fb ok show';
+        game.querySelectorAll('.ojo-choose').forEach(function (b) { b.disabled = true; });
+        track('correct');
+        setTimeout(goPhase2, 850);
+      } else {
+        say(fb, 'ojo-fb-bad'); fb.className = 'ojo-fb bad show';
+        track('incorrect');
+      }
+    });
+  });
+
+  function goPhase2() {
+    p1.hidden = true;
+    p2.hidden = false;
+    document.getElementById('ojo-step2').focus({ preventScroll: true });
+    go(p2, 'start');
+  }
+
+  function showToast(key) {
+    say(toast, key);
+    toast.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(function () { toast.classList.remove('show'); }, 2100);
+  }
+
+  function markFound(tell) {
+    if (found.has(tell)) return;
+    found.add(tell);
+    game.querySelectorAll('.ojo-zone[data-tell="' + tell + '"]').forEach(function (z) { z.classList.add('found'); z.setAttribute('aria-disabled', 'true'); });
+    const clue = game.querySelector('.ojo-clue[data-c="' + tell + '"]');
+    if (clue) { clue.classList.remove('pending'); clue.classList.add('done'); }
+    const pip = game.querySelector('.ojo-pip[data-p="' + tell + '"]');
+    if (pip) pip.classList.add('on');
+    cnt.textContent = found.size + ' / ' + TOTAL;
+    if (found.size === TOTAL) {
+      track('win');
+      setTimeout(function () { win.classList.add('show'); go(win, 'nearest'); }, 350);
+    }
+  }
+
+  p2.addEventListener('click', function (e) {
+    const z = e.target.closest('.ojo-zone');
+    if (z) { markFound(parseInt(z.dataset.tell, 10)); return; }
+    if (!e.target.closest('.ojo-hunt-mail') || found.size >= TOTAL) return;
+    showToast('ojo-neutral-' + (ni % 3 + 1)); ni++;
+  });
+  p2.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const z = e.target.closest('.ojo-zone');
+    if (!z) return;
+    e.preventDefault();
+    markFound(parseInt(z.dataset.tell, 10));
+  });
+
+  document.getElementById('ojo-reset').addEventListener('click', function () {
+    found.clear(); ni = 0; locked = false;
+    game.querySelectorAll('.ojo-zone.found').forEach(function (z) { z.classList.remove('found'); z.removeAttribute('aria-disabled'); });
+    game.querySelectorAll('.ojo-clue').forEach(function (c) { c.classList.remove('done'); c.classList.add('pending'); });
+    game.querySelectorAll('.ojo-pip.on').forEach(function (p) { p.classList.remove('on'); });
+    game.querySelectorAll('.ojo-choose').forEach(function (b) { b.disabled = false; });
+    cnt.textContent = '0 / ' + TOTAL;
+    win.classList.remove('show');
+    toast.classList.remove('show');
+    fb.className = 'ojo-fb'; fb.removeAttribute('data-i18n'); fb.textContent = '';
+    p2.hidden = true;
+    p1.hidden = false;
+    go(game.closest('.card'), 'start');
+  });
 })();
 </script>
 <script>
