@@ -30,7 +30,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 📅 Guard de fecha (primer miércoles, patrón AND anti-OR)
         id: fecha
