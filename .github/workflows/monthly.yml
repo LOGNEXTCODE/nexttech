@@ -48,7 +48,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout del repositorio
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: 📅 Verificar ventana de generación (miércoles 14 días antes del primer miércoles)
         id: check_date
@@ -84,7 +84,7 @@ jobs:
 
       - name: 🐍 Configurar Python
         if: steps.check_date.outputs.skip == 'false'
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 
@@ -176,7 +176,7 @@ jobs:
 
       - name: 📤 Guardar HTML como artefacto
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: ${{ steps.artifact_name.outputs.name }}
           path: index.html
