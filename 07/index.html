@@ -898,8 +898,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Audita los paquetes de tus proyectos Python esta semana</div>
-      <div class="card-text" data-i18n="reto-text">Entra en cada repositorio activo con dependencias Python y ejecuta ‘pip-audit’ o revisa el output de ‘pip list’ buscando paquetes no fijados a versión exacta en requirements.txt. Si encuentras alguno sin versión pinneada o con vulnerabilidad conocida, abre una issue antes del viernes.</div>
+      <div class="card-title" data-i18n="reto-title">Revisa quién tiene acceso a tus repositorios de GitHub esta semana</div>
+      <div class="card-text" data-i18n="reto-text">Entra en los ajustes de cada repositorio, revisa colaboradores y permisos, y quita a quien ya no deba tener acceso.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
         <span>DICIEMBRE 2026</span>
@@ -929,9 +929,9 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <img class="card-hero-img" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
         <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,8,0) 55%,#001a08 100%);"></div>
       </div>
-      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">Mejora continua</span></div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">NextStep · Mejora continua</span></div>
       <div class="card-title" data-i18n="mejora-title">Hemos reforzado la protección de vuestro equipo</div>
-      <div class="card-text mejora-body" data-i18n-html="mejora-text"><p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p><p>Si notáis algo raro en vuestro equipo, abrid un ticket y lo revisamos.</p></div>
+      <div class="card-text mejora-body" data-i18n-html="mejora-text"><p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p></div>
       <div class="mejora-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="mejora-note">Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.</span></div>
     </div>
 
@@ -1379,12 +1379,12 @@ const I18N = {
     "consejo-title": "Fija un límite de tiempo de sesión en tus herramientas cloud",
     "consejo-text": "Si tu sesión en AWS, Azure o GCP no expira sola, cualquier equipo desbloqueado unos minutos es una puerta abierta. Configura timeouts de sesión de máximo 1 hora en consolas cloud y herramientas de administración. No es paranoia: es lo que pide el ENS en su control de gestión de acceso, y es de las cosas que más fácil se implementa y más rápido se olvida.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Audita los paquetes de tus proyectos Python esta semana",
-    "reto-text": "Entra en cada repositorio activo con dependencias Python y ejecuta ‘pip-audit’ o revisa el output de ‘pip list’ buscando paquetes no fijados a versión exacta en requirements.txt. Si encuentras alguno sin versión pinneada o con vulnerabilidad conocida, abre una issue antes del viernes.",
+    "reto-title": "Revisa quién tiene acceso a tus repositorios de GitHub esta semana",
+    "reto-text": "Entra en los ajustes de cada repositorio, revisa colaboradores y permisos, y quita a quien ya no deba tener acceso.",
     "tag-priv": "Privacidad al día",
     "priv-title": "Antes de compartir un archivo, revisa qué datos contiene y quién puede verlo",
     "priv-note": "Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.",
-    "tag-mejora": "Mejora continua",
+    "tag-mejora": "NextStep · Mejora continua",
     "mejora-title": "Hemos reforzado la protección de vuestro equipo",
     "mejora-note": "Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.",
     "tag-radar": "En el radar",
@@ -1490,7 +1490,7 @@ const I18N = {
     "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p><p>Si notáis algo raro en vuestro equipo, abrid un ticket y lo revisamos.</p>",
+    "mejora-text": "<p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p>",
     "priv-text": "<p>Compartir un documento por error con una persona de más es uno de los incidentes de privacidad más habituales en cualquier organización, y suele ocurrir sin mala intención. Un archivo de proyecto puede contener datos personales de clientes, empleados o proveedores sin que lo hayamos notado al crearlo.</p><ul><li>Antes de enviar o compartir un archivo, abre una última vez y comprueba si contiene nombres, DNIs, correos, teléfonos u otro dato personal que no necesite estar ahí.</li><li>Ajusta los permisos al mínimo necesario: si el destinatario solo necesita leer, no le des permisos de edición ni de reenvío.</li><li>En plataformas como SharePoint, Google Drive o Dropbox, revisa que el enlace generado no sea público ni accesible para cualquiera con la URL.</li></ul><p>Un minuto de revisión antes de hacer clic en ‘Compartir’ puede evitar una brecha de datos real y, en el contexto de nuestra certificación ENS, una no conformidad innecesaria.</p>"
   },
   "en": {
@@ -1515,12 +1515,12 @@ const I18N = {
     "consejo-title": "Set a Session Timeout Limit on Your Cloud Tools",
     "consejo-text": "If your AWS, Azure, or GCP session doesn't expire on its own, any unlocked device left unattended for a few minutes is an open door. Configure session timeouts of no more than 1 hour on cloud consoles and administration tools. This isn't paranoia: it's what the ENS requires under its access management controls, and it's one of the easiest things to implement — and the quickest to forget.",
     "tag-reto": "Challenge of the Month",
-    "reto-title": "Audit Your Python Project Packages This Week",
-    "reto-text": "Go into every active repository with Python dependencies and run 'pip-audit', or review the output of 'pip list' looking for packages not pinned to an exact version in requirements.txt. If you find any without a pinned version or with a known vulnerability, open an issue before Friday.",
+    "reto-title": "Review Who Has Access to Your GitHub Repositories This Week",
+    "reto-text": "Go into each repository’s settings, check collaborators and permissions, and remove anyone who no longer needs access.",
     "tag-priv": "Privacy Update",
     "priv-title": "Before Sharing a File, Check What Data It Contains and Who Can See It",
     "priv-note": "This section was born alongside our ISO 27701 privacy certification. Each month, one good practice to protect data — ours and that of those who trust us.",
-    "tag-mejora": "Continuous improvement",
+    "tag-mejora": "NextStep · Continuous improvement",
     "mejora-title": "We’ve strengthened the protection on your device",
     "mejora-note": "We provide the tools; you provide the critical eye. Together we’re the best defense.",
     "tag-radar": "On the Radar",
@@ -1626,7 +1626,7 @@ const I18N = {
     "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>As part of the continuous improvement of our security, this month we’ve renewed the protection on every device: we’ve moved from SentinelOne to CrowdStrike Falcon, one of the market’s leading detection and response (EDR) solutions.</p><p>For you it’s been seamless: you didn’t have to do anything. We installed the new protection, let it run alongside the old one for a few days, and then removed SentinelOne. The change is now live on every device.</p><p>If you notice anything odd on your device, open a ticket and we’ll look into it.</p>",
+    "mejora-text": "<p>As part of the continuous improvement of our security, this month we’ve renewed the protection on every device: we’ve moved from SentinelOne to CrowdStrike Falcon, one of the market’s leading detection and response (EDR) solutions.</p><p>For you it’s been seamless: you didn’t have to do anything. We installed the new protection, let it run alongside the old one for a few days, and then removed SentinelOne. The change is now live on every device.</p>",
     "priv-text": "<p>Accidentally sharing a document with one person too many is one of the most common privacy incidents in any organisation, and it usually happens without any malicious intent. A project file may contain personal data belonging to clients, employees, or suppliers without us having noticed when we created it.</p><ul><li>Before sending or sharing a file, open it one last time and check whether it contains names, ID numbers, email addresses, phone numbers, or any other personal data that doesn't need to be there.</li><li>Set permissions to the minimum necessary: if the recipient only needs to read the file, do not grant editing or forwarding permissions.</li><li>On platforms such as SharePoint, Google Drive, or Dropbox, check that the generated link is not public or accessible to anyone with the URL.</li></ul><p>One minute of review before clicking 'Share' can prevent a real data breach and, in the context of our ENS certification, an unnecessary non-conformity.</p>"
   },
   "fr": {
@@ -1651,12 +1651,12 @@ const I18N = {
     "consejo-title": "Définissez un délai d'expiration de session sur vos outils cloud",
     "consejo-text": "Si votre session sur AWS, Azure ou GCP n'expire pas automatiquement, tout équipement déverrouillé quelques minutes constitue une porte grande ouverte. Configurez des timeouts de session d'une heure maximum sur les consoles cloud et les outils d'administration. Ce n'est pas de la paranoïa : c'est ce qu'exige l'ENS dans son contrôle de gestion des accès, et c'est l'une des mesures les plus simples à mettre en œuvre et les plus vite oubliées.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Auditez les paquets de vos projets Python cette semaine",
-    "reto-text": "Accédez à chaque dépôt actif avec des dépendances Python et exécutez 'pip-audit' ou examinez la sortie de 'pip list' en recherchant les paquets non épinglés à une version exacte dans requirements.txt. Si vous en trouvez un sans version épinglée ou présentant une vulnérabilité connue, ouvrez une issue avant vendredi.",
+    "reto-title": "Vérifiez qui a accès à vos dépôts GitHub cette semaine",
+    "reto-text": "Allez dans les paramètres de chaque dépôt, vérifiez les collaborateurs et les permissions, et retirez toute personne qui ne devrait plus y avoir accès.",
     "tag-priv": "Confidentialité en direct",
     "priv-title": "Avant de partager un fichier, vérifiez quelles données il contient et qui peut le consulter",
     "priv-note": "Cette section naît avec notre certification ISO 27701 en matière de confidentialité. Chaque mois, une bonne pratique pour protéger les données — les nôtres et celles de ceux qui nous font confiance.",
-    "tag-mejora": "Amélioration continue",
+    "tag-mejora": "NextStep · Amélioration continue",
     "mejora-title": "Nous avons renforcé la protection de votre poste",
     "mejora-note": "Nous fournissons les outils ; vous, l’œil critique. Ensemble, nous sommes la meilleure défense.",
     "tag-radar": "Sur le radar",
@@ -1762,7 +1762,7 @@ const I18N = {
     "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>Dans le cadre de l’amélioration continue de notre sécurité, nous avons renouvelé ce mois-ci la protection de tous les postes : nous passons de SentinelOne à CrowdStrike Falcon, l’une des solutions de détection et de réponse (EDR) les plus performantes du marché.</p><p>Pour vous, cela a été transparent : vous n’avez rien eu à faire. Nous avons installé la nouvelle protection, l’avons laissée cohabiter quelques jours avec l’ancienne, puis nous avons retiré SentinelOne. Le changement est désormais appliqué et actif sur tous les postes.</p><p>Si vous remarquez quelque chose d’anormal sur votre poste, ouvrez un ticket et nous le vérifierons.</p>",
+    "mejora-text": "<p>Dans le cadre de l’amélioration continue de notre sécurité, nous avons renouvelé ce mois-ci la protection de tous les postes : nous passons de SentinelOne à CrowdStrike Falcon, l’une des solutions de détection et de réponse (EDR) les plus performantes du marché.</p><p>Pour vous, cela a été transparent : vous n’avez rien eu à faire. Nous avons installé la nouvelle protection, l’avons laissée cohabiter quelques jours avec l’ancienne, puis nous avons retiré SentinelOne. Le changement est désormais appliqué et actif sur tous les postes.</p>",
     "priv-text": "<p>Partager par erreur un document avec une personne de trop est l'un des incidents de confidentialité les plus courants dans toute organisation, et il survient généralement sans mauvaise intention. Un fichier de projet peut contenir des données personnelles de clients, d'employés ou de fournisseurs sans que nous l'ayons remarqué au moment de sa création.</p><ul><li>Avant d'envoyer ou de partager un fichier, ouvrez-le une dernière fois et vérifiez s'il contient des noms, des DNIs, des adresses e-mail, des numéros de téléphone ou toute autre donnée personnelle qui n'a pas à s'y trouver.</li><li>Réduisez les permissions au strict nécessaire : si le destinataire n'a besoin que de lire, ne lui accordez pas de droits de modification ni de transfert.</li><li>Sur des plateformes telles que SharePoint, Google Drive ou Dropbox, vérifiez que le lien généré n'est ni public ni accessible à quiconque possède l'URL.</li></ul><p>Une minute de vérification avant de cliquer sur « Partager » peut éviter une véritable fuite de données et, dans le contexte de notre certification ENS, une non-conformité inutile.</p>"
   }
 };
