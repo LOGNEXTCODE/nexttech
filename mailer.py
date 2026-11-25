@@ -5,6 +5,7 @@ El correo va SOLO al revisor para su aprobación antes del envío final.
 Usa email_template.html — layout de tabla, estilos inline, sin JS ni animaciones.
 """
 
+import html as html_lib
 import os
 import requests
 from datetime import datetime
@@ -109,6 +110,19 @@ def _build_enlaces_html(enlaces_items: list) -> str:
     return blocks
 
 
+def _build_avisos_html(avisos: list) -> str:
+    """Avisos de generator.review_warnings (enlaces rotos, «vosotros», «este mes», NextStep)."""
+    if not avisos:
+        return ""
+    items = "".join(f"<li style=\"margin:0 0 4px 0;\">{html_lib.escape(a)}</li>" for a in avisos)
+    return (
+        '<p style="margin:12px 0 4px 0;color:#FFFA96;font-weight:700;font-size:11px;'
+        'font-family:Arial,sans-serif;">AVISOS PARA LA REVISIÓN (no bloquean)</p>'
+        '<ul style="margin:0;padding-left:18px;color:#E1E1E8;font-size:11px;line-height:1.6;'
+        f'font-family:Arial,sans-serif;">{items}</ul>'
+    )
+
+
 def build_email_html(content: dict, edition: str, web_url: str, timestamp: str) -> str:
     """Carga email_template.html y sustituye todos los [[PLACEHOLDERS]]."""
     template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "email_template.html")
@@ -144,6 +158,7 @@ def build_email_html(content: dict, edition: str, web_url: str, timestamp: str) 
         "[[RETO_TEXTO]]":     content.get("reto",      {}).get("texto",  ""),
         "[[RADAR_ITEMS]]":    _build_radar_html(content.get("radar", [])),
         "[[ENLACES_ITEMS]]":  _build_enlaces_html(content.get("enlaces", [])),
+        "[[AVISOS]]":         _build_avisos_html(content.get("avisos_revision", [])),
     }
 
     for placeholder, value in replacements.items():

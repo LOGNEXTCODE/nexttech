@@ -179,8 +179,9 @@ El HTML generado debe replicar EXACTAMENTE el diseño oficial:
 
 |Sección              |Tipo    |Descripción                                |
 |---------------------|--------|-------------------------------------------|
+|🛡️ **NextStep · Mejora continua**|Manual (IT)|Lo que ha mejorado IT; SIEMPRE la primera, full width; sin texto, no se muestra (`nextstep/NN.json`)|
 |🗞️ **Esto Pasó**      |Dinámico|Noticia más impactante del mes — full width|
-|😱 **El Caso del Mes**|Dinámico|Incidente real narrado como serie          |
+|😱 **El Caso del Mes**|Dinámico|Incidente real contado como historia breve (sin códigos de serie)|
 |💡 **El Consejo**     |Dinámico|Un consejo práctico aplicable hoy          |
 |🎯 **El Reto**        |Dinámico|Acción concreta con barra de progreso      |
 |🔒 **Privacidad al día**|Dinámico|Buena práctica de protección de datos (ISO 27701), tras el Reto, full width|
@@ -353,7 +354,8 @@ Para superar a la competencia:
 - Profesional pero cercano, sin ser corporativo frío
 - En **español** como idioma principal
 - Directo, con criterio propio: no solo informar, también interpretar
-- Usar "vosotros" / "os" (comunicación interna corporativa)
+- Tratamiento de **«tú»**, nunca «vosotros» / «os» (decisión del 25-nov-2026, correcciones
+  de Irma en la #07; ver «Regla — Criterios de comunicación»). FR mantiene «vous».
 - Evitar clichés IT: "disruptivo", "ecosistema", "sinergia", "innovador"
 - Humor sutil, como lo contaría un compañero que sabe mucho
 
@@ -578,6 +580,16 @@ Cada edición pasa por `verify_content()` antes del envío. Si falla, regenera:
 - `consejo.texto`: máx 3 frases
 - `reto.texto`: máx 2 frases
 
+Además, `review_warnings()` genera **avisos para la revisión** que NO regeneran ni
+abortan: se imprimen en el log y salen en el correo de borrador («Avisos para la
+revisión»):
+- Enlaces: 404/410 o página de error servida con HTTP 200 («página no encontrada»,
+  como el quiz de INCIBE de la #07); 401/403/429 se avisan como «no se pudo
+  comprobar» (The Hacker News y El País bloquean robots aunque el enlace funcione).
+- «Vosotros», «vuestro», «os», «habéis»… en el texto generado o en NextStep.
+- «Este mes» / «esta semana» más de una vez.
+- NextStep sin texto (`nextstep/NN.json` ausente): la sección no se muestra.
+
 ### 3. Sin relleno — una idea por sección
 Límites duros en el prompt. Palabras prohibidas en todo el contenido:
 `disruptivo`, `disrupción`, `ecosistema`, `sinergia`, `innovador`,
@@ -626,9 +638,34 @@ Claude recibe el aviso y marca las secciones afectadas con
   se cambie ahí, el footer de la #05 muestra rayas en runtime aunque su HTML no las
   tenga. Cambiarlo afecta al footer de #01-#04, así que requiere decisión explícita.
 
-### Regla — Sección fija "Novedades del Departamento IT"
-- Recurrente, cabecera e icono constantes (🛠️), lenguaje claro, ubicada tras "IA al día".
-- Es el lugar donde IT comunica sus cambios (DLP, GoPhish, VLAN, etc.).
+### Regla · Sección fija "NextStep · Mejora continua" (desde la #07)
+- Sustituye a la antigua «Novedades del Departamento IT»: es el lugar donde IT comunica
+  sus cambios (EDR, DLP, GoPhish, VLAN…), en lenguaje claro y en «tú».
+- **Siempre la primera sección**, antes de IA al día (decisión de Miguel, 25-nov-2026).
+  Tarjeta `card-mejora` verde, a ancho completo, foto y nota al pie fijas en
+  `web_template.html` (bloque `NEXTSTEP:INICIO` … `NEXTSTEP:FIN`).
+- **El texto lo escribe IT a mano** en `nextstep/NN.json` (`titulo` + `texto` con `<p>`);
+  `generator.py` NUNCA lo redacta. Si un mes no hay fichero, el generador quita el
+  bloque y la sección no se muestra. Instrucciones en `nextstep/README.md`.
+
+### Regla — Criterios de comunicación (correcciones de Irma, #07, 25-nov-2026)
+Aplican a todo el texto de la edición y del anuncio; el prompt de `generator.py` y
+`translator.py` los llevan incorporados, pero se revisan igual a mano:
+- **Audiencia**: toda la plantilla de LOGNEXT, sin conocimientos técnicos especiales.
+- **«Tú»** en español (nunca «vosotros»), salvo textos simulados de un ejercicio (p. ej.
+  los correos falsos de «Pon a prueba tu ojo»). EN sin cambios; FR en «vous».
+- **Siglas explicadas** en pocas palabras la primera vez que aparecen, en los tres
+  idiomas (CVE, EDR, RCE, CVSS, CISA, TPM, PyPI, npm, ENS, INCIBE…). Comandos y
+  nombres técnicos que no aportan, en palabras normales.
+- **«Este mes»** como mucho en una o dos secciones.
+- **Cabecera** sin «6 Secciones» y con «Lognext · Departamento IT».
+- **Fidelidad a la fuente** (leer el artículo, no solo el resumen): cada dato atribuido
+  a quien lo da, nada que la fuente no diga, fechas concretas, verbos exactos
+  («han analizado», no «lo detectaron»), sin códigos de serie tipo «T1x E3» en los
+  titulares. The Hacker News y El País bloquean la lectura automática: abrirlos en el
+  navegador. Cuidado con los artículos patrocinados («contributed piece»).
+- **Enlaces**: abrir cada uno; una página de «no encontrada» con HTTP 200 también
+  cuenta como roto.
 
 ### Regla · Sección mensual "Privacidad al día" (ISO 27701, desde la #06)
 - Serie mensual de buenas prácticas de protección de datos ligada a la certificación
@@ -666,10 +703,15 @@ Claude recibe el aviso y marca las secciones afectadas con
       acordes a la noticia, HTTP 200, y ninguna repetida —ni entre secciones de la
       edición ni respecto a ediciones anteriores
 - [ ] Secciones largas colapsadas (párrafo + «Seguir leyendo»)
-- [ ] Sección "Novedades del Departamento IT" presente tras "IA al día"
+- [ ] Sección "NextStep · Mejora continua" la primera, con texto de IT (o ausente si ese mes no hay)
+- [ ] Criterios de comunicación: «tú», siglas explicadas, «este mes» como mucho 1-2 veces,
+      datos fieles a la fuente y atribuidos a quien los da (ver «Regla — Criterios de comunicación»)
+- [ ] Revisados los «Avisos para la revisión» del correo de borrador
 - [ ] Sección "Privacidad al día" presente tras el Reto, con una práctica NUEVA (no repetida de ediciones anteriores) y la nota ISO 27701
 - [ ] Footer con navegación entre ediciones (columna «Ediciones» dinámica vía `editions.json`)
 - [ ] Enlaces a TODAS las NextGuides (Etiquetas, Phishing y VPN; nunca las no enlazadas) con `?from={{EDICION_NUM}}`
 
-### Orden canónico de la edición (desde la #02)
-`Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Privacidad al día → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`
+### Orden canónico de la edición (desde la #07)
+`Bienvenida → NextStep · Mejora continua (si hay texto) → IA al día → Esto pasó → Amenaza del mes → Consejo → Reto del mes → Privacidad al día → En el radar → Pon a prueba tu ojo → Recursos → Footer`
+
+Antes (#02-#06): `Bienvenida → IA al día → Novedades del Departamento IT (DLP colapsable + banner GoPhish) → Caso del mes → Reto del mes → Privacidad al día → Noticias (Esto pasó, En el radar, Consejo, Test Phishing, Recursos) → Footer`

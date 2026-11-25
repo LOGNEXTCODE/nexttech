@@ -50,8 +50,13 @@ Rules:
 - Keep brand/product names unchanged: LOGNEXT, Microsoft 365, Outlook, Word, Excel, Teams, Microsoft Purview, Google, Cisco, INCIBE, etc.
 - Keep classification label names unchanged (they are Microsoft Purview system literals in Spanish): Público, Interno, Confidencial, Muy Confidencial.
 - Keep URLs, email addresses, phone numbers, and example data (DNI, IBAN, etc.) unchanged.
-- For date strings like "Junio 2026" translate only the month name.
+- For date strings like "Junio 2026" translate only the month name, keeping the same capitalisation ("DICIEMBRE 2026" → "DECEMBER 2026" / "DÉCEMBRE 2026").
 - Use professional yet approachable tone appropriate for internal corporate IT communication.
+- The audience is the whole company, not IT specialists. Keep every explanation of an acronym or technical term that the Spanish text gives (e.g. "EDR (protección avanzada…)" → "EDR (advanced protection…)"); never drop it.
+- Address the reader in the singular in English ("you", "your device"). In French, always use "vous".
+- Typography: curly apostrophes and quotes (’ “ ” in English; ’ and « » in French), never straight ' or ". In French, put a narrow no-break space (U+202F) before : ; ? ! and inside « ».
+- Values whose key ends in "-title" are headlines: in English use Title Case; in French use sentence case.
+- Do not use em dashes (—) or en dashes (–); use commas, colons or parentheses instead.
 - Return ONLY valid JSON — no markdown, no code fences, no explanation.
 
 Input JSON:
@@ -68,7 +73,30 @@ Input JSON:
         raw = re.sub(r"^```(?:json)?\n?", "", raw)
         raw = re.sub(r"\n?```$", "", raw)
 
-    return json.loads(raw)
+    data = json.loads(raw)
+    return {k: _tipografia(v, lang) if isinstance(v, str) else v for k, v in data.items()}
+
+
+# ─── TIPOGRAFÍA ────────────────────────────────────────────────────────────────
+# El modelo no siempre respeta las reglas tipográficas del prompt (las EN/FR de
+# las #02-#07 salieron con apóstrofos rectos). Se corrige solo el texto, nunca
+# dentro de las etiquetas HTML (atributos, URLs).
+
+_RE_TAG = re.compile(r"(<[^>]*>)")
+_NNBSP = " "
+
+
+def _tipografia(value: str, lang: str) -> str:
+    partes = _RE_TAG.split(value)
+    for i, parte in enumerate(partes):
+        if i % 2 == 1:          # etiqueta HTML: no se toca
+            continue
+        parte = re.sub(r"(?<=\w)'(?=\w)", "’", parte)          # apóstrofo recto entre letras
+        if lang == "fr":
+            parte = re.sub(r"[  ]([:;?!»])", _NNBSP + r"\1", parte)
+            parte = re.sub(r"«[  ]", "«" + _NNBSP, parte)
+        partes[i] = parte
+    return "".join(partes)
 
 
 # ─── INYECCIÓN ─────────────────────────────────────────────────────────────────

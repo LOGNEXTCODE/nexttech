@@ -179,6 +179,13 @@ body {
 .priv-body p:last-child { margin-bottom: 0; }
 .priv-note { font-size: 13px; font-style: italic; line-height: 1.7; color: var(--grey); opacity: 0.7; border-top: 1px solid rgba(60,230,230,0.18); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; }
 .priv-note svg { color: var(--cyan); margin-top: 4px; flex-shrink: 0; }
+/* NextStep · Mejora continua: sección fija, siempre la primera; texto escrito a mano por IT */
+.card-mejora { background: #001a08; border-left: 4px solid var(--green); box-shadow: inset 0 1px 0 rgba(100,240,125,0.25); }
+.card-mejora::after { background: radial-gradient(ellipse at 50% 0%, rgba(100,240,125,0.1), transparent 70%); }
+.mejora-body p { margin: 0 0 12px; }
+.mejora-body p:last-child { margin-bottom: 0; }
+.mejora-note { font-size: 13px; font-style: italic; line-height: 1.7; color: var(--grey); opacity: 0.7; border-top: 1px solid rgba(100,240,125,0.18); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; }
+.mejora-note svg { color: var(--green); margin-top: 4px; flex-shrink: 0; }
 .section-tag { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; text-transform: uppercase; font-weight: 700; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
 .section-tag::after { content: ''; flex: 1; height: 1px; background: currentColor; opacity: 0.12; }
 .card-title { font-size: 22px; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 16px; }
@@ -451,6 +458,7 @@ body.light .card-radar   .section-tag  { color: #007A8A !important; }
 body.light .card-phishing .section-tag { color: #6A28AA !important; }
 body.light .card-ia      .section-tag  { color: #1A5CB0 !important; }
 body.light .card-priv    .section-tag  { color: #007A8A !important; }
+body.light .card-mejora  .section-tag  { color: #1A7A38 !important; }
 body.light .card-esto    .section-tag  { color: #C82D00 !important; }
 body.light .card-links   .section-tag  { color: #6A28AA !important; }
 
@@ -482,6 +490,7 @@ body.light .card-caso    .card-hero-fade { background: linear-gradient(to bottom
 body.light .card-consejo .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,248,0) 55%, #F5FFF8 100%) !important; }
 body.light .card-reto    .card-hero-fade { background: linear-gradient(to bottom, rgba(245,255,249,0) 55%, #F5FFF9 100%) !important; }
 body.light .card-priv    .card-hero-fade { background: linear-gradient(to bottom, rgba(242,251,252,0) 55%, #F2FBFC 100%) !important; }
+body.light .card-mejora  .card-hero-fade { background: linear-gradient(to bottom, rgba(244,253,246,0) 55%, #F4FDF6 100%) !important; }
 body.light .card-ia {
   background: #F5F8FF;
   border-left: 4px solid #1A5CB0;
@@ -495,6 +504,13 @@ body.light .card-priv {
 body.light .priv-body li::marker { color: #007A8A; }
 body.light .priv-note { color: #2a2a4a; opacity: 0.85; border-top-color: rgba(0,122,138,0.25); }
 body.light .priv-note svg { color: #007A8A; }
+body.light .card-mejora {
+  background: #F4FDF6;
+  border-left: 4px solid #1A7A38;
+  box-shadow: 0 2px 20px rgba(0,0,41,0.07), inset 0 1px 0 rgba(26,122,56,0.15);
+}
+body.light .mejora-note { color: #2a2a4a; opacity: 0.85; border-top-color: rgba(26,122,56,0.25); }
+body.light .mejora-note svg { color: #1A7A38; }
 
 body.light .card-radar { background: transparent; box-shadow: none; }
 body.light .radar-grid-item {
@@ -716,24 +732,20 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
           <div class="stat-label" data-i18n="stat-edition">Edición</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">6</div>
-          <div class="stat-label" data-i18n="stat-sections">Secciones</div>
-        </div>
-        <div class="stat-item">
           <div class="stat-number">~5'</div>
           <div class="stat-label" data-i18n="stat-reading">Lectura</div>
         </div>
       </div>
     </div>
     <div class="header-meta">
-      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;" data-i18n="header-by">BY LOGNEXT · DEPARTAMENTO IT</span>
+      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;" data-i18n="header-by">Lognext · Departamento IT</span>
       <span class="header-issue" data-i18n="header-issue">{{EDICION_MES}}</span>
     </div>
   </div>
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
+    Te damos la bienvenida a NextTech, tu cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
   </div>
 
   <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
@@ -749,7 +761,22 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <!-- GRID PRINCIPAL -->
   <div class="main-grid">
 
-    <!-- 1. IA AL DÍA — primera sección, ancho completo -->
+    <!-- NEXTSTEP:INICIO · 0. NEXTSTEP · MEJORA CONTINUA: sección fija, siempre la primera.
+         El texto lo escribe IT a mano en nextstep/NN.json; generator.py NUNCA lo redacta.
+         Si la edición no tiene ese fichero, generator.py quita el bloque entero (hasta NEXTSTEP:FIN). -->
+    <div class="card card-mejora full-width" onmouseenter="trackSection('mejora_continua')">
+      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,8,0) 55%,#001a08 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">NextStep · Mejora continua</span></div>
+      <div class="card-title" data-i18n="mejora-title">{{NEXTSTEP_TITULO}}</div>
+      <div class="card-text mejora-body" data-i18n-html="mejora-text">{{NEXTSTEP_TEXTO}}</div>
+      <div class="mejora-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="mejora-note">Nosotros ponemos las herramientas; tú, el ojo crítico. Juntos somos la mejor defensa.</span></div>
+    </div>
+    <!-- NEXTSTEP:FIN -->
+
+    <!-- 1. IA AL DÍA · ancho completo; primera sección si no hay NextStep -->
     <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
         <img class="card-hero-img" src="{{IA_IMG_URL}}" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
@@ -758,7 +785,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> <span data-i18n="tag-ia">IA al día</span></div>
       <div class="card-title" data-i18n="ia-title">{{IA_TITULO}}</div>
       <div class="card-text" data-i18n="ia-text">{{IA_TEXTO}}</div>
-      <a href="{{IA_URL}}" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el análisis completo <span class="arrow">→</span></a>
+      <a href="{{IA_URL}}" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">{{IA_LINK_TEXTO}} <span class="arrow">→</span></a>
     </div>
 
     <!-- 2a. ESTO PASÓ — columna izquierda -->
@@ -803,13 +830,13 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,5,0) 55%,#001a05 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
-      <div class="reto-badge">RETO ACTIVO</div>
+      <div class="reto-badge" data-i18n="reto-badge">RETO ACTIVO</div>
       <div class="card-title" data-i18n="reto-title">{{RETO_TITULO}}</div>
       <div class="card-text" data-i18n="reto-text">{{RETO_TEXTO}}</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
-        <span>{{EDICION_MES}}</span>
-        <span>¿Lo has hecho ya? ✓</span>
+        <span data-i18n="reto-month">{{EDICION_MES}}</span>
+        <span data-i18n="reto-done">¿Lo has hecho ya? ✓</span>
       </div>
     </div>
 
@@ -830,7 +857,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
     <!-- 4. EN EL RADAR — ancho completo, grid 2×2 -->
     <div class="card card-radar full-width" style="background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('radar')">
       <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"/></svg> <span data-i18n="tag-radar">En el radar</span></div>
-      <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte este mes</div>
+      <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte</div>
       <div class="radar-grid">
         <a href="{{RADAR_1_URL}}" target="_blank" class="radar-grid-item" onclick="trackLink('radar_0', this.href)">
   <div class="radar-source"><span class="radar-dot" style="background:#FA3C0F"></span><span class="radar-org">{{RADAR_1_ORG}}</span></div>
