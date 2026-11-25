@@ -806,24 +806,20 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
           <div class="stat-label" data-i18n="stat-edition">Edición</div>
         </div>
         <div class="stat-item">
-          <div class="stat-number">6</div>
-          <div class="stat-label" data-i18n="stat-sections">Secciones</div>
-        </div>
-        <div class="stat-item">
           <div class="stat-number">~5'</div>
           <div class="stat-label" data-i18n="stat-reading">Lectura</div>
         </div>
       </div>
     </div>
     <div class="header-meta">
-      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;" data-i18n="header-by">BY LOGNEXT · DEPARTAMENTO IT</span>
+      <span style="font-size:11px;opacity:0.4;font-family:'JetBrains Mono',monospace;letter-spacing:2px;" data-i18n="header-by">Lognext · Departamento IT</span>
       <span class="header-issue" data-i18n="header-issue">DICIEMBRE 2026</span>
     </div>
   </div>
 
   <!-- INTRO -->
   <div class="intro" onmouseenter="trackSection('intro')" data-i18n-html="intro">
-    Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
+    Te damos la bienvenida a NextTech, tu cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.
   </div>
 
   <!-- BIENVENIDA INTEGRADA — OBLIGATORIO POR EDICIÓN:
@@ -839,6 +835,19 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
   <!-- GRID PRINCIPAL -->
   <div class="main-grid">
 
+    <!-- 0. NEXTSTEP · MEJORA CONTINUA · artesanal (solo #07), primera sección: lo que hace IT, ancho completo, acento verde.
+         Mismo molde que Privacidad al día; sin botón de enlace, nota al pie en cursiva. -->
+    <div class="card card-mejora full-width" onmouseenter="trackSection('mejora_continua')">
+      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
+        <img class="card-hero-img" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
+        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,8,0) 55%,#001a08 100%);"></div>
+      </div>
+      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">NextStep · Mejora continua</span></div>
+      <div class="card-title" data-i18n="mejora-title">Hemos reforzado la protección de tu equipo</div>
+      <div class="card-text mejora-body" data-i18n-html="mejora-text"><p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado la protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, un EDR (protección avanzada que detecta y responde a ataques en el equipo), para estar mejor preparados ante los ataques actuales.</p><p>Para ti ha sido transparente: no has tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p></div>
+      <div class="mejora-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="mejora-note">Nosotros ponemos las herramientas; tú, el ojo crítico. Juntos somos la mejor defensa.</div>
+    </div>
+
     <!-- 1. IA AL DÍA — primera sección, ancho completo -->
     <div class="card card-ia full-width" onmouseenter="trackSection('ia_dia')">
       <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
@@ -846,10 +855,10 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,14,34,0) 55%,#000e22 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--blue)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg> <span data-i18n="tag-ia">IA al día</span></div>
-      <div class="card-title" data-i18n="ia-title">La IA ataca antes de que exista el parche: explotación el mismo día del CVE</div>
-      <div class="card-text" data-i18n="ia-text">Un dato del informe Mandiant M-Trends 2026 resuena con fuerza este mes: en la primera mitad de 2026, el 23% de las vulnerabilidades registradas por VulnCheck fueron explotadas el mismo día de su divulgación pública o antes. Los atacantes usan IA para analizar CVEs recién publicados, generar exploits automáticamente y lanzarlos en horas. Para equipos IT como el nuestro, esto significa que el margen entre ‘parche disponible’ y ‘ya te han comprometido’ se ha reducido a cero. La ventana de parcheo ya no se mide en semanas: se mide en horas.</div>
+      <div class="card-title" data-i18n="ia-title">Los ataques llegan antes que el parche, y ya hay un primer caso atribuido a la IA</div>
+      <div class="card-text" data-i18n="ia-text">Casi una de cada cuatro vulnerabilidades explotadas se atacó el mismo día en que se hizo pública, o incluso antes. El dato es de VulnCheck: en el primer semestre de 2026, el 23% de los CVE (identificadores públicos de vulnerabilidades) que añadió a su lista de fallos explotados se atacaron el día de su divulgación o antes. El informe M-Trends 2026 de Mandiant apunta en la misma dirección: de media, la explotación ya empieza antes de que exista el parche. Y la IA entra en juego: el equipo de inteligencia de amenazas de Google (GTIG) ha identificado por primera vez a un atacante que usaba un exploit de día cero (un fallo que aún no tiene parche) que, según cree, se desarrolló con IA, para saltarse la verificación en dos pasos. Para cualquier equipo IT, la conclusión es clara: el margen entre ‘parche disponible’ y ‘ya te han comprometido’ es cada vez más estrecho.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>The Hacker News · Noviembre 2026</div>
-      <a href="https://thehackernews.com/2026/11/ai-pentesting-checklist-for-web-apps-15.html" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el análisis completo <span class="arrow">→</span></a>
+      <a href="https://thehackernews.com/2026/11/ai-pentesting-checklist-for-web-apps-15.html" target="_blank" class="card-link" style="color:var(--blue)" onclick="trackLink('ia_dia', this.href)" data-i18n-html="ia-link">Leer el artículo en The Hacker News <span class="arrow">→</span></a>
     </div>
 
     <!-- 2a. ESTO PASÓ — columna izquierda -->
@@ -860,7 +869,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--red)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="7" y1="8" x2="17" y2="8"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="7" y1="16" x2="13" y2="16"/></svg> <span data-i18n="tag-esto">Esto pasó</span></div>
       <div class="card-title" data-i18n="esto-title">Microsoft se cae durante 18 horas y arrastra al 80% de sus servidores</div>
-      <div class="card-text" data-i18n="esto-text">El pasado noviembre, un fallo introducido por la propia Microsoft meses antes desencadenó una caída global que tumbó el 80% de sus servidores durante más de 18 horas. Outlook, Teams, Copilot, Word, Excel y PowerPoint dejaron de funcionar para millones de usuarios. En España el impacto fue real: productividad paralizada, aunque los servicios esenciales se salvaron por poco. La lección para cualquier equipo IT es clara: un cambio mal auditado en producción puede doler más que un ataque externo.</div>
+      <div class="card-text" data-i18n="esto-text">El jueves 12 de noviembre, un fallo introducido por la propia Microsoft meses antes desencadenó una caída global que tumbó el 80% de sus servidores durante más de 18 horas. Outlook, Teams, Copilot, Word, Excel y PowerPoint dejaron de funcionar para millones de usuarios en al menos 70 países. En España, la Administración no tuvo problemas significativos; en Japón, Australia o Malasia, en cambio, hubo que interrumpir servicios críticos. La lección para cualquier equipo IT es clara: un cambio mal auditado en producción puede doler más que un ataque externo.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>El País Tecnología · Noviembre 2026</div>
       <a href="https://elpais.com/tecnologia/2026-11-16/la-caida-global-de-microsoft-se-debio-a-un-fallo-introducido-por-la-compania-hace-meses-y-que-tumbo-el-80-de-sus-servidores.html" target="_blank" class="card-link" style="color:var(--red)" onclick="trackLink('esto_paso', this.href)" data-i18n-html="esto-link">Leer la historia completa <span class="arrow">→</span></a>
     </div>
@@ -872,8 +881,8 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(5,5,31,0) 55%,#05051f 100%);"></div>
       </div>
       <div class="section-tag" style="color:var(--yellow)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> <span data-i18n="tag-caso">Amenaza del mes</span></div>
-      <div class="card-title" data-i18n="caso-title">T1x E3: ‘El paquete envenenado’ — Cómo robaron credenciales cloud en 33 minutos</div>
-      <div class="card-text" data-i18n="caso-text">17 de noviembre, 2026. Alguien publica dos versiones del paquete agent-framework de Microsoft en PyPI con 33 minutos de diferencia. Dentro: un stealer de credenciales diseñado para ejecutarse en cada arranque de Python. Ocho firmas de seguridad lo detectan casi a la vez. El daño: cualquier entorno que hiciera pip install en esa ventana habría entregado sus claves cloud sin saberlo. El vector es el de siempre — confiamos en los paquetes de nombres conocidos — pero el timing fue quirúrgico.</div>
+      <div class="card-title" data-i18n="caso-title">El paquete envenenado: comprometen un paquete oficial de Microsoft para robar credenciales cloud</div>
+      <div class="card-text" data-i18n="caso-text">17 de noviembre de 2026. Unos atacantes consiguen publicar dos versiones maliciosas del paquete oficial agent-framework de Microsoft en PyPI, el repositorio público de paquetes de Python, con 33 minutos de diferencia entre una y otra. Dentro: un stealer, un programa malicioso que roba contraseñas y credenciales, diseñado para ejecutarse en cada arranque de Python. Ocho empresas de seguridad han analizado el caso. El riesgo: cualquier entorno que instalara una de esas versiones habría entregado sus claves cloud sin saberlo. El vector es el de siempre: confiamos en los paquetes de nombres conocidos.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>The Hacker News · Noviembre 2026</div>
       <a href="https://thehackernews.com/2026/11/attackers-compromise-microsofts-agent.html" target="_blank" class="card-link" style="color:var(--yellow)" onclick="trackLink('caso_mes', this.href)" data-i18n-html="caso-link">Ver el caso completo <span class="arrow">→</span></a>
     </div>
@@ -886,7 +895,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14z"/></svg> <span data-i18n="tag-consejo">Consejo del mes</span></div>
       <div class="card-title" data-i18n="consejo-title">Fija un límite de tiempo de sesión en tus herramientas cloud</div>
-      <div class="card-text" data-i18n="consejo-text">Si tu sesión en AWS, Azure o GCP no expira sola, cualquier equipo desbloqueado unos minutos es una puerta abierta. Configura timeouts de sesión de máximo 1 hora en consolas cloud y herramientas de administración. No es paranoia: es lo que pide el ENS en su control de gestión de acceso, y es de las cosas que más fácil se implementa y más rápido se olvida.</div>
+      <div class="card-text" data-i18n="consejo-text">Si tu sesión en las nubes de Amazon, Microsoft o Google no expira sola, cualquier equipo desbloqueado unos minutos es una puerta abierta. Configura timeouts de sesión de máximo 1 hora en consolas cloud y herramientas de administración. No es paranoia: es lo que pide el ENS (Esquema Nacional de Seguridad) en su control de gestión de acceso, y es de las cosas que más fácil se implementa y más rápido se olvida.</div>
       <div style="font-size:10px;font-family:'JetBrains Mono',monospace;opacity:0.4;letter-spacing:1px;margin-bottom:16px;display:flex;align-items:center;gap:6px;"><span style="width:4px;height:4px;border-radius:50%;background:currentColor;display:inline-block;opacity:0.6;"></span>Departamento IT LOGNEXT · Diciembre 2026</div>
     </div>
 
@@ -898,7 +907,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       </div>
       <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-i18n="tag-reto">El reto del mes</span></div>
       <div class="reto-badge">RETO ACTIVO</div>
-      <div class="card-title" data-i18n="reto-title">Revisa quién tiene acceso a tus repositorios de GitHub esta semana</div>
+      <div class="card-title" data-i18n="reto-title">Revisa quién tiene acceso a tus repositorios de GitHub</div>
       <div class="card-text" data-i18n="reto-text">Entra en los ajustes de cada repositorio, revisa colaboradores y permisos, y quita a quien ya no deba tener acceso.</div>
       <div class="reto-progress"><div class="reto-progress-bar"></div></div>
       <div class="reto-label">
@@ -922,32 +931,19 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
       <div class="priv-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> <span data-i18n="priv-note">Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.</span></div>
     </div>
 
-    <!-- 3d. MEJORA CONTINUA · artesanal (solo #07): lo que hace IT, ancho completo, acento verde.
-         Mismo molde que Privacidad al día; sin botón de enlace, nota al pie en cursiva. -->
-    <div class="card card-mejora full-width" onmouseenter="trackSection('mejora_continua')">
-      <div style="height:200px;overflow:hidden;margin:-36px -44px 28px;position:relative;">
-        <img class="card-hero-img" src="https://images.unsplash.com/photo-1606868306217-dbf5046868d2?auto=format&fit=crop&w=2200&h=400&q=80" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover;opacity:0.75;">
-        <div class="card-hero-fade" style="position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,26,8,0) 55%,#001a08 100%);"></div>
-      </div>
-      <div class="section-tag" style="color:var(--green)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> <span data-i18n="tag-mejora">NextStep · Mejora continua</span></div>
-      <div class="card-title" data-i18n="mejora-title">Hemos reforzado la protección de vuestro equipo</div>
-      <div class="card-text mejora-body" data-i18n-html="mejora-text"><p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p></div>
-      <div class="mejora-note"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg> <span data-i18n="mejora-note">Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.</span></div>
-    </div>
-
     <!-- 4. EN EL RADAR — ancho completo, grid 2×2 -->
     <div class="card card-radar full-width" style="background:transparent;border:none;box-shadow:none;" onmouseenter="trackSection('radar')">
       <div class="section-tag" style="color:var(--cyan)"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1" fill="currentColor" stroke="none"/></svg> <span data-i18n="tag-radar">En el radar</span></div>
-      <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte este mes</div>
+      <div class="card-title" data-i18n="radar-title">Lo que no puedes perderte</div>
       <div class="radar-grid">
         <a href="https://thehackernews.com/2026/11/cisa-urges-immediate-patching-of.html" target="_blank" class="radar-grid-item" onclick="trackLink('radar_0', this.href)">
   <div class="radar-source"><span class="radar-dot" style="background:#FA3C0F"></span><span class="radar-org">The Hacker News</span></div>
-  <div class="radar-headline" data-i18n="radar-1-headline">Java4Shell (CVE-2026-114938, CVSS 8.1): RCE sin autenticación en Jira, Jenkins, Confluence y Keycloak — CISA pide parchear ya</div>
+  <div class="radar-headline" data-i18n="radar-1-headline">Java4Shell (CVE-2026-114938, CVSS 8.1 en la escala de gravedad de 0 a 10): ejecución remota de código (RCE, que un atacante ejecute programas en un equipo a distancia) sin autenticación en Jira, Jenkins, Confluence y Keycloak. CISA, la agencia de ciberseguridad de EE UU, pide parchear ya</div>
   <div class="radar-meta">18/11/2026</div>
 </a>
 <a href="https://thehackernews.com/2026/11/flash-chip-attack-bypasses-tpm-lockout.html" target="_blank" class="radar-grid-item" onclick="trackLink('radar_1', this.href)">
   <div class="radar-source"><span class="radar-dot" style="background:#FFFA96"></span><span class="radar-org">The Hacker News</span></div>
-  <div class="radar-headline" data-i18n="radar-2-headline">Bypass físico del TPM permite descifrar PINs de Windows Hello y BitLocker en días abriendo la carcasa del equipo</div>
+  <div class="radar-headline" data-i18n="radar-2-headline">Bypass físico del TPM, el chip de seguridad integrado en el equipo, permite descifrar PINs de Windows Hello y BitLocker (el cifrado de disco de Windows) en días abriendo la carcasa</div>
   <div class="radar-meta">18/11/2026</div>
 </a>
 <a href="https://thehackernews.com/2026/11/hackers-exploiting-critical-puppet-rce.html" target="_blank" class="radar-grid-item" onclick="trackLink('radar_2', this.href)">
@@ -974,7 +970,7 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
         <!-- Paso 1: ¿cuál es el fraude? -->
         <section id="ojo-phase1">
           <p class="ojo-phase-tag" data-i18n="ojo-step1">Paso 1 de 2</p>
-          <p class="ojo-q" data-i18n-html="ojo-q1">Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar vuestros pagos.</b> ¿Cuál es el fraude?</p>
+          <p class="ojo-q" data-i18n-html="ojo-q1">Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar tus pagos.</b> ¿Cuál es el fraude?</p>
           <div class="ojo-mails">
             <div class="ojo-col">
               <p class="ojo-col-tag" data-i18n="ojo-mail-a">Correo A</p>
@@ -1070,15 +1066,15 @@ body.light .lang-sep { color: rgba(0,0,41,0.2); }
 <a href="https://www.youtube.com/watch?v=5f5odPmjZSQ" class="link-card lc-video" target="_blank" onclick="trackLink('video', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg></span>
   <span class="link-label" data-i18n="link-2-label">Vídeo</span>
-  <span class="link-title" data-i18n="link-2-title">Cómo funciona un ataque de supply chain en paquetes npm/PyPI (demo en vivo)</span>
-  <span class="link-desc" data-i18n="link-2-desc">Demostración técnica de cómo se inyecta código malicioso en paquetes de código abierto y cómo detectarlo antes de que llegue a producción — imprescindible tras el caso agent-framework de este mes.</span>
+  <span class="link-title" data-i18n="link-2-title">Cómo funciona un ataque de supply chain en paquetes de npm (repositorio de paquetes de JavaScript) y PyPI, con demo en vivo</span>
+  <span class="link-desc" data-i18n="link-2-desc">Demostración técnica de cómo se inyecta código malicioso en paquetes de código abierto y cómo detectarlo antes de que llegue a producción. Imprescindible tras el caso agent-framework de nuestra Amenaza del mes.</span>
   <span class="link-source" data-i18n="link-2-source">LiveOverflow · YouTube</span>
 </a>
-<a href="https://www.incibe.es/empresas/formacion/juego-roles-phishing" class="link-card lc-quiz" target="_blank" onclick="trackLink('quiz', this.href)">
+<a href="https://www.incibe.es/ciudadania/formacion/actividades/prueba-deteccion-ingenieria-social" class="link-card lc-quiz" target="_blank" onclick="trackLink('quiz', this.href)">
   <span class="link-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span>
   <span class="link-label" data-i18n="link-3-label">Quiz interactivo</span>
-  <span class="link-title" data-i18n="link-3-title">Test de phishing interactivo de INCIBE</span>
-  <span class="link-desc" data-i18n="link-3-desc">Pon a prueba tu capacidad para detectar correos de phishing con ejemplos reales adaptados al contexto español — útil para formación interna y para justificar controles ante el ENS.</span>
+  <span class="link-title" data-i18n="link-3-title">Prueba de detección de ingeniería social del INCIBE (Instituto Nacional de Ciberseguridad)</span>
+  <span class="link-desc" data-i18n="link-3-desc">Siete casos cotidianos y una sola pregunta en cada uno: ¿engaño, sí o no? Una forma rápida de entrenar el ojo ante el phishing y otros trucos de ingeniería social.</span>
   <span class="link-source" data-i18n="link-3-source">INCIBE</span>
 </a>
 
@@ -1362,35 +1358,34 @@ const I18N = {
     "topbar-edition-date": "DICIEMBRE 2026",
     "header-tagline": "Cinco minutos al mes para ir siempre un paso por delante.",
     "stat-edition": "Edición",
-    "stat-sections": "Secciones",
     "stat-reading": "Lectura",
-    "header-by": "BY LOGNEXT · DEPARTAMENTO IT",
+    "header-by": "Lognext · Departamento IT",
     "header-issue": "DICIEMBRE 2026",
     "tag-ia": "IA al día",
-    "ia-title": "La IA ataca antes de que exista el parche: explotación el mismo día del CVE",
-    "ia-text": "Un dato del informe Mandiant M-Trends 2026 resuena con fuerza este mes: en la primera mitad de 2026, el 23% de las vulnerabilidades registradas por VulnCheck fueron explotadas el mismo día de su divulgación pública o antes. Los atacantes usan IA para analizar CVEs recién publicados, generar exploits automáticamente y lanzarlos en horas. Para equipos IT como el nuestro, esto significa que el margen entre ‘parche disponible’ y ‘ya te han comprometido’ se ha reducido a cero. La ventana de parcheo ya no se mide en semanas: se mide en horas.",
+    "ia-title": "Los ataques llegan antes que el parche, y ya hay un primer caso atribuido a la IA",
+    "ia-text": "Casi una de cada cuatro vulnerabilidades explotadas se atacó el mismo día en que se hizo pública, o incluso antes. El dato es de VulnCheck: en el primer semestre de 2026, el 23% de los CVE (identificadores públicos de vulnerabilidades) que añadió a su lista de fallos explotados se atacaron el día de su divulgación o antes. El informe M-Trends 2026 de Mandiant apunta en la misma dirección: de media, la explotación ya empieza antes de que exista el parche. Y la IA entra en juego: el equipo de inteligencia de amenazas de Google (GTIG) ha identificado por primera vez a un atacante que usaba un exploit de día cero (un fallo que aún no tiene parche) que, según cree, se desarrolló con IA, para saltarse la verificación en dos pasos. Para cualquier equipo IT, la conclusión es clara: el margen entre ‘parche disponible’ y ‘ya te han comprometido’ es cada vez más estrecho.",
     "tag-esto": "Esto pasó",
     "esto-title": "Microsoft se cae durante 18 horas y arrastra al 80% de sus servidores",
-    "esto-text": "El pasado noviembre, un fallo introducido por la propia Microsoft meses antes desencadenó una caída global que tumbó el 80% de sus servidores durante más de 18 horas. Outlook, Teams, Copilot, Word, Excel y PowerPoint dejaron de funcionar para millones de usuarios. En España el impacto fue real: productividad paralizada, aunque los servicios esenciales se salvaron por poco. La lección para cualquier equipo IT es clara: un cambio mal auditado en producción puede doler más que un ataque externo.",
+    "esto-text": "El jueves 12 de noviembre, un fallo introducido por la propia Microsoft meses antes desencadenó una caída global que tumbó el 80% de sus servidores durante más de 18 horas. Outlook, Teams, Copilot, Word, Excel y PowerPoint dejaron de funcionar para millones de usuarios en al menos 70 países. En España, la Administración no tuvo problemas significativos; en Japón, Australia o Malasia, en cambio, hubo que interrumpir servicios críticos. La lección para cualquier equipo IT es clara: un cambio mal auditado en producción puede doler más que un ataque externo.",
     "tag-caso": "Amenaza del mes",
-    "caso-title": "T1x E3: ‘El paquete envenenado’ — Cómo robaron credenciales cloud en 33 minutos",
-    "caso-text": "17 de noviembre, 2026. Alguien publica dos versiones del paquete agent-framework de Microsoft en PyPI con 33 minutos de diferencia. Dentro: un stealer de credenciales diseñado para ejecutarse en cada arranque de Python. Ocho firmas de seguridad lo detectan casi a la vez. El daño: cualquier entorno que hiciera pip install en esa ventana habría entregado sus claves cloud sin saberlo. El vector es el de siempre — confiamos en los paquetes de nombres conocidos — pero el timing fue quirúrgico.",
+    "caso-title": "El paquete envenenado: comprometen un paquete oficial de Microsoft para robar credenciales cloud",
+    "caso-text": "17 de noviembre de 2026. Unos atacantes consiguen publicar dos versiones maliciosas del paquete oficial agent-framework de Microsoft en PyPI, el repositorio público de paquetes de Python, con 33 minutos de diferencia entre una y otra. Dentro: un stealer, un programa malicioso que roba contraseñas y credenciales, diseñado para ejecutarse en cada arranque de Python. Ocho empresas de seguridad han analizado el caso. El riesgo: cualquier entorno que instalara una de esas versiones habría entregado sus claves cloud sin saberlo. El vector es el de siempre: confiamos en los paquetes de nombres conocidos.",
     "tag-consejo": "Consejo del mes",
     "consejo-title": "Fija un límite de tiempo de sesión en tus herramientas cloud",
-    "consejo-text": "Si tu sesión en AWS, Azure o GCP no expira sola, cualquier equipo desbloqueado unos minutos es una puerta abierta. Configura timeouts de sesión de máximo 1 hora en consolas cloud y herramientas de administración. No es paranoia: es lo que pide el ENS en su control de gestión de acceso, y es de las cosas que más fácil se implementa y más rápido se olvida.",
+    "consejo-text": "Si tu sesión en las nubes de Amazon, Microsoft o Google no expira sola, cualquier equipo desbloqueado unos minutos es una puerta abierta. Configura timeouts de sesión de máximo 1 hora en consolas cloud y herramientas de administración. No es paranoia: es lo que pide el ENS (Esquema Nacional de Seguridad) en su control de gestión de acceso, y es de las cosas que más fácil se implementa y más rápido se olvida.",
     "tag-reto": "El reto del mes",
-    "reto-title": "Revisa quién tiene acceso a tus repositorios de GitHub esta semana",
+    "reto-title": "Revisa quién tiene acceso a tus repositorios de GitHub",
     "reto-text": "Entra en los ajustes de cada repositorio, revisa colaboradores y permisos, y quita a quien ya no deba tener acceso.",
     "tag-priv": "Privacidad al día",
     "priv-title": "Antes de compartir un archivo, revisa qué datos contiene y quién puede verlo",
     "priv-note": "Esta sección nace con nuestra certificación ISO 27701 de privacidad. Cada mes, una buena práctica para proteger los datos, los nuestros y los de quienes confían en nosotros.",
     "tag-mejora": "NextStep · Mejora continua",
-    "mejora-title": "Hemos reforzado la protección de vuestro equipo",
-    "mejora-note": "Nosotros ponemos las herramientas; vosotros, el ojo crítico. Juntos somos la mejor defensa.",
+    "mejora-title": "Hemos reforzado la protección de tu equipo",
+    "mejora-note": "Nosotros ponemos las herramientas; tú, el ojo crítico. Juntos somos la mejor defensa.",
     "tag-radar": "En el radar",
-    "radar-title": "Lo que no puedes perderte este mes",
-    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1): RCE sin autenticación en Jira, Jenkins, Confluence y Keycloak — CISA pide parchear ya",
-    "radar-2-headline": "Bypass físico del TPM permite descifrar PINs de Windows Hello y BitLocker en días abriendo la carcasa del equipo",
+    "radar-title": "Lo que no puedes perderte",
+    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1 en la escala de gravedad de 0 a 10): ejecución remota de código (RCE, que un atacante ejecute programas en un equipo a distancia) sin autenticación en Jira, Jenkins, Confluence y Keycloak. CISA, la agencia de ciberseguridad de EE UU, pide parchear ya",
+    "radar-2-headline": "Bypass físico del TPM, el chip de seguridad integrado en el equipo, permite descifrar PINs de Windows Hello y BitLocker (el cifrado de disco de Windows) en días abriendo la carcasa",
     "radar-3-headline": "Puppet Enterprise bajo ataque activo: CISA añade CVE-2026-115731 (CVSS 9.4) al catálogo de vulnerabilidades explotadas",
     "radar-4-headline": "Los grandes centros de datos de EE UU ya consumen el 1,8% de la electricidad del país — el equivalente a toda Chile",
     "tag-phishing": "🎯 Pon a prueba tu ojo — Test del mes",
@@ -1398,7 +1393,7 @@ const I18N = {
     "ojo-intro": "Este mes la actividad es interactiva. Primero, decide cuál de los dos correos es un intento de fraude. Después, detecta tú mismo las cinco señales que lo delatan.",
     "ojo-step1": "Paso 1 de 2",
     "ojo-step2": "Paso 2 de 2",
-    "ojo-q1": "Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar vuestros pagos.</b> ¿Cuál es el fraude?",
+    "ojo-q1": "Los dos parecen venir del mismo proveedor. <b>Uno es real; el otro quiere desviar tus pagos.</b> ¿Cuál es el fraude?",
     "ojo-mail-a": "Correo A",
     "ojo-mail-b": "Correo B",
     "ojo-pick": "Este es el fraude",
@@ -1448,12 +1443,12 @@ const I18N = {
     "link-1-desc": "Un análisis práctico de los ataques de ingeniería social más sofisticados del momento, con recomendaciones concretas para reforzar la verificación de identidad interna — muy pertinente con el ENS en marcha.",
     "link-1-source": "Bleeping Computer · Noviembre 2026",
     "link-2-label": "Vídeo",
-    "link-2-title": "Cómo funciona un ataque de supply chain en paquetes npm/PyPI (demo en vivo)",
-    "link-2-desc": "Demostración técnica de cómo se inyecta código malicioso en paquetes de código abierto y cómo detectarlo antes de que llegue a producción — imprescindible tras el caso agent-framework de este mes.",
+    "link-2-title": "Cómo funciona un ataque de supply chain en paquetes de npm (repositorio de paquetes de JavaScript) y PyPI, con demo en vivo",
+    "link-2-desc": "Demostración técnica de cómo se inyecta código malicioso en paquetes de código abierto y cómo detectarlo antes de que llegue a producción. Imprescindible tras el caso agent-framework de nuestra Amenaza del mes.",
     "link-2-source": "LiveOverflow · YouTube",
     "link-3-label": "Quiz interactivo",
-    "link-3-title": "Test de phishing interactivo de INCIBE",
-    "link-3-desc": "Pon a prueba tu capacidad para detectar correos de phishing con ejemplos reales adaptados al contexto español — útil para formación interna y para justificar controles ante el ENS.",
+    "link-3-title": "Prueba de detección de ingeniería social del INCIBE (Instituto Nacional de Ciberseguridad)",
+    "link-3-desc": "Siete casos cotidianos y una sola pregunta en cada uno: ¿engaño, sí o no? Una forma rápida de entrenar el ojo ante el phishing y otros trucos de ingeniería social.",
     "link-3-source": "INCIBE",
     "footer-col-nexters": "Somos Nexters",
     "footer-brand-text": "Tecnología, seguridad y novedades internas, reunidas cada mes para todos los Nexters.",
@@ -1486,11 +1481,11 @@ const I18N = {
     "ck-reject": "Rechazar todas",
     "ck-accept": "Aceptar todas",
     "ck-only-necessary": "Aceptar solo necesarias",
-    "intro": "Bienvenidos a NextTech, vuestra cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.",
-    "ia-link": "Leer el análisis completo <span class=\"arrow\">→</span>",
+    "intro": "Te damos la bienvenida a NextTech, tu cita mensual con la actualidad en inteligencia artificial y ciberseguridad. Cada primer miércoles de mes, novedades, guías prácticas y recursos para el día a día.",
+    "ia-link": "Leer el artículo en The Hacker News <span class=\"arrow\">→</span>",
     "esto-link": "Leer la historia completa <span class=\"arrow\">→</span>",
     "caso-link": "Ver el caso completo <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado el sistema de protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, una de las soluciones de detección y respuesta (EDR) líderes del mercado.</p><p>Para vosotros ha sido transparente: no habéis tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p>",
+    "mejora-text": "<p>Dentro de la mejora continua de nuestra seguridad, este mes hemos renovado la protección de todos los equipos: pasamos de SentinelOne a CrowdStrike Falcon, un EDR (protección avanzada que detecta y responde a ataques en el equipo), para estar mejor preparados ante los ataques actuales.</p><p>Para ti ha sido transparente: no has tenido que hacer nada. Instalamos la nueva protección, la dejamos convivir unos días con la anterior y luego retiramos SentinelOne. El cambio ya está aplicado y en marcha en todos los equipos.</p>",
     "priv-text": "<p>Compartir un documento por error con una persona de más es uno de los incidentes de privacidad más habituales en cualquier organización, y suele ocurrir sin mala intención. Un archivo de proyecto puede contener datos personales de clientes, empleados o proveedores sin que lo hayamos notado al crearlo.</p><ul><li>Antes de enviar o compartir un archivo, abre una última vez y comprueba si contiene nombres, DNIs, correos, teléfonos u otro dato personal que no necesite estar ahí.</li><li>Ajusta los permisos al mínimo necesario: si el destinatario solo necesita leer, no le des permisos de edición ni de reenvío.</li><li>En plataformas como SharePoint, Google Drive o Dropbox, revisa que el enlace generado no sea público ni accesible para cualquiera con la URL.</li></ul><p>Un minuto de revisión antes de hacer clic en ‘Compartir’ puede evitar una brecha de datos real y, en el contexto de nuestra certificación ENS, una no conformidad innecesaria.</p>"
   },
   "en": {
@@ -1498,24 +1493,23 @@ const I18N = {
     "topbar-edition-date": "DECEMBER 2026",
     "header-tagline": "Five minutes a month to always stay one step ahead.",
     "stat-edition": "Edition",
-    "stat-sections": "Sections",
     "stat-reading": "Reading",
-    "header-by": "BY LOGNEXT · IT DEPARTMENT",
+    "header-by": "Lognext · IT Department",
     "header-issue": "DECEMBER 2026",
     "tag-ia": "AI Update",
-    "ia-title": "AI Strikes Before the Patch Exists: Same-Day CVE Exploitation",
-    "ia-text": "One figure from the Mandiant M-Trends 2026 report is making waves this month: in the first half of 2026, 23% of the vulnerabilities tracked by VulnCheck were exploited on the same day they were publicly disclosed — or even before. Attackers are using AI to analyse newly published CVEs, automatically generate exploits, and launch them within hours. For IT teams like ours, this means the window between 'patch available' and 'you've already been compromised' has shrunk to zero. Patch timelines are no longer measured in weeks — they're measured in hours.",
+    "ia-title": "Attacks Now Arrive Before the Patch, and There’s Already a First Case Attributed to AI",
+    "ia-text": "Nearly one in four exploited vulnerabilities was attacked on the same day it was made public, or even earlier. The figure comes from VulnCheck: in the first half of 2026, 23% of the CVEs (public identifiers for vulnerabilities) it added to its exploited list were hit on or before disclosure day. Mandiant’s M-Trends 2026 report points the same way: on average, exploitation now starts before a patch exists. And AI is entering the picture: Google’s Threat Intelligence Group (GTIG) has, for the first time, identified an attacker using a zero-day exploit (a flaw that has no patch yet) that it believes was developed with AI, to bypass two-step verification. For any IT team, the takeaway is clear: the gap between ‘patch available’ and ‘you’ve already been compromised’ keeps getting narrower.",
     "tag-esto": "What Happened",
     "esto-title": "Microsoft Goes Down for 18 Hours, Taking 80% of Its Servers With It",
-    "esto-text": "Last November, a fault introduced by Microsoft itself months earlier triggered a global outage that brought down 80% of its servers for more than 18 hours. Outlook, Teams, Copilot, Word, Excel, and PowerPoint stopped working for millions of users. In Spain the impact was real: productivity ground to a halt, though essential services narrowly escaped. The lesson for any IT team is clear: a poorly audited change in production can hurt more than an external attack.",
+    "esto-text": "On Thursday 12 November, a fault introduced by Microsoft itself months earlier triggered a global outage that brought down 80% of its servers for more than 18 hours. Outlook, Teams, Copilot, Word, Excel, and PowerPoint stopped working for millions of users in at least 70 countries. In Spain, public administration had no significant problems; in Japan, Australia, and Malaysia, however, critical services had to be interrupted. The lesson for any IT team is clear: a poorly audited change in production can hurt more than an external attack.",
     "tag-caso": "Threat of the Month",
-    "caso-title": "T1x E3: 'The Poisoned Package' — How Cloud Credentials Were Stolen in 33 Minutes",
-    "caso-text": "17 November 2026. Someone publishes two versions of Microsoft's agent-framework package on PyPI 33 minutes apart. Inside: a credential stealer designed to run on every Python startup. Eight security firms detect it almost simultaneously. The damage: any environment that ran pip install within that window would have handed over its cloud keys without knowing it. The attack vector is the same old story — we trust packages with familiar names — but the timing was surgical.",
+    "caso-title": "The Poisoned Package: Attackers Compromise an Official Microsoft Package to Steal Cloud Credentials",
+    "caso-text": "17 November 2026. Attackers manage to publish two malicious versions of Microsoft’s official agent-framework package on PyPI, the public repository of Python packages, 33 minutes apart. Inside: a stealer, malicious software that steals passwords and credentials, designed to run on every Python startup. Eight security companies have analysed the case. The risk: any environment that installed one of those versions would have handed over its cloud keys without knowing it. The attack vector is the same old story: we trust packages with familiar names.",
     "tag-consejo": "Tip of the Month",
     "consejo-title": "Set a Session Timeout Limit on Your Cloud Tools",
-    "consejo-text": "If your AWS, Azure, or GCP session doesn't expire on its own, any unlocked device left unattended for a few minutes is an open door. Configure session timeouts of no more than 1 hour on cloud consoles and administration tools. This isn't paranoia: it's what the ENS requires under its access management controls, and it's one of the easiest things to implement — and the quickest to forget.",
+    "consejo-text": "If your session on the Amazon, Microsoft, or Google clouds doesn’t expire on its own, any unlocked device left unattended for a few minutes is an open door. Configure session timeouts of no more than 1 hour on cloud consoles and administration tools. This isn’t paranoia: it’s what the ENS (Spain’s National Security Framework) requires under its access management controls, and it’s one of the easiest things to implement, and the quickest to forget.",
     "tag-reto": "Challenge of the Month",
-    "reto-title": "Review Who Has Access to Your GitHub Repositories This Week",
+    "reto-title": "Review Who Has Access to Your GitHub Repositories",
     "reto-text": "Go into each repository’s settings, check collaborators and permissions, and remove anyone who no longer needs access.",
     "tag-priv": "Privacy Update",
     "priv-title": "Before Sharing a File, Check What Data It Contains and Who Can See It",
@@ -1524,9 +1518,9 @@ const I18N = {
     "mejora-title": "We’ve strengthened the protection on your device",
     "mejora-note": "We provide the tools; you provide the critical eye. Together we’re the best defense.",
     "tag-radar": "On the Radar",
-    "radar-title": "What You Can't Miss This Month",
-    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1): Unauthenticated RCE in Jira, Jenkins, Confluence, and Keycloak — CISA urges immediate patching",
-    "radar-2-headline": "Physical TPM bypass allows Windows Hello and BitLocker PINs to be decrypted within days by opening the device casing",
+    "radar-title": "What You Can’t Miss",
+    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1 on the 0 to 10 severity scale): unauthenticated remote code execution (RCE, letting an attacker run programs on a device remotely) in Jira, Jenkins, Confluence, and Keycloak. CISA, the US cybersecurity agency, urges immediate patching",
+    "radar-2-headline": "Physical bypass of the TPM, the security chip built into the device, allows Windows Hello and BitLocker (Windows disk encryption) PINs to be decrypted within days by opening the casing",
     "radar-3-headline": "Puppet Enterprise under active attack: CISA adds CVE-2026-115731 (CVSS 9.4) to its catalogue of exploited vulnerabilities",
     "radar-4-headline": "Major US data centres now consume 1.8% of the country's electricity — the equivalent of all of Chile's consumption",
     "tag-phishing": "🎯 Test Your Eye — Quiz of the Month",
@@ -1584,12 +1578,12 @@ const I18N = {
     "link-1-desc": "A practical analysis of the most sophisticated social engineering attacks around right now, with concrete recommendations for strengthening internal identity verification — highly relevant with ENS implementation underway.",
     "link-1-source": "Bleeping Computer · November 2026",
     "link-2-label": "Video",
-    "link-2-title": "How a Supply Chain Attack on npm/PyPI Packages Works (Live Demo)",
-    "link-2-desc": "A technical demonstration of how malicious code is injected into open-source packages and how to detect it before it reaches production — essential viewing after this month's agent-framework case.",
+    "link-2-title": "How a Supply Chain Attack on npm (the JavaScript Package Registry) and PyPI Packages Works, with a Live Demo",
+    "link-2-desc": "A technical demonstration of how malicious code is injected into open-source packages and how to detect it before it reaches production. Essential viewing after the agent-framework case in our Threat of the Month.",
     "link-2-source": "LiveOverflow · YouTube",
     "link-3-label": "Interactive quiz",
-    "link-3-title": "INCIBE Interactive Phishing Test",
-    "link-3-desc": "Test your ability to spot phishing emails using real examples tailored to the Spanish context — useful for internal training and for justifying controls in the context of ENS compliance.",
+    "link-3-title": "Social Engineering Detection Test by INCIBE (Spain’s National Cybersecurity Institute)",
+    "link-3-desc": "Seven everyday cases and one question for each: scam, yes or no? A quick way to train your eye against phishing and other social engineering tricks.",
     "link-3-source": "INCIBE",
     "footer-col-nexters": "We Are Nexters",
     "footer-brand-text": "Technology, security, and internal news, brought together every month for all Nexters.",
@@ -1623,10 +1617,10 @@ const I18N = {
     "ck-accept": "Accept all",
     "ck-only-necessary": "Accept necessary only",
     "intro": "Welcome to NextTech, your monthly appointment with the latest in artificial intelligence and cybersecurity. Every first Wednesday of the month: news, practical guides, and resources for day-to-day use.",
-    "ia-link": "Read the full analysis <span class=\"arrow\">→</span>",
+    "ia-link": "Read the article on The Hacker News <span class=\"arrow\">→</span>",
     "esto-link": "Read the full story <span class=\"arrow\">→</span>",
     "caso-link": "View the full case <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>As part of the continuous improvement of our security, this month we’ve renewed the protection on every device: we’ve moved from SentinelOne to CrowdStrike Falcon, one of the market’s leading detection and response (EDR) solutions.</p><p>For you it’s been seamless: you didn’t have to do anything. We installed the new protection, let it run alongside the old one for a few days, and then removed SentinelOne. The change is now live on every device.</p>",
+    "mejora-text": "<p>As part of the continuous improvement of our security, this month we’ve renewed the protection on every device: we’ve moved from SentinelOne to CrowdStrike Falcon, an EDR (advanced protection that detects and responds to attacks on the device), to be better prepared for today’s attacks.</p><p>For you it’s been seamless: you didn’t have to do anything. We installed the new protection, let it run alongside the old one for a few days, and then removed SentinelOne. The change is now live on every device.</p>",
     "priv-text": "<p>Accidentally sharing a document with one person too many is one of the most common privacy incidents in any organisation, and it usually happens without any malicious intent. A project file may contain personal data belonging to clients, employees, or suppliers without us having noticed when we created it.</p><ul><li>Before sending or sharing a file, open it one last time and check whether it contains names, ID numbers, email addresses, phone numbers, or any other personal data that doesn't need to be there.</li><li>Set permissions to the minimum necessary: if the recipient only needs to read the file, do not grant editing or forwarding permissions.</li><li>On platforms such as SharePoint, Google Drive, or Dropbox, check that the generated link is not public or accessible to anyone with the URL.</li></ul><p>One minute of review before clicking 'Share' can prevent a real data breach and, in the context of our ENS certification, an unnecessary non-conformity.</p>"
   },
   "fr": {
@@ -1634,24 +1628,23 @@ const I18N = {
     "topbar-edition-date": "DÉCEMBRE 2026",
     "header-tagline": "Cinq minutes par mois pour toujours avoir une longueur d'avance.",
     "stat-edition": "Édition",
-    "stat-sections": "Sections",
     "stat-reading": "Lecture",
-    "header-by": "BY LOGNEXT · DÉPARTEMENT IT",
+    "header-by": "Lognext · Département IT",
     "header-issue": "DÉCEMBRE 2026",
     "tag-ia": "IA en direct",
-    "ia-title": "L'IA attaque avant que le correctif existe : exploitation le jour même du CVE",
-    "ia-text": "Un chiffre du rapport Mandiant M-Trends 2026 résonne avec force ce mois-ci : au premier semestre 2026, 23 % des vulnérabilités recensées par VulnCheck ont été exploitées le jour même de leur divulgation publique, voire avant. Les attaquants utilisent l'IA pour analyser les CVE fraîchement publiés, générer automatiquement des exploits et les lancer en quelques heures. Pour des équipes IT comme la nôtre, cela signifie que la marge entre « correctif disponible » et « vous êtes déjà compromis » est tombée à zéro. La fenêtre de correctif ne se mesure plus en semaines : elle se mesure en heures.",
+    "ia-title": "Les attaques arrivent avant le correctif, et un premier cas est déjà attribué à l’IA",
+    "ia-text": "Près d’une vulnérabilité exploitée sur quatre a été attaquée le jour même de sa publication, voire avant. Le chiffre vient de VulnCheck : au premier semestre 2026, 23 % des CVE (identifiants publics des vulnérabilités) ajoutés à sa liste de failles exploitées ont été attaqués le jour de leur divulgation ou avant. Le rapport M-Trends 2026 de Mandiant va dans le même sens : en moyenne, l’exploitation commence désormais avant même que le correctif existe. Et l’IA entre en jeu : le groupe de renseignement sur les menaces de Google (GTIG) a identifié pour la première fois un attaquant utilisant un exploit zero-day (une faille encore sans correctif) qu’il pense développé avec l’IA, pour contourner la validation en deux étapes. Pour toute équipe IT, la conclusion est claire : la marge entre « correctif disponible » et « vous êtes déjà compromis » se réduit sans cesse.",
     "tag-esto": "Ce qui s'est passé",
     "esto-title": "Microsoft tombe pendant 18 heures et entraîne 80 % de ses serveurs dans sa chute",
-    "esto-text": "En novembre dernier, un défaut introduit par Microsoft lui-même plusieurs mois auparavant a déclenché une panne mondiale qui a mis à terre 80 % de ses serveurs pendant plus de 18 heures. Outlook, Teams, Copilot, Word, Excel et PowerPoint ont cessé de fonctionner pour des millions d'utilisateurs. En Espagne, l'impact a été bien réel : productivité paralysée, même si les services essentiels ont été épargnés de justesse. La leçon pour toute équipe IT est claire : un changement mal audité en production peut faire plus de dégâts qu'une attaque externe.",
+    "esto-text": "Le jeudi 12 novembre, un défaut introduit par Microsoft lui-même plusieurs mois auparavant a déclenché une panne mondiale qui a mis à terre 80 % de ses serveurs pendant plus de 18 heures. Outlook, Teams, Copilot, Word, Excel et PowerPoint ont cessé de fonctionner pour des millions d’utilisateurs dans au moins 70 pays. En Espagne, l’administration publique n’a pas connu de problèmes significatifs ; au Japon, en Australie ou en Malaisie, en revanche, des services critiques ont dû être interrompus. La leçon pour toute équipe IT est claire : un changement mal audité en production peut faire plus de dégâts qu’une attaque externe.",
     "tag-caso": "Menace du mois",
-    "caso-title": "T1x E3 : « Le paquet empoisonné » — Comment des identifiants cloud ont été volés en 33 minutes",
-    "caso-text": "17 novembre 2026. Quelqu'un publie deux versions du paquet agent-framework de Microsoft sur PyPI à 33 minutes d'intervalle. À l'intérieur : un voleur d'identifiants conçu pour s'exécuter à chaque démarrage de Python. Huit entreprises de sécurité le détectent presque simultanément. Le préjudice : tout environnement ayant exécuté pip install dans cette fenêtre aurait livré ses clés cloud à son insu. Le vecteur est toujours le même — nous faisons confiance aux paquets aux noms connus — mais le timing était chirurgical.",
+    "caso-title": "Le paquet empoisonné : un paquet officiel de Microsoft compromis pour voler des identifiants cloud",
+    "caso-text": "17 novembre 2026. Des attaquants parviennent à publier deux versions malveillantes du paquet officiel agent-framework de Microsoft sur PyPI, le dépôt public de paquets Python, à 33 minutes d’intervalle. À l’intérieur : un stealer, un programme malveillant qui vole mots de passe et identifiants, conçu pour s’exécuter à chaque démarrage de Python. Huit entreprises de sécurité ont analysé le cas. Le risque : tout environnement ayant installé l’une de ces versions aurait livré ses clés cloud à son insu. Le vecteur est toujours le même : nous faisons confiance aux paquets aux noms connus.",
     "tag-consejo": "Conseil du mois",
     "consejo-title": "Définissez un délai d'expiration de session sur vos outils cloud",
-    "consejo-text": "Si votre session sur AWS, Azure ou GCP n'expire pas automatiquement, tout équipement déverrouillé quelques minutes constitue une porte grande ouverte. Configurez des timeouts de session d'une heure maximum sur les consoles cloud et les outils d'administration. Ce n'est pas de la paranoïa : c'est ce qu'exige l'ENS dans son contrôle de gestion des accès, et c'est l'une des mesures les plus simples à mettre en œuvre et les plus vite oubliées.",
+    "consejo-text": "Si votre session sur les clouds d’Amazon, de Microsoft ou de Google n’expire pas automatiquement, tout équipement déverrouillé quelques minutes constitue une porte grande ouverte. Configurez des timeouts de session d’une heure maximum sur les consoles cloud et les outils d’administration. Ce n’est pas de la paranoïa : c’est ce qu’exige l’ENS (Schéma national de sécurité espagnol) dans son contrôle de gestion des accès, et c’est l’une des mesures les plus simples à mettre en œuvre et les plus vite oubliées.",
     "tag-reto": "Le défi du mois",
-    "reto-title": "Vérifiez qui a accès à vos dépôts GitHub cette semaine",
+    "reto-title": "Vérifiez qui a accès à vos dépôts GitHub",
     "reto-text": "Allez dans les paramètres de chaque dépôt, vérifiez les collaborateurs et les permissions, et retirez toute personne qui ne devrait plus y avoir accès.",
     "tag-priv": "Confidentialité en direct",
     "priv-title": "Avant de partager un fichier, vérifiez quelles données il contient et qui peut le consulter",
@@ -1660,9 +1653,9 @@ const I18N = {
     "mejora-title": "Nous avons renforcé la protection de votre poste",
     "mejora-note": "Nous fournissons les outils ; vous, l’œil critique. Ensemble, nous sommes la meilleure défense.",
     "tag-radar": "Sur le radar",
-    "radar-title": "Ce que vous ne pouvez pas manquer ce mois-ci",
-    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1) : RCE sans authentification sur Jira, Jenkins, Confluence et Keycloak — la CISA demande de corriger immédiatement",
-    "radar-2-headline": "Un contournement physique du TPM permet de déchiffrer les PINs de Windows Hello et BitLocker en quelques jours en ouvrant le boîtier de l'équipement",
+    "radar-title": "Ce que vous ne pouvez pas manquer",
+    "radar-1-headline": "Java4Shell (CVE-2026-114938, CVSS 8.1 sur l’échelle de gravité de 0 à 10) : exécution de code à distance (RCE, quand un attaquant lance des programmes sur un équipement à distance) sans authentification sur Jira, Jenkins, Confluence et Keycloak. La CISA, l’agence de cybersécurité des États-Unis, demande de corriger immédiatement",
+    "radar-2-headline": "Un contournement physique du TPM, la puce de sécurité intégrée à l’équipement, permet de déchiffrer les PINs de Windows Hello et BitLocker (le chiffrement de disque de Windows) en quelques jours en ouvrant le boîtier",
     "radar-3-headline": "Puppet Enterprise sous attaque active : la CISA ajoute CVE-2026-115731 (CVSS 9.4) au catalogue des vulnérabilités exploitées",
     "radar-4-headline": "Les grands centres de données américains consomment déjà 1,8 % de l'électricité du pays — l'équivalent de toute la consommation du Chili",
     "tag-phishing": "🎯 Testez votre œil — Quiz du mois",
@@ -1720,12 +1713,12 @@ const I18N = {
     "link-1-desc": "Une analyse pratique des attaques d'ingénierie sociale les plus sophistiquées du moment, avec des recommandations concrètes pour renforcer la vérification d'identité en interne — particulièrement pertinent dans le contexte de la mise en œuvre de l'ENS.",
     "link-1-source": "Bleeping Computer · Novembre 2026",
     "link-2-label": "Vidéo",
-    "link-2-title": "Comment fonctionne une attaque de supply chain sur des paquets npm/PyPI (démonstration en direct)",
-    "link-2-desc": "Démonstration technique de la manière dont du code malveillant est injecté dans des paquets open source et de comment le détecter avant qu'il n'atteigne la production — indispensable après le cas agent-framework de ce mois-ci.",
+    "link-2-title": "Comment fonctionne une attaque de supply chain sur des paquets npm (le dépôt de paquets JavaScript) et PyPI, avec démonstration en direct",
+    "link-2-desc": "Démonstration technique de la manière dont du code malveillant est injecté dans des paquets open source et de comment le détecter avant qu’il n’atteigne la production. Indispensable après le cas agent-framework de notre Menace du mois.",
     "link-2-source": "LiveOverflow · YouTube",
     "link-3-label": "Quiz interactif",
-    "link-3-title": "Test de phishing interactif de INCIBE",
-    "link-3-desc": "Testez votre capacité à détecter des e-mails de phishing grâce à des exemples réels adaptés au contexte espagnol — utile pour la formation interne et pour justifier des contrôles dans le cadre de l'ENS.",
+    "link-3-title": "Test de détection de l’ingénierie sociale de l’INCIBE (Institut national de cybersécurité espagnol)",
+    "link-3-desc": "Sept cas du quotidien et une seule question pour chacun : arnaque, oui ou non ? Une façon rapide d’exercer votre œil face au phishing et aux autres ruses d’ingénierie sociale.",
     "link-3-source": "INCIBE",
     "footer-col-nexters": "Nous sommes Nexters",
     "footer-brand-text": "Technologie, sécurité et actualités internes, réunies chaque mois pour tous les Nexters.",
@@ -1759,10 +1752,10 @@ const I18N = {
     "ck-accept": "Tout accepter",
     "ck-only-necessary": "Accepter uniquement les nécessaires",
     "intro": "Bienvenue dans NextTech, votre rendez-vous mensuel avec l'actualité en intelligence artificielle et en cybersécurité. Chaque premier mercredi du mois, des nouveautés, des guides pratiques et des ressources pour le quotidien.",
-    "ia-link": "Lire l'analyse complète <span class=\"arrow\">→</span>",
+    "ia-link": "Lire l’article sur The Hacker News <span class=\"arrow\">→</span>",
     "esto-link": "Lire l'histoire complète <span class=\"arrow\">→</span>",
     "caso-link": "Voir le cas complet <span class=\"arrow\">→</span>",
-    "mejora-text": "<p>Dans le cadre de l’amélioration continue de notre sécurité, nous avons renouvelé ce mois-ci la protection de tous les postes : nous passons de SentinelOne à CrowdStrike Falcon, l’une des solutions de détection et de réponse (EDR) les plus performantes du marché.</p><p>Pour vous, cela a été transparent : vous n’avez rien eu à faire. Nous avons installé la nouvelle protection, l’avons laissée cohabiter quelques jours avec l’ancienne, puis nous avons retiré SentinelOne. Le changement est désormais appliqué et actif sur tous les postes.</p>",
+    "mejora-text": "<p>Dans le cadre de l’amélioration continue de notre sécurité, nous avons renouvelé ce mois-ci la protection de tous les postes : nous passons de SentinelOne à CrowdStrike Falcon, un EDR (protection avancée qui détecte les attaques sur le poste et y répond), afin d’être mieux préparés face aux attaques actuelles.</p><p>Pour vous, cela a été transparent : vous n’avez rien eu à faire. Nous avons installé la nouvelle protection, l’avons laissée cohabiter quelques jours avec l’ancienne, puis nous avons retiré SentinelOne. Le changement est désormais appliqué et actif sur tous les postes.</p>",
     "priv-text": "<p>Partager par erreur un document avec une personne de trop est l'un des incidents de confidentialité les plus courants dans toute organisation, et il survient généralement sans mauvaise intention. Un fichier de projet peut contenir des données personnelles de clients, d'employés ou de fournisseurs sans que nous l'ayons remarqué au moment de sa création.</p><ul><li>Avant d'envoyer ou de partager un fichier, ouvrez-le une dernière fois et vérifiez s'il contient des noms, des DNIs, des adresses e-mail, des numéros de téléphone ou toute autre donnée personnelle qui n'a pas à s'y trouver.</li><li>Réduisez les permissions au strict nécessaire : si le destinataire n'a besoin que de lire, ne lui accordez pas de droits de modification ni de transfert.</li><li>Sur des plateformes telles que SharePoint, Google Drive ou Dropbox, vérifiez que le lien généré n'est ni public ni accessible à quiconque possède l'URL.</li></ul><p>Une minute de vérification avant de cliquer sur « Partager » peut éviter une véritable fuite de données et, dans le contexte de notre certification ENS, une non-conformité inutile.</p>"
   }
 };
