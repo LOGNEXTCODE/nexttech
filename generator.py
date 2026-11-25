@@ -244,11 +244,35 @@ en el campo 'texto' correspondiente. NUNCA inventes noticias ni URLs.
 
     prompt = f"""Eres el editor jefe de NextTech, la publicación mensual de LOGNEXT sobre IA y ciberseguridad.
 
-AUDIENCIA: El equipo IT de LOGNEXT en España (los "Nexters"). Nivel técnico medio-alto.
-Contexto clave: LOGNEXT está en proceso de certificación ENS. Las noticias de ciberseguridad
-en España tienen relevancia directa para ellos.
+AUDIENCIA: toda la plantilla de LOGNEXT (los "Nexters"), sin conocimientos técnicos especiales.
+Contexto clave: LOGNEXT tiene la certificación ENS y trabaja con normas de seguridad como
+ISO 27001. Prioriza noticias con relevancia en España, pero menciona el impacto en España
+solo si la fuente lo cuenta.
 Tono: cercano, directo, con humor sutil. Nada corporativo ni frío. Como un compañero que sabe mucho.
 {aviso_scraping}
+══════════════════════════════════════════════════════
+CRITERIOS DE COMUNICACIÓN (obligatorios en todo el texto)
+══════════════════════════════════════════════════════
+• Tratamiento de «tú» al lector, siempre en singular: «tu equipo», «puedes», «revisa».
+  NUNCA «vosotros», «vuestro/a/s», «os», «habéis», «tenéis» ni imperativos en -d («abrid», «revisad»).
+• Siglas y jerga técnica: explica en pocas palabras cada sigla la PRIMERA vez que aparece
+  en la edición (p. ej. «CVE (identificador público de una vulnerabilidad)», «EDR (protección
+  avanzada que detecta y responde a ataques en el equipo)», «PyPI, el repositorio público de
+  paquetes de Python»). Si una sigla o un comando no aporta, sustitúyelo por palabras
+  normales («instalar el paquete» en vez de «pip install»; «las nubes de Amazon, Microsoft
+  o Google» en vez de «AWS, Azure o GCP»).
+• Sin rayas «—»: usa dos puntos, coma o punto.
+• «Este mes» (o «esta semana»): como mucho UNA vez en toda la edición. Usa una fecha
+  concreta o quítalo.
+• Fidelidad a la fuente:
+  - Atribuye cada dato a quien lo da en el artículo (si un informe cita a otra empresa,
+    el dato es de esa empresa, no del informe).
+  - No añadas nada que el artículo no diga: ni cifras, ni causas, ni consecuencias, ni
+    duraciones, ni el impacto en España.
+  - Fechas concretas («el jueves 12 de noviembre»), nunca «el pasado noviembre».
+  - Verbos exactos: si varias empresas publicaron análisis, di que «han analizado el caso»,
+    no que «lo detectaron».
+  - Evita los artículos patrocinados o «contributed» como fuente principal de una sección.
 ══════════════════════════════════════════════════════
 PASO 1 — SELECCIÓN RAZONADA (hazlo antes de escribir)
 ══════════════════════════════════════════════════════
@@ -264,7 +288,7 @@ PASO 2 — REDACCIÓN (con estas restricciones obligatorias)
 • URLs: siempre de los artículos proporcionados. NUNCA inventadas.
 • ESTO_PASO, CASO_REAL, CONSEJO, RETO, IA_DIA y PRIVACIDAD: campo "imagen": elige UNA palabra exacta: cybersecurity, data-breach, hacker, network, server, cloud, code, ai, robot, phishing, privacy, energy, business, mobile, spain, technology
   Usa una palabra DISTINTA en cada sección: son seis cabeceras visuales seguidas y repetir tema deja la edición con dos fotos parecidas.
-• intro: 2-3 líneas. Cálida, directa. "Vuestra cita mensual", primer miércoles, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
+• intro: 2-3 líneas. Cálida, directa. "Tu cita mensual", primer miércoles, recursos. Sin usar la palabra "newsletter". Mencionar edición #{EDITION_NUMBER}.
 • radar: EXACTAMENTE 4 ítems, de fuentes distintas.
 • enlaces: EXACTAMENTE 3 recursos (1 artículo, 1 vídeo, 1 quiz/herramienta).
 • Para cada sección incluye el campo 'fuente' con el nombre del medio original
@@ -282,8 +306,9 @@ REGLA CRÍTICA: El CONSEJO y el RETO deben tratar temas completamente
 diferentes y no solaparse en ningún caso.
 - El CONSEJO es una recomendación de seguridad técnica con una herramienta
   o práctica concreta (gestor de contraseñas, 2FA, revisar permisos, etc.).
-- El RETO es una acción medible que el usuario puede completar esta semana
-  (instalar algo, auditar algo, cambiar un hábito concreto).
+- El RETO es una acción medible y concreta que el lector puede completar
+  (instalar algo, auditar algo, cambiar un hábito concreto), sin plazo en el
+  titular («esta semana», «este mes»).
 - Nunca repitas la misma herramienta, concepto o acción en ambas secciones.
 - Si el consejo habla de contraseñas, el reto debe hablar de otra cosa.
 - Si el reto pide instalar algo, el consejo debe recomendar una práctica, no una app.
@@ -305,20 +330,21 @@ SECCIONES A GENERAR
 1. ESTO_PASO: La noticia más impactante del mes en ciberseguridad/tecnología.
    3-4 líneas. Dato numérico obligatorio. URL de la noticia.
 
-2. CASO_REAL: Un incidente real de seguridad narrado como episodio de serie.
-   Qué pasó, cómo, consecuencias. Máx 5 líneas. URL.
+2. CASO_REAL: Un incidente real de seguridad contado como una historia breve.
+   Qué pasó, cómo y, solo si la fuente lo dice, qué consecuencias tuvo. Máx 5 líneas.
+   URL. Sin códigos de serie en el titular (nada de «T1x E3» ni similares).
 
 3. CONSEJO: UN consejo práctico que cualquier empleado puede aplicar hoy.
    Concreto, útil, con toque de humor. Máx 3 frases.
 
-4. RETO: Una acción concreta que los Nexters pueden completar este mes.
-   Específica, medible, motivadora. Máx 2 frases. No es una recomendación — es un reto activo.
+4. RETO: Una acción concreta que cualquier Nexter puede completar.
+   Específica, medible, motivadora. Sin plazos en el titular. Máx 2 frases. No es una recomendación: es un reto activo.
 
 5. RADAR: 4 titulares relevantes de fuentes distintas. Breve y directo.
    Incluir org (nombre corto de la fuente) y fecha.
 
 6. IA_DIA: Tendencia o incidente relevante sobre IA en ciberseguridad.
-   3-4 líneas. Cómo afecta a equipos IT. URL del artículo fuente.
+   3-4 líneas. Qué significa para cualquier persona de la empresa. URL del artículo fuente.
 
 7. ENLACES: 3 recursos:
    - tipo "articulo": lectura recomendada
@@ -452,6 +478,118 @@ def verify_content(content: Dict, edition: str) -> List[str]:
     return issues
 
 
+# ─── AVISOS PARA LA REVISIÓN (no regeneran ni abortan) ─────────────────────────
+# Criterios de comunicación de la #07 (correcciones de Irma, 25-nov-2026): lo que
+# se detecta aquí NO bloquea la generación; se imprime en el log y se añade al
+# correo de borrador para que la persona que revisa lo corrija a mano.
+
+_RE_VOSOTROS = re.compile(
+    r"\b(vosotr[oa]s|vuestr[oa]s?|os|habéis|tenéis|podéis|sabéis|queréis|sois|estáis)\b",
+    re.IGNORECASE)
+_RE_ESTE_MES = re.compile(r"\b(este mes|esta semana)\b", re.IGNORECASE)
+# Páginas de error servidas con HTTP 200 («soft 404»), como el quiz de INCIBE de la #07.
+_RE_PAGINA_ERROR = re.compile(
+    r"<title[^>]*>[^<]*(página no encontrada|no se ha encontrado|page not found|not found|error 404|\b404\b)",
+    re.IGNORECASE)
+# Marcas de contenido patrocinado en la página fuente (solo aviso). «partner» suelto
+# aparece en casi todos los pies de página, así que se buscan expresiones concretas.
+_RE_PATROCINADO = re.compile(
+    r"\b(sponsored|contributed (?:article|piece|post)|"
+    r"partner content|partner post|paid post|in partnership with|contenido patrocinado|"
+    r"art[ií]culo patrocinado|patrocinado por)\b",
+    re.IGNORECASE)
+_SECCIONES_FUENTE = ("ia_dia", "esto_paso", "caso_real")
+_LINK_UA = {"User-Agent": "NextTech-linkcheck/1.0 (+https://nexttech.lognext.com)"}
+
+
+def _textos(obj, key=None):
+    """Recorre el contenido y devuelve (clave, texto) de todos los textos visibles."""
+    if isinstance(obj, dict):
+        for k, v in obj.items():
+            if k in ("url", "imagen", "razonamiento"):
+                continue
+            yield from _textos(v, k)
+    elif isinstance(obj, list):
+        for v in obj:
+            yield from _textos(v, key)
+    elif isinstance(obj, str):
+        yield key, obj
+
+
+def _enlaces_de(content: Dict) -> List[tuple]:
+    pares = []
+    for seccion in ("ia_dia", "esto_paso", "caso_real", "consejo"):
+        url = content.get(seccion, {}).get("url", "")
+        if url.startswith("http"):
+            pares.append((seccion, url))
+    for i, item in enumerate(content.get("radar", []), 1):
+        if item.get("url", "").startswith("http"):
+            pares.append((f"radar {i}", item["url"]))
+    for i, item in enumerate(content.get("enlaces", []), 1):
+        if item.get("url", "").startswith("http"):
+            pares.append((f"recursos {i} ({item.get('tipo', '')})", item["url"]))
+    return pares
+
+
+def _comprobar_enlace(url: str, patrocinio: bool = False) -> Optional[str]:
+    """None si el enlace responde bien; si no, el motivo del aviso.
+    Con patrocinio=True avisa también si la página parece contenido patrocinado."""
+    try:
+        r = requests.get(url, headers=_LINK_UA, timeout=15, allow_redirects=True, stream=True)
+        try:
+            if r.status_code in (404, 410):
+                return f"roto (HTTP {r.status_code})"
+            if r.status_code in (401, 403, 429):
+                return f"no se pudo comprobar (HTTP {r.status_code}: el sitio bloquea robots); ábrelo en el navegador"
+            if r.status_code >= 400:
+                return f"error HTTP {r.status_code}"
+            inicio = b""
+            for trozo in r.iter_content(65536, decode_unicode=False):
+                inicio += trozo
+                if not patrocinio or len(inicio) >= 524288:
+                    break
+            texto = inicio.decode("utf-8", "ignore")
+            if _RE_PAGINA_ERROR.search(texto[:65536]):
+                return "responde 200 pero es una página de error («página no encontrada»)"
+            if patrocinio:
+                # Solo el texto visible: fuera scripts, estilos y etiquetas (los
+                # atributos rel="sponsored" o utm_medium=sponsored de los anuncios
+                # laterales salen en casi todas las páginas).
+                visible = re.sub(r"<(script|style)\b.*?</\1\s*>", " ", texto, flags=re.S | re.I)
+                visible = re.sub(r"<[^>]*>", " ", visible)
+                m = _RE_PATROCINADO.search(visible)
+                if m:
+                    return (f"puede ser contenido patrocinado (la página dice «{m.group(0)}»); "
+                            "compruébalo y, si lo es, busca otra fuente")
+        finally:
+            r.close()
+    except requests.RequestException as e:
+        return f"no responde ({type(e).__name__})"
+    return None
+
+
+def review_warnings(content: Dict) -> List[str]:
+    """Avisos para la revisión humana: enlaces rotos, fuentes que parecen patrocinadas,
+    «vosotros» y exceso de «este mes». Ninguno bloquea la generación."""
+    avisos = []
+
+    for seccion, url in _enlaces_de(content):
+        motivo = _comprobar_enlace(url, patrocinio=seccion in _SECCIONES_FUENTE)
+        if motivo:
+            avisos.append(f"Enlace de {seccion} {motivo}: {url}")
+
+    for clave, texto in _textos(content):
+        m = _RE_VOSOTROS.search(texto)
+        if m:
+            avisos.append(f"Tratamiento: «{m.group(0)}» en {clave} (la edición va en «tú»)")
+
+    n = sum(len(_RE_ESTE_MES.findall(t)) for _, t in _textos(content))
+    if n > 1:
+        avisos.append(f"«Este mes»/«esta semana» aparece {n} veces: déjalo como mucho en una sección")
+
+    return avisos
+
+
 # ─── COMILLAS TIPOGRÁFICAS ─────────────────────────────────────────────────────
 # Claude genera el contenido con comillas rectas (' y ") y las #02/#03/#04
 # salieron con ellas hasta que alguien las parcheaba a mano. Aquí se normalizan
@@ -506,6 +644,29 @@ def _consejo_link_block(url: str, url_label: str) -> str:
     )
 
 
+def nextstep_content(edition: str) -> Optional[Dict]:
+    """
+    NextStep · Mejora continua: sección fija y la PRIMERA de la edición, pero su texto
+    lo escribe IT a mano en nextstep/NN.json: {"titulo": "...", "texto": "<p>...</p>"}.
+    El generador NUNCA lo redacta. Sin fichero (o con titulo/texto vacíos) devuelve None
+    y la sección no se muestra.
+    """
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "nextstep", f"{edition}.json")
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        data = json.load(f)
+    if not data.get("titulo", "").strip() or not data.get("texto", "").strip():
+        return None
+    return {"titulo": data["titulo"].strip(), "texto": data["texto"].strip()}
+
+
+def _ia_link_texto(fuente: str) -> str:
+    """«Leer el artículo en The Hacker News»: el medio sale de 'Medio · Mes Año'."""
+    medio = (fuente or "").split("·")[0].strip()
+    return f"Leer el artículo en {medio}" if medio else "Leer el artículo"
+
+
 def render_template(content: Dict, edition: str) -> str:
     """Lee web_template.html y sustituye todos los {{PLACEHOLDERS}} con el contenido generado."""
     content   = _normalize_quotes(content)  # comillas rectas → tipográficas antes de renderizar
@@ -517,6 +678,18 @@ def render_template(content: Dict, edition: str) -> str:
     template_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "web_template.html")
     with open(template_path, "r", encoding="utf-8") as f:
         html = f.read()
+
+    # NextStep: texto de IT (nextstep/NN.json) o, si no hay, fuera la sección entera.
+    nextstep = nextstep_content(edition)
+    if nextstep:
+        nextstep = _normalize_quotes(nextstep)
+        html = html.replace("{{NEXTSTEP_TITULO}}", nextstep["titulo"])
+        html = html.replace("{{NEXTSTEP_TEXTO}}", nextstep["texto"])
+    else:
+        html, n = re.subn(r"[ \t]*<!-- NEXTSTEP:INICIO.*?<!-- NEXTSTEP:FIN -->\r?\n(\r?\n)?",
+                          "", html, flags=re.S)
+        if n != 1:
+            raise ValueError("web_template.html: no se encontró el bloque NEXTSTEP:INICIO/FIN")
 
     # Imágenes Unsplash: las seis secciones con cabecera visual SIEMPRE llevan foto.
     # El orden importa: `_pick_photo_id` va reservando IDs, así que la primera
@@ -615,8 +788,8 @@ def render_template(content: Dict, edition: str) -> str:
     reto_fuente_html = _fuente_block(content.get("reto", {}).get("fuente", ""))
     if reto_fuente_html:
         html = html.replace(
-            "<span>¿Lo has hecho ya? ✓</span>\n      </div>\n    </div>",
-            "<span>¿Lo has hecho ya? ✓</span>\n      </div>\n      "
+            '<span data-i18n="reto-done">¿Lo has hecho ya? ✓</span>\n      </div>\n    </div>',
+            '<span data-i18n="reto-done">¿Lo has hecho ya? ✓</span>\n      </div>\n      '
             + reto_fuente_html + "\n    </div>"
         )
 
@@ -630,6 +803,7 @@ def render_template(content: Dict, edition: str) -> str:
         "{{IA_TITULO}}":       content.get("ia_dia",    {}).get("titulo", ""),
         "{{IA_TEXTO}}":        content.get("ia_dia",    {}).get("texto",  ""),
         "{{IA_URL}}":          content.get("ia_dia",    {}).get("url",    "#"),
+        "{{IA_LINK_TEXTO}}":   _ia_link_texto(content.get("ia_dia", {}).get("fuente", "")),
         "{{NOTICIA_IMG_URL}}": esto_img_url,
         "{{NOTICIA_TITULO}}":  content.get("esto_paso", {}).get("titulo", ""),
         "{{NOTICIA_TEXTO}}":   content.get("esto_paso", {}).get("texto",  ""),
@@ -674,6 +848,23 @@ def generate(articles: List[Dict], warnings: List[str] = None) -> tuple:
                 print(f"     • {issue}")
     else:
         print("  ✅ Verificación editorial: OK")
+
+    # Avisos para la revisión: no regeneran ni abortan; van al log y al correo de borrador.
+    print("  🔗 Comprobando enlaces y criterios de comunicación...")
+    avisos = review_warnings(content)
+    nextstep = nextstep_content(EDITION_NUMBER)
+    if nextstep is None:
+        avisos.append(f"NextStep sin texto (falta nextstep/{EDITION_NUMBER}.json): la sección no se muestra")
+    else:
+        for _, texto in _textos(nextstep):
+            m = _RE_VOSOTROS.search(texto)
+            if m:
+                avisos.append(f"Tratamiento: «{m.group(0)}» en NextStep (la edición va en «tú»)")
+    if avisos:
+        print(f"  ⚠️  {len(avisos)} aviso(s) para la revisión:")
+        for aviso in avisos:
+            print(f"     • {aviso}")
+    content["avisos_revision"] = avisos
 
     html = render_template(content, EDITION_NUMBER)
     return html, content
