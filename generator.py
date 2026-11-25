@@ -9,6 +9,7 @@ import json
 import re
 import anthropic
 import requests
+from html.parser import HTMLParser
 from typing import List, Dict, Set, Optional
 
 from pubdate import publication_date, mes_label
@@ -531,6 +532,34 @@ def _enlaces_de(content: Dict) -> List[tuple]:
     return pares
 
 
+class _ExtractorTexto(HTMLParser):
+    """Texto visible de una página, sin scripts, estilos ni atributos (los
+    rel="sponsored" o utm_medium=sponsored de los anuncios laterales salen en casi
+    todas las páginas). Parser lineal: nada de regex sobre HTML ajeno."""
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.partes, self._oculto = [], 0
+
+    def handle_starttag(self, tag, attrs):
+        if tag in ("script", "style"):
+            self._oculto += 1
+
+    def handle_endtag(self, tag):
+        if tag in ("script", "style") and self._oculto:
+            self._oculto -= 1
+
+    def handle_data(self, data):
+        if not self._oculto:
+            self.partes.append(data)
+
+
+def _texto_visible(html: str) -> str:
+    p = _ExtractorTexto()
+    p.feed(html)
+    p.close()
+    return " ".join(p.partes)
+
+
 def _comprobar_enlace(url: str, patrocinio: bool = False) -> Optional[str]:
     """None si el enlace responde bien; si no, el motivo del aviso.
     Con patrocinio=True avisa también si la página parece contenido patrocinado."""
@@ -552,19 +581,18 @@ def _comprobar_enlace(url: str, patrocinio: bool = False) -> Optional[str]:
             if _RE_PAGINA_ERROR.search(texto[:65536]):
                 return "responde 200 pero es una página de error («página no encontrada»)"
             if patrocinio:
-                # Solo el texto visible: fuera scripts, estilos y etiquetas (los
-                # atributos rel="sponsored" o utm_medium=sponsored de los anuncios
-                # laterales salen en casi todas las páginas).
-                visible = re.sub(r"<(script|style)\b.*?</\1\s*>", " ", texto, flags=re.S | re.I)
-                visible = re.sub(r"<[^>]*>", " ", visible)
-                m = _RE_PATROCINADO.search(visible)
+                m = _RE_PATROCINADO.search(_texto_visible(texto))
                 if m:
                     return (f"puede ser contenido patrocinado (la página dice «{m.group(0)}»); "
                             "compruébalo y, si lo es, busca otra fuente")
         finally:
             r.close()
     except requests.RequestException as e:
-        return f"no responde ({type(e).__name__})"
+        # Timeout, conexión rechazada, SSL, URL inválida, respuesta cortada…
+        return f"no se pudo comprobar (no responde: {type(e).__name__}); ábrelo en el navegador"
+    except Exception as e:  # noqa: BLE001: un aviso nunca debe abortar la generación
+        # HTML roto, codificación rara, errores de urllib3 sin envolver…
+        return f"no se pudo comprobar (error al leer la página: {type(e).__name__}); ábrelo en el navegador"
     return None
 
 
@@ -851,7 +879,11 @@ def generate(articles: List[Dict], warnings: List[str] = None) -> tuple:
 
     # Avisos para la revisión: no regeneran ni abortan; van al log y al correo de borrador.
     print("  🔗 Comprobando enlaces y criterios de comunicación...")
-    avisos = review_warnings(content)
+    try:
+        avisos = review_warnings(content)
+    except Exception as e:  # noqa: BLE001: los avisos nunca abortan la generación
+        avisos = [f"No se pudieron comprobar los enlaces ni los criterios ({type(e).__name__}: {e}); "
+                  "revísalos a mano"]
     nextstep = nextstep_content(EDITION_NUMBER)
     if nextstep is None:
         avisos.append(f"NextStep sin texto (falta nextstep/{EDITION_NUMBER}.json): la sección no se muestra")
