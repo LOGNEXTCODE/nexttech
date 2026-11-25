@@ -586,6 +586,9 @@ revisión»):
 - Enlaces: 404/410 o página de error servida con HTTP 200 («página no encontrada»,
   como el quiz de INCIBE de la #07); 401/403/429 se avisan como «no se pudo
   comprobar» (The Hacker News y El País bloquean robots aunque el enlace funcione).
+- Fuentes de IA al día, Esto pasó y Amenaza que parecen contenido patrocinado
+  («sponsored», «contributed article», «partner content», «patrocinado»…). «Partner»
+  suelto no se busca porque sale en casi todos los pies de página.
 - «Vosotros», «vuestro», «os», «habéis»… en el texto generado o en NextStep.
 - «Este mes» / «esta semana» más de una vez.
 - NextStep sin texto (`nextstep/NN.json` ausente): la sección no se muestra.
@@ -652,6 +655,9 @@ Claude recibe el aviso y marca las secciones afectadas con
 Aplican a todo el texto de la edición y del anuncio; el prompt de `generator.py` y
 `translator.py` los llevan incorporados, pero se revisan igual a mano:
 - **Audiencia**: toda la plantilla de LOGNEXT, sin conocimientos técnicos especiales.
+  Contexto: LOGNEXT tiene la certificación ENS y trabaja con normas como ISO 27001.
+  Se priorizan noticias con relevancia en España, pero el impacto en España solo se
+  menciona si la fuente lo cuenta.
 - **«Tú»** en español (nunca «vosotros»), salvo textos simulados de un ejercicio (p. ej.
   los correos falsos de «Pon a prueba tu ojo»). EN sin cambios; FR en «vous».
 - **Siglas explicadas** en pocas palabras la primera vez que aparecen, en los tres
@@ -660,7 +666,8 @@ Aplican a todo el texto de la edición y del anuncio; el prompt de `generator.py
 - **«Este mes»** como mucho en una o dos secciones.
 - **Cabecera** sin «6 Secciones» y con «Lognext · Departamento IT».
 - **Fidelidad a la fuente** (leer el artículo, no solo el resumen): cada dato atribuido
-  a quien lo da, nada que la fuente no diga, fechas concretas, verbos exactos
+  a quien lo da, nada que la fuente no diga (en Amenaza, las consecuencias solo si
+  la fuente las cuenta), fechas concretas, verbos exactos
   («han analizado», no «lo detectaron»), sin códigos de serie tipo «T1x E3» en los
   titulares. The Hacker News y El País bloquean la lectura automática: abrirlos en el
   navegador. Cuidado con los artículos patrocinados («contributed piece»).
